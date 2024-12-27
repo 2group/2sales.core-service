@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package warehouse;
+
+option go_package = "2sales.warehouse.v1;warehousev1";
+
+import "organization/organization.proto";
+
+service WarehouseService {
+    rpc CreateWarehouse (CreateWarehouseRequest) returns (CreateWarehouseResponse);
+    rpc ListWarehouses (ListWarehousesRequest) returns (ListWarehousesResponse);
+    rpc UpdateWarehouse (UpdateWarehouseRequest) returns (UpdateWarehouseResponse);
+    rpc GetProductsInWarehouse (GetProductsInWarehouseRequest) returns (GetProductsInWarehouseResponse);
+    rpc GetWarehouseAnalytics (GetWarehouseAnalyticsRequest) returns (GetWarehouseAnalyticsResponse);
+    rpc AddProductToWarehouse (AddProductToWarehouseRequest) returns (AddProductToWarehouseResponse);
+}
+
+message CreateWarehouseRequest {
+    string name = 1;
+    int64 organization_id = 2;
+    organization.AddressModel address = 3;
+}
+
+message CreateWarehouseResponse {
+    WarehouseModel warehouse = 1;
+}
+
+message ListWarehousesRequest {
+    int64 organization_id = 1;
+}
+
+message ListWarehousesResponse {
+    repeated WarehouseModel warehouses = 1;
+}
+
+message UpdateWarehouseRequest {
+    int64 id = 1;
+    string name = 2;
+    organization.AddressModel address = 3;
+}
+
+message UpdateWarehouseResponse {
+    WarehouseModel warehouse = 1;
+}
+
+message GetProductsInWarehouseRequest {
+    int64 warehouse_id = 1;
+}
+
+message GetProductsInWarehouseResponse {
+    repeated WarehouseProducts products = 1;
+}
+
+message GetWarehouseAnalyticsRequest {
+    int64 warehouse_id = 1;
+}
+
+message GetWarehouseAnalyticsResponse {
+    WarehouseAnalytics analytics = 1;
+}
+
+message AddProductToWarehouseRequest {
+    int64 warehouse_id = 1;
+    int64 product_id = 2;
+    int64 quantity = 3;
+}
+
+message AddProductToWarehouseResponse {
+    WarehouseProducts product = 1;
+}
+
+message WarehouseModel {
+    int64 id = 1;
+    int64 organization_id = 2;
+    string name = 3;
+    organization.AddressModel address = 4;
+    int64 count = 5;
+}
+
+message WarehouseAnalytics {
+    int64 product_count = 1;
+    float occupancy = 2;
+    float defect_rate = 3;
+}
+
+message WarehouseProducts {
+    int64 id = 1;
+    int64 product_id = 2;
+    int64 quantity = 3;
+}
+
