@@ -1,0 +1,202 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "2sales.product.v1;productv1";
+
+service ProductService {
+    rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
+    rpc ListProducts (ListProductRequest) returns (ListProductResponse);
+    rpc DuplicateProduct (DuplicateProductRequest) returns (DuplicateProductResponse);
+    rpc UploadProducts (UploadProductsRequest) returns (UploadProductsResponse);
+    rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse);
+    rpc GetProduct (GetProductRequest) returns (GetProductResponse);
+    rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductResponse);
+
+    rpc CreateProductCategory (CreateProductCategoryRequest) returns (CreateProductCategoryResponse);
+    rpc GetZeroLevelCategories (GetZeroLevelCategoriesRequest) returns (GetZeroLevelCategoriesResponse);
+    rpc GetFirstLevelCategories (GetFirstLevelCategoriesRequest) returns (GetFirstLevelCategoriesResponse);
+    rpc GetProductCategoryWithChildren (GetProductCategoryWithChildrenRequest) returns (GetProductCategoryWithChildrenResponse);
+}
+
+message ImageModel {
+    int64 int = 1;
+    string url = 2;
+    int64 index = 3;
+}
+
+message ProductModel {
+    int64 id = 1;
+    string name = 2;
+    string image_url = 3;
+    string description = 4;
+    string category_name = 5;
+    int64 category_id = 6;
+    float sale_price = 7;
+    float purchase_price = 8;
+    int64 organization_id = 9;
+    int64 created_by = 10;
+    bool is_external = 11;
+    string design_url = 12;
+    string sale_status = 13;
+    repeated ImageModel images = 14;
+    int64 count = 15;
+    int64 brand_id = 16;
+    string brand_name = 17;
+    repeated ProductCharacteristics characteristics = 18;
+}
+
+message ProductCharacteristics {
+    int64 id = 1;
+    string group_name = 2;
+    string name = 3;
+    string value = 4;
+}
+
+message CategoryModel {
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+    int64 parent_id = 4;
+    int64 level = 5;
+    bool is_parent = 6;
+    repeated CharacteristicGroup characteristic_groups = 7;
+}
+
+message CharacteristicGroup {
+    int64 id = 1;
+    string group_name = 2;
+    repeated Characteristic characteristics = 3;
+}
+
+message Characteristic {
+    string name = 1;
+    string type = 2;
+    repeated string options = 3;
+    bool is_required = 4;
+    string default_value = 5;
+}
+
+message CreateProductRequest {
+    string name = 1;
+    string image_url = 2;
+    string description = 3;
+    int64 category_id = 4;
+    float sale_price = 5;
+    float purchase_price = 6;
+    int64 organization_id = 7;
+    int64 created_by = 8;
+    bool is_external = 9;
+    string design_url = 10;
+    string sale_status = 11;
+    repeated ImageModel images = 12;
+    int64 count = 13;
+    int64 brand_id = 14;
+    repeated ProductCharacteristics characteristics = 15;
+}
+
+message CreateProductResponse {
+    ProductModel product = 1;
+}
+
+message ListProductRequest {
+    int32 page = 1;
+    int32 page_size = 2;
+    string search_query = 3;
+    int64 category_id = 4;
+    string sort_by = 5;
+    bool ascending = 6;
+}
+
+message ListProductResponse {
+    repeated ProductModel products = 1;
+    int32 total_count = 2;
+}
+
+message DuplicateProductRequest {
+    int64 id = 1;
+}
+
+message DuplicateProductResponse {
+    ProductModel product = 1;
+}
+
+message UploadProductsRequest {
+    repeated ProductModel products = 1;
+}
+
+message UploadProductsResponse {
+    repeated ProductModel products = 1;
+}
+
+message UpdateProductRequest {
+    int64 id = 1;
+    string name = 2;
+    string image_url = 3;
+    string description = 4;
+    int64 category_id = 5;
+    float sale_price = 6;
+    float purchase_price = 7;
+    bool is_external = 8;
+    string design_url = 9;
+    string sale_status = 10;
+    repeated ImageModel images = 11;
+    int64 count = 12;
+    int64 brand_id = 13;
+    repeated ProductCharacteristics characteristics = 14;
+}
+
+message UpdateProductResponse {
+    ProductModel product = 1;
+}
+
+message GetProductRequest {
+    int64 id = 1;
+}
+
+message GetProductResponse {
+    ProductModel product = 1;
+}
+
+message DeleteProductRequest {
+    int64 id = 1;
+}
+
+message DeleteProductResponse {
+    bool success = 1;
+}
+
+message CreateProductCategoryRequest {
+    string name = 1;
+    string description = 2;
+    int64 parent_id = 3;
+    int64 level = 4;
+    repeated CharacteristicGroup characteristic_groups = 5;
+}
+
+message CreateProductCategoryResponse {
+    CategoryModel category = 1;
+}
+
+message GetZeroLevelCategoriesRequest {}
+
+message GetZeroLevelCategoriesResponse {
+    repeated CategoryModel categories = 1;
+}
+
+message GetFirstLevelCategoriesRequest {
+    int64 parent_id = 1;
+}
+
+message GetFirstLevelCategoriesResponse {
+    repeated CategoryModel categories = 1;
+}
+
+message GetProductCategoryWithChildrenRequest {
+    int64 id = 1;
+}
+
+message GetProductCategoryWithChildrenResponse {
+    CategoryModel category = 1;
+    repeated CategoryModel children = 2;
+}
