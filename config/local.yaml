@@ -1,0 +1,8 @@
+env: "local"
+rest:
+  port: 8080
+  timeout: 5s
+grpc:
+  user: "localhost:50051"
+  organization: "localhost:50052"
+  opertaion: "localhost:50053"
