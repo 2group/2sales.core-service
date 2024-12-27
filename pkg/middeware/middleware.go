@@ -14,7 +14,8 @@ type contextKey string
 
 const (
 	UserIDKey         contextKey = "uid"
-	OrganizationIDKey contextKey = "organizationID"
+	OrganizationIDKey contextKey = "organization_id"
+	OrganizationTypeKey contextKey = "organization_type"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {
@@ -49,8 +50,15 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
+        orgType, ok := claims["organization_type"].(string)
+        if !ok {
+            http.Error(w, "Invalid organization_id in token", http.StatusUnauthorized)
+            return
+        }
+
 		ctx := context.WithValue(r.Context(), UserIDKey, int(userID))
 		ctx = context.WithValue(ctx, OrganizationIDKey, int(orgID))
+		ctx = context.WithValue(ctx, OrganizationTypeKey, orgType)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
@@ -91,4 +99,9 @@ func GetUserID(r *http.Request) (int, bool) {
 func GetOrganizationID(r *http.Request) (int, bool) {
 	orgID, ok := r.Context().Value(OrganizationIDKey).(int)
 	return orgID, ok
+}
+
+func GetOrganizationType(r *http.Request) (string, bool) {
+	orgType, ok := r.Context().Value(OrganizationIDKey).(string)
+	return orgType, ok
 }
