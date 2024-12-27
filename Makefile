@@ -2,8 +2,8 @@ PROTO_PATH ?= pkg/proto
 OUTPUT_PATH ?= ./pkg/gen/go
 
 PROTO_FILES ?= \
-    organization/organization.proto \
-    warehouse/warehouse.proto
+    product/product.proto \
+    order/order.proto
 
 proto:
 	@protoc -I $(PROTO_PATH) $(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \
