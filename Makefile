@@ -11,10 +11,10 @@ proto:
 		--go-grpc_out=$(OUTPUT_PATH) --go-grpc_opt=paths=source_relative
 
 build:
-	@go build -o bin/core-service ./cmd/core-service/main.go
+	@go build -o bin/core ./cmd/core/main.go
 
 run: build
-	@./bin/core-service --config=./config/local.yaml
+	@./bin/core --config=./config/local.yaml
 
 test:
 	@go test -v ./...
