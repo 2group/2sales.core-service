@@ -7,7 +7,7 @@
 package warehousev1
 
 import (
-	_2sales_organization_v1 "2sales.organization.v1"
+	organization "github.com/2group/2sales.core-service/pkg/gen/go/organization"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -26,9 +26,9 @@ type CreateWarehouseRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name           string                                `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	OrganizationId int64                                 `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
-	Address        *_2sales_organization_v1.AddressModel `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
+	Name           string                     `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	OrganizationId int64                      `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	Address        *organization.AddressModel `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
 }
 
 func (x *CreateWarehouseRequest) Reset() {
@@ -75,7 +75,7 @@ func (x *CreateWarehouseRequest) GetOrganizationId() int64 {
 	return 0
 }
 
-func (x *CreateWarehouseRequest) GetAddress() *_2sales_organization_v1.AddressModel {
+func (x *CreateWarehouseRequest) GetAddress() *organization.AddressModel {
 	if x != nil {
 		return x.Address
 	}
@@ -222,9 +222,9 @@ type UpdateWarehouseRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id      int64                                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name    string                                `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Address *_2sales_organization_v1.AddressModel `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
+	Id      int64                      `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name    string                     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Address *organization.AddressModel `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
 }
 
 func (x *UpdateWarehouseRequest) Reset() {
@@ -271,7 +271,7 @@ func (x *UpdateWarehouseRequest) GetName() string {
 	return ""
 }
 
-func (x *UpdateWarehouseRequest) GetAddress() *_2sales_organization_v1.AddressModel {
+func (x *UpdateWarehouseRequest) GetAddress() *organization.AddressModel {
 	if x != nil {
 		return x.Address
 	}
@@ -614,11 +614,11 @@ type WarehouseModel struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id             int64                                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	OrganizationId int64                                 `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
-	Name           string                                `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Address        *_2sales_organization_v1.AddressModel `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
-	Count          int64                                 `protobuf:"varint,5,opt,name=count,proto3" json:"count,omitempty"`
+	Id             int64                      `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	OrganizationId int64                      `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	Name           string                     `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Address        *organization.AddressModel `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
+	Count          int64                      `protobuf:"varint,5,opt,name=count,proto3" json:"count,omitempty"`
 }
 
 func (x *WarehouseModel) Reset() {
@@ -672,7 +672,7 @@ func (x *WarehouseModel) GetName() string {
 	return ""
 }
 
-func (x *WarehouseModel) GetAddress() *_2sales_organization_v1.AddressModel {
+func (x *WarehouseModel) GetAddress() *organization.AddressModel {
 	if x != nil {
 		return x.Address
 	}
@@ -947,10 +947,12 @@ var file_warehouse_warehouse_proto_rawDesc = []byte{
 	0x74, 0x54, 0x6f, 0x57, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x2e,
 	0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x54, 0x6f, 0x57, 0x61, 0x72, 0x65,
-	0x68, 0x6f, 0x75, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x21, 0x5a,
-	0x1f, 0x32, 0x73, 0x61, 0x6c, 0x65, 0x73, 0x2e, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73,
-	0x65, 0x2e, 0x76, 0x31, 0x3b, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x76, 0x31,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x68, 0x6f, 0x75, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x48, 0x5a,
+	0x46, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x32, 0x67, 0x72, 0x6f,
+	0x75, 0x70, 0x2f, 0x32, 0x73, 0x61, 0x6c, 0x65, 0x73, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2d, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x67,
+	0x6f, 0x2f, 0x77, 0x61, 0x72, 0x65, 0x68, 0x6f, 0x75, 0x73, 0x65, 0x3b, 0x77, 0x61, 0x72, 0x65,
+	0x68, 0x6f, 0x75, 0x73, 0x65, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -967,22 +969,22 @@ func file_warehouse_warehouse_proto_rawDescGZIP() []byte {
 
 var file_warehouse_warehouse_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_warehouse_warehouse_proto_goTypes = []any{
-	(*CreateWarehouseRequest)(nil),               // 0: warehouse.CreateWarehouseRequest
-	(*CreateWarehouseResponse)(nil),              // 1: warehouse.CreateWarehouseResponse
-	(*ListWarehousesRequest)(nil),                // 2: warehouse.ListWarehousesRequest
-	(*ListWarehousesResponse)(nil),               // 3: warehouse.ListWarehousesResponse
-	(*UpdateWarehouseRequest)(nil),               // 4: warehouse.UpdateWarehouseRequest
-	(*UpdateWarehouseResponse)(nil),              // 5: warehouse.UpdateWarehouseResponse
-	(*GetProductsInWarehouseRequest)(nil),        // 6: warehouse.GetProductsInWarehouseRequest
-	(*GetProductsInWarehouseResponse)(nil),       // 7: warehouse.GetProductsInWarehouseResponse
-	(*GetWarehouseAnalyticsRequest)(nil),         // 8: warehouse.GetWarehouseAnalyticsRequest
-	(*GetWarehouseAnalyticsResponse)(nil),        // 9: warehouse.GetWarehouseAnalyticsResponse
-	(*AddProductToWarehouseRequest)(nil),         // 10: warehouse.AddProductToWarehouseRequest
-	(*AddProductToWarehouseResponse)(nil),        // 11: warehouse.AddProductToWarehouseResponse
-	(*WarehouseModel)(nil),                       // 12: warehouse.WarehouseModel
-	(*WarehouseAnalytics)(nil),                   // 13: warehouse.WarehouseAnalytics
-	(*WarehouseProducts)(nil),                    // 14: warehouse.WarehouseProducts
-	(*_2sales_organization_v1.AddressModel)(nil), // 15: organization.AddressModel
+	(*CreateWarehouseRequest)(nil),         // 0: warehouse.CreateWarehouseRequest
+	(*CreateWarehouseResponse)(nil),        // 1: warehouse.CreateWarehouseResponse
+	(*ListWarehousesRequest)(nil),          // 2: warehouse.ListWarehousesRequest
+	(*ListWarehousesResponse)(nil),         // 3: warehouse.ListWarehousesResponse
+	(*UpdateWarehouseRequest)(nil),         // 4: warehouse.UpdateWarehouseRequest
+	(*UpdateWarehouseResponse)(nil),        // 5: warehouse.UpdateWarehouseResponse
+	(*GetProductsInWarehouseRequest)(nil),  // 6: warehouse.GetProductsInWarehouseRequest
+	(*GetProductsInWarehouseResponse)(nil), // 7: warehouse.GetProductsInWarehouseResponse
+	(*GetWarehouseAnalyticsRequest)(nil),   // 8: warehouse.GetWarehouseAnalyticsRequest
+	(*GetWarehouseAnalyticsResponse)(nil),  // 9: warehouse.GetWarehouseAnalyticsResponse
+	(*AddProductToWarehouseRequest)(nil),   // 10: warehouse.AddProductToWarehouseRequest
+	(*AddProductToWarehouseResponse)(nil),  // 11: warehouse.AddProductToWarehouseResponse
+	(*WarehouseModel)(nil),                 // 12: warehouse.WarehouseModel
+	(*WarehouseAnalytics)(nil),             // 13: warehouse.WarehouseAnalytics
+	(*WarehouseProducts)(nil),              // 14: warehouse.WarehouseProducts
+	(*organization.AddressModel)(nil),      // 15: organization.AddressModel
 }
 var file_warehouse_warehouse_proto_depIdxs = []int32{
 	15, // 0: warehouse.CreateWarehouseRequest.address:type_name -> organization.AddressModel
