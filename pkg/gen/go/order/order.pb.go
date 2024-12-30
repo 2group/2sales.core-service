@@ -7,7 +7,7 @@
 package orderv1
 
 import (
-	_2sales_product_v1 "2sales.product.v1"
+	product "github.com/2group/2sales.core-service/pkg/gen/go/product"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -220,13 +220,13 @@ type OrderItem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id            int64                            `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	SuborderId    int64                            `protobuf:"varint,2,opt,name=suborder_id,json=suborderId,proto3" json:"suborder_id,omitempty"`
-	ProductId     int64                            `protobuf:"varint,3,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	Product       *_2sales_product_v1.ProductModel `protobuf:"bytes,4,opt,name=product,proto3" json:"product,omitempty"`
-	Quantity      int64                            `protobuf:"varint,5,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	OriginalPrice float32                          `protobuf:"fixed32,6,opt,name=original_price,json=originalPrice,proto3" json:"original_price,omitempty"`
-	FinalPrice    float32                          `protobuf:"fixed32,7,opt,name=final_price,json=finalPrice,proto3" json:"final_price,omitempty"`
+	Id            int64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	SuborderId    int64                 `protobuf:"varint,2,opt,name=suborder_id,json=suborderId,proto3" json:"suborder_id,omitempty"`
+	ProductId     int64                 `protobuf:"varint,3,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	Product       *product.ProductModel `protobuf:"bytes,4,opt,name=product,proto3" json:"product,omitempty"`
+	Quantity      int64                 `protobuf:"varint,5,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	OriginalPrice float32               `protobuf:"fixed32,6,opt,name=original_price,json=originalPrice,proto3" json:"original_price,omitempty"`
+	FinalPrice    float32               `protobuf:"fixed32,7,opt,name=final_price,json=finalPrice,proto3" json:"final_price,omitempty"`
 }
 
 func (x *OrderItem) Reset() {
@@ -280,7 +280,7 @@ func (x *OrderItem) GetProductId() int64 {
 	return 0
 }
 
-func (x *OrderItem) GetProduct() *_2sales_product_v1.ProductModel {
+func (x *OrderItem) GetProduct() *product.ProductModel {
 	if x != nil {
 		return x.Product
 	}
@@ -1249,9 +1249,11 @@ var file_order_order_proto_rawDesc = []byte{
 	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x75, 0x62, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65,
 	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2e, 0x55, 0x70,
 	0x64, 0x61, 0x74, 0x65, 0x53, 0x75, 0x62, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x42, 0x19, 0x5a, 0x17, 0x32, 0x73, 0x61, 0x6c, 0x65, 0x73, 0x2e, 0x6f,
-	0x72, 0x64, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x3b, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x76, 0x31, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x6e, 0x73, 0x65, 0x42, 0x40, 0x5a, 0x3e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x32, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x2f, 0x32, 0x73, 0x61, 0x6c, 0x65, 0x73,
+	0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x70, 0x6b,
+	0x67, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x3b, 0x6f,
+	0x72, 0x64, 0x65, 0x72, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1268,24 +1270,24 @@ func file_order_order_proto_rawDescGZIP() []byte {
 
 var file_order_order_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_order_order_proto_goTypes = []any{
-	(*OrderModel)(nil),                      // 0: order.OrderModel
-	(*SubOrderModel)(nil),                   // 1: order.SubOrderModel
-	(*OrderItem)(nil),                       // 2: order.OrderItem
-	(*CreateOrderRequest)(nil),              // 3: order.CreateOrderRequest
-	(*CreateOrderResponse)(nil),             // 4: order.CreateOrderResponse
-	(*UpdateOrderRequest)(nil),              // 5: order.UpdateOrderRequest
-	(*UpdateOrderResponse)(nil),             // 6: order.UpdateOrderResponse
-	(*GetOrderRequest)(nil),                 // 7: order.GetOrderRequest
-	(*GetOrderResponse)(nil),                // 8: order.GetOrderResponse
-	(*ListOrdersRequest)(nil),               // 9: order.ListOrdersRequest
-	(*ListOrdersResponse)(nil),              // 10: order.ListOrdersResponse
-	(*GetSubOrderRequest)(nil),              // 11: order.GetSubOrderRequest
-	(*GetSubOrderResponse)(nil),             // 12: order.GetSubOrderResponse
-	(*ListSubOrdersRequest)(nil),            // 13: order.ListSubOrdersRequest
-	(*ListSubOrdersResponse)(nil),           // 14: order.ListSubOrdersResponse
-	(*UpdateSubOrderRequest)(nil),           // 15: order.UpdateSubOrderRequest
-	(*UpdateSubOrderResponse)(nil),          // 16: order.UpdateSubOrderResponse
-	(*_2sales_product_v1.ProductModel)(nil), // 17: product.ProductModel
+	(*OrderModel)(nil),             // 0: order.OrderModel
+	(*SubOrderModel)(nil),          // 1: order.SubOrderModel
+	(*OrderItem)(nil),              // 2: order.OrderItem
+	(*CreateOrderRequest)(nil),     // 3: order.CreateOrderRequest
+	(*CreateOrderResponse)(nil),    // 4: order.CreateOrderResponse
+	(*UpdateOrderRequest)(nil),     // 5: order.UpdateOrderRequest
+	(*UpdateOrderResponse)(nil),    // 6: order.UpdateOrderResponse
+	(*GetOrderRequest)(nil),        // 7: order.GetOrderRequest
+	(*GetOrderResponse)(nil),       // 8: order.GetOrderResponse
+	(*ListOrdersRequest)(nil),      // 9: order.ListOrdersRequest
+	(*ListOrdersResponse)(nil),     // 10: order.ListOrdersResponse
+	(*GetSubOrderRequest)(nil),     // 11: order.GetSubOrderRequest
+	(*GetSubOrderResponse)(nil),    // 12: order.GetSubOrderResponse
+	(*ListSubOrdersRequest)(nil),   // 13: order.ListSubOrdersRequest
+	(*ListSubOrdersResponse)(nil),  // 14: order.ListSubOrdersResponse
+	(*UpdateSubOrderRequest)(nil),  // 15: order.UpdateSubOrderRequest
+	(*UpdateSubOrderResponse)(nil), // 16: order.UpdateSubOrderResponse
+	(*product.ProductModel)(nil),   // 17: product.ProductModel
 }
 var file_order_order_proto_depIdxs = []int32{
 	1,  // 0: order.OrderModel.suborders:type_name -> order.SubOrderModel

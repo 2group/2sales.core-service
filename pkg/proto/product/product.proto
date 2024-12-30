@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package product;
 
-option go_package = "2sales.product.v1;productv1";
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/product;productv1";
 
 service ProductService {
     rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);

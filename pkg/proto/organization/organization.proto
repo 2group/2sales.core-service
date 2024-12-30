@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package organization;
 
-option go_package = "2sales.organization.v1;organizationv1";
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/organization;organizationv1";
 
 service OrganizationService {
     rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationResponse);

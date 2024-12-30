@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package user;
 
-option go_package = "2sales.user.v1;userv1";
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/user;userv1";
 
 service UserService {
     rpc Login (LoginRequest) returns (LoginResponse);

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package warehouse;
 
-option go_package = "2sales.warehouse.v1;warehousev1";
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/warehouse;warehousev1";
 
 import "organization/organization.proto";
 

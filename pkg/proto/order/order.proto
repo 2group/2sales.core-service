@@ -4,7 +4,7 @@ package order;
 
 import "product/product.proto";
 
-option go_package = "2sales.order.v1;orderv1";
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/order;orderv1";
 
 service OrderService {
     rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
