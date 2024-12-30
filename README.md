@@ -1,6 +1,6 @@
 ## ToDo:
 - [ ] User microservice gateway
-  - [ ] Login
+  - [X] Login
   - [ ] Register
   - [ ] Update Profile
   - [ ] Get Profile

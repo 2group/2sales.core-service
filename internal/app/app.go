@@ -10,6 +10,7 @@ import (
 	"github.com/2group/2sales.core-service/internal/config"
 	"github.com/2group/2sales.core-service/internal/grpc"
 	"github.com/2group/2sales.core-service/internal/handler"
+	auth "github.com/2group/2sales.core-service/pkg/middeware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -36,9 +37,17 @@ func (s *APIServer) Run() error {
 
     userHandler := handler.NewUserHandler(usergrpc)
 
+
     router.Route("/api/v1", func(apiRouter chi.Router) {
         apiRouter.Route("/user", func(userRouter chi.Router) {
 			userRouter.Post("/login", userHandler.HandleLogin)
+			userRouter.Post("/register", userHandler.HandleRegister)
+
+            userRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Get("/profile", userHandler.HandleGetProfile)
+				authRouter.Put("/profile", userHandler.HandleUpdateUser)
+			})
         })
     })
 
