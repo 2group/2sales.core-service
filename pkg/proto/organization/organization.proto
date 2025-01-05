@@ -32,8 +32,8 @@ message AddressModel {
     string city = 5;
     string address_line = 6;
     string postal_code = 7;
-    string latitude = 8;
-    string longitude = 9;
+    float latitude = 8;
+    float longitude = 9;
 }
 
 message ImageModel {
