@@ -77,6 +77,7 @@ message CreateOrganizationRequest {
     AddressModel address = 8;
     AddressModel legal_address = 9;
     repeated ImageModel images = 10;
+    int64 user_id = 11;
 }
 
 message CreateOrganizationResponse {
