@@ -58,6 +58,8 @@ func (s *APIServer) Run() error {
             organizationRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", organizationHandler.CreateOrganization)
+				authRouter.Get("/", organizationHandler.GetOrganization)
+				authRouter.Get("/list", organizationHandler.ListOrganizations)
 			})
         })
     })
