@@ -97,3 +97,26 @@ func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.R
     json.WriteJSON(w, http.StatusOK, response)
     return
 }
+
+func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
+    organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+    req := &organizationv1.UpdateOrganizationRequest{}
+
+    json.ParseJSON(r, &req)
+
+    req.Id = int64(organization_id)
+
+    response, err := h.organization.Api.UpdateOrganization(r.Context(), req)
+    if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+        return
+    }
+
+	json.WriteJSON(w, http.StatusCreated, response)
+    return
+}
