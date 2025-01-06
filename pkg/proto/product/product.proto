@@ -169,7 +169,7 @@ message DeleteProductResponse {
 message CreateProductCategoryRequest {
     string name = 1;
     string description = 2;
-    int64 parent_id = 3;
+    string parent_id = 3;
     int64 level = 4;
     repeated CharacteristicGroup characteristic_groups = 5;
 }
@@ -185,7 +185,7 @@ message GetZeroLevelCategoriesResponse {
 }
 
 message GetFirstLevelCategoriesRequest {
-    int64 parent_id = 1;
+    string parent_id = 1;
 }
 
 message GetFirstLevelCategoriesResponse {
@@ -193,7 +193,7 @@ message GetFirstLevelCategoriesResponse {
 }
 
 message GetProductCategoryWithChildrenRequest {
-    int64 id = 1;
+    string id = 1;
 }
 
 message GetProductCategoryWithChildrenResponse {
