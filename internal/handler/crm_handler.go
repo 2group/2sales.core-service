@@ -28,18 +28,14 @@ func (h *CrmHandler) CreateLead(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 2. Parse the JSON payload into the proto request
 	req := &crmv1.CreateLeadRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	// 3. Overwrite the organization_id for created_by_organization
-	//    so the client can't alter it
 	req.Lead.CreatedByOrganizationId = &organizationID
 
-	// 4. Call the gRPC service
 	response, err := h.crm.Api.CreateLead(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
