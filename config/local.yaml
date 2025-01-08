@@ -1,6 +1,6 @@
 env: "local"
 rest:
-  port: 8080
+  port: 8090
   timeout: 5s
 grpc:
   user: "localhost:50051"
