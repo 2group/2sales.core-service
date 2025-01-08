@@ -88,8 +88,9 @@ message CreateRoleResponse {
 }
 
 message ListRolesRequest {
-    int32 page_size = 1;
-    int32 page_number = 2;
+    int64 organization_id = 1;
+    int32 page_size = 2;
+    int32 page_number = 3;
 }
 
 message ListRolesResponse {
