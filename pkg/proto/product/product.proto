@@ -31,7 +31,7 @@ message ProductModel {
     string image_url = 3;
     string description = 4;
     string category_name = 5;
-    int64 category_id = 6;
+    string category_id = 6;
     float sale_price = 7;
     float purchase_price = 8;
     int64 organization_id = 9;
@@ -81,7 +81,7 @@ message CreateProductRequest {
     string name = 1;
     string image_url = 2;
     string description = 3;
-    int64 category_id = 4;
+    string category_id = 4;
     float sale_price = 5;
     float purchase_price = 6;
     int64 organization_id = 7;
@@ -103,9 +103,13 @@ message ListProductRequest {
     int32 page = 1;
     int32 page_size = 2;
     string search_query = 3;
-    int64 category_id = 4;
+    string category_id = 4;
     string sort_by = 5;
     bool ascending = 6;
+    int64 organization_id = 7;
+    int64 brand_id = 8;
+    float price_from = 9;
+    float price_to = 10;
 }
 
 message ListProductResponse {
@@ -134,7 +138,7 @@ message UpdateProductRequest {
     string name = 2;
     string image_url = 3;
     string description = 4;
-    int64 category_id = 5;
+    string category_id = 5;
     float sale_price = 6;
     float purchase_price = 7;
     bool is_external = 8;
