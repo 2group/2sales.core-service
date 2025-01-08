@@ -45,7 +45,7 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
-	crmgrpc, err := grpc.NewCrmClient(context, s.cfg.GRPC.Crm, time.Hour, 2)
+	crmgrpc, err := grpc.NewCrmClient(context, s.cfg.GRPC.CRM, time.Hour, 2)
 	if err != nil {
 		panic(err)
 	}
@@ -53,7 +53,7 @@ func (s *APIServer) Run() error {
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(organizationgrpc)
 	productHandler := handler.NewProductHandler(s.log, productgrpc)
-	crmHandler := handler.NewCrmHandler(s.log, productgrpc)
+	crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
@@ -82,6 +82,12 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/", organizationHandler.GetOrganization)
 				authRouter.Put("/", organizationHandler.UpdateOrganization)
 				authRouter.Get("/list", organizationHandler.ListOrganizations)
+			})
+		})
+		apiRouter.Route("/crm", func(organizationRouter chi.Router) {
+			organizationRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", crmHandler.CreateLead)
 			})
 		})
 	})

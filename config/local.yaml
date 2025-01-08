@@ -6,3 +6,4 @@ grpc:
   user: "localhost:50051"
   organization: "localhost:50052"
   product: "localhost:50053"
+  crm: "localhost:50054"

@@ -4,7 +4,9 @@ package crm;
 
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1";
 
-// The main service for CRM-related operations.
+// -----------------------------------------------------------------------------
+// Service Definition
+// -----------------------------------------------------------------------------
 service CRMService {
   // Leads
   rpc CreateLead (CreateLeadRequest) returns (CreateLeadResponse);
@@ -39,61 +41,78 @@ service CRMService {
 // Data Models
 // -----------------------------------------------------------------------------
 
+// OrganizationModel mirrors the "organizations" table fields.
+message OrganizationModel {
+  optional int64 organization_id = 1;
+  optional string name = 2;                // e.g. "Acme Corp"
+  optional string image_url = 3;
+  optional string type = 4;                // e.g. "distributor", "supplier", "customer"
+  optional string legal_name = 5;
+  optional string legal_entity_type = 6;   // e.g. "LLC", "Inc", etc.
+  optional int64 address_id = 7;
+  optional string phone_number = 8;
+  optional string email = 9;
+  optional string created_at = 10;
+  optional string updated_at = 11;
+  optional string bin = 12;                // e.g. "Business ID Number"
+  optional string legal_address = 13;      // official legal address
+}
+
+// LeadModel now embeds both organizations (created_by, counterparty).
+message Lead {
+    optional int64 lead_id = 1;
+    optional int64 created_by_organization_id = 2;    
+    OrganizationModel counterparty_organization = 3;
+    string stage = 4;  
+    optional double estimated_value = 5;
+}
+
 message LeadModel {
-  int64 lead_id = 1;
-  int64 created_by_organization_id = 2;
-  int64 counterparty_organization_id = 3;
-  int64 contact_id = 4;
-  string stage = 5;           // e.g. "initial_contact", "negotiations"
-  double estimated_value = 6; // e.g. potential deal amount
-  string created_at = 7;
-  string updated_at = 8;
+    optional int64 lead_id = 1;
+    int64 created_by_organization_id = 2;
+    int64 counterparty_organization_id = 3;
+    string stage = 4;           // e.g. "initial_contact", "negotiations"
+    double estimated_value = 5; // e.g. potential deal amount
+    string created_at = 6;
+    string updated_at = 7;
 }
 
 message TaskModel {
-  int64 task_id = 1;
-  int64 lead_id = 2;
-  int64 assigned_to = 3;
-  string title = 4;
-  string description = 5;
-  string status = 6;      // e.g. "open", "in_progress", "done"
-  string from_time = 7;   // or a timestamp
-  string due_time = 8;    // or a timestamp
-  string created_at = 9;
-  string updated_at = 10;
+    int32 task_id = 1;
+    int64 lead_id = 2;
+    int64 assigned_to = 3;
+    string title = 4;
+    string description = 5;
+    string status = 6;      // e.g. "open", "in_progress", "done"
+    string from_time = 7;   // or a timestamp
+    string due_time = 8;    // or a timestamp
+    string created_at = 9;
+    string updated_at = 10;
 }
 
 message NoteModel {
-  int64 note_id = 1;
-  int64 lead_id = 2;
-  int64 created_by = 3;
-  string content = 4;
-  string created_at = 5;
-  string updated_at = 6;
+    int64 note_id = 1;
+    int64 lead_id = 2;
+    int64 created_by = 3;
+    string content = 4;
+    string created_at = 5;
+    string updated_at = 6;
 }
 
 message ChatMessageModel {
-  int64 message_id = 1;
-  int64 lead_id = 2;
-  int64 created_by = 3;
-  string message_text = 4;
-  string created_at = 5;
+    int64 message_id = 1;
+    int64 lead_id = 2;
+    int64 created_by = 3;
+    string message_text = 4;
+    string created_at = 5;
 }
 
-// -----------------------------------------------------------------------------
-// Leads
-// -----------------------------------------------------------------------------
-
 message CreateLeadRequest {
-  int64 created_by_organization_id = 1;
-  int64 counterparty_organization_id = 2;
-  int64 contact_id = 3;
-  string stage = 4;                // optional stage override
-  double estimated_value = 5;      // optional deal amount
+  Lead lead = 1;
 }
 
 message CreateLeadResponse {
-  LeadModel lead = 1;
+  Lead lead = 1;
 }
 
 message GetLeadRequest {
@@ -117,8 +136,11 @@ message ListLeadsResponse {
 
 message UpdateLeadRequest {
   int64 lead_id = 1;
-  int64 created_by_organization_id = 2;
-  int64 counterparty_organization_id = 3;
+
+  // If updating the entire embedded organization data:
+  OrganizationModel created_by_organization = 2;
+  OrganizationModel counterparty_organization = 3;
+
   int64 contact_id = 4;
   string stage = 5;
   double estimated_value = 6;

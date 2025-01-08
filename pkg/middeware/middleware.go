@@ -13,8 +13,8 @@ var secret = "yourSigningKey"
 type contextKey string
 
 const (
-	UserIDKey         contextKey = "uid"
-	OrganizationIDKey contextKey = "organization_id"
+	UserIDKey           contextKey = "uid"
+	OrganizationIDKey   contextKey = "organization_id"
 	OrganizationTypeKey contextKey = "organization_type"
 )
 
@@ -38,26 +38,26 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		userID, ok := claims["uid"].(float64)
+		userID, ok := claims["uid"].(int64)
 		if !ok {
 			http.Error(w, "Invalid user_id in token", http.StatusUnauthorized)
 			return
 		}
 
-		orgID, ok := claims["organization_id"].(float64)
+		orgID, ok := claims["organization_id"].(int64)
 		if !ok {
 			http.Error(w, "Invalid organization_id in token", http.StatusUnauthorized)
 			return
 		}
 
-        orgType, ok := claims["organization_type"].(string)
-        if !ok {
-            http.Error(w, "Invalid organization_id in token", http.StatusUnauthorized)
-            return
-        }
+		orgType, ok := claims["organization_type"].(string)
+		if !ok {
+			http.Error(w, "Invalid organization_id in token", http.StatusUnauthorized)
+			return
+		}
 
-		ctx := context.WithValue(r.Context(), UserIDKey, int(userID))
-		ctx = context.WithValue(ctx, OrganizationIDKey, int(orgID))
+		ctx := context.WithValue(r.Context(), UserIDKey, userID)
+		ctx = context.WithValue(ctx, OrganizationIDKey, orgID)
 		ctx = context.WithValue(ctx, OrganizationTypeKey, orgType)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
@@ -91,13 +91,13 @@ func validateToken(tokenString string) (jwt.MapClaims, error) {
 	return claims, nil
 }
 
-func GetUserID(r *http.Request) (int, bool) {
-	userID, ok := r.Context().Value(UserIDKey).(int)
+func GetUserID(r *http.Request) (int64, bool) {
+	userID, ok := r.Context().Value(UserIDKey).(int64)
 	return userID, ok
 }
 
-func GetOrganizationID(r *http.Request) (int, bool) {
-	orgID, ok := r.Context().Value(OrganizationIDKey).(int)
+func GetOrganizationID(r *http.Request) (int64, bool) {
+	orgID, ok := r.Context().Value(OrganizationIDKey).(int64)
 	return orgID, ok
 }
 

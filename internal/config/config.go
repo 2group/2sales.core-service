@@ -22,7 +22,8 @@ type RestConfig struct {
 type GrpcConfig struct {
 	User         string `yaml:"user"`
 	Organization string `yaml:"organization"`
-	Product    string `yaml:"product"`
+	Product      string `yaml:"product"`
+	CRM          string `yaml:"crm"`
 }
 
 func MustLoad() *Config {

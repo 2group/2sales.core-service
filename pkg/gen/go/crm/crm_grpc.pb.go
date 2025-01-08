@@ -45,7 +45,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
-// The main service for CRM-related operations.
+// -----------------------------------------------------------------------------
+// Service Definition
+// -----------------------------------------------------------------------------
 type CRMServiceClient interface {
 	// Leads
 	CreateLead(ctx context.Context, in *CreateLeadRequest, opts ...grpc.CallOption) (*CreateLeadResponse, error)
@@ -285,7 +287,9 @@ func (c *cRMServiceClient) DeleteChatMessage(ctx context.Context, in *DeleteChat
 // All implementations must embed UnimplementedCRMServiceServer
 // for forward compatibility.
 //
-// The main service for CRM-related operations.
+// -----------------------------------------------------------------------------
+// Service Definition
+// -----------------------------------------------------------------------------
 type CRMServiceServer interface {
 	// Leads
 	CreateLead(context.Context, *CreateLeadRequest) (*CreateLeadResponse, error)

@@ -10,7 +10,7 @@ import (
 )
 
 type CrmClient struct {
-	Api crmv1.CrmServiceClient
+	Api crmv1.CRMServiceClient
 }
 
 func NewCrmClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*CrmClient, error) {
@@ -20,6 +20,6 @@ func NewCrmClient(ctx context.Context, addr string, timeout time.Duration, retri
 	}
 
 	return &CrmClient{
-		Api: crmv1.NewCrmServiceClient(cc),
+		Api: crmv1.NewCRMServiceClient(cc),
 	}, nil
 }
