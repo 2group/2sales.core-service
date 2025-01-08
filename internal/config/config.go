@@ -22,7 +22,7 @@ type RestConfig struct {
 type GrpcConfig struct {
 	User         string `yaml:"user"`
 	Organization string `yaml:"organization"`
-	Operation    string `yaml:"operation"`
+	Product    string `yaml:"product"`
 }
 
 func MustLoad() *Config {

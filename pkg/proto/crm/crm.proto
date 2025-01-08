@@ -1,0 +1,301 @@
+syntax = "proto3";
+
+package crm;
+
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1";
+
+// The main service for CRM-related operations.
+service CRMService {
+  // Leads
+  rpc CreateLead (CreateLeadRequest) returns (CreateLeadResponse);
+  rpc GetLead (GetLeadRequest) returns (GetLeadResponse);
+  rpc ListLeads (ListLeadsRequest) returns (ListLeadsResponse);
+  rpc UpdateLead (UpdateLeadRequest) returns (UpdateLeadResponse);
+  rpc DeleteLead (DeleteLeadRequest) returns (DeleteLeadResponse);
+
+  // Tasks
+  rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse);
+  rpc GetTask (GetTaskRequest) returns (GetTaskResponse);
+  rpc ListTasks (ListTasksRequest) returns (ListTasksResponse);
+  rpc UpdateTask (UpdateTaskRequest) returns (UpdateTaskResponse);
+  rpc DeleteTask (DeleteTaskRequest) returns (DeleteTaskResponse);
+
+  // Notes
+  rpc CreateNote (CreateNoteRequest) returns (CreateNoteResponse);
+  rpc GetNote (GetNoteRequest) returns (GetNoteResponse);
+  rpc ListNotes (ListNotesRequest) returns (ListNotesResponse);
+  rpc UpdateNote (UpdateNoteRequest) returns (UpdateNoteResponse);
+  rpc DeleteNote (DeleteNoteRequest) returns (DeleteNoteResponse);
+
+  // Chat Messages
+  rpc CreateChatMessage (CreateChatMessageRequest) returns (CreateChatMessageResponse);
+  rpc GetChatMessage (GetChatMessageRequest) returns (GetChatMessageResponse);
+  rpc ListChatMessages (ListChatMessagesRequest) returns (ListChatMessagesResponse);
+  rpc UpdateChatMessage (UpdateChatMessageRequest) returns (UpdateChatMessageResponse);
+  rpc DeleteChatMessage (DeleteChatMessageRequest) returns (DeleteChatMessageResponse);
+}
+
+// -----------------------------------------------------------------------------
+// Data Models
+// -----------------------------------------------------------------------------
+
+message LeadModel {
+  int64 lead_id = 1;
+  int64 created_by_organization_id = 2;
+  int64 counterparty_organization_id = 3;
+  int64 contact_id = 4;
+  string stage = 5;           // e.g. "initial_contact", "negotiations"
+  double estimated_value = 6; // e.g. potential deal amount
+  string created_at = 7;
+  string updated_at = 8;
+}
+
+message TaskModel {
+  int64 task_id = 1;
+  int64 lead_id = 2;
+  int64 assigned_to = 3;
+  string title = 4;
+  string description = 5;
+  string status = 6;      // e.g. "open", "in_progress", "done"
+  string from_time = 7;   // or a timestamp
+  string due_time = 8;    // or a timestamp
+  string created_at = 9;
+  string updated_at = 10;
+}
+
+message NoteModel {
+  int64 note_id = 1;
+  int64 lead_id = 2;
+  int64 created_by = 3;
+  string content = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message ChatMessageModel {
+  int64 message_id = 1;
+  int64 lead_id = 2;
+  int64 created_by = 3;
+  string message_text = 4;
+  string created_at = 5;
+}
+
+// -----------------------------------------------------------------------------
+// Leads
+// -----------------------------------------------------------------------------
+
+message CreateLeadRequest {
+  int64 created_by_organization_id = 1;
+  int64 counterparty_organization_id = 2;
+  int64 contact_id = 3;
+  string stage = 4;                // optional stage override
+  double estimated_value = 5;      // optional deal amount
+}
+
+message CreateLeadResponse {
+  LeadModel lead = 1;
+}
+
+message GetLeadRequest {
+  int64 lead_id = 1;
+}
+
+message GetLeadResponse {
+  LeadModel lead = 1;
+}
+
+message ListLeadsRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string stage = 3; // optional filter by stage
+}
+
+message ListLeadsResponse {
+  repeated LeadModel leads = 1;
+  int32 total_count = 2;
+}
+
+message UpdateLeadRequest {
+  int64 lead_id = 1;
+  int64 created_by_organization_id = 2;
+  int64 counterparty_organization_id = 3;
+  int64 contact_id = 4;
+  string stage = 5;
+  double estimated_value = 6;
+}
+
+message UpdateLeadResponse {
+  LeadModel lead = 1;
+}
+
+message DeleteLeadRequest {
+  int64 lead_id = 1;
+}
+
+message DeleteLeadResponse {
+  bool success = 1;
+}
+
+// -----------------------------------------------------------------------------
+// Tasks
+// -----------------------------------------------------------------------------
+
+message CreateTaskRequest {
+  int64 lead_id = 1;
+  int64 assigned_to = 2;
+  string title = 3;
+  string description = 4;
+  string status = 5; // e.g. "open"
+  string from_time = 6;
+  string due_time = 7;
+}
+
+message CreateTaskResponse {
+  TaskModel task = 1;
+}
+
+message GetTaskRequest {
+  int64 task_id = 1;
+}
+
+message GetTaskResponse {
+  TaskModel task = 1;
+}
+
+message ListTasksRequest {
+  int64 lead_id = 1; // filter tasks by lead
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message ListTasksResponse {
+  repeated TaskModel tasks = 1;
+  int32 total_count = 2;
+}
+
+message UpdateTaskRequest {
+  int64 task_id = 1;
+  int64 lead_id = 2;
+  int64 assigned_to = 3;
+  string title = 4;
+  string description = 5;
+  string status = 6;
+  string from_time = 7;
+  string due_time = 8;
+}
+
+message UpdateTaskResponse {
+  TaskModel task = 1;
+}
+
+message DeleteTaskRequest {
+  int64 task_id = 1;
+}
+
+message DeleteTaskResponse {
+  bool success = 1;
+}
+
+// -----------------------------------------------------------------------------
+// Notes
+// -----------------------------------------------------------------------------
+
+message CreateNoteRequest {
+  int64 lead_id = 1;
+  int64 created_by = 2;
+  string content = 3;
+}
+
+message CreateNoteResponse {
+  NoteModel note = 1;
+}
+
+message GetNoteRequest {
+  int64 note_id = 1;
+}
+
+message GetNoteResponse {
+  NoteModel note = 1;
+}
+
+message ListNotesRequest {
+  int64 lead_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message ListNotesResponse {
+  repeated NoteModel notes = 1;
+  int32 total_count = 2;
+}
+
+message UpdateNoteRequest {
+  int64 note_id = 1;
+  int64 lead_id = 2;
+  int64 created_by = 3;
+  string content = 4;
+}
+
+message UpdateNoteResponse {
+  NoteModel note = 1;
+}
+
+message DeleteNoteRequest {
+  int64 note_id = 1;
+}
+
+message DeleteNoteResponse {
+  bool success = 1;
+}
+
+// -----------------------------------------------------------------------------
+// Chat Messages
+// -----------------------------------------------------------------------------
+
+message CreateChatMessageRequest {
+  int64 lead_id = 1;
+  int64 created_by = 2;
+  string message_text = 3;
+}
+
+message CreateChatMessageResponse {
+  ChatMessageModel chat_message = 1;
+}
+
+message GetChatMessageRequest {
+  int64 message_id = 1;
+}
+
+message GetChatMessageResponse {
+  ChatMessageModel chat_message = 1;
+}
+
+message ListChatMessagesRequest {
+  int64 lead_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message ListChatMessagesResponse {
+  repeated ChatMessageModel chat_messages = 1;
+  int32 total_count = 2;
+}
+
+message UpdateChatMessageRequest {
+  int64 message_id = 1;
+  int64 lead_id = 2;
+  int64 created_by = 3;
+  string message_text = 4;
+}
+
+message UpdateChatMessageResponse {
+  ChatMessageModel chat_message = 1;
+}
+
+message DeleteChatMessageRequest {
+  int64 message_id = 1;
+}
+
+message DeleteChatMessageResponse {
+  bool success = 1;
+}

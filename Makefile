@@ -3,7 +3,8 @@ OUTPUT_PATH ?= ./pkg/gen/go
 
 PROTO_FILES ?= \
     organization/organization.proto \
-    warehouse/warehouse.proto
+    warehouse/warehouse.proto \
+	crm/crm.proto
 
 proto:
 	@protoc -I $(PROTO_PATH) $(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \

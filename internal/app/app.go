@@ -35,8 +35,19 @@ func (s *APIServer) Run() error {
         panic(err)
     }
 
-    userHandler := handler.NewUserHandler(usergrpc)
+    organizationgrpc, err := grpc.NewOrganizationClient(context, s.cfg.GRPC.Organization, time.Hour, 2)
+    if err != nil {
+        panic(err)
+    }
 
+    productgrpc, err := grpc.NewProductClient(context, s.cfg.GRPC.Product, time.Hour, 2)
+    if err != nil {
+        panic(err)
+    }
+
+    userHandler := handler.NewUserHandler(usergrpc)
+    organizationHandler := handler.NewOrganizationHandler(organizationgrpc)
+    productHandler := handler.NewProductHandler(s.log, productgrpc)
 
     router.Route("/api/v1", func(apiRouter chi.Router) {
         apiRouter.Route("/user", func(userRouter chi.Router) {
@@ -47,6 +58,24 @@ func (s *APIServer) Run() error {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Get("/profile", userHandler.HandleGetProfile)
 				authRouter.Put("/profile", userHandler.HandleUpdateUser)
+			})
+        })
+        apiRouter.Route("/category", func(categoryRouter chi.Router) {
+			categoryRouter.Post("/", productHandler.CreateCategory)
+			categoryRouter.Get("/", productHandler.GetFirstLevelCategories)
+			categoryRouter.Get("/{category_id}", productHandler.GetCategory)
+
+            categoryRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+			})
+        })
+        apiRouter.Route("/organization", func(organizationRouter chi.Router) {
+            organizationRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", organizationHandler.CreateOrganization)
+				authRouter.Get("/", organizationHandler.GetOrganization)
+				authRouter.Put("/", organizationHandler.UpdateOrganization)
+				authRouter.Get("/list", organizationHandler.ListOrganizations)
 			})
         })
     })
