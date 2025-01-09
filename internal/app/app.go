@@ -92,6 +92,7 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/leads/{lead_id}", crmHandler.GetLead)
 				authRouter.Put("/leads/{lead_id}", crmHandler.GetLead)
 				authRouter.Patch("/leads/{lead_id}", crmHandler.GetLead)
+				authRouter.Patch("/leads/{lead_id}", crmHandler.GetLead)
 				authRouter.Delete("/leads/{lead_id}", crmHandler.DeleteLead)
 			})
 		})

@@ -125,14 +125,15 @@ message GetLeadResponse {
 }
 
 message ListLeadsRequest {
-  int32 page = 1;
-  int32 page_size = 2;
-  string stage = 3; // optional filter by stage
+  int64 organization_id = 1;
+  optional int32 limit = 2;
+  optional string cursor = 3;
 }
 
 message ListLeadsResponse {
   repeated LeadModel leads = 1;
-  int32 total_count = 2;
+  string next_cursor = 2;
+  bool has_more = 3;
 }
 
 message UpdateLeadRequest {
