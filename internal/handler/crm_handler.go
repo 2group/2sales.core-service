@@ -156,3 +156,30 @@ func (h *CrmHandler) DeleteLead(w http.ResponseWriter, r *http.Request) {
 	// 5. Respond with the newly created lead
 	json.WriteJSON(w, http.StatusCreated, response)
 }
+
+func (h *CrmHandler) ListLeads(w http.ResponseWriter, r *http.Request) {
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+		return
+	}
+
+	h.log.Info("list leads handler", "organization_id", organizationID)
+
+	req := &crmv1.ListLeadsRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req.OrganizationId = organizationID
+
+	response, err := h.crm.Api.ListLeads(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// 5. Respond with the newly created lead
+	json.WriteJSON(w, http.StatusCreated, response)
+}
