@@ -87,7 +87,12 @@ func (s *APIServer) Run() error {
 		apiRouter.Route("/crm", func(crmRouter chi.Router) {
 			crmRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Post("/lead", crmHandler.CreateLead)
+				authRouter.Post("/leads", crmHandler.CreateLead)
+				authRouter.Get("/leads", crmHandler.CreateLead)
+				authRouter.Get("/leads/{lead_id}", crmHandler.GetLead)
+				authRouter.Put("/leads/{lead_id}", crmHandler.GetLead)
+				authRouter.Patch("/leads/{lead_id}", crmHandler.GetLead)
+				authRouter.Delete("/leads/{lead_id}", crmHandler.DeleteLead)
 			})
 		})
 	})

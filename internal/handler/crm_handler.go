@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	crmv1 "github.com/2group/2sales.core-service/pkg/gen/go/crm"
 	"github.com/2group/2sales.core-service/pkg/json"
 	middleware "github.com/2group/2sales.core-service/pkg/middeware"
+	"github.com/go-chi/chi/v5"
 )
 
 type CrmHandler struct {
@@ -38,6 +40,56 @@ func (h *CrmHandler) CreateLead(w http.ResponseWriter, r *http.Request) {
 	req.Lead.CreatedByOrganizationId = &organizationID
 
 	response, err := h.crm.Api.CreateLead(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// 5. Respond with the newly created lead
+	json.WriteJSON(w, http.StatusCreated, response)
+}
+
+func (h *CrmHandler) GetLead(w http.ResponseWriter, r *http.Request) {
+	leadIDStr := chi.URLParam(r, "lead_id")
+
+	h.log.Info("get lead handler", "lead_id", leadIDStr)
+
+	leadID, err := strconv.ParseInt(leadIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid lead_id format", "lead_id", leadIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// Create the GetLeadRequest
+	req := &crmv1.GetLeadRequest{LeadId: leadID}
+
+	response, err := h.crm.Api.GetLead(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// 5. Respond with the newly created lead
+	json.WriteJSON(w, http.StatusCreated, response)
+}
+
+func (h *CrmHandler) DeleteLead(w http.ResponseWriter, r *http.Request) {
+	leadIDStr := chi.URLParam(r, "lead_id")
+
+	h.log.Info("delete lead handler", "lead_id", leadIDStr)
+
+	leadID, err := strconv.ParseInt(leadIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid lead_id format", "lead_id", leadIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// Create the GetLeadRequest
+	req := &crmv1.DeleteLeadRequest{LeadId: leadID}
+
+	response, err := h.crm.Api.DeleteLead(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return

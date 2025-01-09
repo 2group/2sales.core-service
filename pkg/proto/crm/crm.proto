@@ -135,20 +135,21 @@ message ListLeadsResponse {
 }
 
 message UpdateLeadRequest {
-  int64 lead_id = 1;
-
-  // If updating the entire embedded organization data:
-  OrganizationModel created_by_organization = 2;
-  OrganizationModel counterparty_organization = 3;
-
-  int64 contact_id = 4;
-  string stage = 5;
-  double estimated_value = 6;
+  Lead lead = 1;
 }
 
 message UpdateLeadResponse {
-  LeadModel lead = 1;
+  Lead lead = 1;
 }
+
+message PatchLeadRequest {
+  Lead lead = 1;
+}
+
+message PatchLeadResponse {
+  Lead lead = 1;
+}
+
 
 message DeleteLeadRequest {
   int64 lead_id = 1;
