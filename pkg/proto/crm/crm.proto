@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package crm;
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1";
 
 // -----------------------------------------------------------------------------
@@ -73,8 +75,8 @@ message LeadModel {
     optional int64 counterparty_organization_id = 3;
     optional string stage = 4;           // e.g. "initial_contact", "negotiations"
     optional double estimated_value = 5; // e.g. potential deal amount
-    optional string created_at = 6;
-    optional string updated_at = 7;
+    google.protobuf.Timestamp created_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
 }
 
 message TaskModel {
