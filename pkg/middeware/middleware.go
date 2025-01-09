@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"strings"
 
@@ -14,14 +13,13 @@ var secret = "yourSigningKey"
 type contextKey string
 
 const (
-	UserIDKey           contextKey = "uid"
+	UserIDKey           contextKey = "user_id"
 	OrganizationIDKey   contextKey = "organization_id"
 	OrganizationTypeKey contextKey = "organization_type"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Println("middleware")
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
 			http.Error(w, "Authorization header is missing", http.StatusUnauthorized)
@@ -40,17 +38,19 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		userID, ok := claims["user_id"].(int64)
+		userIDFloat, ok := claims["user_id"].(float64)
 		if !ok {
 			http.Error(w, "Invalid user_id in token", http.StatusUnauthorized)
 			return
 		}
+		userID := int64(userIDFloat)
 
-		orgID, ok := claims["organization_id"].(int64)
+		orgIDFloat, ok := claims["organization_id"].(float64)
 		if !ok {
 			http.Error(w, "Invalid organization_id in token", http.StatusUnauthorized)
 			return
 		}
+		orgID := int64(orgIDFloat)
 
 		orgType, ok := claims["organization_type"].(string)
 		if !ok {

@@ -120,7 +120,7 @@ message GetLeadRequest {
 }
 
 message GetLeadResponse {
-  LeadModel lead = 1;
+  Lead lead = 1;
 }
 
 message ListLeadsRequest {
