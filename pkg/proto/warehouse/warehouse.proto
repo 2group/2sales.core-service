@@ -5,6 +5,7 @@ package warehouse;
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/warehouse;warehousev1";
 
 import "organization/organization.proto";
+import "product/product.proto";
 
 service WarehouseService {
     rpc CreateWarehouse (CreateWarehouseRequest) returns (CreateWarehouseResponse);
@@ -75,6 +76,7 @@ message WarehouseModel {
     string name = 3;
     organization.AddressModel address = 4;
     int64 count = 5;
+    repeated product.ProductModel products = 6;
 }
 
 message WarehouseAnalytics {
@@ -87,5 +89,5 @@ message WarehouseProducts {
     int64 id = 1;
     int64 product_id = 2;
     int64 quantity = 3;
+    product.ProductModel product = 4;
 }
-
