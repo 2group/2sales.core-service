@@ -76,7 +76,7 @@ message WarehouseModel {
     string name = 3;
     organization.AddressModel address = 4;
     int64 count = 5;
-    repeated product.ProductModel products = 6;
+    repeated WarehouseProducts products = 6;
 }
 
 message WarehouseAnalytics {
