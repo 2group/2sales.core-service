@@ -84,10 +84,10 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/list", organizationHandler.ListOrganizations)
 			})
 		})
-		apiRouter.Route("/crm", func(organizationRouter chi.Router) {
-			organizationRouter.Group(func(authRouter chi.Router) {
+		apiRouter.Route("/crm", func(crmRouter chi.Router) {
+			crmRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Post("/", crmHandler.CreateLead)
+				authRouter.Post("/lead", crmHandler.CreateLead)
 			})
 		})
 	})

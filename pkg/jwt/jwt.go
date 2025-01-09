@@ -8,7 +8,7 @@ import (
 
 var Secret = "yourSigningKey"
 
-func NewToken(user_id int, organization_id int, organization_type string) (string, error) {
+func NewToken(user_id int64, organization_id int, organization_type string) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	claims := token.Claims.(jwt.MapClaims)

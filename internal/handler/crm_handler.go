@@ -21,7 +21,7 @@ func NewCrmHandler(log *slog.Logger, crm *grpc.CrmClient) *CrmHandler {
 }
 
 func (h *CrmHandler) CreateLead(w http.ResponseWriter, r *http.Request) {
-	// 1. Retrieve organization ID from middleware
+	h.log.Info("Requset in handler")
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
@@ -35,6 +35,8 @@ func (h *CrmHandler) CreateLead(w http.ResponseWriter, r *http.Request) {
 	}
 
 	req.Lead.CreatedByOrganizationId = &organizationID
+
+	h.log.Info("come to core-service handler")
 
 	response, err := h.crm.Api.CreateLead(r.Context(), req)
 	if err != nil {
