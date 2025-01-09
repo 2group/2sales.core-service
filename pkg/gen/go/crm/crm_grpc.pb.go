@@ -23,6 +23,7 @@ const (
 	CRMService_GetLead_FullMethodName           = "/crm.CRMService/GetLead"
 	CRMService_ListLeads_FullMethodName         = "/crm.CRMService/ListLeads"
 	CRMService_UpdateLead_FullMethodName        = "/crm.CRMService/UpdateLead"
+	CRMService_PatchLead_FullMethodName         = "/crm.CRMService/PatchLead"
 	CRMService_DeleteLead_FullMethodName        = "/crm.CRMService/DeleteLead"
 	CRMService_CreateTask_FullMethodName        = "/crm.CRMService/CreateTask"
 	CRMService_GetTask_FullMethodName           = "/crm.CRMService/GetTask"
@@ -54,6 +55,7 @@ type CRMServiceClient interface {
 	GetLead(ctx context.Context, in *GetLeadRequest, opts ...grpc.CallOption) (*GetLeadResponse, error)
 	ListLeads(ctx context.Context, in *ListLeadsRequest, opts ...grpc.CallOption) (*ListLeadsResponse, error)
 	UpdateLead(ctx context.Context, in *UpdateLeadRequest, opts ...grpc.CallOption) (*UpdateLeadResponse, error)
+	PatchLead(ctx context.Context, in *PatchLeadRequest, opts ...grpc.CallOption) (*PatchLeadResponse, error)
 	DeleteLead(ctx context.Context, in *DeleteLeadRequest, opts ...grpc.CallOption) (*DeleteLeadResponse, error)
 	// Tasks
 	CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error)
@@ -117,6 +119,16 @@ func (c *cRMServiceClient) UpdateLead(ctx context.Context, in *UpdateLeadRequest
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateLeadResponse)
 	err := c.cc.Invoke(ctx, CRMService_UpdateLead_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cRMServiceClient) PatchLead(ctx context.Context, in *PatchLeadRequest, opts ...grpc.CallOption) (*PatchLeadResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PatchLeadResponse)
+	err := c.cc.Invoke(ctx, CRMService_PatchLead_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -296,6 +308,7 @@ type CRMServiceServer interface {
 	GetLead(context.Context, *GetLeadRequest) (*GetLeadResponse, error)
 	ListLeads(context.Context, *ListLeadsRequest) (*ListLeadsResponse, error)
 	UpdateLead(context.Context, *UpdateLeadRequest) (*UpdateLeadResponse, error)
+	PatchLead(context.Context, *PatchLeadRequest) (*PatchLeadResponse, error)
 	DeleteLead(context.Context, *DeleteLeadRequest) (*DeleteLeadResponse, error)
 	// Tasks
 	CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error)
@@ -336,6 +349,9 @@ func (UnimplementedCRMServiceServer) ListLeads(context.Context, *ListLeadsReques
 }
 func (UnimplementedCRMServiceServer) UpdateLead(context.Context, *UpdateLeadRequest) (*UpdateLeadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateLead not implemented")
+}
+func (UnimplementedCRMServiceServer) PatchLead(context.Context, *PatchLeadRequest) (*PatchLeadResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchLead not implemented")
 }
 func (UnimplementedCRMServiceServer) DeleteLead(context.Context, *DeleteLeadRequest) (*DeleteLeadResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLead not implemented")
@@ -474,6 +490,24 @@ func _CRMService_UpdateLead_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CRMServiceServer).UpdateLead(ctx, req.(*UpdateLeadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CRMService_PatchLead_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchLeadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CRMServiceServer).PatchLead(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CRMService_PatchLead_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CRMServiceServer).PatchLead(ctx, req.(*PatchLeadRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -788,6 +822,10 @@ var CRMService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateLead",
 			Handler:    _CRMService_UpdateLead_Handler,
+		},
+		{
+			MethodName: "PatchLead",
+			Handler:    _CRMService_PatchLead_Handler,
 		},
 		{
 			MethodName: "DeleteLead",

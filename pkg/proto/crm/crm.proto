@@ -13,6 +13,7 @@ service CRMService {
   rpc GetLead (GetLeadRequest) returns (GetLeadResponse);
   rpc ListLeads (ListLeadsRequest) returns (ListLeadsResponse);
   rpc UpdateLead (UpdateLeadRequest) returns (UpdateLeadResponse);
+  rpc PatchLead (PatchLeadRequest) returns (PatchLeadResponse);
   rpc DeleteLead (DeleteLeadRequest) returns (DeleteLeadResponse);
 
   // Tasks

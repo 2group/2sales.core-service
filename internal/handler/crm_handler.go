@@ -74,6 +74,64 @@ func (h *CrmHandler) GetLead(w http.ResponseWriter, r *http.Request) {
 	json.WriteJSON(w, http.StatusCreated, response)
 }
 
+func (h *CrmHandler) UpdateLead(w http.ResponseWriter, r *http.Request) {
+	leadIDStr := chi.URLParam(r, "lead_id")
+
+	h.log.Info("update lead handler", "lead_id", leadIDStr)
+
+	leadID, err := strconv.ParseInt(leadIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid lead_id format", "lead_id", leadIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &crmv1.UpdateLeadRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req.Lead.LeadId = &leadID
+
+	response, err := h.crm.Api.UpdateLead(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+}
+
+func (h *CrmHandler) PatchLead(w http.ResponseWriter, r *http.Request) {
+	leadIDStr := chi.URLParam(r, "lead_id")
+
+	h.log.Info("get lead handler", "lead_id", leadIDStr)
+
+	leadID, err := strconv.ParseInt(leadIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid lead_id format", "lead_id", leadIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &crmv1.PatchLeadRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req.Lead.LeadId = &leadID
+
+	response, err := h.crm.Api.PatchLead(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+}
+
 func (h *CrmHandler) DeleteLead(w http.ResponseWriter, r *http.Request) {
 	leadIDStr := chi.URLParam(r, "lead_id")
 
