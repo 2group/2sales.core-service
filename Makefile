@@ -4,6 +4,7 @@ OUTPUT_PATH ?= ./pkg/gen/go
 PROTO_FILES ?= \
     organization/organization.proto \
     warehouse/warehouse.proto \
+	product/product.proto \
 	crm/crm.proto
 
 proto:
