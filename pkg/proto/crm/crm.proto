@@ -122,7 +122,7 @@ message ListLeadsRequest {
 }
 
 message ListLeadsResponse {
-    repeated LeadModel leads = 1;
+    repeated Lead leads = 1;
     optional string next_cursor = 2;
     optional bool has_more = 3;
 }
