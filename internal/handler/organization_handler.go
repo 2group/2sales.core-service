@@ -31,7 +31,7 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 	req := &organizationv1.CreateOrganizationRequest{}
 	json.ParseJSON(r, &req)
 
-    req.UserId = int64(user_id)
+	req.UserId = &user_id
 
 	response, err := h.organization.Api.CreateOrganization(r.Context(), req)
 	if err != nil {
@@ -44,79 +44,79 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 }
 
 func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Request) {
-    organization_id, ok := middleware.GetOrganizationID(r)
+	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 
-    req := &organizationv1.GetOrganizationRequest{
-        Id: int64(organization_id),
-    }
+	req := &organizationv1.GetOrganizationRequest{
+		Id: int64(organization_id),
+	}
 
-    response, err := h.organization.Api.GetOrganization(r.Context(), req)
-    if err != nil {
+	response, err := h.organization.Api.GetOrganization(r.Context(), req)
+	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
-        return
-    }
+		return
+	}
 
 	json.WriteJSON(w, http.StatusCreated, response)
-    return
+	return
 }
 
 func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.Request) {
-    queryParams := r.URL.Query()
-    name := ""
-    orgType := ""
-    name = queryParams.Get("name")
-    orgType = queryParams.Get("type")
+	queryParams := r.URL.Query()
+	name := ""
+	orgType := ""
+	name = queryParams.Get("name")
+	orgType = queryParams.Get("type")
 
-    page, err := strconv.Atoi(queryParams.Get("page"))
-    if err != nil || page < 1 {
-        page = 1 
-    }
+	page, err := strconv.Atoi(queryParams.Get("page"))
+	if err != nil || page < 1 {
+		page = 1
+	}
 
-    pageSize, err := strconv.Atoi(queryParams.Get("page_size"))
-    if err != nil || pageSize < 1 {
-        pageSize = 10
-    }
+	pageSize, err := strconv.Atoi(queryParams.Get("page_size"))
+	if err != nil || pageSize < 1 {
+		pageSize = 10
+	}
 
-    req := &organizationv1.ListOrganizationsRequest{
-        Page:     int32(page),
-        PageSize: int32(pageSize),
-        Type:     orgType,
-        Name:     name,
-    }
+	req := &organizationv1.ListOrganizationsRequest{
+		Page:     int32(page),
+		PageSize: int32(pageSize),
+		Type:     orgType,
+		Name:     name,
+	}
 
-    response, err := h.organization.Api.ListOrganizations(r.Context(), req)
-    if err != nil {
-        json.WriteError(w, http.StatusInternalServerError, err)
-        return
-    }
+	response, err := h.organization.Api.ListOrganizations(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
 
-    json.WriteJSON(w, http.StatusOK, response)
-    return
+	json.WriteJSON(w, http.StatusOK, response)
+	return
 }
 
 func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
-    organization_id, ok := middleware.GetOrganizationID(r)
+	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 
-    req := &organizationv1.UpdateOrganizationRequest{}
+	req := &organizationv1.UpdateOrganizationRequest{}
 
-    json.ParseJSON(r, &req)
+	json.ParseJSON(r, &req)
 
-    req.Id = int64(organization_id)
+	req.Id = int64(organization_id)
 
-    response, err := h.organization.Api.UpdateOrganization(r.Context(), req)
-    if err != nil {
+	response, err := h.organization.Api.UpdateOrganization(r.Context(), req)
+	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
-        return
-    }
+		return
+	}
 
 	json.WriteJSON(w, http.StatusCreated, response)
-    return
+	return
 }

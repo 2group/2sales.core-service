@@ -43,27 +43,27 @@ service CRMService {
 // -----------------------------------------------------------------------------
 
 // OrganizationModel mirrors the "organizations" table fields.
-message OrganizationModel {
-  optional int64 organization_id = 1;
-  optional string name = 2;                // e.g. "Acme Corp"
-  optional string image_url = 3;
-  optional string type = 4;                // e.g. "distributor", "supplier", "customer"
-  optional string legal_name = 5;
-  optional string legal_entity_type = 6;   // e.g. "LLC", "Inc", etc.
-  optional int64 address_id = 7;
-  optional string phone_number = 8;
-  optional string email = 9;
-  optional string created_at = 10;
-  optional string updated_at = 11;
-  optional string bin = 12;                // e.g. "Business ID Number"
-  optional string legal_address = 13;      // official legal address
+message Organization {
+    optional int64 organization_id = 1;
+    optional string name = 2;
+    optional string legal_name = 4;
+    optional Address address = 5;
+}
+
+message Address {
+  optional int64 id = 1;
+  string type = 2;
+  string country = 3;
+  string address_line = 4;
+  optional float latitude = 8;
+  optional float longitude = 9;
 }
 
 // LeadModel now embeds both organizations (created_by, counterparty).
 message Lead {
     optional int64 lead_id = 1;
     optional int64 created_by_organization_id = 2;    
-    optional OrganizationModel counterparty_organization = 3;
+    optional Organization counterparty_organization = 3;
     optional string stage = 4;  
     optional double estimated_value = 5;
 }

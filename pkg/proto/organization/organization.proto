@@ -67,17 +67,17 @@ message BankAccountModel {
 }
 
 message CreateOrganizationRequest {
-    string name = 1;
-    string image_url = 2;
+    optional string name = 1;
+    optional string image_url = 2;
     string type = 3;
-    string legal_name = 4;
-    string bin = 5;
-    string phone_number = 6;
-    string email = 7;
-    AddressModel address = 8;
-    AddressModel legal_address = 9;
+    optional string legal_name = 4;
+    optional string bin = 5;
+    optional string phone_number = 6;
+    optional string email = 7;
+    optional AddressModel address = 8;
+    optional AddressModel legal_address = 9;
     repeated ImageModel images = 10;
-    int64 user_id = 11;
+    optional int64 user_id = 11;
 }
 
 message CreateOrganizationResponse {
