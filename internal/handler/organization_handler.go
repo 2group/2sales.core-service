@@ -31,7 +31,7 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 	req := &organizationv1.CreateOrganizationRequest{}
 	json.ParseJSON(r, &req)
 
-	req.UserId = &user_id
+	req.UserId = user_id
 
 	response, err := h.organization.Api.CreateOrganization(r.Context(), req)
 	if err != nil {
@@ -98,20 +98,20 @@ func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.R
 	return
 }
 
-func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
+func (h *OrganizationHandler) PatchOrganization(w http.ResponseWriter, r *http.Request) {
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 
-	req := &organizationv1.UpdateOrganizationRequest{}
+	req := &organizationv1.PatchOrganizationRequest{}
 
 	json.ParseJSON(r, &req)
 
 	req.Organization.Id = &organization_id
 
-	response, err := h.organization.Api.UpdateOrganization(r.Context(), req)
+	response, err := h.organization.Api.PatchOrganization(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return

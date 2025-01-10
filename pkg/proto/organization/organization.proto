@@ -83,6 +83,7 @@ message BankAccountModel {
 
 message CreateOrganizationRequest {
     Organization organization = 1;
+    int64 user_id = 2;
 }
 
 message CreateOrganizationResponse {
