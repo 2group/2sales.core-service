@@ -8,7 +8,7 @@ service OrganizationService {
     rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationResponse);
     rpc GetOrganization (GetOrganizationRequest) returns (GetOrganizationResponse);
     rpc ListOrganizations (ListOrganizationsRequest) returns (ListOrganizationsResponse);
-    rpc UpdateOrganization (UpdateOrganizationRequest) returns (UpdateOrganizationResponse);
+    rpc PatchOrganization (PatchOrganizationRequest) returns (PatchOrganizationResponse);
 
     rpc ListBankAccounts (ListBankAccountsRequest) returns (ListBankAccountsResponse);
     rpc GetDefaultBankAccount (GetDefaultBankAccountRequest) returns (GetDefaultBankAccountResponse);
@@ -82,17 +82,7 @@ message BankAccountModel {
 }
 
 message CreateOrganizationRequest {
-    optional string name = 1;
-    optional string image_url = 2;
-    string type = 3;
-    optional string legal_name = 4;
-    optional string bin = 5;
-    optional string phone_number = 6;
-    optional string email = 7;
-    optional AddressModel address = 8;
-    optional string legal_address = 9;
-    repeated ImageModel images = 10;
-    optional int64 user_id = 11;
+    Organization organization = 1;
 }
 
 message CreateOrganizationResponse {
@@ -120,11 +110,11 @@ message ListOrganizationsResponse {
     int32 total_count = 2;
 }
 
-message UpdateOrganizationRequest {
+message PatchOrganizationRequest {
     Organization organization = 1;
 }
 
-message UpdateOrganizationResponse {
+message PatchOrganizationResponse {
     string token = 1;
     Organization organization = 2;
 }
