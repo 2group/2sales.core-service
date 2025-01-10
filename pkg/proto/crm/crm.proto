@@ -46,17 +46,8 @@ service CRMService {
 message Organization {
     optional int64 organization_id = 1;
     optional string name = 2;
-    optional string legal_name = 4;
-    optional Address address = 5;
-}
-
-message Address {
-  optional int64 id = 1;
-  string type = 2;
-  string country = 3;
-  string address_line = 4;
-  optional float latitude = 8;
-  optional float longitude = 9;
+    optional string legal_name = 3;
+    optional string address = 4;
 }
 
 // LeadModel now embeds both organizations (created_by, counterparty).
