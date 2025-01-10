@@ -109,7 +109,7 @@ func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.
 
 	json.ParseJSON(r, &req)
 
-	req.Id = &organization_id
+	req.Organization.Id = &organization_id
 
 	response, err := h.organization.Api.UpdateOrganization(r.Context(), req)
 	if err != nil {
