@@ -80,7 +80,7 @@ message CreateOrganizationRequest {
 }
 
 message CreateOrganizationResponse {
-    string token = 1;
+    optional string token = 1;
     OrganizationModel organization = 2;
 }
 
