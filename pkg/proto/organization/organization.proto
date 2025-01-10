@@ -41,7 +41,7 @@ message ImageModel {
     int64 index = 3;
 }
 
-message OrganizationModel {
+message Organization {
     optional int64 id = 1;
     optional string name = 2;
     optional string image_url = 3;
@@ -53,6 +53,22 @@ message OrganizationModel {
     optional AddressModel address = 9;
     optional string legal_address = 10;
     repeated ImageModel images = 11;
+}
+
+message OrganizationModel {
+    optional int64 id = 1;
+    optional string name = 2;
+    optional string image_url = 3;
+    string type = 4;
+    optional string legal_name = 5;
+    optional string bin = 6;
+    optional string phone_number = 7;
+    optional string email = 8;
+    optional AddressModel address = 9;
+    optional string legal_address = 10;
+    repeated ImageModel images = 11;
+    string created_at = 12;
+    string updated_at = 13;
 }
 
 message BankAccountModel {
@@ -89,7 +105,7 @@ message GetOrganizationRequest {
 }
 
 message GetOrganizationResponse {
-    OrganizationModel organization = 1;
+    Organization organization = 1;
 }
 
 message ListOrganizationsRequest {
