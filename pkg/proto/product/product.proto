@@ -44,6 +44,7 @@ message ProductModel {
     int64 brand_id = 16;
     string brand_name = 17;
     repeated ProductCharacteristics characteristics = 18;
+    repeated CharacteristicGroup characteristic_groups = 19;
 }
 
 message ProductCharacteristics {
