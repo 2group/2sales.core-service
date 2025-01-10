@@ -105,16 +105,16 @@ message ListOrganizationsResponse {
 }
 
 message UpdateOrganizationRequest {
-    int64 id = 1;
-    string name = 2;
-    string image_url = 3;
-    string type = 4;
-    string legal_name = 5;
-    string bin = 6;
-    string phone_number = 7;
-    string email = 8;
-    AddressModel address = 9;
-    AddressModel legal_address = 10;
+    optional int64 id = 1;
+    optional string name = 2;
+    optional string image_url = 3;
+    optional string type = 4;
+    optional string legal_name = 5;
+    optional string bin = 6;
+    optional string phone_number = 7;
+    optional string email = 8;
+    optional AddressModel address = 9;
+    optional string legal_address = 10;
     repeated ImageModel images = 11;
 }
 
