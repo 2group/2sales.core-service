@@ -107,7 +107,7 @@ message ListOrganizationsRequest {
 }
 
 message ListOrganizationsResponse {
-    repeated OrganizationModel organizations = 1;
+    repeated Organization organizations = 1;
     int32 total_count = 2;
 }
 
