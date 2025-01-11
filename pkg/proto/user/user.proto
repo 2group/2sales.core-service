@@ -55,6 +55,15 @@ message UpdateUserResponse {
     UserModel user = 2;
 }
 
+message PatchUserRequest {
+    User user = 1;
+}
+
+message PatchUserResponse {
+    string token = 1;
+    User user = 2;
+}
+
 message GetUserRequest {
     int64 user_id = 1;
 }

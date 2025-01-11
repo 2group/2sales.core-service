@@ -90,9 +90,35 @@ func (h *UserHandler) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	req.UserId = int64(user_id)
+	*req.User.Id = int64(user_id)
 
 	response, err := h.user.Api.UpdateUser(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+	return
+}
+
+func (h *UserHandler) HandlePatchUser(w http.ResponseWriter, r *http.Request) {
+	req := &userv1.PatchUserRequest{}
+	err := json.ParseJSON(r, req)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	user_id, ok := middleware.GetUserID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	*req.User.Id = int64(user_id)
+
+	response, err := h.user.Api.PatchUser(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
