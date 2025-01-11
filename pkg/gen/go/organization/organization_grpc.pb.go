@@ -23,6 +23,7 @@ const (
 	OrganizationService_GetOrganization_FullMethodName       = "/organization.OrganizationService/GetOrganization"
 	OrganizationService_ListOrganizations_FullMethodName     = "/organization.OrganizationService/ListOrganizations"
 	OrganizationService_PatchOrganization_FullMethodName     = "/organization.OrganizationService/PatchOrganization"
+	OrganizationService_UpdateOrganization_FullMethodName    = "/organization.OrganizationService/UpdateOrganization"
 	OrganizationService_ListBankAccounts_FullMethodName      = "/organization.OrganizationService/ListBankAccounts"
 	OrganizationService_GetDefaultBankAccount_FullMethodName = "/organization.OrganizationService/GetDefaultBankAccount"
 	OrganizationService_CreateBankAccount_FullMethodName     = "/organization.OrganizationService/CreateBankAccount"
@@ -44,6 +45,7 @@ type OrganizationServiceClient interface {
 	GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error)
 	ListOrganizations(ctx context.Context, in *ListOrganizationsRequest, opts ...grpc.CallOption) (*ListOrganizationsResponse, error)
 	PatchOrganization(ctx context.Context, in *PatchOrganizationRequest, opts ...grpc.CallOption) (*PatchOrganizationResponse, error)
+	UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error)
 	ListBankAccounts(ctx context.Context, in *ListBankAccountsRequest, opts ...grpc.CallOption) (*ListBankAccountsResponse, error)
 	GetDefaultBankAccount(ctx context.Context, in *GetDefaultBankAccountRequest, opts ...grpc.CallOption) (*GetDefaultBankAccountResponse, error)
 	CreateBankAccount(ctx context.Context, in *CreateBankAccountRequest, opts ...grpc.CallOption) (*CreateBankAccountResponse, error)
@@ -99,6 +101,16 @@ func (c *organizationServiceClient) PatchOrganization(ctx context.Context, in *P
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(PatchOrganizationResponse)
 	err := c.cc.Invoke(ctx, OrganizationService_PatchOrganization_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateOrganizationResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateOrganization_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -223,6 +235,7 @@ type OrganizationServiceServer interface {
 	GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error)
 	ListOrganizations(context.Context, *ListOrganizationsRequest) (*ListOrganizationsResponse, error)
 	PatchOrganization(context.Context, *PatchOrganizationRequest) (*PatchOrganizationResponse, error)
+	UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error)
 	ListBankAccounts(context.Context, *ListBankAccountsRequest) (*ListBankAccountsResponse, error)
 	GetDefaultBankAccount(context.Context, *GetDefaultBankAccountRequest) (*GetDefaultBankAccountResponse, error)
 	CreateBankAccount(context.Context, *CreateBankAccountRequest) (*CreateBankAccountResponse, error)
@@ -255,6 +268,9 @@ func (UnimplementedOrganizationServiceServer) ListOrganizations(context.Context,
 }
 func (UnimplementedOrganizationServiceServer) PatchOrganization(context.Context, *PatchOrganizationRequest) (*PatchOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PatchOrganization not implemented")
+}
+func (UnimplementedOrganizationServiceServer) UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganization not implemented")
 }
 func (UnimplementedOrganizationServiceServer) ListBankAccounts(context.Context, *ListBankAccountsRequest) (*ListBankAccountsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListBankAccounts not implemented")
@@ -378,6 +394,24 @@ func _OrganizationService_PatchOrganization_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrganizationServiceServer).PatchOrganization(ctx, req.(*PatchOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_UpdateOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateOrganizationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).UpdateOrganization(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_UpdateOrganization_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).UpdateOrganization(ctx, req.(*UpdateOrganizationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -602,6 +636,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PatchOrganization",
 			Handler:    _OrganizationService_PatchOrganization_Handler,
+		},
+		{
+			MethodName: "UpdateOrganization",
+			Handler:    _OrganizationService_UpdateOrganization_Handler,
 		},
 		{
 			MethodName: "ListBankAccounts",

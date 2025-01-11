@@ -31,7 +31,7 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 	req := &organizationv1.CreateOrganizationRequest{}
 	json.ParseJSON(r, &req)
 
-	req.UserId = user_id
+	req.UserId = &user_id
 
 	response, err := h.organization.Api.CreateOrganization(r.Context(), req)
 	if err != nil {
