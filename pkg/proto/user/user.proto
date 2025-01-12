@@ -45,7 +45,7 @@ message UpdateUserRequest {
 }
 
 message UpdateUserResponse {
-    User user = 1;
+    UserModel user = 1;
 }
 
 message PatchUserRequest {
