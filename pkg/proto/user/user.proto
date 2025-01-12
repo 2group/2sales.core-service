@@ -45,8 +45,7 @@ message UpdateUserRequest {
 }
 
 message UpdateUserResponse {
-    string token = 1;
-    User user = 2;
+    User user = 1;
 }
 
 message PatchUserRequest {
@@ -54,8 +53,7 @@ message PatchUserRequest {
 }
 
 message PatchUserResponse {
-    string token = 1;
-    User user = 2;
+    User user = 1;
 }
 
 message GetUserRequest {

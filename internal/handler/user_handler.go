@@ -56,14 +56,14 @@ func (h *UserHandler) HandleRegister(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (h *UserHandler) HandleGetProfile(w http.ResponseWriter, r *http.Request) {
+func (h *UserHandler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
 	user_id, ok := middleware.GetUserID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 	req := &userv1.GetUserRequest{
-		UserId: int64(user_id),
+		UserId: user_id,
 	}
 
 	response, err := h.user.Api.GetUser(r.Context(), req)
@@ -86,11 +86,12 @@ func (h *UserHandler) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
 
 	user_id, ok := middleware.GetUserID(r)
 	if !ok {
-		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
 		return
 	}
 
-	*req.User.Id = int64(user_id)
+	userIDPtr := int64(user_id)
+	req.User.Id = &userIDPtr
 
 	response, err := h.user.Api.UpdateUser(r.Context(), req)
 	if err != nil {
@@ -116,7 +117,8 @@ func (h *UserHandler) HandlePatchUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	*req.User.Id = int64(user_id)
+	userIDPtr := int64(user_id)
+	req.User.Id = &userIDPtr
 
 	response, err := h.user.Api.PatchUser(r.Context(), req)
 	if err != nil {
