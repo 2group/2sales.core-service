@@ -32,18 +32,12 @@ message LoginResponse {
 }
 
 message RegisterRequest {
-    string first_name = 1;
-    string last_name = 2;
-    string email = 3;
-    string phone_number = 4;
-    string password = 5;
-    string organization_type = 6;
-    optional int64 role_id = 7;
+    UserModel user = 1;
 }
 
 message RegisterResponse {
     string token = 1;
-    User user = 2;
+    UserModel user = 2;
 }
 
 message UpdateUserRequest {
@@ -133,16 +127,16 @@ message ListPermissionsResponse {
 
 message User {
     optional int64 id = 1;
-    optional string email = 3;
-    optional string password_hash = 4;
-    optional string phone_number = 5;
-    optional string first_name = 6;
-    optional string last_name = 7;
-    optional int64 organization_id = 8;
-    optional string organization_type = 9;
-    optional string created_at = 10;
-    optional string updated_at = 11;
-    RoleModel role = 12;
+    optional string email = 2;
+    optional string password_hash = 3;
+    optional string phone_number = 4;
+    optional string first_name = 5;
+    optional string last_name = 6;
+    optional int64 organization_id = 7;
+    optional string organization_type = 8;
+    optional string created_at = 9;
+    optional string updated_at = 10;
+    RoleModel role = 11;
 }
 
 message UserModel {
