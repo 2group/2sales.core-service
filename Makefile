@@ -17,7 +17,7 @@ build:
 	@go build -o bin/core ./cmd/core/main.go
 
 run: build
-	@./bin/core --config=./config/server.yaml
+	@./bin/core --config=./config/local.yaml
 
 test:
 	@go test -v ./...
