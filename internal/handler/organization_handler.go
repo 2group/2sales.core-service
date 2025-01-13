@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -24,12 +25,17 @@ func NewOrganizationHandler(organization *grpc.OrganizationClient) *Organization
 func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.Request) {
 	user_id, ok := middleware.GetUserID(r)
 	if !ok {
-		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
 		return
 	}
 
 	req := &organizationv1.CreateOrganizationRequest{}
-	json.ParseJSON(r, &req)
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	log.Println(req)
 
 	req.UserId = &user_id
 
