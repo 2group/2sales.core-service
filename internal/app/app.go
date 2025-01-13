@@ -98,5 +98,5 @@ func (s *APIServer) Run() error {
 		})
 	})
 
-	return http.ListenAndServe(fmt.Sprintf("localhost:%d", s.cfg.REST.Port), router)
+	return http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", s.cfg.REST.Port), router)
 }
