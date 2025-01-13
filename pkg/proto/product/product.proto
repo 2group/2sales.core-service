@@ -128,7 +128,7 @@ message DuplicateProductResponse {
 }
 
 message UploadProductsRequest {
-    repeated ProductModel products = 1;
+    bytes excel_file = 1;
 }
 
 message UploadProductsResponse {
