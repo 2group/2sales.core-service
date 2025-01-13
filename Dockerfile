@@ -17,5 +17,5 @@ RUN go build -o bin/core ./cmd/core/main.go
 # Expose the application port
 EXPOSE 8090
 
-# Command to run the application
-CMD ["./bin/core"]
+# Command to run the application with the configuration file
+CMD ["./bin/core", "--config=./config/server.yaml"]

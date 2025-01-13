@@ -50,6 +50,6 @@ jobs:
             docker run -d \
               --name core-service \
               --network app-network \
-              -v /home/2sales/core-service/config.yaml:/app/config/local.yaml \
+              -v /home/2sales/core-service/config.yaml:/app/config/server.yaml \
               -p 8090:8090 \
               arsen2group/core-service:latest
