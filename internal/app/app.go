@@ -76,6 +76,15 @@ func (s *APIServer) Run() error {
 				authRouter.Use(auth.AuthMiddleware)
 			})
 		})
+        apiRouter.Route("/product", func(productRouter chi.Router) {
+			productRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+			    authRouter.Get("/{product_id}", productHandler.GetProduct)
+			    authRouter.Get("/", productHandler.ListProducts)
+                authRouter.Post("/", productHandler.CreateProduct)
+			    authRouter.Put("/{product_id}", productHandler.UpdateProduct)
+			})
+		})
 		apiRouter.Route("/organization", func(organizationRouter chi.Router) {
 			organizationRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
