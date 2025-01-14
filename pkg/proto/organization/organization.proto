@@ -23,6 +23,10 @@ service OrganizationService {
     rpc GetAddress (GetAddressRequest) returns (GetAddressResponse);
     rpc UpdateAddress (UpdateAddressRequest) returns (UpdateAddressResponse);
     rpc DeleteAddress (DeleteAddressRequest) returns (DeleteAddressResponse);
+
+    rpc GetRelationshipType(GetRelationshipTypeRequest) returns (GetRelationshipTypeResponse);
+    rpc CreateRelationshipType (CreateRelationshipTypeRequest) returns  (CreateRelationshipTypeResponse);
+    rpc UpdateRelationshipType (UpdateRelationshipTypeRequest) returns (UpdateRelationshipTypeResponse);
 }
 
 message AddressModel {
@@ -81,6 +85,19 @@ message BankAccountModel {
     bool is_default = 7;
 }
 
+message RelationshipTypeModel {
+    optional int64 relationship_type_id = 1;
+    optional int64 owning_organization_id = 2;
+    optional string type_name = 3;
+    optional string description = 4;
+    optional string created_at = 5;
+    optional string updated_at = 6;
+}
+
+//-----------------------
+//-----REQ_RESPONSES-----
+//-----------------------
+
 message CreateOrganizationRequest {
     Organization organization = 1;
     optional int64 user_id = 2;
@@ -127,6 +144,10 @@ message UpdateOrganizationRequest {
 message UpdateOrganizationResponse {
     OrganizationModel organization = 1;
 }
+
+//-----------------------
+//-----BANK_ACCOUNTS-----
+//-----------------------
 
 message ListBankAccountsRequest {
     int64 organization_id = 1;
@@ -195,6 +216,10 @@ message GetBankAccountResponse {
     BankAccountModel bank_account = 1;
 }
 
+//-----------------
+//-----ADDRESS-----
+//-----------------
+
 message CreateAddressRequest {
     AddressModel address = 1;
 }
@@ -227,3 +252,30 @@ message DeleteAddressResponse {
     bool success = 1;
 }
 
+//---------------------------
+//-----RELATIONSHIP_TYPE-----
+//---------------------------
+
+message GetRelationshipTypeRequest {
+    int64 id = 1;
+}
+
+message GetRelationshipTypeResponse {
+    RelationshipTypeModel relationship_type = 1;
+}
+
+message CreateRelationshipTypeRequest {
+    RelationshipTypeModel relationship_type = 1;
+}
+
+message CreateRelationshipTypeResponse {
+    RelationshipTypeModel relationship_type = 1;
+}
+
+message UpdateRelationshipTypeRequest {
+    RelationshipTypeModel relationship_type = 1;
+}
+
+message UpdateRelationshipTypeResponse {
+    RelationshipTypeModel relationship_type = 1;
+}

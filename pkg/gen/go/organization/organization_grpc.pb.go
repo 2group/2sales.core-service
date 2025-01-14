@@ -19,22 +19,25 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrganizationService_CreateOrganization_FullMethodName    = "/organization.OrganizationService/CreateOrganization"
-	OrganizationService_GetOrganization_FullMethodName       = "/organization.OrganizationService/GetOrganization"
-	OrganizationService_ListOrganizations_FullMethodName     = "/organization.OrganizationService/ListOrganizations"
-	OrganizationService_PatchOrganization_FullMethodName     = "/organization.OrganizationService/PatchOrganization"
-	OrganizationService_UpdateOrganization_FullMethodName    = "/organization.OrganizationService/UpdateOrganization"
-	OrganizationService_ListBankAccounts_FullMethodName      = "/organization.OrganizationService/ListBankAccounts"
-	OrganizationService_GetDefaultBankAccount_FullMethodName = "/organization.OrganizationService/GetDefaultBankAccount"
-	OrganizationService_CreateBankAccount_FullMethodName     = "/organization.OrganizationService/CreateBankAccount"
-	OrganizationService_UpdateBankAccount_FullMethodName     = "/organization.OrganizationService/UpdateBankAccount"
-	OrganizationService_PatchBankAccount_FullMethodName      = "/organization.OrganizationService/PatchBankAccount"
-	OrganizationService_DeleteBankAccount_FullMethodName     = "/organization.OrganizationService/DeleteBankAccount"
-	OrganizationService_GetBankAccount_FullMethodName        = "/organization.OrganizationService/GetBankAccount"
-	OrganizationService_CreateAddress_FullMethodName         = "/organization.OrganizationService/CreateAddress"
-	OrganizationService_GetAddress_FullMethodName            = "/organization.OrganizationService/GetAddress"
-	OrganizationService_UpdateAddress_FullMethodName         = "/organization.OrganizationService/UpdateAddress"
-	OrganizationService_DeleteAddress_FullMethodName         = "/organization.OrganizationService/DeleteAddress"
+	OrganizationService_CreateOrganization_FullMethodName     = "/organization.OrganizationService/CreateOrganization"
+	OrganizationService_GetOrganization_FullMethodName        = "/organization.OrganizationService/GetOrganization"
+	OrganizationService_ListOrganizations_FullMethodName      = "/organization.OrganizationService/ListOrganizations"
+	OrganizationService_PatchOrganization_FullMethodName      = "/organization.OrganizationService/PatchOrganization"
+	OrganizationService_UpdateOrganization_FullMethodName     = "/organization.OrganizationService/UpdateOrganization"
+	OrganizationService_ListBankAccounts_FullMethodName       = "/organization.OrganizationService/ListBankAccounts"
+	OrganizationService_GetDefaultBankAccount_FullMethodName  = "/organization.OrganizationService/GetDefaultBankAccount"
+	OrganizationService_CreateBankAccount_FullMethodName      = "/organization.OrganizationService/CreateBankAccount"
+	OrganizationService_UpdateBankAccount_FullMethodName      = "/organization.OrganizationService/UpdateBankAccount"
+	OrganizationService_PatchBankAccount_FullMethodName       = "/organization.OrganizationService/PatchBankAccount"
+	OrganizationService_DeleteBankAccount_FullMethodName      = "/organization.OrganizationService/DeleteBankAccount"
+	OrganizationService_GetBankAccount_FullMethodName         = "/organization.OrganizationService/GetBankAccount"
+	OrganizationService_CreateAddress_FullMethodName          = "/organization.OrganizationService/CreateAddress"
+	OrganizationService_GetAddress_FullMethodName             = "/organization.OrganizationService/GetAddress"
+	OrganizationService_UpdateAddress_FullMethodName          = "/organization.OrganizationService/UpdateAddress"
+	OrganizationService_DeleteAddress_FullMethodName          = "/organization.OrganizationService/DeleteAddress"
+	OrganizationService_GetRelationshipType_FullMethodName    = "/organization.OrganizationService/GetRelationshipType"
+	OrganizationService_CreateRelationshipType_FullMethodName = "/organization.OrganizationService/CreateRelationshipType"
+	OrganizationService_UpdateRelationshipType_FullMethodName = "/organization.OrganizationService/UpdateRelationshipType"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -57,6 +60,9 @@ type OrganizationServiceClient interface {
 	GetAddress(ctx context.Context, in *GetAddressRequest, opts ...grpc.CallOption) (*GetAddressResponse, error)
 	UpdateAddress(ctx context.Context, in *UpdateAddressRequest, opts ...grpc.CallOption) (*UpdateAddressResponse, error)
 	DeleteAddress(ctx context.Context, in *DeleteAddressRequest, opts ...grpc.CallOption) (*DeleteAddressResponse, error)
+	GetRelationshipType(ctx context.Context, in *GetRelationshipTypeRequest, opts ...grpc.CallOption) (*GetRelationshipTypeResponse, error)
+	CreateRelationshipType(ctx context.Context, in *CreateRelationshipTypeRequest, opts ...grpc.CallOption) (*CreateRelationshipTypeResponse, error)
+	UpdateRelationshipType(ctx context.Context, in *UpdateRelationshipTypeRequest, opts ...grpc.CallOption) (*UpdateRelationshipTypeResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -227,6 +233,36 @@ func (c *organizationServiceClient) DeleteAddress(ctx context.Context, in *Delet
 	return out, nil
 }
 
+func (c *organizationServiceClient) GetRelationshipType(ctx context.Context, in *GetRelationshipTypeRequest, opts ...grpc.CallOption) (*GetRelationshipTypeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRelationshipTypeResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GetRelationshipType_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) CreateRelationshipType(ctx context.Context, in *CreateRelationshipTypeRequest, opts ...grpc.CallOption) (*CreateRelationshipTypeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateRelationshipTypeResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateRelationshipType_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) UpdateRelationshipType(ctx context.Context, in *UpdateRelationshipTypeRequest, opts ...grpc.CallOption) (*UpdateRelationshipTypeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateRelationshipTypeResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateRelationshipType_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationServiceServer is the server API for OrganizationService service.
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
@@ -247,6 +283,9 @@ type OrganizationServiceServer interface {
 	GetAddress(context.Context, *GetAddressRequest) (*GetAddressResponse, error)
 	UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error)
 	DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error)
+	GetRelationshipType(context.Context, *GetRelationshipTypeRequest) (*GetRelationshipTypeResponse, error)
+	CreateRelationshipType(context.Context, *CreateRelationshipTypeRequest) (*CreateRelationshipTypeResponse, error)
+	UpdateRelationshipType(context.Context, *UpdateRelationshipTypeRequest) (*UpdateRelationshipTypeResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -304,6 +343,15 @@ func (UnimplementedOrganizationServiceServer) UpdateAddress(context.Context, *Up
 }
 func (UnimplementedOrganizationServiceServer) DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAddress not implemented")
+}
+func (UnimplementedOrganizationServiceServer) GetRelationshipType(context.Context, *GetRelationshipTypeRequest) (*GetRelationshipTypeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRelationshipType not implemented")
+}
+func (UnimplementedOrganizationServiceServer) CreateRelationshipType(context.Context, *CreateRelationshipTypeRequest) (*CreateRelationshipTypeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRelationshipType not implemented")
+}
+func (UnimplementedOrganizationServiceServer) UpdateRelationshipType(context.Context, *UpdateRelationshipTypeRequest) (*UpdateRelationshipTypeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRelationshipType not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -614,6 +662,60 @@ func _OrganizationService_DeleteAddress_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_GetRelationshipType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRelationshipTypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).GetRelationshipType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_GetRelationshipType_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).GetRelationshipType(ctx, req.(*GetRelationshipTypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_CreateRelationshipType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRelationshipTypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).CreateRelationshipType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_CreateRelationshipType_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).CreateRelationshipType(ctx, req.(*CreateRelationshipTypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_UpdateRelationshipType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRelationshipTypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).UpdateRelationshipType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_UpdateRelationshipType_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).UpdateRelationshipType(ctx, req.(*UpdateRelationshipTypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationService_ServiceDesc is the grpc.ServiceDesc for OrganizationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -684,6 +786,18 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteAddress",
 			Handler:    _OrganizationService_DeleteAddress_Handler,
+		},
+		{
+			MethodName: "GetRelationshipType",
+			Handler:    _OrganizationService_GetRelationshipType_Handler,
+		},
+		{
+			MethodName: "CreateRelationshipType",
+			Handler:    _OrganizationService_CreateRelationshipType_Handler,
+		},
+		{
+			MethodName: "UpdateRelationshipType",
+			Handler:    _OrganizationService_UpdateRelationshipType_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
