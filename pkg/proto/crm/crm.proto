@@ -55,7 +55,7 @@ message Lead {
     optional int64 lead_id = 1;
     optional int64 created_by_organization_id = 2;    
     optional Organization counterparty_organization = 3;
-    optional string stage = 4;  
+    string stage = 4;  
     optional double estimated_value = 5;
 }
 
@@ -63,7 +63,7 @@ message LeadModel {
     optional int64 lead_id = 1;
     optional int64 created_by_organization_id = 2;
     optional int64 counterparty_organization_id = 3;
-    optional string stage = 4;           // e.g. "initial_contact", "negotiations"
+    string stage = 4;           // e.g. "initial_contact", "negotiations"
     optional double estimated_value = 5; // e.g. potential deal amount
     optional string created_at = 6;
     optional string updated_at = 7;

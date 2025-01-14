@@ -62,10 +62,10 @@ message OrganizationModel {
     optional string image_url = 3;
     string type = 4;
     optional string legal_name = 5;
-    optional int64 address_id = 6;
+    optional string bin = 6;
     optional string phone_number = 7;
     optional string email = 8;
-    optional string bin = 9;
+    optional int64 address_id = 9;
     optional string legal_address = 10;
     string created_at = 11;
     string updated_at = 12;
