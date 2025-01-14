@@ -86,7 +86,7 @@ message BankAccountModel {
 }
 
 message RelationshipTypeModel {
-    optional int64 relationship_type_id = 1;
+    optional int64 id = 1;
     optional int64 owning_organization_id = 2;
     optional string type_name = 3;
     optional string description = 4;

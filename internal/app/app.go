@@ -52,7 +52,7 @@ func (s *APIServer) Run() error {
 	}
 
 	userHandler := handler.NewUserHandler(usergrpc)
-	organizationHandler := handler.NewOrganizationHandler(organizationgrpc)
+	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	productHandler := handler.NewProductHandler(s.log, productgrpc)
 	crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 

@@ -11,6 +11,7 @@ import (
 	organizationv1 "github.com/2group/2sales.core-service/pkg/gen/go/organization"
 	"github.com/2group/2sales.core-service/pkg/json"
 	middleware "github.com/2group/2sales.core-service/pkg/middeware"
+	"github.com/go-chi/chi/v5"
 )
 
 type OrganizationHandler struct {
@@ -18,8 +19,8 @@ type OrganizationHandler struct {
 	organization *grpc.OrganizationClient
 }
 
-func NewOrganizationHandler(organization *grpc.OrganizationClient) *OrganizationHandler {
-	return &OrganizationHandler{organization: organization}
+func NewOrganizationHandler(log *slog.Logger, organization *grpc.OrganizationClient) *OrganizationHandler {
+	return &OrganizationHandler{log: log, organization: organization}
 }
 
 func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.Request) {
@@ -181,7 +182,16 @@ func (h *OrganizationHandler) UpdateRelationshipType(w http.ResponseWriter, r *h
 }
 
 func (h *OrganizationHandler) GetRelationshipType(w http.ResponseWriter, r *http.Request) {
-	req := &organizationv1.GetRelationshipTypeRequest{}
+	relationshipTypeIDStr := chi.URLParam(r, "relationship_type_id")
+
+	relationshipTypeID, err := strconv.ParseInt(relationshipTypeIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid lead_id format", "lead_id", relationshipTypeIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.GetRelationshipTypeRequest{Id: relationshipTypeID}
 
 	json.ParseJSON(r, &req)
 
