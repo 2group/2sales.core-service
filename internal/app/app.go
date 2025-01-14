@@ -28,6 +28,7 @@ func (s *APIServer) Run() error {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 	router.Use(middleware.URLFormat)
+    router.Use(auth.CorsMiddleware)
 	context := context.Background()
 
 	usergrpc, err := grpc.NewUserClient(context, s.cfg.GRPC.User, time.Hour, 2)
