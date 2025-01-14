@@ -28,7 +28,7 @@ func (s *APIServer) Run() error {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 	router.Use(middleware.URLFormat)
-    router.Use(auth.CorsMiddleware)
+	router.Use(auth.CorsMiddleware)
 	context := context.Background()
 
 	usergrpc, err := grpc.NewUserClient(context, s.cfg.GRPC.User, time.Hour, 2)
@@ -77,33 +77,39 @@ func (s *APIServer) Run() error {
 				authRouter.Use(auth.AuthMiddleware)
 			})
 		})
-        apiRouter.Route("/product", func(productRouter chi.Router) {
+		apiRouter.Route("/product", func(productRouter chi.Router) {
 			productRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-			    authRouter.Get("/{product_id}", productHandler.GetProduct)
-			    authRouter.Get("/", productHandler.ListProducts)
-                authRouter.Post("/", productHandler.CreateProduct)
-			    authRouter.Put("/{product_id}", productHandler.UpdateProduct)
+				authRouter.Get("/{product_id}", productHandler.GetProduct)
+				authRouter.Get("/", productHandler.ListProducts)
+				authRouter.Post("/", productHandler.CreateProduct)
+				authRouter.Put("/{product_id}", productHandler.UpdateProduct)
 			})
 		})
-		apiRouter.Route("/organization", func(organizationRouter chi.Router) {
-			organizationRouter.Group(func(authRouter chi.Router) {
+		apiRouter.Route("/organizations", func(orgRouter chi.Router) {
+			orgRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", organizationHandler.CreateOrganization)
-				authRouter.Get("/", organizationHandler.GetOrganization)
-				authRouter.Patch("/", organizationHandler.PatchOrganization)
-				authRouter.Get("/list", organizationHandler.ListOrganizations)
+				authRouter.Get("/", organizationHandler.ListOrganizations)
+				authRouter.Get("/my", organizationHandler.GetOrganization)
+				authRouter.Put("/my", organizationHandler.UpdateOrganization)
+				authRouter.Patch("/my", organizationHandler.PatchOrganization)
+				authRouter.Route("/relationship-types", func(rtRouter chi.Router) {
+					rtRouter.Post("/", organizationHandler.CreateRelationshipType)
+					rtRouter.Get("/{relationship_type_id}", organizationHandler.GetRelationshipType)
+					rtRouter.Put("/{relationship_type_id}", organizationHandler.UpdateRelationshipType)
+				})
 			})
 		})
 		apiRouter.Route("/crm", func(crmRouter chi.Router) {
 			crmRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Post("/leads", crmHandler.CreateLead)
-				authRouter.Get("/leads", crmHandler.ListLeads)
-				authRouter.Get("/leads/{lead_id}", crmHandler.GetLead)
-				authRouter.Put("/leads/{lead_id}", crmHandler.UpdateLead)
-				authRouter.Patch("/leads/{lead_id}", crmHandler.PatchLead)
-				authRouter.Delete("/leads/{lead_id}", crmHandler.DeleteLead)
+				authRouter.Post("/lead", crmHandler.CreateLead)
+				authRouter.Get("/lead", crmHandler.ListLeads)
+				authRouter.Get("/lead/{lead_id}", crmHandler.GetLead)
+				authRouter.Put("/lead/{lead_id}", crmHandler.UpdateLead)
+				authRouter.Patch("/lead/{lead_id}", crmHandler.PatchLead)
+				authRouter.Delete("/lead/{lead_id}", crmHandler.DeleteLead)
 			})
 		})
 	})

@@ -126,3 +126,71 @@ func (h *OrganizationHandler) PatchOrganization(w http.ResponseWriter, r *http.R
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
+
+func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &organizationv1.UpdateOrganizationRequest{}
+
+	json.ParseJSON(r, &req)
+
+	req.Organization.Id = &organization_id
+
+	response, err := h.organization.Api.UpdateOrganization(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) CreateRelationshipType(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.CreateRelationshipTypeRequest{}
+
+	json.ParseJSON(r, &req)
+
+	response, err := h.organization.Api.CreateRelationshipType(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) UpdateRelationshipType(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.UpdateRelationshipTypeRequest{}
+
+	json.ParseJSON(r, &req)
+
+	response, err := h.organization.Api.UpdateRelationshipType(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) GetRelationshipType(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.GetRelationshipTypeRequest{}
+
+	json.ParseJSON(r, &req)
+
+	response, err := h.organization.Api.GetRelationshipType(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
