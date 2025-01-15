@@ -47,7 +47,7 @@ message Organization {
     optional int64 organization_id = 1;
     optional string name = 2;
     optional string legal_name = 3;
-    optional string address = 4;
+    optional AddressModel address = 4;
 }
 
 // LeadModel now embeds both organizations (created_by, counterparty).
@@ -97,6 +97,11 @@ message ChatMessageModel {
     int64 created_by = 3;
     string message_text = 4;
     string created_at = 5;
+}
+
+message AddressModel {
+  optional int64 id = 1;
+  string address_line = 2;
 }
 
 message CreateLeadRequest {

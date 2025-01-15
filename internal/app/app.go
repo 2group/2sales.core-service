@@ -94,6 +94,13 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/my", organizationHandler.GetOrganization)
 				authRouter.Put("/my", organizationHandler.UpdateOrganization)
 				authRouter.Patch("/my", organizationHandler.PatchOrganization)
+				authRouter.Route("/addresses", func(aRouter chi.Router) {
+					aRouter.Post("/", organizationHandler.CreateAddress)
+					aRouter.Put("/address_id", organizationHandler.UpdateAddress)
+					aRouter.Get("/address_id", organizationHandler.GetAddress)
+					aRouter.Patch("/address_id", organizationHandler.PatchAddress)
+					aRouter.Delete("/address_id", organizationHandler.DeleteAddress)
+				})
 				authRouter.Route("/relationships", func(rRouter chi.Router) {
 					rRouter.Post("/", organizationHandler.CreateRelationship)
 					rRouter.Get("/my", organizationHandler.ListRelationships)

@@ -314,3 +314,118 @@ func (h *OrganizationHandler) ListRelationshipTypes(w http.ResponseWriter, r *ht
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
+
+func (h *OrganizationHandler) CreateAddress(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.CreateAddressRequest{}
+
+	json.ParseJSON(r, &req)
+
+	response, err := h.organization.Api.CreateAddress(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
+	addressIDStr := chi.URLParam(r, "address_id")
+
+	addressID, err := strconv.ParseInt(addressIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid address_id format", "address_id", addressIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.UpdateAddressRequest{}
+
+	json.ParseJSON(r, &req)
+
+	req.Address.Id = &addressID
+
+	response, err := h.organization.Api.UpdateAddress(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) PatchAddress(w http.ResponseWriter, r *http.Request) {
+	addressIDStr := chi.URLParam(r, "address_id")
+
+	addressID, err := strconv.ParseInt(addressIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid address_id format", "address_id", addressIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.PatchAddressRequest{}
+
+	json.ParseJSON(r, &req)
+
+	req.Address.Id = &addressID
+
+	response, err := h.organization.Api.PatchAddress(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) DeleteAddress(w http.ResponseWriter, r *http.Request) {
+	addressIDStr := chi.URLParam(r, "address_id")
+
+	addressID, err := strconv.ParseInt(addressIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid address_id format", "address_id", addressIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.DeleteAddressRequest{}
+
+	req.Id = addressID
+
+	response, err := h.organization.Api.DeleteAddress(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) GetAddress(w http.ResponseWriter, r *http.Request) {
+	addressIDStr := chi.URLParam(r, "address_id")
+
+	addressID, err := strconv.ParseInt(addressIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid address_id format", "address_id", addressIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.GetAddressRequest{}
+
+	req.Id = addressID
+
+	response, err := h.organization.Api.GetAddress(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
