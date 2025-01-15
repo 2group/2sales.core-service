@@ -96,6 +96,7 @@ func (s *APIServer) Run() error {
 				authRouter.Patch("/my", organizationHandler.PatchOrganization)
 				authRouter.Route("/relationship-types", func(rtRouter chi.Router) {
 					rtRouter.Post("/", organizationHandler.CreateRelationshipType)
+					rtRouter.Get("/my", organizationHandler.ListRelationshipTypes)
 					rtRouter.Get("/{relationship_type_id}", organizationHandler.GetRelationshipType)
 					rtRouter.Put("/{relationship_type_id}", organizationHandler.UpdateRelationshipType)
 				})
