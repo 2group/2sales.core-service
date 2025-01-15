@@ -111,6 +111,7 @@ message ListProductRequest {
     int64 brand_id = 8;
     float price_from = 9;
     float price_to = 10;
+    string pdf_url = 11;
 }
 
 message ListProductResponse {
