@@ -25,6 +25,7 @@ service OrganizationService {
     rpc DeleteAddress (DeleteAddressRequest) returns (DeleteAddressResponse);
 
     rpc CreateRelationship (CreateRelationshipRequest) returns (CreateRelationshipResponse);
+    rpc EnsureRelationshipExists (EnsureRelationshipExistsRequest) returns (EnsureRelationshipExistsResponse);
     rpc UpdateRelationship (UpdateRelationshipRequest) returns (UpdateRelationshipResponse);
 
     rpc GetRelationshipType (GetRelationshipTypeRequest) returns (GetRelationshipTypeResponse);
@@ -283,6 +284,14 @@ message UpdateRelationshipRequest {
 }
 
 message UpdateRelationshipResponse {
+    RelationshipModel relationship = 1;
+}
+
+message EnsureRelationshipExistsRequest {
+    RelationshipModel relationship = 1;
+}
+
+message EnsureRelationshipExistsResponse {
     RelationshipModel relationship = 1;
 }
 

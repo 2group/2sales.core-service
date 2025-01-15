@@ -19,28 +19,29 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrganizationService_CreateOrganization_FullMethodName     = "/organization.OrganizationService/CreateOrganization"
-	OrganizationService_GetOrganization_FullMethodName        = "/organization.OrganizationService/GetOrganization"
-	OrganizationService_ListOrganizations_FullMethodName      = "/organization.OrganizationService/ListOrganizations"
-	OrganizationService_PatchOrganization_FullMethodName      = "/organization.OrganizationService/PatchOrganization"
-	OrganizationService_UpdateOrganization_FullMethodName     = "/organization.OrganizationService/UpdateOrganization"
-	OrganizationService_ListBankAccounts_FullMethodName       = "/organization.OrganizationService/ListBankAccounts"
-	OrganizationService_GetDefaultBankAccount_FullMethodName  = "/organization.OrganizationService/GetDefaultBankAccount"
-	OrganizationService_CreateBankAccount_FullMethodName      = "/organization.OrganizationService/CreateBankAccount"
-	OrganizationService_UpdateBankAccount_FullMethodName      = "/organization.OrganizationService/UpdateBankAccount"
-	OrganizationService_PatchBankAccount_FullMethodName       = "/organization.OrganizationService/PatchBankAccount"
-	OrganizationService_DeleteBankAccount_FullMethodName      = "/organization.OrganizationService/DeleteBankAccount"
-	OrganizationService_GetBankAccount_FullMethodName         = "/organization.OrganizationService/GetBankAccount"
-	OrganizationService_CreateAddress_FullMethodName          = "/organization.OrganizationService/CreateAddress"
-	OrganizationService_GetAddress_FullMethodName             = "/organization.OrganizationService/GetAddress"
-	OrganizationService_UpdateAddress_FullMethodName          = "/organization.OrganizationService/UpdateAddress"
-	OrganizationService_DeleteAddress_FullMethodName          = "/organization.OrganizationService/DeleteAddress"
-	OrganizationService_CreateRelationship_FullMethodName     = "/organization.OrganizationService/CreateRelationship"
-	OrganizationService_UpdateRelationship_FullMethodName     = "/organization.OrganizationService/UpdateRelationship"
-	OrganizationService_GetRelationshipType_FullMethodName    = "/organization.OrganizationService/GetRelationshipType"
-	OrganizationService_ListRelationshipTypes_FullMethodName  = "/organization.OrganizationService/ListRelationshipTypes"
-	OrganizationService_CreateRelationshipType_FullMethodName = "/organization.OrganizationService/CreateRelationshipType"
-	OrganizationService_UpdateRelationshipType_FullMethodName = "/organization.OrganizationService/UpdateRelationshipType"
+	OrganizationService_CreateOrganization_FullMethodName       = "/organization.OrganizationService/CreateOrganization"
+	OrganizationService_GetOrganization_FullMethodName          = "/organization.OrganizationService/GetOrganization"
+	OrganizationService_ListOrganizations_FullMethodName        = "/organization.OrganizationService/ListOrganizations"
+	OrganizationService_PatchOrganization_FullMethodName        = "/organization.OrganizationService/PatchOrganization"
+	OrganizationService_UpdateOrganization_FullMethodName       = "/organization.OrganizationService/UpdateOrganization"
+	OrganizationService_ListBankAccounts_FullMethodName         = "/organization.OrganizationService/ListBankAccounts"
+	OrganizationService_GetDefaultBankAccount_FullMethodName    = "/organization.OrganizationService/GetDefaultBankAccount"
+	OrganizationService_CreateBankAccount_FullMethodName        = "/organization.OrganizationService/CreateBankAccount"
+	OrganizationService_UpdateBankAccount_FullMethodName        = "/organization.OrganizationService/UpdateBankAccount"
+	OrganizationService_PatchBankAccount_FullMethodName         = "/organization.OrganizationService/PatchBankAccount"
+	OrganizationService_DeleteBankAccount_FullMethodName        = "/organization.OrganizationService/DeleteBankAccount"
+	OrganizationService_GetBankAccount_FullMethodName           = "/organization.OrganizationService/GetBankAccount"
+	OrganizationService_CreateAddress_FullMethodName            = "/organization.OrganizationService/CreateAddress"
+	OrganizationService_GetAddress_FullMethodName               = "/organization.OrganizationService/GetAddress"
+	OrganizationService_UpdateAddress_FullMethodName            = "/organization.OrganizationService/UpdateAddress"
+	OrganizationService_DeleteAddress_FullMethodName            = "/organization.OrganizationService/DeleteAddress"
+	OrganizationService_CreateRelationship_FullMethodName       = "/organization.OrganizationService/CreateRelationship"
+	OrganizationService_EnsureRelationshipExists_FullMethodName = "/organization.OrganizationService/EnsureRelationshipExists"
+	OrganizationService_UpdateRelationship_FullMethodName       = "/organization.OrganizationService/UpdateRelationship"
+	OrganizationService_GetRelationshipType_FullMethodName      = "/organization.OrganizationService/GetRelationshipType"
+	OrganizationService_ListRelationshipTypes_FullMethodName    = "/organization.OrganizationService/ListRelationshipTypes"
+	OrganizationService_CreateRelationshipType_FullMethodName   = "/organization.OrganizationService/CreateRelationshipType"
+	OrganizationService_UpdateRelationshipType_FullMethodName   = "/organization.OrganizationService/UpdateRelationshipType"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -64,6 +65,7 @@ type OrganizationServiceClient interface {
 	UpdateAddress(ctx context.Context, in *UpdateAddressRequest, opts ...grpc.CallOption) (*UpdateAddressResponse, error)
 	DeleteAddress(ctx context.Context, in *DeleteAddressRequest, opts ...grpc.CallOption) (*DeleteAddressResponse, error)
 	CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error)
+	EnsureRelationshipExists(ctx context.Context, in *EnsureRelationshipExistsRequest, opts ...grpc.CallOption) (*EnsureRelationshipExistsResponse, error)
 	UpdateRelationship(ctx context.Context, in *UpdateRelationshipRequest, opts ...grpc.CallOption) (*UpdateRelationshipResponse, error)
 	GetRelationshipType(ctx context.Context, in *GetRelationshipTypeRequest, opts ...grpc.CallOption) (*GetRelationshipTypeResponse, error)
 	ListRelationshipTypes(ctx context.Context, in *ListRelationshipTypesRequest, opts ...grpc.CallOption) (*ListRelationshipTypesResponse, error)
@@ -249,6 +251,16 @@ func (c *organizationServiceClient) CreateRelationship(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *organizationServiceClient) EnsureRelationshipExists(ctx context.Context, in *EnsureRelationshipExistsRequest, opts ...grpc.CallOption) (*EnsureRelationshipExistsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EnsureRelationshipExistsResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_EnsureRelationshipExists_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *organizationServiceClient) UpdateRelationship(ctx context.Context, in *UpdateRelationshipRequest, opts ...grpc.CallOption) (*UpdateRelationshipResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateRelationshipResponse)
@@ -320,6 +332,7 @@ type OrganizationServiceServer interface {
 	UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error)
 	DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error)
 	CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error)
+	EnsureRelationshipExists(context.Context, *EnsureRelationshipExistsRequest) (*EnsureRelationshipExistsResponse, error)
 	UpdateRelationship(context.Context, *UpdateRelationshipRequest) (*UpdateRelationshipResponse, error)
 	GetRelationshipType(context.Context, *GetRelationshipTypeRequest) (*GetRelationshipTypeResponse, error)
 	ListRelationshipTypes(context.Context, *ListRelationshipTypesRequest) (*ListRelationshipTypesResponse, error)
@@ -385,6 +398,9 @@ func (UnimplementedOrganizationServiceServer) DeleteAddress(context.Context, *De
 }
 func (UnimplementedOrganizationServiceServer) CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRelationship not implemented")
+}
+func (UnimplementedOrganizationServiceServer) EnsureRelationshipExists(context.Context, *EnsureRelationshipExistsRequest) (*EnsureRelationshipExistsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnsureRelationshipExists not implemented")
 }
 func (UnimplementedOrganizationServiceServer) UpdateRelationship(context.Context, *UpdateRelationshipRequest) (*UpdateRelationshipResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRelationship not implemented")
@@ -728,6 +744,24 @@ func _OrganizationService_CreateRelationship_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_EnsureRelationshipExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EnsureRelationshipExistsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).EnsureRelationshipExists(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_EnsureRelationshipExists_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).EnsureRelationshipExists(ctx, req.(*EnsureRelationshipExistsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrganizationService_UpdateRelationship_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateRelationshipRequest)
 	if err := dec(in); err != nil {
@@ -892,6 +926,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateRelationship",
 			Handler:    _OrganizationService_CreateRelationship_Handler,
+		},
+		{
+			MethodName: "EnsureRelationshipExists",
+			Handler:    _OrganizationService_EnsureRelationshipExists_Handler,
 		},
 		{
 			MethodName: "UpdateRelationship",
