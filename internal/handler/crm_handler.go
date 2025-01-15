@@ -158,28 +158,59 @@ func (h *CrmHandler) DeleteLead(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *CrmHandler) ListLeads(w http.ResponseWriter, r *http.Request) {
+	// 1. Get organization ID from your middleware
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
 		return
 	}
-
 	h.log.Info("list leads handler", "organization_id", organizationID)
 
-	req := &crmv1.ListLeadsRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
+	// 2. Parse query parameters for limit and offset
+	query := r.URL.Query()
+	limitParam := query.Get("limit")
+	offsetParam := query.Get("offset")
+
+	var (
+		limit  int32
+		offset int32
+	)
+
+	// Default limit if none provided (e.g., 10)
+	if limitParam == "" {
+		limit = 10
+	} else {
+		parsedLimit, err := strconv.ParseInt(limitParam, 10, 32)
+		if err != nil {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid limit param"))
+			return
+		}
+		limit = int32(parsedLimit)
 	}
 
-	req.OrganizationId = organizationID
+	if offsetParam != "" {
+		parsedOffset, err := strconv.ParseInt(offsetParam, 10, 32)
+		if err != nil {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid offset param"))
+			return
+		}
+		offset = int32(parsedOffset)
+	}
 
+	// 3. Build the gRPC request
+	req := &crmv1.ListLeadsRequest{
+		OrganizationId: organizationID,
+		Limit:          limit,
+		Offset:         offset,
+	}
+
+	// 4. Call the CRM service
 	response, err := h.crm.Api.ListLeads(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	// 5. Respond with the newly created lead
-	json.WriteJSON(w, http.StatusCreated, response)
+	// 5. Return the leads JSON response
+	json.WriteJSON(w, http.StatusOK, response)
 }
