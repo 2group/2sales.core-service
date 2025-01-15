@@ -151,6 +151,55 @@ func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.
 	return
 }
 
+func (h *OrganizationHandler) CreateRelationship(w http.ResponseWriter, r *http.Request) {
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &organizationv1.CreateRelationshipRequest{}
+
+	json.ParseJSON(r, &req)
+
+	req.Relationship.SourceOrganizationId = &organization_id
+
+	response, err := h.organization.Api.CreateRelationship(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) UpdateRelationship(w http.ResponseWriter, r *http.Request) {
+	relationshipIDStr := chi.URLParam(r, "relationship_id")
+
+	relationshipID, err := strconv.ParseInt(relationshipIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid relationship id format", "relationship_id", relationshipIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.UpdateRelationshipRequest{}
+
+	json.ParseJSON(r, &req)
+
+	req.Relationship.Id = &relationshipID
+
+	response, err := h.organization.Api.UpdateRelationship(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
 func (h *OrganizationHandler) CreateRelationshipType(w http.ResponseWriter, r *http.Request) {
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
@@ -179,7 +228,7 @@ func (h *OrganizationHandler) UpdateRelationshipType(w http.ResponseWriter, r *h
 
 	relationshipTypeID, err := strconv.ParseInt(relationshipTypeIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid lead_id format", "lead_id", relationshipTypeIDStr, "error", err)
+		h.log.Error("invalid relationship_type_id format", "relationship_type_id", relationshipTypeIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
@@ -205,7 +254,7 @@ func (h *OrganizationHandler) GetRelationshipType(w http.ResponseWriter, r *http
 
 	relationshipTypeID, err := strconv.ParseInt(relationshipTypeIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid lead_id format", "lead_id", relationshipTypeIDStr, "error", err)
+		h.log.Error("invalid relationship_type_id format", "relationship_type_id", relationshipTypeIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}

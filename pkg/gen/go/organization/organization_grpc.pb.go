@@ -35,6 +35,8 @@ const (
 	OrganizationService_GetAddress_FullMethodName             = "/organization.OrganizationService/GetAddress"
 	OrganizationService_UpdateAddress_FullMethodName          = "/organization.OrganizationService/UpdateAddress"
 	OrganizationService_DeleteAddress_FullMethodName          = "/organization.OrganizationService/DeleteAddress"
+	OrganizationService_CreateRelationship_FullMethodName     = "/organization.OrganizationService/CreateRelationship"
+	OrganizationService_UpdateRelationship_FullMethodName     = "/organization.OrganizationService/UpdateRelationship"
 	OrganizationService_GetRelationshipType_FullMethodName    = "/organization.OrganizationService/GetRelationshipType"
 	OrganizationService_ListRelationshipTypes_FullMethodName  = "/organization.OrganizationService/ListRelationshipTypes"
 	OrganizationService_CreateRelationshipType_FullMethodName = "/organization.OrganizationService/CreateRelationshipType"
@@ -61,6 +63,8 @@ type OrganizationServiceClient interface {
 	GetAddress(ctx context.Context, in *GetAddressRequest, opts ...grpc.CallOption) (*GetAddressResponse, error)
 	UpdateAddress(ctx context.Context, in *UpdateAddressRequest, opts ...grpc.CallOption) (*UpdateAddressResponse, error)
 	DeleteAddress(ctx context.Context, in *DeleteAddressRequest, opts ...grpc.CallOption) (*DeleteAddressResponse, error)
+	CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error)
+	UpdateRelationship(ctx context.Context, in *UpdateRelationshipRequest, opts ...grpc.CallOption) (*UpdateRelationshipResponse, error)
 	GetRelationshipType(ctx context.Context, in *GetRelationshipTypeRequest, opts ...grpc.CallOption) (*GetRelationshipTypeResponse, error)
 	ListRelationshipTypes(ctx context.Context, in *ListRelationshipTypesRequest, opts ...grpc.CallOption) (*ListRelationshipTypesResponse, error)
 	CreateRelationshipType(ctx context.Context, in *CreateRelationshipTypeRequest, opts ...grpc.CallOption) (*CreateRelationshipTypeResponse, error)
@@ -235,6 +239,26 @@ func (c *organizationServiceClient) DeleteAddress(ctx context.Context, in *Delet
 	return out, nil
 }
 
+func (c *organizationServiceClient) CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateRelationshipResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateRelationship_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) UpdateRelationship(ctx context.Context, in *UpdateRelationshipRequest, opts ...grpc.CallOption) (*UpdateRelationshipResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateRelationshipResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateRelationship_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *organizationServiceClient) GetRelationshipType(ctx context.Context, in *GetRelationshipTypeRequest, opts ...grpc.CallOption) (*GetRelationshipTypeResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetRelationshipTypeResponse)
@@ -295,6 +319,8 @@ type OrganizationServiceServer interface {
 	GetAddress(context.Context, *GetAddressRequest) (*GetAddressResponse, error)
 	UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error)
 	DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error)
+	CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error)
+	UpdateRelationship(context.Context, *UpdateRelationshipRequest) (*UpdateRelationshipResponse, error)
 	GetRelationshipType(context.Context, *GetRelationshipTypeRequest) (*GetRelationshipTypeResponse, error)
 	ListRelationshipTypes(context.Context, *ListRelationshipTypesRequest) (*ListRelationshipTypesResponse, error)
 	CreateRelationshipType(context.Context, *CreateRelationshipTypeRequest) (*CreateRelationshipTypeResponse, error)
@@ -356,6 +382,12 @@ func (UnimplementedOrganizationServiceServer) UpdateAddress(context.Context, *Up
 }
 func (UnimplementedOrganizationServiceServer) DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAddress not implemented")
+}
+func (UnimplementedOrganizationServiceServer) CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRelationship not implemented")
+}
+func (UnimplementedOrganizationServiceServer) UpdateRelationship(context.Context, *UpdateRelationshipRequest) (*UpdateRelationshipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRelationship not implemented")
 }
 func (UnimplementedOrganizationServiceServer) GetRelationshipType(context.Context, *GetRelationshipTypeRequest) (*GetRelationshipTypeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRelationshipType not implemented")
@@ -678,6 +710,42 @@ func _OrganizationService_DeleteAddress_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_CreateRelationship_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRelationshipRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).CreateRelationship(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_CreateRelationship_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).CreateRelationship(ctx, req.(*CreateRelationshipRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_UpdateRelationship_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRelationshipRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).UpdateRelationship(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_UpdateRelationship_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).UpdateRelationship(ctx, req.(*UpdateRelationshipRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrganizationService_GetRelationshipType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRelationshipTypeRequest)
 	if err := dec(in); err != nil {
@@ -820,6 +888,14 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteAddress",
 			Handler:    _OrganizationService_DeleteAddress_Handler,
+		},
+		{
+			MethodName: "CreateRelationship",
+			Handler:    _OrganizationService_CreateRelationship_Handler,
+		},
+		{
+			MethodName: "UpdateRelationship",
+			Handler:    _OrganizationService_UpdateRelationship_Handler,
 		},
 		{
 			MethodName: "GetRelationshipType",
