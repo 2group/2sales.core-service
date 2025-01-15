@@ -95,6 +95,16 @@ message RelationshipTypeModel {
     optional string updated_at = 6;
 }
 
+message RelationshipModel {
+    optional int64 id = 1;
+    optional int64 source_organization_id = 2;
+    optional int64 target_organization_id = 3;
+    optional int64 relationship_type_id = 4;
+    optional string created_at = 5;
+    optional string updated_at = 6;
+}
+
+
 //-----------------------
 //-----REQ_RESPONSES-----
 //-----------------------
@@ -252,6 +262,27 @@ message DeleteAddressRequest {
 message DeleteAddressResponse {
     bool success = 1;
 }
+
+//----------------------
+//-----RELATIONSHIP-----
+//----------------------
+
+message CreateRelationshipRequest {
+    RelationshipModel relationship = 1;
+}
+
+message CreateRelationshipResponse {
+    RelationshipModel relationship = 1;
+}
+
+message UpdateRelationshipRequest {
+    RelationshipModel relationship = 1;
+}
+
+message UpdateRelationshipResponse {
+    RelationshipModel relationship = 1;
+}
+
 
 //---------------------------
 //-----RELATIONSHIP_TYPE-----
