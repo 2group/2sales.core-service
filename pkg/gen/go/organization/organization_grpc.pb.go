@@ -34,6 +34,7 @@ const (
 	OrganizationService_CreateAddress_FullMethodName            = "/organization.OrganizationService/CreateAddress"
 	OrganizationService_GetAddress_FullMethodName               = "/organization.OrganizationService/GetAddress"
 	OrganizationService_UpdateAddress_FullMethodName            = "/organization.OrganizationService/UpdateAddress"
+	OrganizationService_PatchAddress_FullMethodName             = "/organization.OrganizationService/PatchAddress"
 	OrganizationService_DeleteAddress_FullMethodName            = "/organization.OrganizationService/DeleteAddress"
 	OrganizationService_CreateRelationship_FullMethodName       = "/organization.OrganizationService/CreateRelationship"
 	OrganizationService_ListRelationships_FullMethodName        = "/organization.OrganizationService/ListRelationships"
@@ -64,6 +65,7 @@ type OrganizationServiceClient interface {
 	CreateAddress(ctx context.Context, in *CreateAddressRequest, opts ...grpc.CallOption) (*CreateAddressResponse, error)
 	GetAddress(ctx context.Context, in *GetAddressRequest, opts ...grpc.CallOption) (*GetAddressResponse, error)
 	UpdateAddress(ctx context.Context, in *UpdateAddressRequest, opts ...grpc.CallOption) (*UpdateAddressResponse, error)
+	PatchAddress(ctx context.Context, in *PatchAddressRequest, opts ...grpc.CallOption) (*PatchAddressResponse, error)
 	DeleteAddress(ctx context.Context, in *DeleteAddressRequest, opts ...grpc.CallOption) (*DeleteAddressResponse, error)
 	CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error)
 	ListRelationships(ctx context.Context, in *ListRelationshipsRequest, opts ...grpc.CallOption) (*ListRelationshipsResponse, error)
@@ -233,6 +235,16 @@ func (c *organizationServiceClient) UpdateAddress(ctx context.Context, in *Updat
 	return out, nil
 }
 
+func (c *organizationServiceClient) PatchAddress(ctx context.Context, in *PatchAddressRequest, opts ...grpc.CallOption) (*PatchAddressResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PatchAddressResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_PatchAddress_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *organizationServiceClient) DeleteAddress(ctx context.Context, in *DeleteAddressRequest, opts ...grpc.CallOption) (*DeleteAddressResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteAddressResponse)
@@ -342,6 +354,7 @@ type OrganizationServiceServer interface {
 	CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressResponse, error)
 	GetAddress(context.Context, *GetAddressRequest) (*GetAddressResponse, error)
 	UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error)
+	PatchAddress(context.Context, *PatchAddressRequest) (*PatchAddressResponse, error)
 	DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error)
 	CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error)
 	ListRelationships(context.Context, *ListRelationshipsRequest) (*ListRelationshipsResponse, error)
@@ -405,6 +418,9 @@ func (UnimplementedOrganizationServiceServer) GetAddress(context.Context, *GetAd
 }
 func (UnimplementedOrganizationServiceServer) UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAddress not implemented")
+}
+func (UnimplementedOrganizationServiceServer) PatchAddress(context.Context, *PatchAddressRequest) (*PatchAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatchAddress not implemented")
 }
 func (UnimplementedOrganizationServiceServer) DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAddress not implemented")
@@ -724,6 +740,24 @@ func _OrganizationService_UpdateAddress_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_PatchAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatchAddressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).PatchAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_PatchAddress_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).PatchAddress(ctx, req.(*PatchAddressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrganizationService_DeleteAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteAddressRequest)
 	if err := dec(in); err != nil {
@@ -952,6 +986,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAddress",
 			Handler:    _OrganizationService_UpdateAddress_Handler,
+		},
+		{
+			MethodName: "PatchAddress",
+			Handler:    _OrganizationService_PatchAddress_Handler,
 		},
 		{
 			MethodName: "DeleteAddress",

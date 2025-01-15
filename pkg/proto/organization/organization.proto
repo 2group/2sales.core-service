@@ -22,6 +22,7 @@ service OrganizationService {
     rpc CreateAddress (CreateAddressRequest) returns (CreateAddressResponse);
     rpc GetAddress (GetAddressRequest) returns (GetAddressResponse);
     rpc UpdateAddress (UpdateAddressRequest) returns (UpdateAddressResponse);
+    rpc PatchAddress (PatchAddressRequest) returns (PatchAddressResponse);
     rpc DeleteAddress (DeleteAddressRequest) returns (DeleteAddressResponse);
 
     rpc CreateRelationship (CreateRelationshipRequest) returns (CreateRelationshipResponse);
@@ -44,6 +45,8 @@ message AddressModel {
     string address_line = 6;
     optional float latitude = 7;
     optional float longitude = 8;
+    string created_at = 11;
+    string updated_at = 12;
 }
 
 message ImageModel {
@@ -264,6 +267,14 @@ message UpdateAddressRequest {
 }
 
 message UpdateAddressResponse {
+    AddressModel address = 1;
+}
+
+message PatchAddressRequest {
+    AddressModel address = 1;
+}
+
+message PatchAddressResponse {
     AddressModel address = 1;
 }
 
