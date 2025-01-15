@@ -174,6 +174,27 @@ func (h *OrganizationHandler) CreateRelationship(w http.ResponseWriter, r *http.
 	return
 }
 
+func (h *OrganizationHandler) ListRelationships(w http.ResponseWriter, r *http.Request) {
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &organizationv1.ListRelationshipsRequest{}
+
+	req.OrganizationId = organization_id
+
+	response, err := h.organization.Api.ListRelationships(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
 func (h *OrganizationHandler) UpdateRelationship(w http.ResponseWriter, r *http.Request) {
 	relationshipIDStr := chi.URLParam(r, "relationship_id")
 

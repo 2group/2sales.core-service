@@ -112,9 +112,9 @@ message RelationshipModel {
 message Relationship {
     optional int64 id = 1;
     optional int64 target_organization_id = 2;
-    optional int64 target_organization_name = 3;
+    optional string target_organization_name = 3;
     optional int64 relationship_type_id = 4;
-    optional int64 relationship_type_name = 5;
+    optional string relationship_type_name = 5;
 }
 
 //-----------------------
