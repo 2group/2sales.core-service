@@ -36,6 +36,7 @@ const (
 	OrganizationService_UpdateAddress_FullMethodName            = "/organization.OrganizationService/UpdateAddress"
 	OrganizationService_DeleteAddress_FullMethodName            = "/organization.OrganizationService/DeleteAddress"
 	OrganizationService_CreateRelationship_FullMethodName       = "/organization.OrganizationService/CreateRelationship"
+	OrganizationService_ListRelationships_FullMethodName        = "/organization.OrganizationService/ListRelationships"
 	OrganizationService_EnsureRelationshipExists_FullMethodName = "/organization.OrganizationService/EnsureRelationshipExists"
 	OrganizationService_UpdateRelationship_FullMethodName       = "/organization.OrganizationService/UpdateRelationship"
 	OrganizationService_GetRelationshipType_FullMethodName      = "/organization.OrganizationService/GetRelationshipType"
@@ -65,6 +66,7 @@ type OrganizationServiceClient interface {
 	UpdateAddress(ctx context.Context, in *UpdateAddressRequest, opts ...grpc.CallOption) (*UpdateAddressResponse, error)
 	DeleteAddress(ctx context.Context, in *DeleteAddressRequest, opts ...grpc.CallOption) (*DeleteAddressResponse, error)
 	CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error)
+	ListRelationships(ctx context.Context, in *ListRelationshipsRequest, opts ...grpc.CallOption) (*ListRelationshipsResponse, error)
 	EnsureRelationshipExists(ctx context.Context, in *EnsureRelationshipExistsRequest, opts ...grpc.CallOption) (*EnsureRelationshipExistsResponse, error)
 	UpdateRelationship(ctx context.Context, in *UpdateRelationshipRequest, opts ...grpc.CallOption) (*UpdateRelationshipResponse, error)
 	GetRelationshipType(ctx context.Context, in *GetRelationshipTypeRequest, opts ...grpc.CallOption) (*GetRelationshipTypeResponse, error)
@@ -251,6 +253,16 @@ func (c *organizationServiceClient) CreateRelationship(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *organizationServiceClient) ListRelationships(ctx context.Context, in *ListRelationshipsRequest, opts ...grpc.CallOption) (*ListRelationshipsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListRelationshipsResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_ListRelationships_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *organizationServiceClient) EnsureRelationshipExists(ctx context.Context, in *EnsureRelationshipExistsRequest, opts ...grpc.CallOption) (*EnsureRelationshipExistsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(EnsureRelationshipExistsResponse)
@@ -332,6 +344,7 @@ type OrganizationServiceServer interface {
 	UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error)
 	DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error)
 	CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error)
+	ListRelationships(context.Context, *ListRelationshipsRequest) (*ListRelationshipsResponse, error)
 	EnsureRelationshipExists(context.Context, *EnsureRelationshipExistsRequest) (*EnsureRelationshipExistsResponse, error)
 	UpdateRelationship(context.Context, *UpdateRelationshipRequest) (*UpdateRelationshipResponse, error)
 	GetRelationshipType(context.Context, *GetRelationshipTypeRequest) (*GetRelationshipTypeResponse, error)
@@ -398,6 +411,9 @@ func (UnimplementedOrganizationServiceServer) DeleteAddress(context.Context, *De
 }
 func (UnimplementedOrganizationServiceServer) CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRelationship not implemented")
+}
+func (UnimplementedOrganizationServiceServer) ListRelationships(context.Context, *ListRelationshipsRequest) (*ListRelationshipsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRelationships not implemented")
 }
 func (UnimplementedOrganizationServiceServer) EnsureRelationshipExists(context.Context, *EnsureRelationshipExistsRequest) (*EnsureRelationshipExistsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EnsureRelationshipExists not implemented")
@@ -744,6 +760,24 @@ func _OrganizationService_CreateRelationship_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_ListRelationships_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRelationshipsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).ListRelationships(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_ListRelationships_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).ListRelationships(ctx, req.(*ListRelationshipsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrganizationService_EnsureRelationshipExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(EnsureRelationshipExistsRequest)
 	if err := dec(in); err != nil {
@@ -926,6 +960,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateRelationship",
 			Handler:    _OrganizationService_CreateRelationship_Handler,
+		},
+		{
+			MethodName: "ListRelationships",
+			Handler:    _OrganizationService_ListRelationships_Handler,
 		},
 		{
 			MethodName: "EnsureRelationshipExists",

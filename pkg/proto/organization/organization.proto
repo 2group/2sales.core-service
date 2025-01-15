@@ -25,6 +25,7 @@ service OrganizationService {
     rpc DeleteAddress (DeleteAddressRequest) returns (DeleteAddressResponse);
 
     rpc CreateRelationship (CreateRelationshipRequest) returns (CreateRelationshipResponse);
+    rpc ListRelationships (ListRelationshipsRequest) returns (ListRelationshipsResponse);
     rpc EnsureRelationshipExists (EnsureRelationshipExistsRequest) returns (EnsureRelationshipExistsResponse);
     rpc UpdateRelationship (UpdateRelationshipRequest) returns (UpdateRelationshipResponse);
 
@@ -108,6 +109,13 @@ message RelationshipModel {
     optional string updated_at = 6;
 }
 
+message Relationship {
+    optional int64 id = 1;
+    optional int64 target_organization_id = 2;
+    optional int64 target_organization_name = 3;
+    optional int64 relationship_type_id = 4;
+    optional int64 relationship_type_name = 5;
+}
 
 //-----------------------
 //-----REQ_RESPONSES-----
@@ -295,6 +303,14 @@ message EnsureRelationshipExistsResponse {
     RelationshipModel relationship = 1;
 }
 
+message ListRelationshipsRequest {
+    int64 organization_id = 1;
+}
+
+message ListRelationshipsResponse {
+    repeated Relationship relationships = 1;
+}
+
 
 //---------------------------
 //-----RELATIONSHIP_TYPE-----
@@ -313,7 +329,7 @@ message ListRelationshipTypesRequest {
 }
 
 message ListRelationshipTypesResponse {
-    repeated RelationshipTypeModel relationship_type = 1;
+    repeated RelationshipTypeModel relationship_types = 1;
 }
 
 message CreateRelationshipTypeRequest {
