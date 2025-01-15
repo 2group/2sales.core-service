@@ -25,6 +25,7 @@ service OrganizationService {
     rpc DeleteAddress (DeleteAddressRequest) returns (DeleteAddressResponse);
 
     rpc GetRelationshipType(GetRelationshipTypeRequest) returns (GetRelationshipTypeResponse);
+    rpc ListRelationshipTypes(ListRelationshipTypesRequest) returns (ListRelationshipTypesResponse);
     rpc CreateRelationshipType (CreateRelationshipTypeRequest) returns  (CreateRelationshipTypeResponse);
     rpc UpdateRelationshipType (UpdateRelationshipTypeRequest) returns (UpdateRelationshipTypeResponse);
 }
@@ -262,6 +263,14 @@ message GetRelationshipTypeRequest {
 
 message GetRelationshipTypeResponse {
     RelationshipTypeModel relationship_type = 1;
+}
+
+message ListRelationshipTypesRequest {
+    int64 organizaiton_id = 1;
+}
+
+message ListRelationshipTypesResponse {
+    repeated RelationshipTypeModel relationship_type = 1;
 }
 
 message CreateRelationshipTypeRequest {
