@@ -167,9 +167,20 @@ func (h *OrganizationHandler) CreateRelationshipType(w http.ResponseWriter, r *h
 }
 
 func (h *OrganizationHandler) UpdateRelationshipType(w http.ResponseWriter, r *http.Request) {
+	relationshipTypeIDStr := chi.URLParam(r, "relationship_type_id")
+
+	relationshipTypeID, err := strconv.ParseInt(relationshipTypeIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid lead_id format", "lead_id", relationshipTypeIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
 	req := &organizationv1.UpdateRelationshipTypeRequest{}
 
 	json.ParseJSON(r, &req)
+
+	req.RelationshipType.Id = &relationshipTypeID
 
 	response, err := h.organization.Api.UpdateRelationshipType(r.Context(), req)
 	if err != nil {
