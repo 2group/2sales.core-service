@@ -101,7 +101,7 @@ message ChatMessageModel {
 
 message AddressModel {
   optional int64 id = 1;
-  string address_line = 2;
+  optional string address_line = 2;
 }
 
 message CreateLeadRequest {
