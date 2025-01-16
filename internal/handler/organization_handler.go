@@ -429,3 +429,98 @@ func (h *OrganizationHandler) GetAddress(w http.ResponseWriter, r *http.Request)
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
+
+func (h *OrganizationHandler) CreateContact(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.CreateContactRequest{}
+
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	response, err := h.organization.Api.CreateContact(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) GetContact(w http.ResponseWriter, r *http.Request) {
+	contactIDStr := chi.URLParam(r, "contact_id")
+
+	contactID, err := strconv.ParseInt(contactIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid contact_id format", "contact_id", contactIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.GetContactRequest{}
+
+	req.Id = contactID
+
+	response, err := h.organization.Api.GetContact(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) UpdateContact(w http.ResponseWriter, r *http.Request) {
+	contactIDStr := chi.URLParam(r, "contact_id")
+
+	contactID, err := strconv.ParseInt(contactIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid contact_id format", "contact_id", contactIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.UpdateContactRequest{}
+
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req.Contact.ContactId = &contactID
+
+	response, err := h.organization.Api.UpdateContact(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) DeleteContact(w http.ResponseWriter, r *http.Request) {
+	contactIDStr := chi.URLParam(r, "contact_id")
+
+	contactID, err := strconv.ParseInt(contactIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid contact_id format", "contact_id", contactIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.DeleteContactRequest{}
+
+	req.Id = contactID
+
+	response, err := h.organization.Api.DeleteContact(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}

@@ -118,6 +118,12 @@ func (s *APIServer) Run() error {
 					rtRouter.Get("/{relationship_type_id}", organizationHandler.GetRelationshipType)
 					rtRouter.Put("/{relationship_type_id}", organizationHandler.UpdateRelationshipType)
 				})
+				authRouter.Route("/contacts", func(cRouter chi.Router) {
+					cRouter.Post("/", organizationHandler.CreateContact)
+					cRouter.Get("/{contact_id}", organizationHandler.GetContact)
+					cRouter.Put("/{contact_id}", organizationHandler.UpdateContact)
+					cRouter.Delete("/{contact_id}", organizationHandler.DeleteContact)
+				})
 			})
 		})
 		apiRouter.Route("/crm", func(crmRouter chi.Router) {

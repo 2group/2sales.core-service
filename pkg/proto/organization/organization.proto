@@ -129,12 +129,13 @@ message ContactModel {
     optional int64 contact_id = 1;
     optional int64 organization_id = 2;
     optional int64 user_id = 3;
-    optional string contact_type = 4;
-    optional string contact_person = 5;
-    optional string phone_number = 6;
-    optional string email = 7;
-    optional string created_at = 8;
-    optional string updated_at = 9;
+    optional int64 lead_id = 4;
+    optional string contact_type = 5;
+    optional string contact_person = 6;
+    optional string phone_number = 7;
+    optional string email = 8;
+    optional string created_at = 9;
+    optional string updated_at = 10;
 }
 
 //-----------------------
@@ -409,5 +410,5 @@ message DeleteContactRequest {
 }
 
 message DeleteContactResponse {
-    ContactModel contact = 1;
+    bool success = 1;
 }
