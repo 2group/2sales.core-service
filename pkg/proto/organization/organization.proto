@@ -35,9 +35,10 @@ service OrganizationService {
     rpc CreateRelationshipType (CreateRelationshipTypeRequest) returns  (CreateRelationshipTypeResponse);
     rpc UpdateRelationshipType (UpdateRelationshipTypeRequest) returns (UpdateRelationshipTypeResponse);
 
-    rpc CreateContact (CreateContactRequst) returns (CreateContactResponse);
+    rpc CreateContact (CreateContactRequest) returns (CreateContactResponse);
     rpc GetContact (GetContactRequest) returns (GetContactResponse);
     rpc UpdateContact (UpdateContactRequest) returns (UpdateContactResponse);
+    rpc DeleteContact (DeleteContactRequest) returns (DeleteContactResponse);
 }
 
 message AddressModel {
@@ -379,7 +380,7 @@ message UpdateRelationshipTypeResponse {
 //-----CONTACTS-----
 //------------------
 
-message CreateContactRequst {
+message CreateContactRequest {
     ContactModel contact = 1;
 }
 
@@ -400,5 +401,13 @@ message GetContactRequest {
 }
 
 message GetContactResponse {
+    ContactModel contact = 1;
+}
+
+message DeleteContactRequest {
+    int64 id = 1;
+}
+
+message DeleteContactResponse {
     ContactModel contact = 1;
 }

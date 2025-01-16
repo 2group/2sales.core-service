@@ -47,6 +47,7 @@ const (
 	OrganizationService_CreateContact_FullMethodName            = "/organization.OrganizationService/CreateContact"
 	OrganizationService_GetContact_FullMethodName               = "/organization.OrganizationService/GetContact"
 	OrganizationService_UpdateContact_FullMethodName            = "/organization.OrganizationService/UpdateContact"
+	OrganizationService_DeleteContact_FullMethodName            = "/organization.OrganizationService/DeleteContact"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -78,9 +79,10 @@ type OrganizationServiceClient interface {
 	ListRelationshipTypes(ctx context.Context, in *ListRelationshipTypesRequest, opts ...grpc.CallOption) (*ListRelationshipTypesResponse, error)
 	CreateRelationshipType(ctx context.Context, in *CreateRelationshipTypeRequest, opts ...grpc.CallOption) (*CreateRelationshipTypeResponse, error)
 	UpdateRelationshipType(ctx context.Context, in *UpdateRelationshipTypeRequest, opts ...grpc.CallOption) (*UpdateRelationshipTypeResponse, error)
-	CreateContact(ctx context.Context, in *CreateContactRequst, opts ...grpc.CallOption) (*CreateContactResponse, error)
+	CreateContact(ctx context.Context, in *CreateContactRequest, opts ...grpc.CallOption) (*CreateContactResponse, error)
 	GetContact(ctx context.Context, in *GetContactRequest, opts ...grpc.CallOption) (*GetContactResponse, error)
 	UpdateContact(ctx context.Context, in *UpdateContactRequest, opts ...grpc.CallOption) (*UpdateContactResponse, error)
+	DeleteContact(ctx context.Context, in *DeleteContactRequest, opts ...grpc.CallOption) (*DeleteContactResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -341,7 +343,7 @@ func (c *organizationServiceClient) UpdateRelationshipType(ctx context.Context, 
 	return out, nil
 }
 
-func (c *organizationServiceClient) CreateContact(ctx context.Context, in *CreateContactRequst, opts ...grpc.CallOption) (*CreateContactResponse, error) {
+func (c *organizationServiceClient) CreateContact(ctx context.Context, in *CreateContactRequest, opts ...grpc.CallOption) (*CreateContactResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateContactResponse)
 	err := c.cc.Invoke(ctx, OrganizationService_CreateContact_FullMethodName, in, out, cOpts...)
@@ -365,6 +367,16 @@ func (c *organizationServiceClient) UpdateContact(ctx context.Context, in *Updat
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateContactResponse)
 	err := c.cc.Invoke(ctx, OrganizationService_UpdateContact_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) DeleteContact(ctx context.Context, in *DeleteContactRequest, opts ...grpc.CallOption) (*DeleteContactResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteContactResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_DeleteContact_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -400,9 +412,10 @@ type OrganizationServiceServer interface {
 	ListRelationshipTypes(context.Context, *ListRelationshipTypesRequest) (*ListRelationshipTypesResponse, error)
 	CreateRelationshipType(context.Context, *CreateRelationshipTypeRequest) (*CreateRelationshipTypeResponse, error)
 	UpdateRelationshipType(context.Context, *UpdateRelationshipTypeRequest) (*UpdateRelationshipTypeResponse, error)
-	CreateContact(context.Context, *CreateContactRequst) (*CreateContactResponse, error)
+	CreateContact(context.Context, *CreateContactRequest) (*CreateContactResponse, error)
 	GetContact(context.Context, *GetContactRequest) (*GetContactResponse, error)
 	UpdateContact(context.Context, *UpdateContactRequest) (*UpdateContactResponse, error)
+	DeleteContact(context.Context, *DeleteContactRequest) (*DeleteContactResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -488,7 +501,7 @@ func (UnimplementedOrganizationServiceServer) CreateRelationshipType(context.Con
 func (UnimplementedOrganizationServiceServer) UpdateRelationshipType(context.Context, *UpdateRelationshipTypeRequest) (*UpdateRelationshipTypeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRelationshipType not implemented")
 }
-func (UnimplementedOrganizationServiceServer) CreateContact(context.Context, *CreateContactRequst) (*CreateContactResponse, error) {
+func (UnimplementedOrganizationServiceServer) CreateContact(context.Context, *CreateContactRequest) (*CreateContactResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateContact not implemented")
 }
 func (UnimplementedOrganizationServiceServer) GetContact(context.Context, *GetContactRequest) (*GetContactResponse, error) {
@@ -496,6 +509,9 @@ func (UnimplementedOrganizationServiceServer) GetContact(context.Context, *GetCo
 }
 func (UnimplementedOrganizationServiceServer) UpdateContact(context.Context, *UpdateContactRequest) (*UpdateContactResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateContact not implemented")
+}
+func (UnimplementedOrganizationServiceServer) DeleteContact(context.Context, *DeleteContactRequest) (*DeleteContactResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteContact not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -969,7 +985,7 @@ func _OrganizationService_UpdateRelationshipType_Handler(srv interface{}, ctx co
 }
 
 func _OrganizationService_CreateContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateContactRequst)
+	in := new(CreateContactRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -981,7 +997,7 @@ func _OrganizationService_CreateContact_Handler(srv interface{}, ctx context.Con
 		FullMethod: OrganizationService_CreateContact_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).CreateContact(ctx, req.(*CreateContactRequst))
+		return srv.(OrganizationServiceServer).CreateContact(ctx, req.(*CreateContactRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1018,6 +1034,24 @@ func _OrganizationService_UpdateContact_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrganizationServiceServer).UpdateContact(ctx, req.(*UpdateContactRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_DeleteContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteContactRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).DeleteContact(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_DeleteContact_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).DeleteContact(ctx, req.(*DeleteContactRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1140,6 +1174,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateContact",
 			Handler:    _OrganizationService_UpdateContact_Handler,
+		},
+		{
+			MethodName: "DeleteContact",
+			Handler:    _OrganizationService_DeleteContact_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
