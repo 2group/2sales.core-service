@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -210,6 +211,7 @@ func (h *CrmHandler) ListLeads(w http.ResponseWriter, r *http.Request) {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+	log.Println(response)
 
 	// 5. Return the leads JSON response
 	json.WriteJSON(w, http.StatusOK, response)
