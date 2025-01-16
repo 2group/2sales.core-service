@@ -24,6 +24,7 @@ type GrpcConfig struct {
 	Organization string `yaml:"organization"`
 	Product      string `yaml:"product"`
 	CRM          string `yaml:"crm"`
+	Warehouse    string `yaml:"warehouse"`
 }
 
 func MustLoad() *Config {
