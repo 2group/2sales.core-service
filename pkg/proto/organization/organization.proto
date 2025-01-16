@@ -38,15 +38,15 @@ service OrganizationService {
 
 message AddressModel {
     optional int64 id = 1;
-    string type = 2;
-    string country = 3;
+    optional string type = 2;
+    optional string country = 3;
     optional string state = 4;
     optional string city = 5;
     optional string address_line = 6;
     optional float latitude = 7;
     optional float longitude = 8;
-    string created_at = 11;
-    string updated_at = 12;
+    optional string created_at = 11;
+    optional string updated_at = 12;
 }
 
 message ImageModel {
