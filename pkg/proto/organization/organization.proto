@@ -39,6 +39,7 @@ service OrganizationService {
     rpc GetContact (GetContactRequest) returns (GetContactResponse);
     rpc UpdateContact (UpdateContactRequest) returns (UpdateContactResponse);
     rpc DeleteContact (DeleteContactRequest) returns (DeleteContactResponse);
+    rpc ListContacts (ListContactsRequest) returns (ListContactsResponse);
 }
 
 message AddressModel {
@@ -411,4 +412,13 @@ message DeleteContactRequest {
 
 message DeleteContactResponse {
     bool success = 1;
+}
+
+message ListContactsRequest {
+    int64 lead_id = 1;
+    int64 organization_id = 2;
+}
+
+message ListContactsResponse {
+    repeated ContactModel contacts = 1;
 }
