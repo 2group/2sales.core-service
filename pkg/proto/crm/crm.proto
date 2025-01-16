@@ -53,20 +53,22 @@ message Organization {
 // LeadModel now embeds both organizations (created_by, counterparty).
 message Lead {
     optional int64 lead_id = 1;
-    optional int64 created_by_organization_id = 2;    
-    optional Organization counterparty_organization = 3;
-    string stage = 4;  
-    optional double estimated_value = 5;
+    optional string lead_name = 2;
+    optional int64 created_by_organization_id = 3;
+    optional Organization counterparty_organization = 4;
+    string stage = 5;
+    optional double estimated_value = 6;
 }
 
 message LeadModel {
     optional int64 lead_id = 1;
-    optional int64 created_by_organization_id = 2;
-    optional int64 counterparty_organization_id = 3;
-    string stage = 4;           // e.g. "initial_contact", "negotiations"
-    optional double estimated_value = 5; // e.g. potential deal amount
-    optional string created_at = 6;
-    optional string updated_at = 7;
+    optional string lead_name = 2;
+    optional int64 created_by_organization_id = 3;
+    optional int64 counterparty_organization_id = 4;
+    string stage = 5;
+    optional double estimated_value = 6;
+    optional string created_at = 7;
+    optional string updated_at = 8;
 }
 
 message TaskModel {

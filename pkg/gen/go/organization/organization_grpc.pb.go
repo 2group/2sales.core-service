@@ -44,6 +44,9 @@ const (
 	OrganizationService_ListRelationshipTypes_FullMethodName    = "/organization.OrganizationService/ListRelationshipTypes"
 	OrganizationService_CreateRelationshipType_FullMethodName   = "/organization.OrganizationService/CreateRelationshipType"
 	OrganizationService_UpdateRelationshipType_FullMethodName   = "/organization.OrganizationService/UpdateRelationshipType"
+	OrganizationService_CreateContact_FullMethodName            = "/organization.OrganizationService/CreateContact"
+	OrganizationService_GetContact_FullMethodName               = "/organization.OrganizationService/GetContact"
+	OrganizationService_UpdateContact_FullMethodName            = "/organization.OrganizationService/UpdateContact"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -75,6 +78,9 @@ type OrganizationServiceClient interface {
 	ListRelationshipTypes(ctx context.Context, in *ListRelationshipTypesRequest, opts ...grpc.CallOption) (*ListRelationshipTypesResponse, error)
 	CreateRelationshipType(ctx context.Context, in *CreateRelationshipTypeRequest, opts ...grpc.CallOption) (*CreateRelationshipTypeResponse, error)
 	UpdateRelationshipType(ctx context.Context, in *UpdateRelationshipTypeRequest, opts ...grpc.CallOption) (*UpdateRelationshipTypeResponse, error)
+	CreateContact(ctx context.Context, in *CreateContactRequst, opts ...grpc.CallOption) (*CreateContactResponse, error)
+	GetContact(ctx context.Context, in *GetContactRequest, opts ...grpc.CallOption) (*GetContactResponse, error)
+	UpdateContact(ctx context.Context, in *UpdateContactRequest, opts ...grpc.CallOption) (*UpdateContactResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -335,6 +341,36 @@ func (c *organizationServiceClient) UpdateRelationshipType(ctx context.Context, 
 	return out, nil
 }
 
+func (c *organizationServiceClient) CreateContact(ctx context.Context, in *CreateContactRequst, opts ...grpc.CallOption) (*CreateContactResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateContactResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateContact_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) GetContact(ctx context.Context, in *GetContactRequest, opts ...grpc.CallOption) (*GetContactResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetContactResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GetContact_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) UpdateContact(ctx context.Context, in *UpdateContactRequest, opts ...grpc.CallOption) (*UpdateContactResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateContactResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateContact_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationServiceServer is the server API for OrganizationService service.
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
@@ -364,6 +400,9 @@ type OrganizationServiceServer interface {
 	ListRelationshipTypes(context.Context, *ListRelationshipTypesRequest) (*ListRelationshipTypesResponse, error)
 	CreateRelationshipType(context.Context, *CreateRelationshipTypeRequest) (*CreateRelationshipTypeResponse, error)
 	UpdateRelationshipType(context.Context, *UpdateRelationshipTypeRequest) (*UpdateRelationshipTypeResponse, error)
+	CreateContact(context.Context, *CreateContactRequst) (*CreateContactResponse, error)
+	GetContact(context.Context, *GetContactRequest) (*GetContactResponse, error)
+	UpdateContact(context.Context, *UpdateContactRequest) (*UpdateContactResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -448,6 +487,15 @@ func (UnimplementedOrganizationServiceServer) CreateRelationshipType(context.Con
 }
 func (UnimplementedOrganizationServiceServer) UpdateRelationshipType(context.Context, *UpdateRelationshipTypeRequest) (*UpdateRelationshipTypeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRelationshipType not implemented")
+}
+func (UnimplementedOrganizationServiceServer) CreateContact(context.Context, *CreateContactRequst) (*CreateContactResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateContact not implemented")
+}
+func (UnimplementedOrganizationServiceServer) GetContact(context.Context, *GetContactRequest) (*GetContactResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetContact not implemented")
+}
+func (UnimplementedOrganizationServiceServer) UpdateContact(context.Context, *UpdateContactRequest) (*UpdateContactResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateContact not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -920,6 +968,60 @@ func _OrganizationService_UpdateRelationshipType_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_CreateContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateContactRequst)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).CreateContact(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_CreateContact_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).CreateContact(ctx, req.(*CreateContactRequst))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_GetContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetContactRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).GetContact(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_GetContact_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).GetContact(ctx, req.(*GetContactRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_UpdateContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateContactRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).UpdateContact(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_UpdateContact_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).UpdateContact(ctx, req.(*UpdateContactRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationService_ServiceDesc is the grpc.ServiceDesc for OrganizationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1026,6 +1128,18 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateRelationshipType",
 			Handler:    _OrganizationService_UpdateRelationshipType_Handler,
+		},
+		{
+			MethodName: "CreateContact",
+			Handler:    _OrganizationService_CreateContact_Handler,
+		},
+		{
+			MethodName: "GetContact",
+			Handler:    _OrganizationService_GetContact_Handler,
+		},
+		{
+			MethodName: "UpdateContact",
+			Handler:    _OrganizationService_UpdateContact_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -34,6 +34,10 @@ service OrganizationService {
     rpc ListRelationshipTypes (ListRelationshipTypesRequest) returns (ListRelationshipTypesResponse);
     rpc CreateRelationshipType (CreateRelationshipTypeRequest) returns  (CreateRelationshipTypeResponse);
     rpc UpdateRelationshipType (UpdateRelationshipTypeRequest) returns (UpdateRelationshipTypeResponse);
+
+    rpc CreateContact (CreateContactRequst) returns (CreateContactResponse);
+    rpc GetContact (GetContactRequest) returns (GetContactResponse);
+    rpc UpdateContact (UpdateContactRequest) returns (UpdateContactResponse);
 }
 
 message AddressModel {
@@ -118,6 +122,18 @@ message Relationship {
     optional string target_organization_name = 3;
     optional int64 relationship_type_id = 4;
     optional string relationship_type_name = 5;
+}
+
+message ContactModel {
+    optional int64 contact_id = 1;
+    optional int64 organization_id = 2;
+    optional int64 user_id = 3;
+    optional string contact_type = 4;
+    optional string contact_person = 5;
+    optional string phone_number = 6;
+    optional string email = 7;
+    optional string created_at = 8;
+    optional string updated_at = 9;
 }
 
 //-----------------------
@@ -357,4 +373,32 @@ message UpdateRelationshipTypeRequest {
 
 message UpdateRelationshipTypeResponse {
     RelationshipTypeModel relationship_type = 1;
+}
+
+//------------------
+//-----CONTACTS-----
+//------------------
+
+message CreateContactRequst {
+    ContactModel contact = 1;
+}
+
+message CreateContactResponse {
+    ContactModel contact = 1;
+}
+
+message UpdateContactRequest {
+    ContactModel contact = 1;
+}
+
+message UpdateContactResponse {
+    ContactModel contact = 1;
+}
+
+message GetContactRequest {
+    int64 id = 1;
+}
+
+message GetContactResponse {
+    ContactModel contact = 1;
 }
