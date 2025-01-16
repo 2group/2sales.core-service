@@ -42,7 +42,7 @@ message AddressModel {
     string country = 3;
     optional string state = 4;
     optional string city = 5;
-    string address_line = 6;
+    optional string address_line = 6;
     optional float latitude = 7;
     optional float longitude = 8;
     string created_at = 11;
