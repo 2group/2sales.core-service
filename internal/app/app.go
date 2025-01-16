@@ -51,10 +51,16 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
+	warehousegrpc, err := grpc.NewWarehouseClient(context, s.cfg.GRPC.Warehouse, time.Hour, 2)
+	if err != nil {
+		panic(err)
+	}
+
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	productHandler := handler.NewProductHandler(s.log, productgrpc)
 	crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
+	warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
@@ -125,6 +131,13 @@ func (s *APIServer) Run() error {
 					lRouter.Patch("/{lead_id}", crmHandler.PatchLead)
 					lRouter.Delete("/{lead_id}", crmHandler.DeleteLead)
 				})
+			})
+		})
+		apiRouter.Route("/warehouse", func(warehouseRouter chi.Router) {
+			warehouseRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Get("/", warehouseHandler.ListWarehouses)
+				authRouter.Get("/{warehouse_id}", warehouseHandler.GetWarehouse)
 			})
 		})
 	})
