@@ -40,6 +40,8 @@ service OrganizationService {
     rpc UpdateContact (UpdateContactRequest) returns (UpdateContactResponse);
     rpc DeleteContact (DeleteContactRequest) returns (DeleteContactResponse);
     rpc ListContacts (ListContactsRequest) returns (ListContactsResponse);
+
+    rpc GeneratePresignedURL (GeneratePresignedURLRequest) returns (GeneratePresignedURLResponse);
 }
 
 message AddressModel {
@@ -188,6 +190,16 @@ message UpdateOrganizationRequest {
 
 message UpdateOrganizationResponse {
     OrganizationModel organization = 1;
+}
+
+message GeneratePresignedURLRequest {
+    string file_name = 1;
+    int64 organization_id = 2;
+}
+
+message GeneratePresignedURLResponse {
+    string presigned_url = 1;
+    string object_key = 2;
 }
 
 //-----------------------
