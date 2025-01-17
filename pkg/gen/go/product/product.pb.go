@@ -2494,6 +2494,165 @@ func (x *DeleteProductGroupResponse) GetSuccess() bool {
 	return false
 }
 
+type GeneratePresignedURLsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OrganizationId int64    `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	FileNames      []string `protobuf:"bytes,2,rep,name=file_names,json=fileNames,proto3" json:"file_names,omitempty"`
+}
+
+func (x *GeneratePresignedURLsRequest) Reset() {
+	*x = GeneratePresignedURLsRequest{}
+	mi := &file_product_product_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GeneratePresignedURLsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GeneratePresignedURLsRequest) ProtoMessage() {}
+
+func (x *GeneratePresignedURLsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_product_product_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GeneratePresignedURLsRequest.ProtoReflect.Descriptor instead.
+func (*GeneratePresignedURLsRequest) Descriptor() ([]byte, []int) {
+	return file_product_product_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *GeneratePresignedURLsRequest) GetOrganizationId() int64 {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return 0
+}
+
+func (x *GeneratePresignedURLsRequest) GetFileNames() []string {
+	if x != nil {
+		return x.FileNames
+	}
+	return nil
+}
+
+type PresignedURLInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	FileName     string `protobuf:"bytes,1,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	PresignedUrl string `protobuf:"bytes,2,opt,name=presigned_url,json=presignedUrl,proto3" json:"presigned_url,omitempty"`
+	ObjectKey    string `protobuf:"bytes,3,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
+}
+
+func (x *PresignedURLInfo) Reset() {
+	*x = PresignedURLInfo{}
+	mi := &file_product_product_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PresignedURLInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PresignedURLInfo) ProtoMessage() {}
+
+func (x *PresignedURLInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_product_product_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PresignedURLInfo.ProtoReflect.Descriptor instead.
+func (*PresignedURLInfo) Descriptor() ([]byte, []int) {
+	return file_product_product_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *PresignedURLInfo) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *PresignedURLInfo) GetPresignedUrl() string {
+	if x != nil {
+		return x.PresignedUrl
+	}
+	return ""
+}
+
+func (x *PresignedURLInfo) GetObjectKey() string {
+	if x != nil {
+		return x.ObjectKey
+	}
+	return ""
+}
+
+type GeneratePresignedURLsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PresignedUrls []*PresignedURLInfo `protobuf:"bytes,1,rep,name=presigned_urls,json=presignedUrls,proto3" json:"presigned_urls,omitempty"`
+}
+
+func (x *GeneratePresignedURLsResponse) Reset() {
+	*x = GeneratePresignedURLsResponse{}
+	mi := &file_product_product_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GeneratePresignedURLsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GeneratePresignedURLsResponse) ProtoMessage() {}
+
+func (x *GeneratePresignedURLsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_product_product_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GeneratePresignedURLsResponse.ProtoReflect.Descriptor instead.
+func (*GeneratePresignedURLsResponse) Descriptor() ([]byte, []int) {
+	return file_product_product_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *GeneratePresignedURLsResponse) GetPresignedUrls() []*PresignedURLInfo {
+	if x != nil {
+		return x.PresignedUrls
+	}
+	return nil
+}
+
 var File_product_product_proto protoreflect.FileDescriptor
 
 var file_product_product_proto_rawDesc = []byte{
@@ -2840,7 +2999,27 @@ var file_product_product_proto_rawDesc = []byte{
 	0x6c, 0x65, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63, 0x63,
 	0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65,
-	0x73, 0x73, 0x32, 0xd2, 0x0b, 0x0a, 0x0e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x53, 0x65,
+	0x73, 0x73, 0x22, 0x66, 0x0a, 0x1c, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x50, 0x72,
+	0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x55, 0x52, 0x4c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x27, 0x0a, 0x0f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0e, 0x6f, 0x72, 0x67,
+	0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x66,
+	0x69, 0x6c, 0x65, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52,
+	0x09, 0x66, 0x69, 0x6c, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x73, 0x22, 0x73, 0x0a, 0x10, 0x50, 0x72,
+	0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x55, 0x52, 0x4c, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1b,
+	0x0a, 0x09, 0x66, 0x69, 0x6c, 0x65, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x23, 0x0a, 0x0d, 0x70,
+	0x72, 0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0c, 0x70, 0x72, 0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x55, 0x72, 0x6c,
+	0x12, 0x1d, 0x0a, 0x0a, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4b, 0x65, 0x79, 0x22,
+	0x61, 0x0a, 0x1d, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x50, 0x72, 0x65, 0x73, 0x69,
+	0x67, 0x6e, 0x65, 0x64, 0x55, 0x52, 0x4c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x40, 0x0a, 0x0e, 0x70, 0x72, 0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x5f, 0x75, 0x72,
+	0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75,
+	0x63, 0x74, 0x2e, 0x50, 0x72, 0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x55, 0x52, 0x4c, 0x49,
+	0x6e, 0x66, 0x6f, 0x52, 0x0d, 0x70, 0x72, 0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x55, 0x72,
+	0x6c, 0x73, 0x32, 0xba, 0x0c, 0x0a, 0x0e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x53, 0x65,
 	0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4e, 0x0a, 0x0d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50,
 	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x1d, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
 	0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65,
@@ -2933,12 +3112,18 @@ var file_product_product_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65,
 	0x73, 0x74, 0x1a, 0x23, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x2e, 0x44, 0x65, 0x6c,
 	0x65, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x44, 0x5a, 0x42, 0x67, 0x69, 0x74, 0x68, 0x75,
-	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x32, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x2f, 0x32, 0x73, 0x61,
-	0x6c, 0x65, 0x73, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64,
-	0x75, 0x63, 0x74, 0x3b, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x76, 0x31, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x66, 0x0a, 0x15, 0x47, 0x65, 0x6e, 0x65, 0x72,
+	0x61, 0x74, 0x65, 0x50, 0x72, 0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x55, 0x52, 0x4c, 0x73,
+	0x12, 0x25, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72,
+	0x61, 0x74, 0x65, 0x50, 0x72, 0x65, 0x73, 0x69, 0x67, 0x6e, 0x65, 0x64, 0x55, 0x52, 0x4c, 0x73,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63,
+	0x74, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x50, 0x72, 0x65, 0x73, 0x69, 0x67,
+	0x6e, 0x65, 0x64, 0x55, 0x52, 0x4c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42,
+	0x44, 0x5a, 0x42, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x32, 0x67,
+	0x72, 0x6f, 0x75, 0x70, 0x2f, 0x32, 0x73, 0x61, 0x6c, 0x65, 0x73, 0x2e, 0x63, 0x6f, 0x72, 0x65,
+	0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x67, 0x65, 0x6e,
+	0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x3b, 0x70, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2953,7 +3138,7 @@ func file_product_product_proto_rawDescGZIP() []byte {
 	return file_product_product_proto_rawDescData
 }
 
-var file_product_product_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
+var file_product_product_proto_msgTypes = make([]protoimpl.MessageInfo, 42)
 var file_product_product_proto_goTypes = []any{
 	(*ImageModel)(nil),                             // 0: product.ImageModel
 	(*ProductGroup)(nil),                           // 1: product.ProductGroup
@@ -2994,6 +3179,9 @@ var file_product_product_proto_goTypes = []any{
 	(*UpdateProductGroupResponse)(nil),             // 36: product.UpdateProductGroupResponse
 	(*DeleteProductGroupRequest)(nil),              // 37: product.DeleteProductGroupRequest
 	(*DeleteProductGroupResponse)(nil),             // 38: product.DeleteProductGroupResponse
+	(*GeneratePresignedURLsRequest)(nil),           // 39: product.GeneratePresignedURLsRequest
+	(*PresignedURLInfo)(nil),                       // 40: product.PresignedURLInfo
+	(*GeneratePresignedURLsResponse)(nil),          // 41: product.GeneratePresignedURLsResponse
 }
 var file_product_product_proto_depIdxs = []int32{
 	2,  // 0: product.ProductGroup.products:type_name -> product.ProductModel
@@ -3023,43 +3211,46 @@ var file_product_product_proto_depIdxs = []int32{
 	1,  // 24: product.CreateProductGroupResponse.product_group:type_name -> product.ProductGroup
 	1,  // 25: product.GetProductGroupResponse.product_group:type_name -> product.ProductGroup
 	1,  // 26: product.UpdateProductGroupResponse.product_group:type_name -> product.ProductGroup
-	7,  // 27: product.ProductService.CreateProduct:input_type -> product.CreateProductRequest
-	9,  // 28: product.ProductService.ListProducts:input_type -> product.ListProductRequest
-	11, // 29: product.ProductService.DuplicateProduct:input_type -> product.DuplicateProductRequest
-	13, // 30: product.ProductService.UploadProducts:input_type -> product.UploadProductsRequest
-	15, // 31: product.ProductService.UpdateProduct:input_type -> product.UpdateProductRequest
-	17, // 32: product.ProductService.GetProduct:input_type -> product.GetProductRequest
-	19, // 33: product.ProductService.DeleteProduct:input_type -> product.DeleteProductRequest
-	21, // 34: product.ProductService.CreateProductCategory:input_type -> product.CreateProductCategoryRequest
-	23, // 35: product.ProductService.GetZeroLevelCategories:input_type -> product.GetZeroLevelCategoriesRequest
-	25, // 36: product.ProductService.GetFirstLevelCategories:input_type -> product.GetFirstLevelCategoriesRequest
-	27, // 37: product.ProductService.GetProductCategoryWithChildren:input_type -> product.GetProductCategoryWithChildrenRequest
-	29, // 38: product.ProductService.ListProductGroups:input_type -> product.ListProductGroupsRequest
-	31, // 39: product.ProductService.CreateProductGroup:input_type -> product.CreateProductGroupRequest
-	33, // 40: product.ProductService.GetProductGroup:input_type -> product.GetProductGroupRequest
-	35, // 41: product.ProductService.UpdateProductGroup:input_type -> product.UpdateProductGroupRequest
-	37, // 42: product.ProductService.DeleteProductGroup:input_type -> product.DeleteProductGroupRequest
-	8,  // 43: product.ProductService.CreateProduct:output_type -> product.CreateProductResponse
-	10, // 44: product.ProductService.ListProducts:output_type -> product.ListProductResponse
-	12, // 45: product.ProductService.DuplicateProduct:output_type -> product.DuplicateProductResponse
-	14, // 46: product.ProductService.UploadProducts:output_type -> product.UploadProductsResponse
-	16, // 47: product.ProductService.UpdateProduct:output_type -> product.UpdateProductResponse
-	18, // 48: product.ProductService.GetProduct:output_type -> product.GetProductResponse
-	20, // 49: product.ProductService.DeleteProduct:output_type -> product.DeleteProductResponse
-	22, // 50: product.ProductService.CreateProductCategory:output_type -> product.CreateProductCategoryResponse
-	24, // 51: product.ProductService.GetZeroLevelCategories:output_type -> product.GetZeroLevelCategoriesResponse
-	26, // 52: product.ProductService.GetFirstLevelCategories:output_type -> product.GetFirstLevelCategoriesResponse
-	28, // 53: product.ProductService.GetProductCategoryWithChildren:output_type -> product.GetProductCategoryWithChildrenResponse
-	30, // 54: product.ProductService.ListProductGroups:output_type -> product.ListProductGroupsResponse
-	32, // 55: product.ProductService.CreateProductGroup:output_type -> product.CreateProductGroupResponse
-	34, // 56: product.ProductService.GetProductGroup:output_type -> product.GetProductGroupResponse
-	36, // 57: product.ProductService.UpdateProductGroup:output_type -> product.UpdateProductGroupResponse
-	38, // 58: product.ProductService.DeleteProductGroup:output_type -> product.DeleteProductGroupResponse
-	43, // [43:59] is the sub-list for method output_type
-	27, // [27:43] is the sub-list for method input_type
-	27, // [27:27] is the sub-list for extension type_name
-	27, // [27:27] is the sub-list for extension extendee
-	0,  // [0:27] is the sub-list for field type_name
+	40, // 27: product.GeneratePresignedURLsResponse.presigned_urls:type_name -> product.PresignedURLInfo
+	7,  // 28: product.ProductService.CreateProduct:input_type -> product.CreateProductRequest
+	9,  // 29: product.ProductService.ListProducts:input_type -> product.ListProductRequest
+	11, // 30: product.ProductService.DuplicateProduct:input_type -> product.DuplicateProductRequest
+	13, // 31: product.ProductService.UploadProducts:input_type -> product.UploadProductsRequest
+	15, // 32: product.ProductService.UpdateProduct:input_type -> product.UpdateProductRequest
+	17, // 33: product.ProductService.GetProduct:input_type -> product.GetProductRequest
+	19, // 34: product.ProductService.DeleteProduct:input_type -> product.DeleteProductRequest
+	21, // 35: product.ProductService.CreateProductCategory:input_type -> product.CreateProductCategoryRequest
+	23, // 36: product.ProductService.GetZeroLevelCategories:input_type -> product.GetZeroLevelCategoriesRequest
+	25, // 37: product.ProductService.GetFirstLevelCategories:input_type -> product.GetFirstLevelCategoriesRequest
+	27, // 38: product.ProductService.GetProductCategoryWithChildren:input_type -> product.GetProductCategoryWithChildrenRequest
+	29, // 39: product.ProductService.ListProductGroups:input_type -> product.ListProductGroupsRequest
+	31, // 40: product.ProductService.CreateProductGroup:input_type -> product.CreateProductGroupRequest
+	33, // 41: product.ProductService.GetProductGroup:input_type -> product.GetProductGroupRequest
+	35, // 42: product.ProductService.UpdateProductGroup:input_type -> product.UpdateProductGroupRequest
+	37, // 43: product.ProductService.DeleteProductGroup:input_type -> product.DeleteProductGroupRequest
+	39, // 44: product.ProductService.GeneratePresignedURLs:input_type -> product.GeneratePresignedURLsRequest
+	8,  // 45: product.ProductService.CreateProduct:output_type -> product.CreateProductResponse
+	10, // 46: product.ProductService.ListProducts:output_type -> product.ListProductResponse
+	12, // 47: product.ProductService.DuplicateProduct:output_type -> product.DuplicateProductResponse
+	14, // 48: product.ProductService.UploadProducts:output_type -> product.UploadProductsResponse
+	16, // 49: product.ProductService.UpdateProduct:output_type -> product.UpdateProductResponse
+	18, // 50: product.ProductService.GetProduct:output_type -> product.GetProductResponse
+	20, // 51: product.ProductService.DeleteProduct:output_type -> product.DeleteProductResponse
+	22, // 52: product.ProductService.CreateProductCategory:output_type -> product.CreateProductCategoryResponse
+	24, // 53: product.ProductService.GetZeroLevelCategories:output_type -> product.GetZeroLevelCategoriesResponse
+	26, // 54: product.ProductService.GetFirstLevelCategories:output_type -> product.GetFirstLevelCategoriesResponse
+	28, // 55: product.ProductService.GetProductCategoryWithChildren:output_type -> product.GetProductCategoryWithChildrenResponse
+	30, // 56: product.ProductService.ListProductGroups:output_type -> product.ListProductGroupsResponse
+	32, // 57: product.ProductService.CreateProductGroup:output_type -> product.CreateProductGroupResponse
+	34, // 58: product.ProductService.GetProductGroup:output_type -> product.GetProductGroupResponse
+	36, // 59: product.ProductService.UpdateProductGroup:output_type -> product.UpdateProductGroupResponse
+	38, // 60: product.ProductService.DeleteProductGroup:output_type -> product.DeleteProductGroupResponse
+	41, // 61: product.ProductService.GeneratePresignedURLs:output_type -> product.GeneratePresignedURLsResponse
+	45, // [45:62] is the sub-list for method output_type
+	28, // [28:45] is the sub-list for method input_type
+	28, // [28:28] is the sub-list for extension type_name
+	28, // [28:28] is the sub-list for extension extendee
+	0,  // [0:28] is the sub-list for field type_name
 }
 
 func init() { file_product_product_proto_init() }
@@ -3074,7 +3265,7 @@ func file_product_product_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_product_product_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   39,
+			NumMessages:   42,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

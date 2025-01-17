@@ -35,6 +35,7 @@ const (
 	ProductService_GetProductGroup_FullMethodName                = "/product.ProductService/GetProductGroup"
 	ProductService_UpdateProductGroup_FullMethodName             = "/product.ProductService/UpdateProductGroup"
 	ProductService_DeleteProductGroup_FullMethodName             = "/product.ProductService/DeleteProductGroup"
+	ProductService_GeneratePresignedURLs_FullMethodName          = "/product.ProductService/GeneratePresignedURLs"
 )
 
 // ProductServiceClient is the client API for ProductService service.
@@ -57,6 +58,7 @@ type ProductServiceClient interface {
 	GetProductGroup(ctx context.Context, in *GetProductGroupRequest, opts ...grpc.CallOption) (*GetProductGroupResponse, error)
 	UpdateProductGroup(ctx context.Context, in *UpdateProductGroupRequest, opts ...grpc.CallOption) (*UpdateProductGroupResponse, error)
 	DeleteProductGroup(ctx context.Context, in *DeleteProductGroupRequest, opts ...grpc.CallOption) (*DeleteProductGroupResponse, error)
+	GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error)
 }
 
 type productServiceClient struct {
@@ -227,6 +229,16 @@ func (c *productServiceClient) DeleteProductGroup(ctx context.Context, in *Delet
 	return out, nil
 }
 
+func (c *productServiceClient) GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GeneratePresignedURLsResponse)
+	err := c.cc.Invoke(ctx, ProductService_GeneratePresignedURLs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductServiceServer is the server API for ProductService service.
 // All implementations must embed UnimplementedProductServiceServer
 // for forward compatibility.
@@ -247,6 +259,7 @@ type ProductServiceServer interface {
 	GetProductGroup(context.Context, *GetProductGroupRequest) (*GetProductGroupResponse, error)
 	UpdateProductGroup(context.Context, *UpdateProductGroupRequest) (*UpdateProductGroupResponse, error)
 	DeleteProductGroup(context.Context, *DeleteProductGroupRequest) (*DeleteProductGroupResponse, error)
+	GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
 
@@ -304,6 +317,9 @@ func (UnimplementedProductServiceServer) UpdateProductGroup(context.Context, *Up
 }
 func (UnimplementedProductServiceServer) DeleteProductGroup(context.Context, *DeleteProductGroupRequest) (*DeleteProductGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProductGroup not implemented")
+}
+func (UnimplementedProductServiceServer) GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GeneratePresignedURLs not implemented")
 }
 func (UnimplementedProductServiceServer) mustEmbedUnimplementedProductServiceServer() {}
 func (UnimplementedProductServiceServer) testEmbeddedByValue()                        {}
@@ -614,6 +630,24 @@ func _ProductService_DeleteProductGroup_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductService_GeneratePresignedURLs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GeneratePresignedURLsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServiceServer).GeneratePresignedURLs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductService_GeneratePresignedURLs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServiceServer).GeneratePresignedURLs(ctx, req.(*GeneratePresignedURLsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductService_ServiceDesc is the grpc.ServiceDesc for ProductService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -684,6 +718,10 @@ var ProductService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteProductGroup",
 			Handler:    _ProductService_DeleteProductGroup_Handler,
+		},
+		{
+			MethodName: "GeneratePresignedURLs",
+			Handler:    _ProductService_GeneratePresignedURLs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

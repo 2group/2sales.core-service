@@ -23,6 +23,8 @@ service ProductService {
     rpc GetProductGroup (GetProductGroupRequest) returns (GetProductGroupResponse);
     rpc UpdateProductGroup (UpdateProductGroupRequest) returns (UpdateProductGroupResponse);
     rpc DeleteProductGroup (DeleteProductGroupRequest) returns (DeleteProductGroupResponse);
+
+    rpc GeneratePresignedURLs (GeneratePresignedURLsRequest) returns (GeneratePresignedURLsResponse);
 }
 
 message ImageModel {
@@ -268,4 +270,19 @@ message DeleteProductGroupRequest {
 
 message DeleteProductGroupResponse {
     bool success = 1;
+}
+
+message GeneratePresignedURLsRequest {
+    int64 organization_id = 1;
+    repeated string file_names = 2;
+}
+
+message PresignedURLInfo {
+    string file_name = 1;
+    string presigned_url = 2;
+    string object_key = 3;
+}
+
+message GeneratePresignedURLsResponse {
+    repeated PresignedURLInfo presigned_urls = 1;
 }
