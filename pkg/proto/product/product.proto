@@ -26,9 +26,10 @@ service ProductService {
 }
 
 message ImageModel {
-    int64 int = 1;
-    string url = 2;
-    int64 index = 3;
+    int64 id = 1;
+    string image_url = 2;
+    optional int64 image_index = 3;
+    string object_key = 4;
 }
 
 message ProductGroup {
