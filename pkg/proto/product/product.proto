@@ -17,12 +17,24 @@ service ProductService {
     rpc GetZeroLevelCategories (GetZeroLevelCategoriesRequest) returns (GetZeroLevelCategoriesResponse);
     rpc GetFirstLevelCategories (GetFirstLevelCategoriesRequest) returns (GetFirstLevelCategoriesResponse);
     rpc GetProductCategoryWithChildren (GetProductCategoryWithChildrenRequest) returns (GetProductCategoryWithChildrenResponse);
+
+    rpc ListProductGroups (ListProductGroupsRequest) returns (ListProductGroupsResponse);
+    rpc CreateProductGroup (CreateProductGroupRequest) returns (CreateProductGroupResponse);
+    rpc GetProductGroup (GetProductGroupRequest) returns (GetProductGroupResponse);
+    rpc UpdateProductGroup (UpdateProductGroupRequest) returns (UpdateProductGroupResponse);
+    rpc DeleteProductGroup (DeleteProductGroupRequest) returns (DeleteProductGroupResponse);
 }
 
 message ImageModel {
     int64 int = 1;
     string url = 2;
     int64 index = 3;
+}
+
+message ProductGroup {
+    int64 id = 1;
+    string group_name = 2;
+    repeated ProductModel products = 3;
 }
 
 message ProductModel {
@@ -45,6 +57,7 @@ message ProductModel {
     string brand_name = 17;
     repeated ProductCharacteristics characteristics = 18;
     repeated CharacteristicGroup characteristic_groups = 19;
+    repeated ProductGroup product_groups = 20;
 }
 
 message ProductCharacteristics {
@@ -207,4 +220,51 @@ message GetProductCategoryWithChildrenRequest {
 message GetProductCategoryWithChildrenResponse {
     CategoryModel category = 1;
     repeated CategoryModel children = 2;
+}
+
+message ListProductGroupsRequest {
+    int64 page = 1;
+    int64 page_size = 2;
+    string name = 3;
+    int64 product_id = 4;
+}
+
+message ListProductGroupsResponse {
+    repeated ProductGroup product_groups = 1;
+    int64 total = 2;
+}
+
+message CreateProductGroupRequest {
+    string name = 1;
+    repeated int64 product_ids = 2;
+}
+
+message CreateProductGroupResponse {
+    ProductGroup product_group = 1;
+}
+
+message GetProductGroupRequest {
+    int64 id = 1;
+}
+
+message GetProductGroupResponse {
+    ProductGroup product_group = 1;
+}
+
+message UpdateProductGroupRequest {
+    int64 id = 1;
+    string name = 2;
+    repeated int64 product_ids = 3;
+}
+
+message UpdateProductGroupResponse {
+    ProductGroup product_group = 1;
+}
+
+message DeleteProductGroupRequest {
+    int64 id = 1;
+}
+
+message DeleteProductGroupResponse {
+    bool success = 1;
 }
