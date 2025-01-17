@@ -41,7 +41,7 @@ service OrganizationService {
     rpc DeleteContact (DeleteContactRequest) returns (DeleteContactResponse);
     rpc ListContacts (ListContactsRequest) returns (ListContactsResponse);
 
-    rpc GeneratePresignedURL (GeneratePresignedURLRequest) returns (GeneratePresignedURLResponse);
+    rpc GeneratePresignedURLs (GeneratePresignedURLsRequest) returns (GeneratePresignedURLsResponse);
 }
 
 message AddressModel {
@@ -192,14 +192,19 @@ message UpdateOrganizationResponse {
     OrganizationModel organization = 1;
 }
 
-message GeneratePresignedURLRequest {
-    string file_name = 1;
-    int64 organization_id = 2;
+message GeneratePresignedURLsRequest {
+    int64 organization_id = 1;
+    repeated string file_names = 2;
 }
 
-message GeneratePresignedURLResponse {
-    string presigned_url = 1;
-    string object_key = 2;
+message PresignedURLInfo {
+    string file_name = 1;
+    string presigned_url = 2;
+    string object_key = 3;
+}
+
+message GeneratePresignedURLsResponse {
+    repeated PresignedURLInfo presigned_urls = 1;
 }
 
 //-----------------------

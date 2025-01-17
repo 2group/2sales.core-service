@@ -49,7 +49,7 @@ const (
 	OrganizationService_UpdateContact_FullMethodName            = "/organization.OrganizationService/UpdateContact"
 	OrganizationService_DeleteContact_FullMethodName            = "/organization.OrganizationService/DeleteContact"
 	OrganizationService_ListContacts_FullMethodName             = "/organization.OrganizationService/ListContacts"
-	OrganizationService_GeneratePresignedURL_FullMethodName     = "/organization.OrganizationService/GeneratePresignedURL"
+	OrganizationService_GeneratePresignedURLs_FullMethodName    = "/organization.OrganizationService/GeneratePresignedURLs"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -86,7 +86,7 @@ type OrganizationServiceClient interface {
 	UpdateContact(ctx context.Context, in *UpdateContactRequest, opts ...grpc.CallOption) (*UpdateContactResponse, error)
 	DeleteContact(ctx context.Context, in *DeleteContactRequest, opts ...grpc.CallOption) (*DeleteContactResponse, error)
 	ListContacts(ctx context.Context, in *ListContactsRequest, opts ...grpc.CallOption) (*ListContactsResponse, error)
-	GeneratePresignedURL(ctx context.Context, in *GeneratePresignedURLRequest, opts ...grpc.CallOption) (*GeneratePresignedURLResponse, error)
+	GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -397,10 +397,10 @@ func (c *organizationServiceClient) ListContacts(ctx context.Context, in *ListCo
 	return out, nil
 }
 
-func (c *organizationServiceClient) GeneratePresignedURL(ctx context.Context, in *GeneratePresignedURLRequest, opts ...grpc.CallOption) (*GeneratePresignedURLResponse, error) {
+func (c *organizationServiceClient) GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GeneratePresignedURLResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GeneratePresignedURL_FullMethodName, in, out, cOpts...)
+	out := new(GeneratePresignedURLsResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GeneratePresignedURLs_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -441,7 +441,7 @@ type OrganizationServiceServer interface {
 	UpdateContact(context.Context, *UpdateContactRequest) (*UpdateContactResponse, error)
 	DeleteContact(context.Context, *DeleteContactRequest) (*DeleteContactResponse, error)
 	ListContacts(context.Context, *ListContactsRequest) (*ListContactsResponse, error)
-	GeneratePresignedURL(context.Context, *GeneratePresignedURLRequest) (*GeneratePresignedURLResponse, error)
+	GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -542,8 +542,8 @@ func (UnimplementedOrganizationServiceServer) DeleteContact(context.Context, *De
 func (UnimplementedOrganizationServiceServer) ListContacts(context.Context, *ListContactsRequest) (*ListContactsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListContacts not implemented")
 }
-func (UnimplementedOrganizationServiceServer) GeneratePresignedURL(context.Context, *GeneratePresignedURLRequest) (*GeneratePresignedURLResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GeneratePresignedURL not implemented")
+func (UnimplementedOrganizationServiceServer) GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GeneratePresignedURLs not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -1106,20 +1106,20 @@ func _OrganizationService_ListContacts_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_GeneratePresignedURL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GeneratePresignedURLRequest)
+func _OrganizationService_GeneratePresignedURLs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GeneratePresignedURLsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GeneratePresignedURL(ctx, in)
+		return srv.(OrganizationServiceServer).GeneratePresignedURLs(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_GeneratePresignedURL_FullMethodName,
+		FullMethod: OrganizationService_GeneratePresignedURLs_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GeneratePresignedURL(ctx, req.(*GeneratePresignedURLRequest))
+		return srv.(OrganizationServiceServer).GeneratePresignedURLs(ctx, req.(*GeneratePresignedURLsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1252,8 +1252,8 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrganizationService_ListContacts_Handler,
 		},
 		{
-			MethodName: "GeneratePresignedURL",
-			Handler:    _OrganizationService_GeneratePresignedURL_Handler,
+			MethodName: "GeneratePresignedURLs",
+			Handler:    _OrganizationService_GeneratePresignedURLs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

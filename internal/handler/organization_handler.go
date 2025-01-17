@@ -524,3 +524,24 @@ func (h *OrganizationHandler) DeleteContact(w http.ResponseWriter, r *http.Reque
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
+
+func (h *OrganizationHandler) GeneratePresignedURLs(w http.ResponseWriter, r *http.Request) {
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &organizationv1.GeneratePresignedURLsRequest{}
+
+	req.OrganizationId = organization_id
+
+	response, err := h.organization.Api.GeneratePresignedURLs(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
