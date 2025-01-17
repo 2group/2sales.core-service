@@ -100,6 +100,7 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/my", organizationHandler.GetOrganization)
 				authRouter.Put("/my", organizationHandler.UpdateOrganization)
 				authRouter.Patch("/my", organizationHandler.PatchOrganization)
+				authRouter.Post("/presigned-urls", organizationHandler.GeneratePresignedURLs)
 				authRouter.Route("/addresses", func(aRouter chi.Router) {
 					aRouter.Post("/", organizationHandler.CreateAddress)
 					aRouter.Put("/{address_id}", organizationHandler.UpdateAddress)

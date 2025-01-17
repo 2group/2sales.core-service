@@ -61,6 +61,7 @@ message ImageModel {
     int64 id = 1;
     string image_url = 2;
     int64 image_index = 3;
+    string object_key = 4;
 }
 
 message Organization {

@@ -536,6 +536,11 @@ func (h *OrganizationHandler) GeneratePresignedURLs(w http.ResponseWriter, r *ht
 
 	req.OrganizationId = organization_id
 
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
 	response, err := h.organization.Api.GeneratePresignedURLs(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
