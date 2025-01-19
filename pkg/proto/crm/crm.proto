@@ -4,6 +4,8 @@ package crm;
 
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1";
 
+import "user/user.proto";
+
 // -----------------------------------------------------------------------------
 // Service Definition
 // -----------------------------------------------------------------------------
@@ -58,6 +60,7 @@ message Lead {
     repeated Contact contacts = 5;
     string stage = 6;
     optional double estimated_value = 7;
+    optional user.User user = 8;
 }
 
 message Contact {
@@ -76,8 +79,9 @@ message LeadModel {
     optional int64 counterparty_organization_id = 4;
     string stage = 5;
     optional double estimated_value = 6;
-    optional string created_at = 7;
-    optional string updated_at = 8;
+    optional int64 created_by_user_id = 7;
+    optional string created_at = 8;
+    optional string updated_at = 9;
 }
 
 message TaskModel {
