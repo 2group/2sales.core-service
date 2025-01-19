@@ -19,37 +19,39 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrganizationService_CreateOrganization_FullMethodName       = "/organization.OrganizationService/CreateOrganization"
-	OrganizationService_GetOrganization_FullMethodName          = "/organization.OrganizationService/GetOrganization"
-	OrganizationService_ListOrganizations_FullMethodName        = "/organization.OrganizationService/ListOrganizations"
-	OrganizationService_PatchOrganization_FullMethodName        = "/organization.OrganizationService/PatchOrganization"
-	OrganizationService_UpdateOrganization_FullMethodName       = "/organization.OrganizationService/UpdateOrganization"
-	OrganizationService_ListBankAccounts_FullMethodName         = "/organization.OrganizationService/ListBankAccounts"
-	OrganizationService_GetDefaultBankAccount_FullMethodName    = "/organization.OrganizationService/GetDefaultBankAccount"
-	OrganizationService_CreateBankAccount_FullMethodName        = "/organization.OrganizationService/CreateBankAccount"
-	OrganizationService_UpdateBankAccount_FullMethodName        = "/organization.OrganizationService/UpdateBankAccount"
-	OrganizationService_PatchBankAccount_FullMethodName         = "/organization.OrganizationService/PatchBankAccount"
-	OrganizationService_DeleteBankAccount_FullMethodName        = "/organization.OrganizationService/DeleteBankAccount"
-	OrganizationService_GetBankAccount_FullMethodName           = "/organization.OrganizationService/GetBankAccount"
-	OrganizationService_CreateAddress_FullMethodName            = "/organization.OrganizationService/CreateAddress"
-	OrganizationService_GetAddress_FullMethodName               = "/organization.OrganizationService/GetAddress"
-	OrganizationService_UpdateAddress_FullMethodName            = "/organization.OrganizationService/UpdateAddress"
-	OrganizationService_PatchAddress_FullMethodName             = "/organization.OrganizationService/PatchAddress"
-	OrganizationService_DeleteAddress_FullMethodName            = "/organization.OrganizationService/DeleteAddress"
-	OrganizationService_CreateRelationship_FullMethodName       = "/organization.OrganizationService/CreateRelationship"
-	OrganizationService_ListRelationships_FullMethodName        = "/organization.OrganizationService/ListRelationships"
-	OrganizationService_EnsureRelationshipExists_FullMethodName = "/organization.OrganizationService/EnsureRelationshipExists"
-	OrganizationService_UpdateRelationship_FullMethodName       = "/organization.OrganizationService/UpdateRelationship"
-	OrganizationService_GetRelationshipType_FullMethodName      = "/organization.OrganizationService/GetRelationshipType"
-	OrganizationService_ListRelationshipTypes_FullMethodName    = "/organization.OrganizationService/ListRelationshipTypes"
-	OrganizationService_CreateRelationshipType_FullMethodName   = "/organization.OrganizationService/CreateRelationshipType"
-	OrganizationService_UpdateRelationshipType_FullMethodName   = "/organization.OrganizationService/UpdateRelationshipType"
-	OrganizationService_CreateContact_FullMethodName            = "/organization.OrganizationService/CreateContact"
-	OrganizationService_GetContact_FullMethodName               = "/organization.OrganizationService/GetContact"
-	OrganizationService_UpdateContact_FullMethodName            = "/organization.OrganizationService/UpdateContact"
-	OrganizationService_DeleteContact_FullMethodName            = "/organization.OrganizationService/DeleteContact"
-	OrganizationService_ListContacts_FullMethodName             = "/organization.OrganizationService/ListContacts"
-	OrganizationService_GeneratePresignedURLs_FullMethodName    = "/organization.OrganizationService/GeneratePresignedURLs"
+	OrganizationService_CreateOrganization_FullMethodName            = "/organization.OrganizationService/CreateOrganization"
+	OrganizationService_GetOrganization_FullMethodName               = "/organization.OrganizationService/GetOrganization"
+	OrganizationService_ListOrganizations_FullMethodName             = "/organization.OrganizationService/ListOrganizations"
+	OrganizationService_PatchOrganization_FullMethodName             = "/organization.OrganizationService/PatchOrganization"
+	OrganizationService_UpdateOrganization_FullMethodName            = "/organization.OrganizationService/UpdateOrganization"
+	OrganizationService_GetCounterpartyOrganization_FullMethodName   = "/organization.OrganizationService/GetCounterpartyOrganization"
+	OrganizationService_ListCounterpartyOrganizations_FullMethodName = "/organization.OrganizationService/ListCounterpartyOrganizations"
+	OrganizationService_ListBankAccounts_FullMethodName              = "/organization.OrganizationService/ListBankAccounts"
+	OrganizationService_GetDefaultBankAccount_FullMethodName         = "/organization.OrganizationService/GetDefaultBankAccount"
+	OrganizationService_CreateBankAccount_FullMethodName             = "/organization.OrganizationService/CreateBankAccount"
+	OrganizationService_UpdateBankAccount_FullMethodName             = "/organization.OrganizationService/UpdateBankAccount"
+	OrganizationService_PatchBankAccount_FullMethodName              = "/organization.OrganizationService/PatchBankAccount"
+	OrganizationService_DeleteBankAccount_FullMethodName             = "/organization.OrganizationService/DeleteBankAccount"
+	OrganizationService_GetBankAccount_FullMethodName                = "/organization.OrganizationService/GetBankAccount"
+	OrganizationService_CreateAddress_FullMethodName                 = "/organization.OrganizationService/CreateAddress"
+	OrganizationService_GetAddress_FullMethodName                    = "/organization.OrganizationService/GetAddress"
+	OrganizationService_UpdateAddress_FullMethodName                 = "/organization.OrganizationService/UpdateAddress"
+	OrganizationService_PatchAddress_FullMethodName                  = "/organization.OrganizationService/PatchAddress"
+	OrganizationService_DeleteAddress_FullMethodName                 = "/organization.OrganizationService/DeleteAddress"
+	OrganizationService_CreateRelationship_FullMethodName            = "/organization.OrganizationService/CreateRelationship"
+	OrganizationService_ListRelationships_FullMethodName             = "/organization.OrganizationService/ListRelationships"
+	OrganizationService_EnsureRelationshipExists_FullMethodName      = "/organization.OrganizationService/EnsureRelationshipExists"
+	OrganizationService_UpdateRelationship_FullMethodName            = "/organization.OrganizationService/UpdateRelationship"
+	OrganizationService_GetRelationshipType_FullMethodName           = "/organization.OrganizationService/GetRelationshipType"
+	OrganizationService_ListRelationshipTypes_FullMethodName         = "/organization.OrganizationService/ListRelationshipTypes"
+	OrganizationService_CreateRelationshipType_FullMethodName        = "/organization.OrganizationService/CreateRelationshipType"
+	OrganizationService_UpdateRelationshipType_FullMethodName        = "/organization.OrganizationService/UpdateRelationshipType"
+	OrganizationService_CreateContact_FullMethodName                 = "/organization.OrganizationService/CreateContact"
+	OrganizationService_GetContact_FullMethodName                    = "/organization.OrganizationService/GetContact"
+	OrganizationService_UpdateContact_FullMethodName                 = "/organization.OrganizationService/UpdateContact"
+	OrganizationService_DeleteContact_FullMethodName                 = "/organization.OrganizationService/DeleteContact"
+	OrganizationService_ListContacts_FullMethodName                  = "/organization.OrganizationService/ListContacts"
+	OrganizationService_GeneratePresignedURLs_FullMethodName         = "/organization.OrganizationService/GeneratePresignedURLs"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -61,6 +63,8 @@ type OrganizationServiceClient interface {
 	ListOrganizations(ctx context.Context, in *ListOrganizationsRequest, opts ...grpc.CallOption) (*ListOrganizationsResponse, error)
 	PatchOrganization(ctx context.Context, in *PatchOrganizationRequest, opts ...grpc.CallOption) (*PatchOrganizationResponse, error)
 	UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error)
+	GetCounterpartyOrganization(ctx context.Context, in *GetCounterpartyOrganizationRequest, opts ...grpc.CallOption) (*GetCounterpartyOrganizationResponse, error)
+	ListCounterpartyOrganizations(ctx context.Context, in *ListCounterpartyOrganizationsResponse, opts ...grpc.CallOption) (*ListCounterpartyOrganizationsResponse, error)
 	ListBankAccounts(ctx context.Context, in *ListBankAccountsRequest, opts ...grpc.CallOption) (*ListBankAccountsResponse, error)
 	GetDefaultBankAccount(ctx context.Context, in *GetDefaultBankAccountRequest, opts ...grpc.CallOption) (*GetDefaultBankAccountResponse, error)
 	CreateBankAccount(ctx context.Context, in *CreateBankAccountRequest, opts ...grpc.CallOption) (*CreateBankAccountResponse, error)
@@ -141,6 +145,26 @@ func (c *organizationServiceClient) UpdateOrganization(ctx context.Context, in *
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateOrganizationResponse)
 	err := c.cc.Invoke(ctx, OrganizationService_UpdateOrganization_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) GetCounterpartyOrganization(ctx context.Context, in *GetCounterpartyOrganizationRequest, opts ...grpc.CallOption) (*GetCounterpartyOrganizationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCounterpartyOrganizationResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GetCounterpartyOrganization_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) ListCounterpartyOrganizations(ctx context.Context, in *ListCounterpartyOrganizationsResponse, opts ...grpc.CallOption) (*ListCounterpartyOrganizationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListCounterpartyOrganizationsResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_ListCounterpartyOrganizations_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -416,6 +440,8 @@ type OrganizationServiceServer interface {
 	ListOrganizations(context.Context, *ListOrganizationsRequest) (*ListOrganizationsResponse, error)
 	PatchOrganization(context.Context, *PatchOrganizationRequest) (*PatchOrganizationResponse, error)
 	UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error)
+	GetCounterpartyOrganization(context.Context, *GetCounterpartyOrganizationRequest) (*GetCounterpartyOrganizationResponse, error)
+	ListCounterpartyOrganizations(context.Context, *ListCounterpartyOrganizationsResponse) (*ListCounterpartyOrganizationsResponse, error)
 	ListBankAccounts(context.Context, *ListBankAccountsRequest) (*ListBankAccountsResponse, error)
 	GetDefaultBankAccount(context.Context, *GetDefaultBankAccountRequest) (*GetDefaultBankAccountResponse, error)
 	CreateBankAccount(context.Context, *CreateBankAccountRequest) (*CreateBankAccountResponse, error)
@@ -466,6 +492,12 @@ func (UnimplementedOrganizationServiceServer) PatchOrganization(context.Context,
 }
 func (UnimplementedOrganizationServiceServer) UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganization not implemented")
+}
+func (UnimplementedOrganizationServiceServer) GetCounterpartyOrganization(context.Context, *GetCounterpartyOrganizationRequest) (*GetCounterpartyOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCounterpartyOrganization not implemented")
+}
+func (UnimplementedOrganizationServiceServer) ListCounterpartyOrganizations(context.Context, *ListCounterpartyOrganizationsResponse) (*ListCounterpartyOrganizationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCounterpartyOrganizations not implemented")
 }
 func (UnimplementedOrganizationServiceServer) ListBankAccounts(context.Context, *ListBankAccountsRequest) (*ListBankAccountsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListBankAccounts not implemented")
@@ -652,6 +684,42 @@ func _OrganizationService_UpdateOrganization_Handler(srv interface{}, ctx contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrganizationServiceServer).UpdateOrganization(ctx, req.(*UpdateOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_GetCounterpartyOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCounterpartyOrganizationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).GetCounterpartyOrganization(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_GetCounterpartyOrganization_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).GetCounterpartyOrganization(ctx, req.(*GetCounterpartyOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_ListCounterpartyOrganizations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCounterpartyOrganizationsResponse)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).ListCounterpartyOrganizations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_ListCounterpartyOrganizations_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).ListCounterpartyOrganizations(ctx, req.(*ListCounterpartyOrganizationsResponse))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1150,6 +1218,14 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOrganization",
 			Handler:    _OrganizationService_UpdateOrganization_Handler,
+		},
+		{
+			MethodName: "GetCounterpartyOrganization",
+			Handler:    _OrganizationService_GetCounterpartyOrganization_Handler,
+		},
+		{
+			MethodName: "ListCounterpartyOrganizations",
+			Handler:    _OrganizationService_ListCounterpartyOrganizations_Handler,
 		},
 		{
 			MethodName: "ListBankAccounts",
