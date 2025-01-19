@@ -51,6 +51,30 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 }
 
 func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Request) {
+	organizationIDStr := chi.URLParam(r, "organization_id")
+
+	organizationID, err := strconv.ParseInt(organizationIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid organization_id format", "relationship_type_id", organizationIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.GetOrganizationRequest{
+		Id: organizationID,
+	}
+
+	response, err := h.organization.Api.GetOrganization(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) GetMyOrganization(w http.ResponseWriter, r *http.Request) {
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
@@ -58,7 +82,7 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 	}
 
 	req := &organizationv1.GetOrganizationRequest{
-		Id: int64(organization_id),
+		Id: organization_id,
 	}
 
 	response, err := h.organization.Api.GetOrganization(r.Context(), req)
@@ -105,7 +129,7 @@ func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.R
 	return
 }
 
-func (h *OrganizationHandler) PatchOrganization(w http.ResponseWriter, r *http.Request) {
+func (h *OrganizationHandler) PatchMyOrganization(w http.ResponseWriter, r *http.Request) {
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
@@ -128,7 +152,7 @@ func (h *OrganizationHandler) PatchOrganization(w http.ResponseWriter, r *http.R
 	return
 }
 
-func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
+func (h *OrganizationHandler) UpdateMyOrganization(w http.ResponseWriter, r *http.Request) {
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))

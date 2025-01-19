@@ -1,16 +1,16 @@
 package grpc
 
 import (
-    "context"
-    "time"
+	"context"
+	"time"
 
 	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
-    "google.golang.org/grpc"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
 type UserClient struct {
-    Api userv1.UserServiceClient
+	Api userv1.UserServiceClient
 }
 
 func NewUserClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*UserClient, error) {

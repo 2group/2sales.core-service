@@ -10,7 +10,7 @@ import (
 )
 
 type ProductClient struct {
-    Api productv1.ProductServiceClient 
+	Api productv1.ProductServiceClient
 }
 
 func NewProductClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*ProductClient, error) {
@@ -23,5 +23,3 @@ func NewProductClient(ctx context.Context, addr string, timeout time.Duration, r
 		Api: productv1.NewProductServiceClient(cc),
 	}, nil
 }
-
-

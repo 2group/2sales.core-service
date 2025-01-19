@@ -104,21 +104,17 @@ func (h *UserHandler) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UserHandler) HandlePatchUser(w http.ResponseWriter, r *http.Request) {
-	req := &userv1.PatchUserRequest{}
-	err := json.ParseJSON(r, req)
-	if err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-
 	user_id, ok := middleware.GetUserID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 
-	userIDPtr := int64(user_id)
-	req.User.Id = &userIDPtr
+	req := &userv1.PatchUserRequest{}
+
+	json.ParseJSON(r, req)
+
+	req.User.Id = &user_id
 
 	response, err := h.user.Api.PatchUser(r.Context(), req)
 	if err != nil {

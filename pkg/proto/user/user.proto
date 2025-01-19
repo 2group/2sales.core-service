@@ -31,7 +31,7 @@ message User {
     optional string organization_type = 8;
     optional string created_at = 9;
     optional string updated_at = 10;
-    RoleModel role = 11;
+    optional RoleModel role = 11;
 }
 
 message UserModel {

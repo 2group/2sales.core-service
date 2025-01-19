@@ -2,13 +2,13 @@ package handler
 
 import (
 	"fmt"
-	"log"
 	"log/slog"
 	"net/http"
 	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	crmv1 "github.com/2group/2sales.core-service/pkg/gen/go/crm"
+	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
 	"github.com/2group/2sales.core-service/pkg/json"
 	middleware "github.com/2group/2sales.core-service/pkg/middeware"
 	"github.com/go-chi/chi/v5"
@@ -30,7 +30,13 @@ func (h *CrmHandler) CreateLead(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.log.Info("create lead handler", "organization_id", organizationID)
+	userID, ok := middleware.GetUserID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+		return
+	}
+
+	h.log.Info("create lead handler", "organization_id", organizationID, "user_id", userID)
 
 	req := &crmv1.CreateLeadRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
@@ -38,7 +44,10 @@ func (h *CrmHandler) CreateLead(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	req.Lead.CreatedByUser = &userv1.User{}
+
 	req.Lead.CreatedByOrganizationId = &organizationID
+	req.Lead.CreatedByUser.Id = &userID
 
 	response, err := h.crm.Api.CreateLead(r.Context(), req)
 	if err != nil {
@@ -211,7 +220,6 @@ func (h *CrmHandler) ListLeads(w http.ResponseWriter, r *http.Request) {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	log.Println(response)
 
 	// 5. Return the leads JSON response
 	json.WriteJSON(w, http.StatusOK, response)
