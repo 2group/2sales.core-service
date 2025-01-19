@@ -126,6 +126,10 @@ func (s *APIServer) Run() error {
 					cRouter.Put("/{contact_id}", organizationHandler.UpdateContact)
 					cRouter.Delete("/{contact_id}", organizationHandler.DeleteContact)
 				})
+				authRouter.Route("/counterparties", func(coRouter chi.Router) {
+					coRouter.Get("/my", organizationHandler.ListCounterparties)
+					coRouter.Get("/{counterparty_id}", organizationHandler.GetCounterparty)
+				})
 			})
 		})
 		apiRouter.Route("/crm", func(crmRouter chi.Router) {

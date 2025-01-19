@@ -11,8 +11,8 @@ service OrganizationService {
     rpc PatchOrganization (PatchOrganizationRequest) returns (PatchOrganizationResponse);
     rpc UpdateOrganization (UpdateOrganizationRequest) returns (UpdateOrganizationResponse);
 
-    rpc GetCounterpartyOrganization (GetCounterpartyOrganizationRequest) returns (GetCounterpartyOrganizationResponse);
-    rpc ListCounterpartyOrganizations (ListCounterpartyOrganizationsResponse) returns (ListCounterpartyOrganizationsResponse);
+    rpc GetCounterparty (GetCounterpartyRequest) returns (GetCounterpartyResponse);
+    rpc ListCounterparties (ListCounterpartiesRequest) returns (ListCounterpartiesResponse);
 
     rpc ListBankAccounts (ListBankAccountsRequest) returns (ListBankAccountsResponse);
     rpc GetDefaultBankAccount (GetDefaultBankAccountRequest) returns (GetDefaultBankAccountResponse);
@@ -67,7 +67,7 @@ message ImageModel {
     string object_key = 4;
 }
 
-message CounterpartyOrganization {
+message Counterparty {
     optional int64 id = 1;
     optional string name = 2;
     optional string legal_name = 3;
@@ -177,20 +177,22 @@ message GetOrganizationResponse {
     Organization organization = 1;
 }
 
-message GetCounterpartyOrganizationRequest {
+message GetCounterpartyRequest {
     int64 id = 1;
 }
 
-message GetCounterpartyOrganizationResponse {
-    CounterpartyOrganization counterparty_organization = 1;
+message GetCounterpartyResponse {
+    Counterparty counterparty = 1;
 }
 
-message ListCounterparyOrganizationsRequest {
+message ListCounterpartiesRequest {
     int64 source_organization_id = 1;
+    int32 limit = 2;
+    int32 offset = 3;
 }
 
-message ListCounterpartyOrganizationsResponse {
-    repeated CounterpartyOrganization counterparty_organizations = 1;
+message ListCounterpartiesResponse {
+    repeated Counterparty counterparties = 1;
 }
 
 message ListOrganizationsRequest {

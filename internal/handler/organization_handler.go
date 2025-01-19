@@ -24,7 +24,7 @@ func NewOrganizationHandler(log *slog.Logger, organization *grpc.OrganizationCli
 }
 
 func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.Request) {
-	user_id, ok := middleware.GetUserID(r)
+	userID, ok := middleware.GetUserID(r)
 	if !ok {
 		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
 		return
@@ -38,7 +38,7 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 
 	log.Println(req)
 
-	req.UserId = &user_id
+	req.UserId = &userID
 
 	response, err := h.organization.Api.CreateOrganization(r.Context(), req)
 	if err != nil {
@@ -75,14 +75,14 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 }
 
 func (h *OrganizationHandler) GetMyOrganization(w http.ResponseWriter, r *http.Request) {
-	organization_id, ok := middleware.GetOrganizationID(r)
+	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 
 	req := &organizationv1.GetOrganizationRequest{
-		Id: organization_id,
+		Id: organizationID,
 	}
 
 	response, err := h.organization.Api.GetOrganization(r.Context(), req)
@@ -130,7 +130,7 @@ func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.R
 }
 
 func (h *OrganizationHandler) PatchMyOrganization(w http.ResponseWriter, r *http.Request) {
-	organization_id, ok := middleware.GetOrganizationID(r)
+	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
@@ -140,7 +140,7 @@ func (h *OrganizationHandler) PatchMyOrganization(w http.ResponseWriter, r *http
 
 	json.ParseJSON(r, &req)
 
-	req.Organization.Id = &organization_id
+	req.Organization.Id = &organizationID
 
 	response, err := h.organization.Api.PatchOrganization(r.Context(), req)
 	if err != nil {
@@ -176,7 +176,7 @@ func (h *OrganizationHandler) UpdateMyOrganization(w http.ResponseWriter, r *htt
 }
 
 func (h *OrganizationHandler) CreateRelationship(w http.ResponseWriter, r *http.Request) {
-	organization_id, ok := middleware.GetOrganizationID(r)
+	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
@@ -186,7 +186,7 @@ func (h *OrganizationHandler) CreateRelationship(w http.ResponseWriter, r *http.
 
 	json.ParseJSON(r, &req)
 
-	req.Relationship.SourceOrganizationId = &organization_id
+	req.Relationship.SourceOrganizationId = &organizationID
 
 	response, err := h.organization.Api.CreateRelationship(r.Context(), req)
 	if err != nil {
@@ -199,7 +199,7 @@ func (h *OrganizationHandler) CreateRelationship(w http.ResponseWriter, r *http.
 }
 
 func (h *OrganizationHandler) ListRelationships(w http.ResponseWriter, r *http.Request) {
-	organization_id, ok := middleware.GetOrganizationID(r)
+	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
@@ -207,7 +207,7 @@ func (h *OrganizationHandler) ListRelationships(w http.ResponseWriter, r *http.R
 
 	req := &organizationv1.ListRelationshipsRequest{}
 
-	req.OrganizationId = organization_id
+	req.OrganizationId = organizationID
 
 	response, err := h.organization.Api.ListRelationships(r.Context(), req)
 	if err != nil {
@@ -550,7 +550,7 @@ func (h *OrganizationHandler) DeleteContact(w http.ResponseWriter, r *http.Reque
 }
 
 func (h *OrganizationHandler) GeneratePresignedURLs(w http.ResponseWriter, r *http.Request) {
-	organization_id, ok := middleware.GetOrganizationID(r)
+	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
@@ -558,7 +558,7 @@ func (h *OrganizationHandler) GeneratePresignedURLs(w http.ResponseWriter, r *ht
 
 	req := &organizationv1.GeneratePresignedURLsRequest{}
 
-	req.OrganizationId = organization_id
+	req.OrganizationId = organizationID
 
 	if err := json.ParseJSON(r, req); err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
@@ -566,6 +566,83 @@ func (h *OrganizationHandler) GeneratePresignedURLs(w http.ResponseWriter, r *ht
 	}
 
 	response, err := h.organization.Api.GeneratePresignedURLs(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) GetCounterparty(w http.ResponseWriter, r *http.Request) {
+	counterpartyIDStr := chi.URLParam(r, "counterparty_id")
+
+	counterpartyID, err := strconv.ParseInt(counterpartyIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid counterparty_id format", "counterparty_id", counterpartyIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.GetCounterpartyRequest{
+		Id: counterpartyID,
+	}
+
+	response, err := h.organization.Api.GetCounterparty(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) ListCounterparties(w http.ResponseWriter, r *http.Request) {
+	sourceOrganizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	query := r.URL.Query()
+	limitParam := query.Get("limit")
+	offsetParam := query.Get("offset")
+
+	var (
+		limit  int32
+		offset int32
+	)
+
+	// Default limit if none provided (e.g., 10)
+	if limitParam == "" {
+		limit = 10
+	} else {
+		parsedLimit, err := strconv.ParseInt(limitParam, 10, 32)
+		if err != nil {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid limit param"))
+			return
+		}
+		limit = int32(parsedLimit)
+	}
+
+	if offsetParam != "" {
+		parsedOffset, err := strconv.ParseInt(offsetParam, 10, 32)
+		if err != nil {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid offset param"))
+			return
+		}
+		offset = int32(parsedOffset)
+	}
+
+	req := &organizationv1.ListCounterpartiesRequest{
+		SourceOrganizationId: sourceOrganizationID,
+		Limit:                limit,
+		Offset:               offset,
+	}
+
+	response, err := h.organization.Api.ListCounterparties(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
