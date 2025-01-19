@@ -60,7 +60,9 @@ message Lead {
     repeated Contact contacts = 5;
     string stage = 6;
     optional double estimated_value = 7;
-    optional user.User user = 8;
+    optional user.User created_by_user = 8;
+    optional string created_at = 9;
+    optional string updated_at = 10;
 }
 
 message Contact {
