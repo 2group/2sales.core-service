@@ -136,7 +136,7 @@ message RelationshipModel {
 message Relationship {
     optional int64 id = 1;
     optional int64 source_organization_id = 2;
-    optional string target_organization_id = 3;
+    optional int64 target_organization_id = 3;
     RelationshipTypeModel relationship_type = 4;
 }
 
