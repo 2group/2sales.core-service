@@ -69,9 +69,9 @@ func (s *APIServer) Run() error {
 
 			userRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/", userHandler.HandleGetUser)
-				authRouter.Put("/", userHandler.HandleUpdateUser)
-				authRouter.Patch("/", userHandler.HandlePatchUser)
+				authRouter.Get("/my", userHandler.HandleGetUser)
+				authRouter.Put("/my", userHandler.HandleUpdateUser)
+				authRouter.Patch("/my", userHandler.HandlePatchUser)
 			})
 		})
 		apiRouter.Route("/category", func(categoryRouter chi.Router) {
