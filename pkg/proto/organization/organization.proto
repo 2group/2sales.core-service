@@ -406,6 +406,7 @@ message ListRelationshipsRequest {
 
 message ListRelationshipsResponse {
     repeated Relationship relationships = 1;
+    int32 total_count = 2;
 }
 
 
