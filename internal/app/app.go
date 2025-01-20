@@ -97,11 +97,11 @@ func (s *APIServer) Run() error {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", organizationHandler.CreateOrganization)
 				authRouter.Get("/", organizationHandler.ListOrganizations)
-				authRouter.Get("/{organization_id}", organizationHandler.GetOrganization)
 				authRouter.Get("/my", organizationHandler.GetMyOrganization)
 				authRouter.Put("/my", organizationHandler.UpdateMyOrganization)
 				authRouter.Patch("/my", organizationHandler.PatchMyOrganization)
 				authRouter.Post("/presigned-urls", organizationHandler.GeneratePresignedURLs)
+				authRouter.Get("/{organization_id}", organizationHandler.GetOrganization)
 				authRouter.Route("/addresses", func(aRouter chi.Router) {
 					aRouter.Post("/", organizationHandler.CreateAddress)
 					aRouter.Put("/{address_id}", organizationHandler.UpdateAddress)
