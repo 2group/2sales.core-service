@@ -28,10 +28,11 @@ message User {
     optional string first_name = 5;
     optional string last_name = 6;
     optional int64 organization_id = 7;
-    optional string organization_type = 8;
-    optional string created_at = 9;
-    optional string updated_at = 10;
-    optional RoleModel role = 11;
+    optional string organization_name = 8;
+    optional string organization_type = 9;
+    optional string created_at = 10;
+    optional string updated_at = 11;
+    optional RoleModel role = 12;
 }
 
 message UserModel {
