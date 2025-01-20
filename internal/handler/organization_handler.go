@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"log"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -35,8 +34,6 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-
-	log.Println(req)
 
 	req.UserId = &userID
 
@@ -566,6 +563,31 @@ func (h *OrganizationHandler) GeneratePresignedURLs(w http.ResponseWriter, r *ht
 	}
 
 	response, err := h.organization.Api.GeneratePresignedURLs(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) CreateCounterparty(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.CreateCounterpartyRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req.Counterparty.Relationship.SourceOrganizationId = &organizationID
+
+	response, err := h.organization.Api.CreateCounterparty(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return

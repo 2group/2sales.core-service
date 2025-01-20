@@ -127,6 +127,7 @@ func (s *APIServer) Run() error {
 					cRouter.Delete("/{contact_id}", organizationHandler.DeleteContact)
 				})
 				authRouter.Route("/counterparties", func(coRouter chi.Router) {
+					coRouter.Post("/", organizationHandler.CreateCounterparty)
 					coRouter.Get("/my", organizationHandler.ListCounterparties)
 					coRouter.Get("/{counterparty_id}", organizationHandler.GetCounterparty)
 				})

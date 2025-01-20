@@ -24,6 +24,7 @@ const (
 	OrganizationService_ListOrganizations_FullMethodName        = "/organization.OrganizationService/ListOrganizations"
 	OrganizationService_PatchOrganization_FullMethodName        = "/organization.OrganizationService/PatchOrganization"
 	OrganizationService_UpdateOrganization_FullMethodName       = "/organization.OrganizationService/UpdateOrganization"
+	OrganizationService_CreateCounterparty_FullMethodName       = "/organization.OrganizationService/CreateCounterparty"
 	OrganizationService_GetCounterparty_FullMethodName          = "/organization.OrganizationService/GetCounterparty"
 	OrganizationService_ListCounterparties_FullMethodName       = "/organization.OrganizationService/ListCounterparties"
 	OrganizationService_ListBankAccounts_FullMethodName         = "/organization.OrganizationService/ListBankAccounts"
@@ -63,6 +64,7 @@ type OrganizationServiceClient interface {
 	ListOrganizations(ctx context.Context, in *ListOrganizationsRequest, opts ...grpc.CallOption) (*ListOrganizationsResponse, error)
 	PatchOrganization(ctx context.Context, in *PatchOrganizationRequest, opts ...grpc.CallOption) (*PatchOrganizationResponse, error)
 	UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error)
+	CreateCounterparty(ctx context.Context, in *CreateCounterpartyRequest, opts ...grpc.CallOption) (*CreateCounterpartyResponse, error)
 	GetCounterparty(ctx context.Context, in *GetCounterpartyRequest, opts ...grpc.CallOption) (*GetCounterpartyResponse, error)
 	ListCounterparties(ctx context.Context, in *ListCounterpartiesRequest, opts ...grpc.CallOption) (*ListCounterpartiesResponse, error)
 	ListBankAccounts(ctx context.Context, in *ListBankAccountsRequest, opts ...grpc.CallOption) (*ListBankAccountsResponse, error)
@@ -145,6 +147,16 @@ func (c *organizationServiceClient) UpdateOrganization(ctx context.Context, in *
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateOrganizationResponse)
 	err := c.cc.Invoke(ctx, OrganizationService_UpdateOrganization_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) CreateCounterparty(ctx context.Context, in *CreateCounterpartyRequest, opts ...grpc.CallOption) (*CreateCounterpartyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateCounterpartyResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateCounterparty_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -440,6 +452,7 @@ type OrganizationServiceServer interface {
 	ListOrganizations(context.Context, *ListOrganizationsRequest) (*ListOrganizationsResponse, error)
 	PatchOrganization(context.Context, *PatchOrganizationRequest) (*PatchOrganizationResponse, error)
 	UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error)
+	CreateCounterparty(context.Context, *CreateCounterpartyRequest) (*CreateCounterpartyResponse, error)
 	GetCounterparty(context.Context, *GetCounterpartyRequest) (*GetCounterpartyResponse, error)
 	ListCounterparties(context.Context, *ListCounterpartiesRequest) (*ListCounterpartiesResponse, error)
 	ListBankAccounts(context.Context, *ListBankAccountsRequest) (*ListBankAccountsResponse, error)
@@ -492,6 +505,9 @@ func (UnimplementedOrganizationServiceServer) PatchOrganization(context.Context,
 }
 func (UnimplementedOrganizationServiceServer) UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganization not implemented")
+}
+func (UnimplementedOrganizationServiceServer) CreateCounterparty(context.Context, *CreateCounterpartyRequest) (*CreateCounterpartyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCounterparty not implemented")
 }
 func (UnimplementedOrganizationServiceServer) GetCounterparty(context.Context, *GetCounterpartyRequest) (*GetCounterpartyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCounterparty not implemented")
@@ -684,6 +700,24 @@ func _OrganizationService_UpdateOrganization_Handler(srv interface{}, ctx contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrganizationServiceServer).UpdateOrganization(ctx, req.(*UpdateOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_CreateCounterparty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCounterpartyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).CreateCounterparty(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_CreateCounterparty_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).CreateCounterparty(ctx, req.(*CreateCounterpartyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1218,6 +1252,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOrganization",
 			Handler:    _OrganizationService_UpdateOrganization_Handler,
+		},
+		{
+			MethodName: "CreateCounterparty",
+			Handler:    _OrganizationService_CreateCounterparty_Handler,
 		},
 		{
 			MethodName: "GetCounterparty",

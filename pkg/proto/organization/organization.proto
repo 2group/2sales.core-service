@@ -11,6 +11,7 @@ service OrganizationService {
     rpc PatchOrganization (PatchOrganizationRequest) returns (PatchOrganizationResponse);
     rpc UpdateOrganization (UpdateOrganizationRequest) returns (UpdateOrganizationResponse);
 
+    rpc CreateCounterparty (CreateCounterpartyRequest) returns (CreateCounterpartyResponse);
     rpc GetCounterparty (GetCounterpartyRequest) returns (GetCounterpartyResponse);
     rpc ListCounterparties (ListCounterpartiesRequest) returns (ListCounterpartiesResponse);
 
