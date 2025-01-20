@@ -40,7 +40,13 @@ message ProductGroup {
     repeated ProductModel products = 3;
 }
 
-message ProductModel {
+message ProductGroupModel {
+    int64 id = 1;
+    string group_name = 2;
+    repeated int64 product_ids = 3;
+}
+
+message Product {
     int64 id = 1;
     string name = 2;
     string image_url = 3;
@@ -61,6 +67,25 @@ message ProductModel {
     repeated ProductCharacteristics characteristics = 18;
     repeated CharacteristicGroup characteristic_groups = 19;
     repeated ProductGroup product_groups = 20;
+}
+
+message ProductModel {
+    int64 id = 1;
+    string name = 2;
+    string image_url = 3;
+    string description = 4;
+    string category_name = 5;
+    string category_id = 6;
+    float sale_price = 7;
+    float purchase_price = 8;
+    int64 organization_id = 9;
+    int64 created_by = 10;
+    bool is_external = 11;
+    string design_url = 12;
+    string sale_status = 13;
+    int64 count = 14;
+    int64 brand_id = 15;
+    string brand_name = 16;
 }
 
 message ProductCharacteristics {
@@ -171,7 +196,7 @@ message UpdateProductRequest {
 }
 
 message UpdateProductResponse {
-    ProductModel product = 1;
+    Product product = 1;
 }
 
 message GetProductRequest {
@@ -179,7 +204,7 @@ message GetProductRequest {
 }
 
 message GetProductResponse {
-    ProductModel product = 1;
+    Product product = 1;
 }
 
 message DeleteProductRequest {
