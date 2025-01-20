@@ -6,6 +6,7 @@ option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/warehouse;
 
 import "organization/organization.proto";
 import "product/product.proto";
+import "user/user.proto";
 
 service WarehouseService {
     rpc CreateWarehouse (CreateWarehouseRequest) returns (CreateWarehouseResponse);
@@ -14,7 +15,83 @@ service WarehouseService {
     rpc GetProductsInWarehouse (GetProductsInWarehouseRequest) returns (GetProductsInWarehouseResponse);
     rpc GetWarehouseAnalytics (GetWarehouseAnalyticsRequest) returns (GetWarehouseAnalyticsResponse);
     rpc AddProductToWarehouse (AddProductToWarehouseRequest) returns (AddProductToWarehouseResponse);
+
+    rpc CreateAcceptence (CreateAcceptenceRequest) returns (CreateAcceptenceResponse);
+    rpc GetAcceptence (GetAcceptenceRequest) returns (GetAcceptenceResponse);
+    rpc ListAcceptence (ListAcceptenceRequest) returns (ListAcceptenceResponse);
+    rpc UpdateAcceptence (UpdateAcceptenceRequest) returns (UpdateAcceptenceResponse);
+    rpc DeleteAcceptence (DeleteAcceptenceRequest) returns (DeleteAcceptenceResponse);
 }
+
+// Models and Messages
+
+message WarehouseModel {
+    int64 id = 1;
+    int64 organization_id = 2;
+    string name = 3;
+    organization.AddressModel address = 4;
+    int64 count = 5;
+    repeated WarehouseProducts products = 6;
+}
+
+message Warehouse {
+    int64 id = 1;
+    int64 organization_id = 2;
+    string name = 3;
+    organization.AddressModel address = 4;
+    int64 count = 5;
+    repeated WarehouseProducts products = 6;
+}
+
+message WarehouseAnalytics {
+    int64 product_count = 1;
+    float occupancy = 2;
+    float defect_rate = 3;
+}
+
+message WarehouseProducts {
+    int64 id = 1;
+    int64 product_id = 2;
+    int64 quantity = 3;
+    product.Product product = 4;
+}
+
+message Acceptence {
+    int64 id = 1;
+    organization.Organization organization = 2; 
+    organization.Organization counterparty = 3;
+    Warehouse warehouse = 4;
+    optional string document_url = 5;
+    user.User user = 6;
+    repeated AccpetenceProduct products = 7;
+    string created_at = 8;
+}
+
+message AcceptenceModel {
+    int64 id = 1;
+    int64 organization_id = 2;
+    int64 counterparty_id = 3;
+    int64 warehouse_id = 4;
+    optional string document_url = 5;
+    int64 user_id = 6;
+    string created_at = 7;
+}
+
+message AccpetenceProduct {
+    int64 id = 1;
+    product.Product product = 2;
+    int64 quantity = 3;
+    float price = 4;
+}
+
+message AccpetenceProductModel {
+    int64 id = 1;
+    int64 product_id = 2;
+    int64 quantity = 3;
+    float price = 4;
+}
+
+// Requests and Response
 
 message CreateWarehouseRequest {
     string name = 1;
@@ -75,24 +152,54 @@ message AddProductToWarehouseResponse {
     WarehouseProducts product = 1;
 }
 
-message WarehouseModel {
-    int64 id = 1;
-    int64 organization_id = 2;
-    string name = 3;
-    organization.AddressModel address = 4;
-    int64 count = 5;
-    repeated WarehouseProducts products = 6;
+message CreateAcceptenceRequest {
+    int64 organization_id = 1;
+    int64 counterparty_id = 2;
+    int64 warehouse_id = 3;
+    int64 user_id = 5;
+    repeated int64 product_ids = 6;
 }
 
-message WarehouseAnalytics {
-    int64 product_count = 1;
-    float occupancy = 2;
-    float defect_rate = 3;
+message CreateAcceptenceResponse {
+    Acceptence acceptence = 1;
 }
 
-message WarehouseProducts {
+message GetAcceptenceRequest {
     int64 id = 1;
-    int64 product_id = 2;
-    int64 quantity = 3;
-    product.ProductModel product = 4;
+}
+
+message GetAcceptenceResponse {
+    Acceptence acceptence = 1;
+}
+
+message ListAcceptenceRequest {
+    int64 page = 1;
+    int64 page_size = 2;
+}
+
+message ListAcceptenceResponse {
+    repeated Acceptence acceptences = 1;
+    int64 total_count = 2;
+}
+
+message UpdateAcceptenceRequest {
+    int64 id = 1;
+    optional int64 organization_id = 2;
+    optional int64 counterparty_id = 3;
+    optional int64 warehouse_id = 4;
+    optional string document_url = 5;
+    optional int64 user_id = 6;
+    repeated int64 product_ids = 7;
+}
+
+message UpdateAcceptenceResponse {
+    Acceptence acceptence = 1;
+}
+
+message DeleteAcceptenceRequest {
+    int64 id = 1;
+}
+
+message DeleteAcceptenceResponse {
+    bool success = 1;
 }
