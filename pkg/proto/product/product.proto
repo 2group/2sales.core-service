@@ -138,7 +138,7 @@ message CreateProductRequest {
 }
 
 message CreateProductResponse {
-    ProductModel product = 1;
+    Product product = 1;
 }
 
 message ListProductRequest {
@@ -156,7 +156,7 @@ message ListProductRequest {
 }
 
 message ListProductResponse {
-    repeated ProductModel products = 1;
+    repeated Product products = 1;
     int32 total_count = 2;
     string pdf_url = 3;
 }
@@ -167,7 +167,7 @@ message DuplicateProductRequest {
 }
 
 message DuplicateProductResponse {
-    ProductModel product = 1;
+    Product product = 1;
 }
 
 message UploadProductsRequest {
@@ -175,7 +175,7 @@ message UploadProductsRequest {
 }
 
 message UploadProductsResponse {
-    repeated ProductModel products = 1;
+    repeated Product products = 1;
 }
 
 message UpdateProductRequest {
