@@ -172,10 +172,18 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
+    
+    organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
 
 	req := &productv1.CreateProductRequest{}
 	json.ParseJSON(r, &req)
 	req.CreatedBy = user_id
+    req.OrganizationId = organization_id
+    req.BrandId = organization_id
 
 	response, err := h.product.Api.CreateProduct(r.Context(), req)
 	if err != nil {
