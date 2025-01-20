@@ -53,7 +53,7 @@ message WarehouseProducts {
     int64 id = 1;
     int64 product_id = 2;
     int64 quantity = 3;
-    product.ProductModel product = 4;
+    product.Product product = 4;
 }
 
 message Acceptence {
@@ -91,7 +91,7 @@ message AccpetenceProductModel {
     float price = 4;
 }
 
-// Requests and Responses
+// Requests and Response
 
 message CreateWarehouseRequest {
     string name = 1;
