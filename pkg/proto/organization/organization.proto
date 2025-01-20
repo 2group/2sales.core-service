@@ -192,6 +192,7 @@ message ListCounterpartiesRequest {
 
 message ListCounterpartiesResponse {
     repeated Counterparty counterparties = 1;
+    int32 total_count = 2;
 }
 
 message CreateCounterpartyRequest {
