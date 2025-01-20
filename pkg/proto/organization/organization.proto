@@ -193,6 +193,22 @@ message ListCounterpartiesResponse {
     repeated Counterparty counterparties = 1;
 }
 
+message CreateCounterpartyRequest {
+    Counterparty counterparty = 1;
+}
+
+message CreateCounterpartyResponse {
+    Counterparty counterparty = 1;
+}
+
+message UpdateCounterpartyRequest {
+    Counterparty counterparty = 1;
+}
+
+message UpdateCounterpartyResponse {
+    Counterparty counterparty = 1;
+}
+
 message ListOrganizationsRequest {
     int32 page = 1;
     int32 page_size = 2;
