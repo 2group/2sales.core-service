@@ -66,12 +66,17 @@ func (s *APIServer) Run() error {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
 			userRouter.Post("/login", userHandler.HandleLogin)
 			userRouter.Post("/register", userHandler.HandleRegister)
-
 			userRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/my", userHandler.HandleGetUser)
-				authRouter.Put("/my", userHandler.HandleUpdateUser)
-				authRouter.Patch("/my", userHandler.HandlePatchUser)
+				authRouter.Get("/me", userHandler.HandleGetMyProfile)
+				authRouter.Put("/me", userHandler.HandleUpdateMyProfile)
+				authRouter.Patch("/me", userHandler.HandlePatchMyProfile)
+				authRouter.Route("/roles", func(rolesRouter chi.Router) {
+					rolesRouter.Get("/my", userHandler.ListMyOrganizationRoles)
+				})
+				authRouter.Route("/users", func(usersRouter chi.Router) {
+					usersRouter.Get("/my", userHandler.ListMyOrganizationUsers)
+				})
 			})
 		})
 		apiRouter.Route("/category", func(categoryRouter chi.Router) {
@@ -92,7 +97,7 @@ func (s *APIServer) Run() error {
 				authRouter.Put("/{product_id}", productHandler.UpdateProduct)
 			})
 		})
-        apiRouter.Route("/product-group", func(productGroupRouter chi.Router) {
+		apiRouter.Route("/product-group", func(productGroupRouter chi.Router) {
 			productGroupRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Get("/{product_group_id}", productHandler.GetProductGroup)

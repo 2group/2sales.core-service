@@ -56,7 +56,7 @@ func (h *UserHandler) HandleRegister(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (h *UserHandler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
+func (h *UserHandler) HandleGetMyProfile(w http.ResponseWriter, r *http.Request) {
 	user_id, ok := middleware.GetUserID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
@@ -76,7 +76,7 @@ func (h *UserHandler) HandleGetUser(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (h *UserHandler) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
+func (h *UserHandler) HandleUpdateMyProfile(w http.ResponseWriter, r *http.Request) {
 	req := &userv1.UpdateUserRequest{}
 	err := json.ParseJSON(r, req)
 	if err != nil {
@@ -103,7 +103,7 @@ func (h *UserHandler) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (h *UserHandler) HandlePatchUser(w http.ResponseWriter, r *http.Request) {
+func (h *UserHandler) HandlePatchMyProfile(w http.ResponseWriter, r *http.Request) {
 	user_id, ok := middleware.GetUserID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
@@ -117,6 +117,48 @@ func (h *UserHandler) HandlePatchUser(w http.ResponseWriter, r *http.Request) {
 	req.User.Id = &user_id
 
 	response, err := h.user.Api.PatchUser(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+	return
+}
+
+func (h *UserHandler) ListMyOrganizationUsers(w http.ResponseWriter, r *http.Request) {
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &userv1.ListUsersRequest{
+		OrganizationId: organization_id,
+	}
+
+	response, err := h.user.Api.ListUsers(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+	return
+}
+
+func (h *UserHandler) ListMyOrganizationRoles(w http.ResponseWriter, r *http.Request) {
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &userv1.ListRolesRequest{
+		OrganizationId: organization_id,
+	}
+
+	response, err := h.user.Api.ListRoles(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
