@@ -71,9 +71,15 @@ func (h *WarehouseHandler) CreateAcceptance(w http.ResponseWriter, r *http.Reque
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
+    user_id, ok := middleware.GetUserID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
     req := &warehousev1.CreateAcceptenceRequest{}
     json.ParseJSON(r, req)
     req.OrganizationId = organization_id
+    req.UserId = user_id
 
     response, err := h.warehouse.Api.CreateAcceptence(r.Context(), req)
     if err != nil {
