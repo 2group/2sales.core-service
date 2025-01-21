@@ -216,3 +216,24 @@ func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
+
+func (h *ProductHandler) CreateProductGroup(w http.ResponseWriter, r *http.Request) {
+    req := &productv1.CreateProductGroupRequest{}
+    json.ParseJSON(r, &req)
+}
+
+func (h *ProductHandler) UpdateProductGroup(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (h *ProductHandler) ListProductGroup(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (h *ProductHandler) GetProductGroup(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (h *ProductHandler) DeleteProductGroup(w http.ResponseWriter, r *http.Request) {
+
+}

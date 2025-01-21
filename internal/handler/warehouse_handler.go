@@ -76,6 +76,8 @@ func (h *WarehouseHandler) CreateWarehouse(w http.ResponseWriter, r *http.Reques
         OrganizationId: organization_id,
     }
 
+    json.ParseJSON(r, &req)
+
     response, err := h.warehouse.Api.CreateWarehouse(r.Context(), req)
     if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
