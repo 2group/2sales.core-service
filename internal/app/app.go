@@ -130,10 +130,11 @@ func (s *APIServer) Run() error {
 					coRouter.Post("/", organizationHandler.CreateCounterparty)
 					coRouter.Get("/my", organizationHandler.ListCounterparties)
 					coRouter.Get("/{counterparty_id}", organizationHandler.GetCounterparty)
-					coRouter.Patch("/{counterparty_id}", organizationHandler.PatchCounterparty)
+					coRouter.Patch("/{counterparty_id}", organizationHandler.PatchMyCounterparty)
 				})
 				authRouter.Route("/bank_accounts", func(baRouter chi.Router) {
 					baRouter.Get("/my", organizationHandler.ListMyBankAccounts)
+					baRouter.Put("/my", organizationHandler.UpdateMyBankAccounts)
 					baRouter.Post("/", organizationHandler.CreateBankAccount)
 					baRouter.Put("/{bank_account_id}", organizationHandler.UpdateBankAccount)
 					baRouter.Delete("/{bank_account_id}", organizationHandler.DeleteBankAccount)
