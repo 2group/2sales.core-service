@@ -220,20 +220,152 @@ func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 func (h *ProductHandler) CreateProductGroup(w http.ResponseWriter, r *http.Request) {
     req := &productv1.CreateProductGroupRequest{}
     json.ParseJSON(r, &req)
+    organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+    req.OrganizationId = organization_id
+
+    response, err := h.product.Api.CreateProductGroup(r.Context(), req)
+    if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+       return
+    }
+
+	json.WriteJSON(w, http.StatusCreated, response)
+    return
 }
 
 func (h *ProductHandler) UpdateProductGroup(w http.ResponseWriter, r *http.Request) {
+    req := &productv1.UpdateProductGroupRequest{}
+    json.ParseJSON(r, &req)
 
+    product_group_id_str := chi.URLParam(r, "product_group_id")
+	product_group_id, err := strconv.Atoi(product_group_id_str)
+    if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+    req.Id = int64(product_group_id)
+
+
+    response, err := h.product.Api.UpdateProductGroup(r.Context(), req)
+    if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+       return
+    }
+
+	json.WriteJSON(w, http.StatusCreated, response)
+    return
 }
 
 func (h *ProductHandler) ListProductGroup(w http.ResponseWriter, r *http.Request) {
+	req := &productv1.ListProductGroupsRequest{}
+	
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+		return
+	}
+	req.OrganizationId = organizationID
 
+	query := r.URL.Query()
+
+	if name := query.Get("name"); name != "" {
+		req.Name = name
+	}
+
+	if productID := query.Get("product_id"); productID != "" {
+		id, err := strconv.ParseInt(productID, 10, 64)
+		if err != nil {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid product_id: %w", err))
+			return
+		}
+		req.ProductId = id
+	}
+
+	page := 1
+	pageSize := 10
+
+	if pageStr := query.Get("page"); pageStr != "" {
+		p, err := strconv.ParseInt(pageStr, 10, 64)
+		if err != nil {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid page number: %w", err))
+			return
+		}
+		if p < 1 {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("page number must be greater than 0"))
+			return
+		}
+		page = int(p)
+	}
+
+	if pageSizeStr := query.Get("page_size"); pageSizeStr != "" {
+		ps, err := strconv.ParseInt(pageSizeStr, 10, 64)
+		if err != nil {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid page size: %w", err))
+			return
+		}
+		if ps < 1 {
+			json.WriteError(w, http.StatusBadRequest, fmt.Errorf("page size must be greater than 0"))
+			return
+		}
+		pageSize = int(ps)
+	}
+
+	req.Page = int64(page)
+	req.PageSize = int64(pageSize)
+
+	response, err := h.product.Api.ListProductGroups(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+    return
 }
 
 func (h *ProductHandler) GetProductGroup(w http.ResponseWriter, r *http.Request) {
+    req := &productv1.GetProductGroupRequest{}
 
+    product_group_id_str := chi.URLParam(r, "product_group_id")
+	product_group_id, err := strconv.Atoi(product_group_id_str)
+    if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+    req.Id = int64(product_group_id)
+
+    response, err := h.product.Api.GetProductGroup(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+    return
 }
 
 func (h *ProductHandler) DeleteProductGroup(w http.ResponseWriter, r *http.Request) {
+    req := &productv1.DeleteProductGroupRequest{}
 
+    product_group_id_str := chi.URLParam(r, "product_group_id")
+	product_group_id, err := strconv.Atoi(product_group_id_str)
+    if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+    req.Id = int64(product_group_id)
+
+    response, err := h.product.Api.DeleteProductGroup(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+    return
 }

@@ -92,6 +92,16 @@ func (s *APIServer) Run() error {
 				authRouter.Put("/{product_id}", productHandler.UpdateProduct)
 			})
 		})
+        apiRouter.Route("/product-group", func(productGroupRouter chi.Router) {
+			productGroupRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Get("/{product_group_id}", productHandler.GetProductGroup)
+				authRouter.Get("/", productHandler.ListProductGroup)
+				authRouter.Post("/", productHandler.CreateProductGroup)
+				authRouter.Put("/{product_group_id}", productHandler.UpdateProductGroup)
+				authRouter.Delete("/{product_group_id}", productHandler.DeleteProductGroup)
+			})
+		})
 		apiRouter.Route("/organizations", func(orgRouter chi.Router) {
 			orgRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
