@@ -159,6 +159,14 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/{warehouse_id}", warehouseHandler.GetWarehouse)
 			})
 		})
+        apiRouter.Route("/acceptance", func(acceptanceRouter chi.Router) {
+			acceptanceRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Get("/", warehouseHandler.ListAcceptances)
+				authRouter.Get("/{acceptance_id}", warehouseHandler.GetAcceptance)
+				authRouter.Post("/", warehouseHandler.CreateAcceptance)
+			})
+		})
 	})
 
 	return http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", s.cfg.REST.Port), router)
