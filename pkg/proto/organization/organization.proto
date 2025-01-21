@@ -198,6 +198,7 @@ message ListCounterpartiesResponse {
 
 message CreateCounterpartyRequest {
     Counterparty counterparty = 1;
+    int64 source_organization_id = 2;
 }
 
 message CreateCounterpartyResponse {
