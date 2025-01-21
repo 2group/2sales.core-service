@@ -65,6 +65,27 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 	return
 }
 
+func (h *WarehouseHandler) CreateWarehouse(w http.ResponseWriter, r *http.Request) {
+    organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+    req := &warehousev1.CreateWarehouseRequest{
+        OrganizationId: organization_id,
+    }
+
+    response, err := h.warehouse.Api.CreateWarehouse(r.Context(), req)
+    if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+        return
+    }
+
+	json.WriteJSON(w, http.StatusCreated, response)
+    return
+}
+
 func (h *WarehouseHandler) CreateAcceptance(w http.ResponseWriter, r *http.Request) {
     organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {

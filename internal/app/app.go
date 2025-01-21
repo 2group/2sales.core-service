@@ -157,6 +157,7 @@ func (s *APIServer) Run() error {
 			warehouseRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Get("/", warehouseHandler.ListWarehouses)
+				authRouter.Post("/", warehouseHandler.CreateWarehouse)
 				authRouter.Get("/{warehouse_id}", warehouseHandler.GetWarehouse)
 			})
 		})
