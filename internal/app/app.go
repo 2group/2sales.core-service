@@ -130,6 +130,7 @@ func (s *APIServer) Run() error {
 					coRouter.Post("/", organizationHandler.CreateCounterparty)
 					coRouter.Get("/my", organizationHandler.ListCounterparties)
 					coRouter.Get("/{counterparty_id}", organizationHandler.GetCounterparty)
+					coRouter.Patch("/{counterparty_id}", organizationHandler.PatchCounterparty)
 				})
 				authRouter.Route("/bank_accounts", func(baRouter chi.Router) {
 					baRouter.Get("/my", organizationHandler.ListMyBankAccounts)
@@ -159,7 +160,7 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/{warehouse_id}", warehouseHandler.GetWarehouse)
 			})
 		})
-        apiRouter.Route("/acceptance", func(acceptanceRouter chi.Router) {
+		apiRouter.Route("/acceptance", func(acceptanceRouter chi.Router) {
 			acceptanceRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Get("/", warehouseHandler.ListAcceptances)

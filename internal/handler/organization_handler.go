@@ -597,6 +597,34 @@ func (h *OrganizationHandler) CreateCounterparty(w http.ResponseWriter, r *http.
 	return
 }
 
+func (h *OrganizationHandler) PatchCounterparty(w http.ResponseWriter, r *http.Request) {
+	counterpartyIDStr := chi.URLParam(r, "counterparty_id")
+
+	counterpartyID, err := strconv.ParseInt(counterpartyIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid counterparty_id format", "counterparty_id", counterpartyIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.PatchCounterpartyRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req.Counterparty.Id = &counterpartyID
+
+	response, err := h.organization.Api.PatchCounterparty(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
 func (h *OrganizationHandler) GetCounterparty(w http.ResponseWriter, r *http.Request) {
 	counterpartyIDStr := chi.URLParam(r, "counterparty_id")
 

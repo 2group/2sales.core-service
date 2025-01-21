@@ -14,6 +14,7 @@ service OrganizationService {
     rpc CreateCounterparty (CreateCounterpartyRequest) returns (CreateCounterpartyResponse);
     rpc GetCounterparty (GetCounterpartyRequest) returns (GetCounterpartyResponse);
     rpc ListCounterparties (ListCounterpartiesRequest) returns (ListCounterpartiesResponse);
+    rpc PatchCounterparty (PatchCounterpartyRequest) returns (PatchCounterpartyResponse);
 
     rpc ListBankAccounts (ListBankAccountsRequest) returns (ListBankAccountsResponse);
     rpc GetDefaultBankAccount (GetDefaultBankAccountRequest) returns (GetDefaultBankAccountResponse);
@@ -205,11 +206,11 @@ message CreateCounterpartyResponse {
     Counterparty counterparty = 1;
 }
 
-message UpdateCounterpartyRequest {
+message PatchCounterpartyRequest {
     Counterparty counterparty = 1;
 }
 
-message UpdateCounterpartyResponse {
+message PatchCounterpartyResponse {
     Counterparty counterparty = 1;
 }
 
