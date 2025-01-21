@@ -19,9 +19,7 @@ service OrganizationService {
     rpc GetDefaultBankAccount (GetDefaultBankAccountRequest) returns (GetDefaultBankAccountResponse);
     rpc CreateBankAccount (CreateBankAccountRequest) returns (CreateBankAccountResponse);
     rpc UpdateBankAccount (UpdateBankAccountRequest) returns (UpdateBankAccountResponse);
-    rpc PatchBankAccount (PatchBankAccountRequest) returns (PatchBankAccountResponse);
     rpc DeleteBankAccount (DeleteBankAccountRequest) returns (DeleteBankAccountResponse);
-    rpc GetBankAccount (GetBankAccountRequest) returns (GetBankAccountResponse);
 
     rpc CreateAddress (CreateAddressRequest) returns (CreateAddressResponse);
     rpc GetAddress (GetAddressRequest) returns (GetAddressResponse);
@@ -111,10 +109,12 @@ message BankAccountModel {
     int64 id = 1;
     int64 organization_id = 2;
     string account_number = 3;
-    string bank_name = 4;
+    optional string bank_name = 4;
     string bic = 5;
-    int64 kbe = 6;
+    optional int64 kbe = 6;
     bool is_default = 7;
+    string created_at = 8;
+    string updated_at = 9;
 }
 
 message RelationshipTypeModel {
@@ -278,12 +278,7 @@ message GetDefaultBankAccountResponse {
 }
 
 message CreateBankAccountRequest {
-    int64 organization_id = 1;
-    string account_number = 2;
-    string bank_name = 3;
-    string bic = 4;
-    int64 kbe = 5;
-    bool is_default = 6;
+    BankAccountModel bank_account = 1;
 }
 
 message CreateBankAccountResponse {
@@ -291,24 +286,10 @@ message CreateBankAccountResponse {
 }
 
 message UpdateBankAccountRequest {
-    int64 id = 1;
-    string account_number = 2;
-    string bank_name = 3;
-    string bic = 4;
-    int64 kbe = 5;
-    bool is_default = 6;
-}
-
-message UpdateBankAccountResponse {
     BankAccountModel bank_account = 1;
 }
 
-message PatchBankAccountRequest {
-    int64 id = 1;
-    BankAccountModel bank_account = 2;
-}
-
-message PatchBankAccountResponse {
+message UpdateBankAccountResponse {
     BankAccountModel bank_account = 1;
 }
 
@@ -318,14 +299,6 @@ message DeleteBankAccountRequest {
 
 message DeleteBankAccountResponse {
     bool success = 1;
-}
-
-message GetBankAccountRequest {
-    int64 id = 1;
-}
-
-message GetBankAccountResponse {
-    BankAccountModel bank_account = 1;
 }
 
 //-----------------

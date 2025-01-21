@@ -31,9 +31,7 @@ const (
 	OrganizationService_GetDefaultBankAccount_FullMethodName    = "/organization.OrganizationService/GetDefaultBankAccount"
 	OrganizationService_CreateBankAccount_FullMethodName        = "/organization.OrganizationService/CreateBankAccount"
 	OrganizationService_UpdateBankAccount_FullMethodName        = "/organization.OrganizationService/UpdateBankAccount"
-	OrganizationService_PatchBankAccount_FullMethodName         = "/organization.OrganizationService/PatchBankAccount"
 	OrganizationService_DeleteBankAccount_FullMethodName        = "/organization.OrganizationService/DeleteBankAccount"
-	OrganizationService_GetBankAccount_FullMethodName           = "/organization.OrganizationService/GetBankAccount"
 	OrganizationService_CreateAddress_FullMethodName            = "/organization.OrganizationService/CreateAddress"
 	OrganizationService_GetAddress_FullMethodName               = "/organization.OrganizationService/GetAddress"
 	OrganizationService_UpdateAddress_FullMethodName            = "/organization.OrganizationService/UpdateAddress"
@@ -71,9 +69,7 @@ type OrganizationServiceClient interface {
 	GetDefaultBankAccount(ctx context.Context, in *GetDefaultBankAccountRequest, opts ...grpc.CallOption) (*GetDefaultBankAccountResponse, error)
 	CreateBankAccount(ctx context.Context, in *CreateBankAccountRequest, opts ...grpc.CallOption) (*CreateBankAccountResponse, error)
 	UpdateBankAccount(ctx context.Context, in *UpdateBankAccountRequest, opts ...grpc.CallOption) (*UpdateBankAccountResponse, error)
-	PatchBankAccount(ctx context.Context, in *PatchBankAccountRequest, opts ...grpc.CallOption) (*PatchBankAccountResponse, error)
 	DeleteBankAccount(ctx context.Context, in *DeleteBankAccountRequest, opts ...grpc.CallOption) (*DeleteBankAccountResponse, error)
-	GetBankAccount(ctx context.Context, in *GetBankAccountRequest, opts ...grpc.CallOption) (*GetBankAccountResponse, error)
 	CreateAddress(ctx context.Context, in *CreateAddressRequest, opts ...grpc.CallOption) (*CreateAddressResponse, error)
 	GetAddress(ctx context.Context, in *GetAddressRequest, opts ...grpc.CallOption) (*GetAddressResponse, error)
 	UpdateAddress(ctx context.Context, in *UpdateAddressRequest, opts ...grpc.CallOption) (*UpdateAddressResponse, error)
@@ -223,30 +219,10 @@ func (c *organizationServiceClient) UpdateBankAccount(ctx context.Context, in *U
 	return out, nil
 }
 
-func (c *organizationServiceClient) PatchBankAccount(ctx context.Context, in *PatchBankAccountRequest, opts ...grpc.CallOption) (*PatchBankAccountResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PatchBankAccountResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_PatchBankAccount_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *organizationServiceClient) DeleteBankAccount(ctx context.Context, in *DeleteBankAccountRequest, opts ...grpc.CallOption) (*DeleteBankAccountResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteBankAccountResponse)
 	err := c.cc.Invoke(ctx, OrganizationService_DeleteBankAccount_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) GetBankAccount(ctx context.Context, in *GetBankAccountRequest, opts ...grpc.CallOption) (*GetBankAccountResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetBankAccountResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GetBankAccount_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -459,9 +435,7 @@ type OrganizationServiceServer interface {
 	GetDefaultBankAccount(context.Context, *GetDefaultBankAccountRequest) (*GetDefaultBankAccountResponse, error)
 	CreateBankAccount(context.Context, *CreateBankAccountRequest) (*CreateBankAccountResponse, error)
 	UpdateBankAccount(context.Context, *UpdateBankAccountRequest) (*UpdateBankAccountResponse, error)
-	PatchBankAccount(context.Context, *PatchBankAccountRequest) (*PatchBankAccountResponse, error)
 	DeleteBankAccount(context.Context, *DeleteBankAccountRequest) (*DeleteBankAccountResponse, error)
-	GetBankAccount(context.Context, *GetBankAccountRequest) (*GetBankAccountResponse, error)
 	CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressResponse, error)
 	GetAddress(context.Context, *GetAddressRequest) (*GetAddressResponse, error)
 	UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error)
@@ -527,14 +501,8 @@ func (UnimplementedOrganizationServiceServer) CreateBankAccount(context.Context,
 func (UnimplementedOrganizationServiceServer) UpdateBankAccount(context.Context, *UpdateBankAccountRequest) (*UpdateBankAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBankAccount not implemented")
 }
-func (UnimplementedOrganizationServiceServer) PatchBankAccount(context.Context, *PatchBankAccountRequest) (*PatchBankAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PatchBankAccount not implemented")
-}
 func (UnimplementedOrganizationServiceServer) DeleteBankAccount(context.Context, *DeleteBankAccountRequest) (*DeleteBankAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteBankAccount not implemented")
-}
-func (UnimplementedOrganizationServiceServer) GetBankAccount(context.Context, *GetBankAccountRequest) (*GetBankAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBankAccount not implemented")
 }
 func (UnimplementedOrganizationServiceServer) CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAddress not implemented")
@@ -830,24 +798,6 @@ func _OrganizationService_UpdateBankAccount_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_PatchBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PatchBankAccountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).PatchBankAccount(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_PatchBankAccount_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).PatchBankAccount(ctx, req.(*PatchBankAccountRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _OrganizationService_DeleteBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteBankAccountRequest)
 	if err := dec(in); err != nil {
@@ -862,24 +812,6 @@ func _OrganizationService_DeleteBankAccount_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrganizationServiceServer).DeleteBankAccount(ctx, req.(*DeleteBankAccountRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_GetBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBankAccountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GetBankAccount(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_GetBankAccount_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GetBankAccount(ctx, req.(*GetBankAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1282,16 +1214,8 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrganizationService_UpdateBankAccount_Handler,
 		},
 		{
-			MethodName: "PatchBankAccount",
-			Handler:    _OrganizationService_PatchBankAccount_Handler,
-		},
-		{
 			MethodName: "DeleteBankAccount",
 			Handler:    _OrganizationService_DeleteBankAccount_Handler,
-		},
-		{
-			MethodName: "GetBankAccount",
-			Handler:    _OrganizationService_GetBankAccount_Handler,
 		},
 		{
 			MethodName: "CreateAddress",

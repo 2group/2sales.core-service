@@ -585,7 +585,7 @@ func (h *OrganizationHandler) CreateCounterparty(w http.ResponseWriter, r *http.
 		return
 	}
 
-	req.Counterparty.Relationship.SourceOrganizationId = &organizationID
+	req.SourceOrganizationId = organizationID
 
 	response, err := h.organization.Api.CreateCounterparty(r.Context(), req)
 	if err != nil {
