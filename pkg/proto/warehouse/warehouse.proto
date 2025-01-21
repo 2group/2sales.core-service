@@ -157,7 +157,7 @@ message CreateAcceptenceRequest {
     int64 counterparty_id = 2;
     int64 warehouse_id = 3;
     int64 user_id = 5;
-    repeated int64 product_ids = 6;
+    repeated AccpetenceProductModel products = 6;
 }
 
 message CreateAcceptenceResponse {
@@ -189,7 +189,7 @@ message UpdateAcceptenceRequest {
     optional int64 warehouse_id = 4;
     optional string document_url = 5;
     optional int64 user_id = 6;
-    repeated int64 product_ids = 7;
+    repeated AccpetenceProductModel products = 7;
 }
 
 message UpdateAcceptenceResponse {
