@@ -112,7 +112,7 @@ message BankAccountModel {
     optional string bank_name = 4;
     string bic = 5;
     optional int64 kbe = 6;
-    bool is_default = 7;
+    optional bool is_default = 7;
     string created_at = 8;
     string updated_at = 9;
 }

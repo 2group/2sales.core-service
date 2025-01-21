@@ -673,3 +673,112 @@ func (h *OrganizationHandler) ListCounterparties(w http.ResponseWriter, r *http.
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
+
+func (h *OrganizationHandler) ListMyBankAccounts(w http.ResponseWriter, r *http.Request) {
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &organizationv1.ListBankAccountsRequest{
+		OrganizationId: organizationID,
+	}
+
+	response, err := h.organization.Api.ListBankAccounts(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
+}
+
+func (h *OrganizationHandler) GetDefaultBankAccount(w http.ResponseWriter, r *http.Request) {
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unaithorized"))
+		return
+	}
+
+	req := &organizationv1.GetDefaultBankAccountRequest{
+		OrganizationId: organizationID,
+	}
+
+	response, err := h.organization.Api.GetDefaultBankAccount(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusAccepted, response)
+	return
+}
+
+func (h *OrganizationHandler) CreateBankAccount(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.CreateBankAccountRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	response, err := h.organization.Api.CreateBankAccount(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusAccepted, response)
+	return
+}
+
+func (h *OrganizationHandler) UpdateBankAccount(w http.ResponseWriter, r *http.Request) {
+	bankAccountIDStr := chi.URLParam(r, "bank_account_id")
+
+	bankAccountID, err := strconv.ParseInt(bankAccountIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid bank_account_id format", "bank_account_id", bankAccountIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.UpdateBankAccountRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req.BankAccount.Id = bankAccountID
+
+	response, err := h.organization.Api.UpdateBankAccount(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusAccepted, response)
+	return
+}
+
+func (h *OrganizationHandler) DeleteBankAccount(w http.ResponseWriter, r *http.Request) {
+	bankAccountIDStr := chi.URLParam(r, "bank_account_id")
+
+	bankAccountID, err := strconv.ParseInt(bankAccountIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid bank_account_id format", "bank_account_id", bankAccountIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.DeleteBankAccountRequest{Id: bankAccountID}
+
+	response, err := h.organization.Api.DeleteBankAccount(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusAccepted, response)
+	return
+}

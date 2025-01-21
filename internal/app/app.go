@@ -131,6 +131,12 @@ func (s *APIServer) Run() error {
 					coRouter.Get("/my", organizationHandler.ListCounterparties)
 					coRouter.Get("/{counterparty_id}", organizationHandler.GetCounterparty)
 				})
+				authRouter.Route("/bank_accounts", func(baRouter chi.Router) {
+					baRouter.Get("/my", organizationHandler.ListMyBankAccounts)
+					baRouter.Post("/", organizationHandler.CreateBankAccount)
+					baRouter.Put("/{bank_account_id}", organizationHandler.UpdateBankAccount)
+					baRouter.Delete("/{bank_account_id}", organizationHandler.DeleteBankAccount)
+				})
 			})
 		})
 		apiRouter.Route("/crm", func(crmRouter chi.Router) {
