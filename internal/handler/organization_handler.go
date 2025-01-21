@@ -597,7 +597,7 @@ func (h *OrganizationHandler) CreateCounterparty(w http.ResponseWriter, r *http.
 	return
 }
 
-func (h *OrganizationHandler) PatchCounterparty(w http.ResponseWriter, r *http.Request) {
+func (h *OrganizationHandler) PatchMyCounterparty(w http.ResponseWriter, r *http.Request) {
 	counterpartyIDStr := chi.URLParam(r, "counterparty_id")
 
 	counterpartyID, err := strconv.ParseInt(counterpartyIDStr, 10, 64)
@@ -780,6 +780,31 @@ func (h *OrganizationHandler) UpdateBankAccount(w http.ResponseWriter, r *http.R
 	req.BankAccount.Id = bankAccountID
 
 	response, err := h.organization.Api.UpdateBankAccount(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusAccepted, response)
+	return
+}
+
+func (h *OrganizationHandler) UpdateMyBankAccounts(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.UpdateBankAccountsRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req.OrganizationId = organizationID
+
+	response, err := h.organization.Api.UpdateBankAccounts(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return

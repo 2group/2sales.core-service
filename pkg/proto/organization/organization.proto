@@ -20,6 +20,7 @@ service OrganizationService {
     rpc GetDefaultBankAccount (GetDefaultBankAccountRequest) returns (GetDefaultBankAccountResponse);
     rpc CreateBankAccount (CreateBankAccountRequest) returns (CreateBankAccountResponse);
     rpc UpdateBankAccount (UpdateBankAccountRequest) returns (UpdateBankAccountResponse);
+    rpc UpdateBankAccounts (UpdateBankAccountsRequest) returns (UpdateBankAccountsResponse);
     rpc DeleteBankAccount (DeleteBankAccountRequest) returns (DeleteBankAccountResponse);
 
     rpc CreateAddress (CreateAddressRequest) returns (CreateAddressResponse);
@@ -293,6 +294,15 @@ message UpdateBankAccountRequest {
 
 message UpdateBankAccountResponse {
     BankAccountModel bank_account = 1;
+}
+
+message UpdateBankAccountsRequest {
+    repeated BankAccountModel bank_accounts = 1;
+    int64 organization_id = 2;
+}
+
+message UpdateBankAccountsResponse {
+    repeated BankAccountModel bank_accounts = 1;
 }
 
 message DeleteBankAccountRequest {
