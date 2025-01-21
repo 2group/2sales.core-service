@@ -36,14 +36,16 @@ message ImageModel {
 
 message ProductGroup {
     int64 id = 1;
-    string group_name = 2;
-    repeated ProductModel products = 3;
+    int64 organization_id = 2;
+    string group_name = 3;
+    repeated ProductModel products = 4;
 }
 
 message ProductGroupModel {
     int64 id = 1;
-    string group_name = 2;
-    repeated int64 product_ids = 3;
+    int64 organization_id = 2;
+    string group_name = 3;
+    repeated int64 product_ids = 4;
 }
 
 message Product {
@@ -255,6 +257,7 @@ message ListProductGroupsRequest {
     int64 page_size = 2;
     string name = 3;
     int64 product_id = 4;
+    int64 organization_id = 5;
 }
 
 message ListProductGroupsResponse {
@@ -264,7 +267,8 @@ message ListProductGroupsResponse {
 
 message CreateProductGroupRequest {
     string name = 1;
-    repeated int64 product_ids = 2;
+    int64 organization_id = 2;
+    repeated int64 product_ids = 3;
 }
 
 message CreateProductGroupResponse {
