@@ -167,20 +167,7 @@ message UploadProductsResponse {
 }
 
 message UpdateProductRequest {
-    int64 id = 1;
-    string name = 2;
-    string image_url = 3;
-    string description = 4;
-    string category_id = 5;
-    float sale_price = 6;
-    float purchase_price = 7;
-    bool is_external = 8;
-    string design_url = 9;
-    string sale_status = 10;
-    repeated ImageModel images = 11;
-    int64 count = 12;
-    int64 brand_id = 13;
-    repeated ProductCharacteristics characteristics = 14;
+    Product product = 1;
 }
 
 message UpdateProductResponse {

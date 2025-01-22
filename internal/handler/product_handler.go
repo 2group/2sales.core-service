@@ -172,8 +172,8 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
-    
-    organization_id, ok := middleware.GetOrganizationID(r)
+
+	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
@@ -181,9 +181,9 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 	req := &productv1.CreateProductRequest{}
 	json.ParseJSON(r, &req)
-	req.CreatedBy = user_id
-    req.OrganizationId = organization_id
-    req.BrandId = organization_id
+	req.Product.CreatedBy = &user_id
+	req.Product.OrganizationId = &organization_id
+	req.Product.BrandId = &organization_id
 
 	response, err := h.product.Api.CreateProduct(r.Context(), req)
 	if err != nil {
@@ -218,52 +218,51 @@ func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ProductHandler) CreateProductGroup(w http.ResponseWriter, r *http.Request) {
-    req := &productv1.CreateProductGroupRequest{}
-    json.ParseJSON(r, &req)
-    organization_id, ok := middleware.GetOrganizationID(r)
+	req := &productv1.CreateProductGroupRequest{}
+	json.ParseJSON(r, &req)
+	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 
-    req.OrganizationId = organization_id
+	req.OrganizationId = organization_id
 
-    response, err := h.product.Api.CreateProductGroup(r.Context(), req)
-    if err != nil {
+	response, err := h.product.Api.CreateProductGroup(r.Context(), req)
+	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
-       return
-    }
+		return
+	}
 
 	json.WriteJSON(w, http.StatusCreated, response)
-    return
+	return
 }
 
 func (h *ProductHandler) UpdateProductGroup(w http.ResponseWriter, r *http.Request) {
-    req := &productv1.UpdateProductGroupRequest{}
-    json.ParseJSON(r, &req)
+	req := &productv1.UpdateProductGroupRequest{}
+	json.ParseJSON(r, &req)
 
-    product_group_id_str := chi.URLParam(r, "product_group_id")
+	product_group_id_str := chi.URLParam(r, "product_group_id")
 	product_group_id, err := strconv.Atoi(product_group_id_str)
-    if err != nil {
+	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-    req.Id = int64(product_group_id)
+	req.Id = int64(product_group_id)
 
-
-    response, err := h.product.Api.UpdateProductGroup(r.Context(), req)
-    if err != nil {
+	response, err := h.product.Api.UpdateProductGroup(r.Context(), req)
+	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
-       return
-    }
+		return
+	}
 
 	json.WriteJSON(w, http.StatusCreated, response)
-    return
+	return
 }
 
 func (h *ProductHandler) ListProductGroup(w http.ResponseWriter, r *http.Request) {
 	req := &productv1.ListProductGroupsRequest{}
-	
+
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
@@ -325,47 +324,47 @@ func (h *ProductHandler) ListProductGroup(w http.ResponseWriter, r *http.Request
 	}
 
 	json.WriteJSON(w, http.StatusOK, response)
-    return
+	return
 }
 
 func (h *ProductHandler) GetProductGroup(w http.ResponseWriter, r *http.Request) {
-    req := &productv1.GetProductGroupRequest{}
+	req := &productv1.GetProductGroupRequest{}
 
-    product_group_id_str := chi.URLParam(r, "product_group_id")
+	product_group_id_str := chi.URLParam(r, "product_group_id")
 	product_group_id, err := strconv.Atoi(product_group_id_str)
-    if err != nil {
+	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-    req.Id = int64(product_group_id)
+	req.Id = int64(product_group_id)
 
-    response, err := h.product.Api.GetProductGroup(r.Context(), req)
+	response, err := h.product.Api.GetProductGroup(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
 	json.WriteJSON(w, http.StatusOK, response)
-    return
+	return
 }
 
 func (h *ProductHandler) DeleteProductGroup(w http.ResponseWriter, r *http.Request) {
-    req := &productv1.DeleteProductGroupRequest{}
+	req := &productv1.DeleteProductGroupRequest{}
 
-    product_group_id_str := chi.URLParam(r, "product_group_id")
+	product_group_id_str := chi.URLParam(r, "product_group_id")
 	product_group_id, err := strconv.Atoi(product_group_id_str)
-    if err != nil {
+	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-    req.Id = int64(product_group_id)
+	req.Id = int64(product_group_id)
 
-    response, err := h.product.Api.DeleteProductGroup(r.Context(), req)
+	response, err := h.product.Api.DeleteProductGroup(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
 	json.WriteJSON(w, http.StatusOK, response)
-    return
+	return
 }
