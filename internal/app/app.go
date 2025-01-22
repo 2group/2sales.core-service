@@ -91,9 +91,9 @@ func (s *APIServer) Run() error {
 		apiRouter.Route("/product", func(productRouter chi.Router) {
 			productRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/{product_id}", productHandler.GetProduct)
 				authRouter.Get("/", productHandler.ListProducts)
 				authRouter.Post("/", productHandler.CreateProduct)
+				authRouter.Get("/{product_id}", productHandler.GetProduct)
 				authRouter.Put("/{product_id}", productHandler.PatchProduct)
 			})
 		})

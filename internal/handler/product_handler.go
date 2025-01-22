@@ -183,7 +183,6 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	json.ParseJSON(r, &req)
 	req.Product.CreatedBy = &user_id
 	req.Product.OrganizationId = &organization_id
-	req.Product.BrandId = &organization_id
 
 	response, err := h.product.Api.CreateProduct(r.Context(), req)
 	if err != nil {
