@@ -6,7 +6,7 @@ option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/product;pr
 
 service ProductService {
     rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
-    rpc ListProducts (ListProductRequest) returns (ListProductResponse);
+    rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
     rpc DuplicateProduct (DuplicateProductRequest) returns (DuplicateProductResponse);
     rpc UploadProducts (UploadProductsRequest) returns (UploadProductsResponse);
     rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse);
@@ -128,7 +128,7 @@ message CreateProductResponse {
     Product product = 1;
 }
 
-message ListProductRequest {
+message ListProductsRequest {
     int32 page = 1;
     int32 page_size = 2;
     string search_query = 3;
@@ -142,7 +142,7 @@ message ListProductRequest {
     string pdf_url = 11;
 }
 
-message ListProductResponse {
+message ListProductsResponse {
     repeated Product products = 1;
     int32 total_count = 2;
     string pdf_url = 3;

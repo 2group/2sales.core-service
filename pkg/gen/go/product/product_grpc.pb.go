@@ -43,7 +43,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductServiceClient interface {
 	CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error)
-	ListProducts(ctx context.Context, in *ListProductRequest, opts ...grpc.CallOption) (*ListProductResponse, error)
+	ListProducts(ctx context.Context, in *ListProductsRequest, opts ...grpc.CallOption) (*ListProductsResponse, error)
 	DuplicateProduct(ctx context.Context, in *DuplicateProductRequest, opts ...grpc.CallOption) (*DuplicateProductResponse, error)
 	UploadProducts(ctx context.Context, in *UploadProductsRequest, opts ...grpc.CallOption) (*UploadProductsResponse, error)
 	UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*UpdateProductResponse, error)
@@ -79,9 +79,9 @@ func (c *productServiceClient) CreateProduct(ctx context.Context, in *CreateProd
 	return out, nil
 }
 
-func (c *productServiceClient) ListProducts(ctx context.Context, in *ListProductRequest, opts ...grpc.CallOption) (*ListProductResponse, error) {
+func (c *productServiceClient) ListProducts(ctx context.Context, in *ListProductsRequest, opts ...grpc.CallOption) (*ListProductsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListProductResponse)
+	out := new(ListProductsResponse)
 	err := c.cc.Invoke(ctx, ProductService_ListProducts_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -244,7 +244,7 @@ func (c *productServiceClient) GeneratePresignedURLs(ctx context.Context, in *Ge
 // for forward compatibility.
 type ProductServiceServer interface {
 	CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error)
-	ListProducts(context.Context, *ListProductRequest) (*ListProductResponse, error)
+	ListProducts(context.Context, *ListProductsRequest) (*ListProductsResponse, error)
 	DuplicateProduct(context.Context, *DuplicateProductRequest) (*DuplicateProductResponse, error)
 	UploadProducts(context.Context, *UploadProductsRequest) (*UploadProductsResponse, error)
 	UpdateProduct(context.Context, *UpdateProductRequest) (*UpdateProductResponse, error)
@@ -273,7 +273,7 @@ type UnimplementedProductServiceServer struct{}
 func (UnimplementedProductServiceServer) CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateProduct not implemented")
 }
-func (UnimplementedProductServiceServer) ListProducts(context.Context, *ListProductRequest) (*ListProductResponse, error) {
+func (UnimplementedProductServiceServer) ListProducts(context.Context, *ListProductsRequest) (*ListProductsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListProducts not implemented")
 }
 func (UnimplementedProductServiceServer) DuplicateProduct(context.Context, *DuplicateProductRequest) (*DuplicateProductResponse, error) {
@@ -361,7 +361,7 @@ func _ProductService_CreateProduct_Handler(srv interface{}, ctx context.Context,
 }
 
 func _ProductService_ListProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListProductRequest)
+	in := new(ListProductsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -373,7 +373,7 @@ func _ProductService_ListProducts_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: ProductService_ListProducts_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductServiceServer).ListProducts(ctx, req.(*ListProductRequest))
+		return srv.(ProductServiceServer).ListProducts(ctx, req.(*ListProductsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

@@ -196,16 +196,17 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
-	product_id_str := chi.URLParam(r, "product_id")
-	product_id, err := strconv.Atoi(product_id_str)
+	productIDStr := chi.URLParam(r, "product_id")
+	productID, err := strconv.ParseInt(productIDStr, 10, 64)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	req := &productv1.UpdateProductRequest{
-		Id: int64(product_id),
-	}
+	req := &productv1.UpdateProductRequest{}
+	json.ParseJSON(r, &req)
+
+	req.Product.Id = &productID
 
 	response, err := h.product.Api.UpdateProduct(r.Context(), req)
 	if err != nil {
@@ -220,13 +221,6 @@ func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 func (h *ProductHandler) CreateProductGroup(w http.ResponseWriter, r *http.Request) {
 	req := &productv1.CreateProductGroupRequest{}
 	json.ParseJSON(r, &req)
-	organization_id, ok := middleware.GetOrganizationID(r)
-	if !ok {
-		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
-		return
-	}
-
-	req.OrganizationId = organization_id
 
 	response, err := h.product.Api.CreateProductGroup(r.Context(), req)
 	if err != nil {
@@ -242,13 +236,13 @@ func (h *ProductHandler) UpdateProductGroup(w http.ResponseWriter, r *http.Reque
 	req := &productv1.UpdateProductGroupRequest{}
 	json.ParseJSON(r, &req)
 
-	product_group_id_str := chi.URLParam(r, "product_group_id")
-	product_group_id, err := strconv.Atoi(product_group_id_str)
+	productGroupIDStr := chi.URLParam(r, "product_group_id")
+	productGroupID, err := strconv.ParseInt(productGroupIDStr, 10, 64)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	req.Id = int64(product_group_id)
+	req.ProductGroup.Id = productGroupID
 
 	response, err := h.product.Api.UpdateProductGroup(r.Context(), req)
 	if err != nil {
