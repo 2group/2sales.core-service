@@ -115,7 +115,7 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	req := &productv1.ListProductRequest{
+	req := &productv1.ListProductsRequest{
 		PageSize:       int32(limit),
 		Page:           int32(offset),
 		PdfUrl:         url,
@@ -195,7 +195,7 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
+func (h *ProductHandler) PatchProduct(w http.ResponseWriter, r *http.Request) {
 	productIDStr := chi.URLParam(r, "product_id")
 	productID, err := strconv.ParseInt(productIDStr, 10, 64)
 	if err != nil {
@@ -203,12 +203,12 @@ func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	req := &productv1.UpdateProductRequest{}
+	req := &productv1.PatchProductRequest{}
 	json.ParseJSON(r, &req)
 
 	req.Product.Id = &productID
 
-	response, err := h.product.Api.UpdateProduct(r.Context(), req)
+	response, err := h.product.Api.PatchProduct(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return

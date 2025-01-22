@@ -9,7 +9,7 @@ service ProductService {
     rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
     rpc DuplicateProduct (DuplicateProductRequest) returns (DuplicateProductResponse);
     rpc UploadProducts (UploadProductsRequest) returns (UploadProductsResponse);
-    rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse);
+    rpc PatchProduct (PatchProductRequest) returns (PatchProductResponse);
     rpc GetProduct (GetProductRequest) returns (GetProductResponse);
     rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductResponse);
 
@@ -165,11 +165,11 @@ message UploadProductsResponse {
     repeated Product products = 1;
 }
 
-message UpdateProductRequest {
+message PatchProductRequest {
     Product product = 1;
 }
 
-message UpdateProductResponse {
+message PatchProductResponse {
     Product product = 1;
 }
 
