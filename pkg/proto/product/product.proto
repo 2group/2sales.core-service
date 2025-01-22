@@ -258,7 +258,7 @@ message UpdateProductGroupRequest {
 }
 
 message UpdateProductGroupResponse {
-    ProductGroup product_group = 1;
+    ProductGroupModel product_group = 1;
 }
 
 message DeleteProductGroupRequest {
