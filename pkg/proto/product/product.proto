@@ -36,16 +36,14 @@ message ImageModel {
 
 message ProductGroup {
     int64 id = 1;
-    int64 organization_id = 2;
-    string group_name = 3;
-    repeated Product products = 4;
+    string group_name = 2;
+    repeated Product products = 3;
 }
 
 message ProductGroupModel {
     int64 id = 1;
-    int64 organization_id = 2;
-    string group_name = 3;
-    repeated int64 product_ids = 4;
+    string group_name = 2;
+    repeated int64 product_ids = 3;
 }
 
 message Product {
@@ -92,9 +90,10 @@ message ProductModel {
 
 message ProductCharacteristics {
     int64 id = 1;
-    string group_name = 2;
-    string name = 3;
-    string value = 4;
+    optional int64 product_id = 2;
+    string group_name = 3;
+    string name = 4;
+    string value = 5;
 }
 
 message CategoryModel {
@@ -239,13 +238,11 @@ message ListProductGroupsResponse {
 }
 
 message CreateProductGroupRequest {
-    string name = 1;
-    int64 organization_id = 2;
-    repeated int64 product_ids = 3;
+    ProductGroupModel product_group = 1;
 }
 
 message CreateProductGroupResponse {
-    ProductGroup product_group = 1;
+    ProductGroupModel product_group = 1;
 }
 
 message GetProductGroupRequest {
@@ -253,13 +250,11 @@ message GetProductGroupRequest {
 }
 
 message GetProductGroupResponse {
-    ProductGroup product_group = 1;
+    ProductGroupModel product_group = 1;
 }
 
 message UpdateProductGroupRequest {
-    int64 id = 1;
-    string name = 2;
-    repeated int64 product_ids = 3;
+    ProductGroupModel product_group = 1;
 }
 
 message UpdateProductGroupResponse {
