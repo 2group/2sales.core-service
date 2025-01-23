@@ -18,8 +18,6 @@ service UserService {
     rpc ListRoles (ListRolesRequest) returns (ListRolesResponse);
     rpc UpdateRole (UpdateRoleRequest) returns (UpdateRoleResponse);
     rpc DeleteRole (DeleteRoleRequest) returns (DeleteRoleResponse);
-
-    rpc ListPermissions (ListPermissionsRequest) returns (ListPermissionsResponse);
 }
 
 message User {
@@ -55,12 +53,6 @@ message RoleModel {
     string role_name = 2;
     optional string description = 3;
     optional int64 organization_id = 4;
-}
-
-message PermissionModel {
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
 }
 
 message LoginRequest {
@@ -162,14 +154,4 @@ message DeleteRoleRequest {
 
 message DeleteRoleResponse {
     bool success = 1;
-}
-
-message ListPermissionsRequest {
-    int32 page_size = 1;
-    int32 page_number = 2;
-}
-
-message ListPermissionsResponse {
-    repeated PermissionModel permissions = 1;
-    int32 total_count = 2;
 }

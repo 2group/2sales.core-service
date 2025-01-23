@@ -19,19 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_Login_FullMethodName           = "/user.UserService/Login"
-	UserService_Register_FullMethodName        = "/user.UserService/Register"
-	UserService_UpdateUser_FullMethodName      = "/user.UserService/UpdateUser"
-	UserService_PatchUser_FullMethodName       = "/user.UserService/PatchUser"
-	UserService_GetUser_FullMethodName         = "/user.UserService/GetUser"
-	UserService_DeleteUser_FullMethodName      = "/user.UserService/DeleteUser"
-	UserService_ListUsers_FullMethodName       = "/user.UserService/ListUsers"
-	UserService_CreateUser_FullMethodName      = "/user.UserService/CreateUser"
-	UserService_CreateRole_FullMethodName      = "/user.UserService/CreateRole"
-	UserService_ListRoles_FullMethodName       = "/user.UserService/ListRoles"
-	UserService_UpdateRole_FullMethodName      = "/user.UserService/UpdateRole"
-	UserService_DeleteRole_FullMethodName      = "/user.UserService/DeleteRole"
-	UserService_ListPermissions_FullMethodName = "/user.UserService/ListPermissions"
+	UserService_Login_FullMethodName      = "/user.UserService/Login"
+	UserService_Register_FullMethodName   = "/user.UserService/Register"
+	UserService_UpdateUser_FullMethodName = "/user.UserService/UpdateUser"
+	UserService_PatchUser_FullMethodName  = "/user.UserService/PatchUser"
+	UserService_GetUser_FullMethodName    = "/user.UserService/GetUser"
+	UserService_DeleteUser_FullMethodName = "/user.UserService/DeleteUser"
+	UserService_ListUsers_FullMethodName  = "/user.UserService/ListUsers"
+	UserService_CreateUser_FullMethodName = "/user.UserService/CreateUser"
+	UserService_CreateRole_FullMethodName = "/user.UserService/CreateRole"
+	UserService_ListRoles_FullMethodName  = "/user.UserService/ListRoles"
+	UserService_UpdateRole_FullMethodName = "/user.UserService/UpdateRole"
+	UserService_DeleteRole_FullMethodName = "/user.UserService/DeleteRole"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -50,7 +49,6 @@ type UserServiceClient interface {
 	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
 	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
 	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
-	ListPermissions(ctx context.Context, in *ListPermissionsRequest, opts ...grpc.CallOption) (*ListPermissionsResponse, error)
 }
 
 type userServiceClient struct {
@@ -181,16 +179,6 @@ func (c *userServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleReques
 	return out, nil
 }
 
-func (c *userServiceClient) ListPermissions(ctx context.Context, in *ListPermissionsRequest, opts ...grpc.CallOption) (*ListPermissionsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListPermissionsResponse)
-	err := c.cc.Invoke(ctx, UserService_ListPermissions_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -207,7 +195,6 @@ type UserServiceServer interface {
 	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
 	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
 	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
-	ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -253,9 +240,6 @@ func (UnimplementedUserServiceServer) UpdateRole(context.Context, *UpdateRoleReq
 }
 func (UnimplementedUserServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
-}
-func (UnimplementedUserServiceServer) ListPermissions(context.Context, *ListPermissionsRequest) (*ListPermissionsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListPermissions not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -494,24 +478,6 @@ func _UserService_DeleteRole_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_ListPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListPermissionsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).ListPermissions(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_ListPermissions_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).ListPermissions(ctx, req.(*ListPermissionsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -566,10 +532,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteRole",
 			Handler:    _UserService_DeleteRole_Handler,
-		},
-		{
-			MethodName: "ListPermissions",
-			Handler:    _UserService_ListPermissions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
