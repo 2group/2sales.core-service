@@ -242,7 +242,7 @@ message CreateProductGroupRequest {
 }
 
 message CreateProductGroupResponse {
-    ProductGroupModel product_group = 1;
+    ProductGroup product_group = 1;
 }
 
 message GetProductGroupRequest {
@@ -250,7 +250,7 @@ message GetProductGroupRequest {
 }
 
 message GetProductGroupResponse {
-    ProductGroupModel product_group = 1;
+    ProductGroup product_group = 1;
 }
 
 message UpdateProductGroupRequest {
@@ -258,7 +258,7 @@ message UpdateProductGroupRequest {
 }
 
 message UpdateProductGroupResponse {
-    ProductGroupModel product_group = 1;
+    ProductGroup product_group = 1;
 }
 
 message DeleteProductGroupRequest {
