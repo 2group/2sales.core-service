@@ -60,10 +60,10 @@ message Product {
     optional bool is_external = 11;
     optional string design_url = 12;
     optional string sale_status = 13;
-    repeated ImageModel images = 14;
-    optional int64 count = 15;
-    optional int64 brand_id = 16;
-    optional string brand_name = 17;
+    optional int64 count = 14;
+    optional int64 brand_id = 15;
+    optional string brand_name = 16;
+    repeated ImageModel images = 17;
     repeated ProductCharacteristics characteristics = 18;
     repeated CharacteristicGroup characteristic_groups = 19;
     repeated ProductGroup product_groups = 20;

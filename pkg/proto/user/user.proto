@@ -12,6 +12,7 @@ service UserService {
     rpc GetUser (GetUserRequest) returns (GetUserResponse);
     rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
     rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
 
     rpc CreateRole (CreateRoleRequest) returns (CreateRoleResponse);
     rpc ListRoles (ListRolesRequest) returns (ListRolesResponse);
@@ -50,11 +51,10 @@ message UserModel {
 }
 
 message RoleModel {
-    int64 id = 1;
-    string name = 2;
+    int64 role_id = 1;
+    string role_name = 2;
     optional string description = 3;
-    repeated PermissionModel permissions = 4;
-    optional int64 organization_id = 5;
+    optional int64 organization_id = 4;
 }
 
 message PermissionModel {
@@ -81,6 +81,14 @@ message RegisterRequest {
 message RegisterResponse {
     string token = 1;
     UserModel user = 2;
+}
+
+message CreateUserRequest {
+    User user = 1;
+}
+
+message CreateUserResponse {
+    User user = 1;
 }
 
 message UpdateUserRequest {
@@ -124,10 +132,7 @@ message DeleteUserResponse {
 }
 
 message CreateRoleRequest {
-    int64 organization_id = 1;
-    string name = 2;
-    string description = 3;
-    repeated int64 permission_ids = 4;
+    RoleModel role = 1;
 }
 
 message CreateRoleResponse {
