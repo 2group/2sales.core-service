@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
 	"github.com/2group/2sales.core-service/pkg/json"
 	middleware "github.com/2group/2sales.core-service/pkg/middeware"
+	"github.com/go-chi/chi/v5"
 )
 
 type UserHandler struct {
@@ -115,8 +117,77 @@ func (h *UserHandler) HandlePatchMyProfile(w http.ResponseWriter, r *http.Reques
 	json.ParseJSON(r, req)
 
 	req.User.Id = &user_id
+	req.AssignedBy = &user_id
 
 	response, err := h.user.Api.PatchUser(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+	return
+}
+
+func (h *UserHandler) PatchUser(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	userIDStr := chi.URLParam(r, "user_id")
+	patchedUserID, err := strconv.ParseInt(userIDStr, 10, 64)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &userv1.PatchUserRequest{}
+
+	json.ParseJSON(r, req)
+
+	req.User.Id = &patchedUserID
+	req.AssignedBy = &userID
+	req.User.OrganizationId = &organizationID
+
+	response, err := h.user.Api.PatchUser(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+	return
+}
+
+func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &userv1.CreateUserRequest{}
+
+	json.ParseJSON(r, req)
+
+	req.AssignedBy = &userID
+	req.User.OrganizationId = &organizationID
+
+	response, err := h.user.Api.CreateUser(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return

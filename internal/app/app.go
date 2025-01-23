@@ -75,7 +75,9 @@ func (s *APIServer) Run() error {
 					rolesRouter.Get("/my", userHandler.ListMyOrganizationRoles)
 				})
 				authRouter.Route("/users", func(usersRouter chi.Router) {
+					usersRouter.Post("/", userHandler.CreateUser)
 					usersRouter.Get("/my", userHandler.ListMyOrganizationUsers)
+					usersRouter.Patch("/{user_id}", userHandler.PatchUser)
 				})
 			})
 		})
