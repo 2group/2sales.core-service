@@ -84,7 +84,7 @@ message RegisterResponse {
 
 message CreateUserRequest {
     User user = 1;
-    int64 assigned_by = 2;
+    optional int64 assigned_by = 2;
 }
 
 message CreateUserResponse {
@@ -101,6 +101,7 @@ message UpdateUserResponse {
 
 message PatchUserRequest {
     User user = 1;
+    optional int64 assigned_by = 2;
 }
 
 message PatchUserResponse {
