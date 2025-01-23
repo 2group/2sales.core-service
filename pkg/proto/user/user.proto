@@ -149,10 +149,7 @@ message ListRolesResponse {
 }
 
 message UpdateRoleRequest {
-    int64 role_id = 1;
-    string name = 2;
-    string description = 3;
-    repeated int64 permission_ids = 4;
+    RoleModel role = 1;
 }
 
 message UpdateRoleResponse {
