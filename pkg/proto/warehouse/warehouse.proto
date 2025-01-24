@@ -21,10 +21,19 @@ service WarehouseService {
     rpc ListAcceptence (ListAcceptenceRequest) returns (ListAcceptenceResponse);
     rpc UpdateAcceptence (UpdateAcceptenceRequest) returns (UpdateAcceptenceResponse);
     rpc DeleteAcceptence (DeleteAcceptenceRequest) returns (DeleteAcceptenceResponse);
+
+    rpc CreateWriteOff (CreateWriteOffRequest) returns (CreateWriteOffResponse);
+    rpc GetWriteOff (GetWriteOffRequest) returns (GetWriteOffResponse);
+    rpc ListWriteOff (ListWriteOffRequest) returns (ListWriteOffResponse);
 }
 
-// Models and Messages
+/*
+ *
+ * Models and Messages
+ *
+ */
 
+// Warehouse
 message WarehouseModel {
     int64 id = 1;
     int64 organization_id = 2;
@@ -56,6 +65,7 @@ message WarehouseProducts {
     product.Product product = 4;
 }
 
+//Acceptence
 message Acceptence {
     int64 id = 1;
     organization.Organization organization = 2; 
@@ -89,6 +99,43 @@ message AccpetenceProductModel {
     int64 product_id = 2;
     int64 quantity = 3;
     float price = 4;
+}
+
+// Wrtite Off
+message WriteOff {
+    int64 id = 1;
+    organization.Organization organization = 2; 
+    Warehouse warehouse = 3;
+    optional string document_url = 4;
+    user.User user = 5;
+    repeated WriteOffProduct products = 6;
+    string created_at = 7;
+}
+
+message WriteOffModel {
+    int64 id = 1;
+    int64 organization_id = 2;
+    int64 warehouse_id = 4;
+    optional string document_url = 5;
+    int64 user_id = 6;
+    string created_at = 7;
+    repeated WriteOffProductModel write_off = 8;
+}
+
+message WriteOffProduct {
+    int64 id = 1;
+    product.Product product = 2;
+    int64 quantity = 3;
+    float price = 4;
+    string reason = 5;
+}
+
+message WriteOffProductModel {
+    int64 id = 1;
+    int64 product_id = 2;
+    int64 quantity = 3;
+    float price = 4;
+    string reason = 5;
 }
 
 // Requests and Response
@@ -203,4 +250,31 @@ message DeleteAcceptenceRequest {
 
 message DeleteAcceptenceResponse {
     bool success = 1;
+}
+
+//Write Off
+message CreateWriteOffRequest {
+    WriteOffModel write_off = 1;
+}
+
+message CreateWriteOffResponse {
+    WriteOff write_off = 1;
+}
+
+message GetWriteOffRequest {
+    int64 write_off_id = 1;
+}
+
+message GetWriteOffResponse {
+    WriteOff write_off = 1;
+}
+
+message ListWriteOffRequest {
+    int64 page = 1;
+    int64 page_size = 2;
+    int64 organization_id = 3;
+}
+
+message ListWriteOffResponse {
+    repeated WriteOff write_offs = 1;
 }
