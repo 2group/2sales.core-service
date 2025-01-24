@@ -23,4 +23,4 @@ test:
 	@go test -v ./...
 
 migrate:
-	@go run ./cmd/migrate/main.go --config=./config/local.yaml --migrations-path=./migrations
+	@go run ./cmd/migration/main.go --config=./config/local.yaml --migrations-path=./migrations
