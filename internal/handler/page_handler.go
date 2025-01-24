@@ -15,5 +15,5 @@ func NewHomeHandler() *HomeHandler {
 }
 
 func (h *HomeHandler) HandleHome(w http.ResponseWriter, r *http.Request) {
-	lib.Render(w, r, home.Index())
+	lib.Render(w, r, home.Index("aidos"))
 }
