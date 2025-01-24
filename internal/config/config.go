@@ -12,6 +12,11 @@ type Config struct {
 	Env  string     `yaml:"env" env-default:"local"`
 	REST RestConfig `yaml:"rest"`
 	GRPC GrpcConfig `yaml:"grpc"`
+    Psql PsqlConfig `yaml:"postgres"`
+}
+
+type PsqlConfig struct {
+    Url string `yaml:"url"`
 }
 
 type RestConfig struct {
