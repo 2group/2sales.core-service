@@ -14,6 +14,7 @@ proto:
 		--go-grpc_out=$(OUTPUT_PATH) --go-grpc_opt=paths=source_relative
 
 build:
+	@templ generate
 	@go build -o bin/core ./cmd/core/main.go
 
 run: build
