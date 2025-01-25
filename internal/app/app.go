@@ -61,11 +61,16 @@ func (s *APIServer) Run() error {
 	productHandler := handler.NewProductHandler(s.log, productgrpc)
 	crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
-    homeHandler := handler.NewHomeHandler()
+	adminHandler := handler.NewAdminHandler(usergrpc)
 
-    router.Route("/admin", func(adminRouter chi.Router) {
-        adminRouter.Get("/", homeHandler.HandleHome)
-    })
+	router.Route("/admin", func(adminRouter chi.Router) {
+		adminRouter.Get("/login", adminHandler.LoginPage)
+		adminRouter.Get("/dashboard", adminHandler.DashboardPage)
+		adminRouter.Get("/brands", adminHandler.BrandsPage)
+		adminRouter.Route("/api", func(adminApiRouter chi.Router) {
+			adminApiRouter.Post("/login", adminHandler.Login)
+		})
+	})
 
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {

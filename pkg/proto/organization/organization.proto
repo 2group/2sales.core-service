@@ -217,8 +217,8 @@ message PatchCounterpartyResponse {
 }
 
 message ListOrganizationsRequest {
-    int32 page = 1;
-    int32 page_size = 2;
+    int32 limit = 1;
+    int32 offset = 2;
     string type = 3;
     string name = 4;
 }

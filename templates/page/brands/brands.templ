@@ -1,0 +1,22 @@
+package brands
+
+import "github.com/2group/2sales.core-service/templates/layout"
+import "github.com/2group/2sales.core-service/templates/component/sidebar"
+
+templ Index() {
+    @layout.Base() {
+        <!-- We want the sidebar on the left, page content on the right -->
+        <div class="flex">
+            <!-- Sidebar -->
+            @sidebar.Sidebar()
+
+            <!-- Page Content -->
+            <div class="flex-grow min-h-screen bg-gray-100 p-8">
+                <h1 class="text-4xl font-bold text-blue-500 mb-4">
+                    Welcome to the Brands Page!
+                </h1>
+                <!-- page-specific content here -->
+            </div>
+        </div>
+    }
+}
