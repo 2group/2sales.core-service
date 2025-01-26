@@ -197,6 +197,14 @@ func (s *APIServer) Run() error {
 				authRouter.Post("/", warehouseHandler.CreateAcceptance)
 			})
 		})
+        apiRouter.Route("/write_off", func(writeOffRouter chi.Router) {
+			writeOffRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Get("/", warehouseHandler.ListWriteOff)
+				authRouter.Get("/{write_off_id}", warehouseHandler.GetWriteOff)
+				authRouter.Post("/", warehouseHandler.CreateWriteOff)
+			})
+		})
 	})
 
 	return http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", s.cfg.REST.Port), router)
