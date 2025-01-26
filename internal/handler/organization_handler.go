@@ -110,8 +110,8 @@ func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.R
 	}
 
 	req := &organizationv1.ListOrganizationsRequest{
-		Page:     int32(page),
-		PageSize: int32(pageSize),
+		Offset:     int32(page),
+		Limit: int32(pageSize),
 		Type:     orgType,
 		Name:     name,
 	}
