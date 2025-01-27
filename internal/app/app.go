@@ -111,24 +111,20 @@ func (s *APIServer) Run() error {
 				authRouter.Post("/", productHandler.CreateProduct)
 				authRouter.Get("/{product_id}", productHandler.GetProduct)
 				authRouter.Patch("/{product_id}", productHandler.PatchProduct)
-				apiRouter.Route("/category", func(categoryRouter chi.Router) {
+				authRouter.Route("/category", func(categoryRouter chi.Router) {
 					categoryRouter.Post("/", productHandler.CreateCategory)
 					categoryRouter.Get("/", productHandler.GetFirstLevelCategories)
 					categoryRouter.Get("/{category_id}", productHandler.GetCategory)
-
 					categoryRouter.Group(func(authRouter chi.Router) {
 						authRouter.Use(auth.AuthMiddleware)
 					})
 				})
-				apiRouter.Route("/group", func(productGroupRouter chi.Router) {
-					productGroupRouter.Group(func(authRouter chi.Router) {
-						authRouter.Use(auth.AuthMiddleware)
-						authRouter.Get("/{product_group_id}", productHandler.GetProductGroup)
-						authRouter.Get("/", productHandler.ListProductGroup)
-						authRouter.Post("/", productHandler.CreateProductGroup)
-						authRouter.Put("/{product_group_id}", productHandler.UpdateProductGroup)
-						authRouter.Delete("/{product_group_id}", productHandler.DeleteProductGroup)
-					})
+				authRouter.Route("/group", func(productGroupRouter chi.Router) {
+					productGroupRouter.Get("/{product_group_id}", productHandler.GetProductGroup)
+					productGroupRouter.Get("/", productHandler.ListProductGroup)
+					productGroupRouter.Post("/", productHandler.CreateProductGroup)
+					productGroupRouter.Put("/{product_group_id}", productHandler.UpdateProductGroup)
+					productGroupRouter.Delete("/{product_group_id}", productHandler.DeleteProductGroup)
 				})
 			})
 		})
@@ -214,7 +210,7 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/{order_id}", orderHandler.GetOrder)
 			})
 		})
-        apiRouter.Route("/write_off", func(writeOffRouter chi.Router) {
+		apiRouter.Route("/write_off", func(writeOffRouter chi.Router) {
 			writeOffRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Get("/", warehouseHandler.ListWriteOff)
