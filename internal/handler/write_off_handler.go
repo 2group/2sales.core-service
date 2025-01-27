@@ -43,7 +43,7 @@ func(h *WarehouseHandler) CreateWriteOff(w http.ResponseWriter, r *http.Request)
 }
 
 func(h *WarehouseHandler) ListWriteOff(w http.ResponseWriter, r *http.Request) {
-    query := r.URL.Query()
+        query := r.URL.Query()
 
 	limit := 10
 	offset := 0
