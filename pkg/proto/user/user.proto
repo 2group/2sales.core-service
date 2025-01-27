@@ -71,6 +71,7 @@ message LoginRequest {
 message LoginResponse {
     string token = 1;
     User user = 2;
+    bool is_completed = 3;
 }
 
 message RegisterRequest {
