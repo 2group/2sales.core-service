@@ -56,21 +56,34 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
+	ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
+	if err != nil {
+		panic(err)
+	}
+
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	productHandler := handler.NewProductHandler(s.log, productgrpc)
 	crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
-	adminHandler := handler.NewAdminHandler(usergrpc)
+	orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
+	//adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
-	router.Route("/admin", func(adminRouter chi.Router) {
-		adminRouter.Get("/login", adminHandler.LoginPage)
-		adminRouter.Get("/dashboard", adminHandler.DashboardPage)
-		adminRouter.Get("/brands", adminHandler.BrandsPage)
-		adminRouter.Route("/api", func(adminApiRouter chi.Router) {
-			adminApiRouter.Post("/login", adminHandler.Login)
-		})
-	})
+	// router.Route("/admin", func(adminRouter chi.Router) {
+	// 	adminRouter.Get("/login", adminHandler.LoginPage)
+	// 	adminRouter.Get("/dashboard", adminHandler.DashboardPage)
+	// 	adminRouter.Get("/brands/create", adminHandler.CreateBrandPage)
+	// 	adminRouter.Get("/brands", adminHandler.BrandsPage)
+	// 	adminRouter.Get("/brands/{brand_id}", adminHandler.BrandPage)
+	// 	adminRouter.Get("/brands/{brand_id}/patch/images", adminHandler.PatchBrandImagesPage)
+	// 	adminRouter.Route("/api", func(adminApiRouter chi.Router) {
+	// 		adminApiRouter.Post("/login", adminHandler.Login)
+	// 		adminApiRouter.Get("/brands", adminHandler.ListBrands)
+	// 		adminApiRouter.Post("/brands", adminHandler.CreateBrand)
+	// 		adminApiRouter.Patch("/brands/{brand_id}/images", adminHandler.PatchBrand)
+	// 		adminApiRouter.Post("/brands/presigned-urls", adminHandler.GeneratePresignedURLs)
+	// 	})
+	// })
 
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
@@ -91,15 +104,6 @@ func (s *APIServer) Run() error {
 				})
 			})
 		})
-		apiRouter.Route("/category", func(categoryRouter chi.Router) {
-			categoryRouter.Post("/", productHandler.CreateCategory)
-			categoryRouter.Get("/", productHandler.GetFirstLevelCategories)
-			categoryRouter.Get("/{category_id}", productHandler.GetCategory)
-
-			categoryRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
-			})
-		})
 		apiRouter.Route("/product", func(productRouter chi.Router) {
 			productRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
@@ -107,16 +111,25 @@ func (s *APIServer) Run() error {
 				authRouter.Post("/", productHandler.CreateProduct)
 				authRouter.Get("/{product_id}", productHandler.GetProduct)
 				authRouter.Patch("/{product_id}", productHandler.PatchProduct)
-			})
-		})
-		apiRouter.Route("/product-group", func(productGroupRouter chi.Router) {
-			productGroupRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/{product_group_id}", productHandler.GetProductGroup)
-				authRouter.Get("/", productHandler.ListProductGroup)
-				authRouter.Post("/", productHandler.CreateProductGroup)
-				authRouter.Put("/{product_group_id}", productHandler.UpdateProductGroup)
-				authRouter.Delete("/{product_group_id}", productHandler.DeleteProductGroup)
+				apiRouter.Route("/category", func(categoryRouter chi.Router) {
+					categoryRouter.Post("/", productHandler.CreateCategory)
+					categoryRouter.Get("/", productHandler.GetFirstLevelCategories)
+					categoryRouter.Get("/{category_id}", productHandler.GetCategory)
+
+					categoryRouter.Group(func(authRouter chi.Router) {
+						authRouter.Use(auth.AuthMiddleware)
+					})
+				})
+				apiRouter.Route("/group", func(productGroupRouter chi.Router) {
+					productGroupRouter.Group(func(authRouter chi.Router) {
+						authRouter.Use(auth.AuthMiddleware)
+						authRouter.Get("/{product_group_id}", productHandler.GetProductGroup)
+						authRouter.Get("/", productHandler.ListProductGroup)
+						authRouter.Post("/", productHandler.CreateProductGroup)
+						authRouter.Put("/{product_group_id}", productHandler.UpdateProductGroup)
+						authRouter.Delete("/{product_group_id}", productHandler.DeleteProductGroup)
+					})
+				})
 			})
 		})
 		apiRouter.Route("/organizations", func(orgRouter chi.Router) {
@@ -187,14 +200,18 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/", warehouseHandler.ListWarehouses)
 				authRouter.Post("/", warehouseHandler.CreateWarehouse)
 				authRouter.Get("/{warehouse_id}", warehouseHandler.GetWarehouse)
+				authRouter.Route("/acceptance", func(acpRouter chi.Router) {
+					acpRouter.Use(auth.AuthMiddleware)
+					acpRouter.Get("/", warehouseHandler.ListAcceptances)
+					acpRouter.Get("/{acceptance_id}", warehouseHandler.GetAcceptance)
+					acpRouter.Post("/", warehouseHandler.CreateAcceptance)
+				})
 			})
 		})
-		apiRouter.Route("/acceptance", func(acceptanceRouter chi.Router) {
-			acceptanceRouter.Group(func(authRouter chi.Router) {
+		apiRouter.Route("/orders", func(orderRouter chi.Router) {
+			orderRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/", warehouseHandler.ListAcceptances)
-				authRouter.Get("/{acceptance_id}", warehouseHandler.GetAcceptance)
-				authRouter.Post("/", warehouseHandler.CreateAcceptance)
+				authRouter.Get("/{order_id}", orderHandler.GetOrder)
 			})
 		})
 	})

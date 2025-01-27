@@ -12,11 +12,11 @@ type Config struct {
 	Env  string     `yaml:"env" env-default:"local"`
 	REST RestConfig `yaml:"rest"`
 	GRPC GrpcConfig `yaml:"grpc"`
-    Psql PsqlConfig `yaml:"postgres"`
+	Psql PsqlConfig `yaml:"postgres"`
 }
 
 type PsqlConfig struct {
-    Url string `yaml:"url"`
+	Url string `yaml:"url"`
 }
 
 type RestConfig struct {
@@ -30,6 +30,7 @@ type GrpcConfig struct {
 	Product      string `yaml:"product"`
 	CRM          string `yaml:"crm"`
 	Warehouse    string `yaml:"warehouse"`
+	Order        string `yaml:"order"`
 }
 
 func MustLoad() *Config {

@@ -52,7 +52,7 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 
 	organizationID, err := strconv.ParseInt(organizationIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid organization_id format", "relationship_type_id", organizationIDStr, "error", err)
+		h.log.Error("invalid organization_id format", "organization_id", organizationIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
@@ -99,21 +99,15 @@ func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.R
 	name = queryParams.Get("name")
 	orgType = queryParams.Get("type")
 
-	page, err := strconv.Atoi(queryParams.Get("page"))
-	if err != nil || page < 1 {
-		page = 1
-	}
+	limit, err := strconv.ParseInt(queryParams.Get("limit"), 10, 64)
 
-	pageSize, err := strconv.Atoi(queryParams.Get("page_size"))
-	if err != nil || pageSize < 1 {
-		pageSize = 10
-	}
+	offset, err := strconv.ParseInt(queryParams.Get("offset"), 10, 64)
 
 	req := &organizationv1.ListOrganizationsRequest{
-		Page:     int32(page),
-		PageSize: int32(pageSize),
-		Type:     orgType,
-		Name:     name,
+		Limit:  int32(limit),
+		Offset: int32(offset),
+		Type:   orgType,
+		Name:   name,
 	}
 
 	response, err := h.organization.Api.ListOrganizations(r.Context(), req)
