@@ -175,6 +175,7 @@ message PatchProductResponse {
 
 message GetProductRequest {
     int64 id = 1;
+    string full = 2;
 }
 
 message GetProductResponse {

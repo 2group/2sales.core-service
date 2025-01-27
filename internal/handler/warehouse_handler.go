@@ -51,8 +51,27 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+    query := r.URL.Query()
+
+	limit := 10
+	offset := 0
+
+	if limitStr := query.Get("limit"); limitStr != "" {
+		if parsedLimit, err := strconv.Atoi(limitStr); err == nil && parsedLimit > 0 {
+			limit = parsedLimit
+		}
+	}
+
+	if offsetStr := query.Get("offset"); offsetStr != "" {
+		if parsedOffset, err := strconv.Atoi(offsetStr); err == nil && parsedOffset >= 0 {
+			offset = parsedOffset
+		}
+	}
+
 	req := &warehousev1.GetProductsInWarehouseRequest{
 		WarehouseId: int64(warehouse_id),
+        Page: int64(offset),
+        PageSize: int64(limit),
 	}
 
 	response, err := h.warehouse.Api.GetProductsInWarehouse(r.Context(), req)
