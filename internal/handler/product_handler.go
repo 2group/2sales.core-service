@@ -251,15 +251,7 @@ func (h *ProductHandler) UpdateProductGroup(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-        if response != nil {
-	        json.WriteJSON(w, http.StatusOK, response)
-        } else {
-                empty_response := map[string]interface{}{
-                        "product_groups": []interface{}{},
-                        "total": 0,
-                }
-                json.WriteJSON(w, http.StatusOK, empty_response)
-        }
+	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
 
@@ -326,7 +318,15 @@ func (h *ProductHandler) ListProductGroup(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	json.WriteJSON(w, http.StatusOK, response)
+	if response != nil && response.ProductGroups != nil {
+		json.WriteJSON(w, http.StatusOK, response)
+	} else {
+		empty_response := map[string]interface{}{
+			"product_groups": []interface{}{},
+			"total":          0,
+		}
+		json.WriteJSON(w, http.StatusOK, empty_response)
+	}
 	return
 }
 
