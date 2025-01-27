@@ -58,7 +58,7 @@ func (s *APIServer) Run() error {
 
 	ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
 	if err != nil {
-		panic(err)
+		//panic(err)
 	}
 
 	userHandler := handler.NewUserHandler(usergrpc)
@@ -203,19 +203,19 @@ func (s *APIServer) Run() error {
 					acpRouter.Post("/", warehouseHandler.CreateAcceptance)
 				})
 			})
+			warehouseRouter.Route("/write_off", func(writeOffRouter chi.Router) {
+				writeOffRouter.Group(func(authRouter chi.Router) {
+					authRouter.Use(auth.AuthMiddleware)
+					authRouter.Get("/", warehouseHandler.ListWriteOff)
+					authRouter.Get("/{write_off_id}", warehouseHandler.GetWriteOff)
+					authRouter.Post("/", warehouseHandler.CreateWriteOff)
+				})
+			})
 		})
 		apiRouter.Route("/orders", func(orderRouter chi.Router) {
 			orderRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Get("/{order_id}", orderHandler.GetOrder)
-			})
-		})
-		apiRouter.Route("/write_off", func(writeOffRouter chi.Router) {
-			writeOffRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/", warehouseHandler.ListWriteOff)
-				authRouter.Get("/{write_off_id}", warehouseHandler.GetWriteOff)
-				authRouter.Post("/", warehouseHandler.CreateWriteOff)
 			})
 		})
 	})
