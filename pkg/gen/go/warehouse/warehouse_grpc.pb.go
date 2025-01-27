@@ -57,7 +57,7 @@ type WarehouseServiceClient interface {
 	GetWriteOff(ctx context.Context, in *GetWriteOffRequest, opts ...grpc.CallOption) (*GetWriteOffResponse, error)
 	ListWriteOff(ctx context.Context, in *ListWriteOffRequest, opts ...grpc.CallOption) (*ListWriteOffResponse, error)
 	CreateMoving(ctx context.Context, in *CreateMovingRequest, opts ...grpc.CallOption) (*CreateMovingResponse, error)
-	GetMoving(ctx context.Context, in *GetMovingRequest, opts ...grpc.CallOption) (*GetMovingRequest, error)
+	GetMoving(ctx context.Context, in *GetMovingRequest, opts ...grpc.CallOption) (*GetMovingResponse, error)
 	ListMoving(ctx context.Context, in *ListMovingRequest, opts ...grpc.CallOption) (*ListMovingResponse, error)
 }
 
@@ -219,9 +219,9 @@ func (c *warehouseServiceClient) CreateMoving(ctx context.Context, in *CreateMov
 	return out, nil
 }
 
-func (c *warehouseServiceClient) GetMoving(ctx context.Context, in *GetMovingRequest, opts ...grpc.CallOption) (*GetMovingRequest, error) {
+func (c *warehouseServiceClient) GetMoving(ctx context.Context, in *GetMovingRequest, opts ...grpc.CallOption) (*GetMovingResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetMovingRequest)
+	out := new(GetMovingResponse)
 	err := c.cc.Invoke(ctx, WarehouseService_GetMoving_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -258,7 +258,7 @@ type WarehouseServiceServer interface {
 	GetWriteOff(context.Context, *GetWriteOffRequest) (*GetWriteOffResponse, error)
 	ListWriteOff(context.Context, *ListWriteOffRequest) (*ListWriteOffResponse, error)
 	CreateMoving(context.Context, *CreateMovingRequest) (*CreateMovingResponse, error)
-	GetMoving(context.Context, *GetMovingRequest) (*GetMovingRequest, error)
+	GetMoving(context.Context, *GetMovingRequest) (*GetMovingResponse, error)
 	ListMoving(context.Context, *ListMovingRequest) (*ListMovingResponse, error)
 	mustEmbedUnimplementedWarehouseServiceServer()
 }
@@ -315,7 +315,7 @@ func (UnimplementedWarehouseServiceServer) ListWriteOff(context.Context, *ListWr
 func (UnimplementedWarehouseServiceServer) CreateMoving(context.Context, *CreateMovingRequest) (*CreateMovingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMoving not implemented")
 }
-func (UnimplementedWarehouseServiceServer) GetMoving(context.Context, *GetMovingRequest) (*GetMovingRequest, error) {
+func (UnimplementedWarehouseServiceServer) GetMoving(context.Context, *GetMovingRequest) (*GetMovingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMoving not implemented")
 }
 func (UnimplementedWarehouseServiceServer) ListMoving(context.Context, *ListMovingRequest) (*ListMovingResponse, error) {

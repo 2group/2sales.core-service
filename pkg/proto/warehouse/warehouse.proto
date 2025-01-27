@@ -27,7 +27,7 @@ service WarehouseService {
     rpc ListWriteOff (ListWriteOffRequest) returns (ListWriteOffResponse);
 
     rpc CreateMoving (CreateMovingRequest) returns (CreateMovingResponse);
-    rpc GetMoving (GetMovingRequest) returns (GetMovingRequest);
+    rpc GetMoving (GetMovingRequest) returns (GetMovingResponse);
     rpc ListMoving (ListMovingRequest) returns (ListMovingResponse);
 }
 
