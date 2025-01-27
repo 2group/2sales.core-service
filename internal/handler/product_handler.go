@@ -85,7 +85,7 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 
 	url := query.Get("url")
 	category_id := query.Get("category_id")
-    name := query.Get("name")
+	name := query.Get("name")
 
 	price_from := 0
 	if price_from_str := query.Get("price_form"); price_from_str != "" {
@@ -124,7 +124,7 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 		PriceTo:        float32(price_to),
 		OrganizationId: organization_id,
 		CategoryId:     category_id,
-        SearchQuery: name,
+		SearchQuery:    name,
 	}
 
 	brand_id_str := query.Get("brand_id")
@@ -164,7 +164,6 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    h.log.Debug("response: ", response)
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
@@ -252,7 +251,15 @@ func (h *ProductHandler) UpdateProductGroup(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	json.WriteJSON(w, http.StatusCreated, response)
+        if response != nil {
+	        json.WriteJSON(w, http.StatusOK, response)
+        } else {
+                empty_response := map[string]interface{}{
+                        "product_groups": []interface{}{},
+                        "total": 0,
+                }
+                json.WriteJSON(w, http.StatusOK, empty_response)
+        }
 	return
 }
 
