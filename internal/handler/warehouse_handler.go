@@ -33,6 +33,7 @@ func (h *WarehouseHandler) UpdateWarehouse(w http.ResponseWriter, r *http.Reques
         req := &warehousev1.UpdateWarehouseRequest{
                 Id: int64(warehouse_id),
         }
+        json.ParseJSON(r, &req)
 
         response, err := h.warehouse.Api.UpdateWarehouse(r.Context(), req)
         if err != nil {
