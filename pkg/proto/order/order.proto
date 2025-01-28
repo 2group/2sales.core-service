@@ -3,90 +3,94 @@ syntax = "proto3";
 package order;
 
 import "product/product.proto";
+import "organization/organization.proto";
 
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/order;orderv1";
 
 service OrderService {
-    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
-    rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
-    rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
-    rpc ListOrders (ListOrdersRequest) returns (ListOrdersResponse);
+    rpc CreateSubOrder (CreateSubOrderRequest) returns (CreateSubOrderResponse);
     rpc GetSubOrder (GetSubOrderRequest) returns (GetSubOrderResponse);
-    rpc ListSubOrders (ListSubOrdersRequest) returns (ListSubOrdersResponse);
-    rpc UpdateSubOrder (UpdateSubOrderRequest) returns (UpdateSubOrderResponse);
 }
 
-message OrderModel {
-    int64 id = 1;
-    int64 created_by = 2;
-    int64 from_organization_id = 3;
-    string status = 4;
-    float original_total = 5;
-    float final_total = 6;
-    repeated SubOrderModel suborders = 7;
-}
+// message OrderModel {
+//     int64 id = 1;
+//     int64 created_by = 2;
+//     string status = 3;
+//     float original_total = 4;
+//     float final_total = 5;
+//     int64 from_organization_id = 6;
+//     optional int64 discount_id = 7;
+//     optional string created_at = 8;
+//     optional string updated_at = 9;
+// }
 
 message SubOrderModel {
     int64 id = 1;
     int64 order_id = 2;
-    int64 to_organization_id = 3;
-    int64 from_organization_id = 4;
-    float original_total = 5;
-    float final_total = 6;
-    string invoice_pdf = 7;
-    repeated OrderItem order_items = 8;
+    float original_subtotal = 3;
+    float final_subtotal = 4;
+    int64 to_organization_id = 5;
+    int64 from_organization_id = 6;
+    optional string status = 7;
+    optional string invoice_pdf = 8;
+    optional string discount_id = 9;
+    optional string created_at = 10;
+    optional string updated_at = 11;
+}
+
+
+message OrderItemModel {
+    int64 id = 1;
+    int64 sub_order_id = 2;
+    int64 product_id = 3;
+    int32 quantity = 4;
+    float original_price = 5;
+    float final_price = 6;
+    optional int64 discount_id = 7;
+    optional string created_at = 9;
+    optional string updated_at = 10;
+}
+
+// message Order {
+//     int64 id = 1;
+//     int64 created_by = 2;
+//     string status = 3;
+//     float original_total = 4;
+//     float final_total = 5;
+//     Organization from_organization = 6;
+//     optional string created_at = 7;
+//     optional string updated_at = 8;
+// }
+
+message SubOrder {
+    int64 id = 1;
+    OrderItem order_items = 2;
+    float original_subtotal = 3;
+    float final_subtotal = 4;
+    organization.Organization to_organization = 5;
+    organization.Organization from_organization = 6;
+    optional string status = 7;
+    optional string invoice_pdf = 8;
+    optional string created_at = 9;
+    optional string updated_at = 10;
 }
 
 message OrderItem {
     int64 id = 1;
-    int64 suborder_id = 2;
-    int64 product_id = 3;
-    product.ProductModel product = 4;
-    int64 quantity = 5;
-    float original_price = 6;
-    float final_price = 7;
+    product.Product product = 2;
+    int32 quantity = 3;
+    float original_price = 4;
+    float final_price = 5;
+    optional string created_at = 6;
+    optional string updated_at = 7;
 }
 
-message CreateOrderRequest {
-    int64 created_by = 1;
-    int64 from_organization_id = 2;
-    repeated SubOrderModel suborders = 3;
+message CreateSubOrderRequest {
+    SubOrder sub_order = 1;
 }
 
-message CreateOrderResponse {
-    OrderModel order = 1;
-}
-
-message UpdateOrderRequest {
-    int64 id = 1;
-    string status = 2;
-    float original_total = 3;
-    float final_total = 4;
-    repeated SubOrderModel suborders = 5;
-}
-
-message UpdateOrderResponse {
-    OrderModel order = 1;
-}
-
-message GetOrderRequest {
-    int64 id = 1;
-}
-
-message GetOrderResponse {
-    OrderModel order = 1;
-}
-
-message ListOrdersRequest {
-    int64 created_by = 1; // Optional filter
-    string status = 2;    // Optional filter
-    int64 page = 3;       // For pagination
-    int64 per_page = 4;   // Items per page
-}
-
-message ListOrdersResponse {
-    repeated OrderModel orders = 1;
-    int64 total_count = 2;
+message CreateSubOrderResponse {
+    SubOrder sub_order = 1;
 }
 
 message GetSubOrderRequest {
@@ -94,28 +98,40 @@ message GetSubOrderRequest {
 }
 
 message GetSubOrderResponse {
-    SubOrderModel suborder = 1;
+    SubOrder sub_order = 1;
 }
 
-message ListSubOrdersRequest {
-    int64 order_id = 1;  // Optional filter
-    int64 page = 2;      // For pagination
-    int64 per_page = 3;  // Items per page
-}
+// message ListSubOrdersRequest {
+//     int64 created_by = 1; // Optional filter
+//     string status = 2;    // Optional filter
+//     int64 limit = 3;
+//     int64 offset = 4;
+// }
 
-message ListSubOrdersResponse {
-    repeated SubOrderModel suborders = 1;
-    int64 total_count = 2;
-}
+// message ListSubOrdersResponse {
+//     repeated OrderModel orders = 1;
+//     int64 total_count = 2;
+// }
 
-message UpdateSubOrderRequest {
-    int64 id = 1;
-    float original_total = 2;
-    float final_total = 3;
-    string invoice_pdf = 4;
-    repeated OrderItem order_items = 5;
-}
+// message ListSubOrdersRequest {
+//     int64 order_id = 1;  // Optional filter
+//     int64 page = 2;      // For pagination
+//     int64 per_page = 3;  // Items per page
+// }
 
-message UpdateSubOrderResponse {
-    SubOrderModel suborder = 1;
-}
+// message ListSubOrdersResponse {
+//     repeated SubOrderModel suborders = 1;
+//     int64 total_count = 2;
+// }
+
+// message UpdateSubOrderRequest {
+//     int64 id = 1;
+//     float original_total = 2;
+//     float final_total = 3;
+//     string invoice_pdf = 4;
+//     repeated OrderItem order_items = 5;
+// }
+
+// message UpdateSubOrderResponse {
+//     SubOrderModel suborder = 1;
+// }
