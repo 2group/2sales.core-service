@@ -22,6 +22,28 @@ func NewWarehouseHandler(log *slog.Logger, warehouse *grpc.WarehouseClient) *War
 	return &WarehouseHandler{log: log, warehouse: warehouse}
 }
 
+func (h *WarehouseHandler) UpdateWarehouse(w http.ResponseWriter, r *http.Request) {
+        warehouse_id_str := chi.URLParam(r, "warehouse_id")
+	warehouse_id, err := strconv.Atoi(warehouse_id_str)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+        req := &warehousev1.UpdateWarehouseRequest{
+                Id: int64(warehouse_id),
+        }
+
+        response, err := h.warehouse.Api.UpdateWarehouse(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
+
 func (h *WarehouseHandler) ListWarehouses(w http.ResponseWriter, r *http.Request) {
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
@@ -51,7 +73,7 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-    query := r.URL.Query()
+	query := r.URL.Query()
 
 	limit := 10
 	offset := 0
@@ -70,8 +92,8 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 
 	req := &warehousev1.GetProductsInWarehouseRequest{
 		WarehouseId: int64(warehouse_id),
-        Page: int64(offset),
-        PageSize: int64(limit),
+		Page:        int64(offset),
+		PageSize:    int64(limit),
 	}
 
 	response, err := h.warehouse.Api.GetProductsInWarehouse(r.Context(), req)
@@ -85,24 +107,24 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 }
 
 func (h *WarehouseHandler) CreateWarehouse(w http.ResponseWriter, r *http.Request) {
-    organization_id, ok := middleware.GetOrganizationID(r)
+	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 
-    req := &warehousev1.CreateWarehouseRequest{
-        OrganizationId: organization_id,
-    }
+	req := &warehousev1.CreateWarehouseRequest{
+		OrganizationId: organization_id,
+	}
 
-    json.ParseJSON(r, &req)
+	json.ParseJSON(r, &req)
 
-    response, err := h.warehouse.Api.CreateWarehouse(r.Context(), req)
-    if err != nil {
+	response, err := h.warehouse.Api.CreateWarehouse(r.Context(), req)
+	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
-        return
-    }
+		return
+	}
 
 	json.WriteJSON(w, http.StatusCreated, response)
-    return
+	return
 }
