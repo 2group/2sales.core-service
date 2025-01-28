@@ -36,17 +36,34 @@ func (h *ProductHandler) CreateCategory(w http.ResponseWriter, r *http.Request) 
 	return
 }
 
-func (h *ProductHandler) GetFirstLevelCategories(w http.ResponseWriter, r *http.Request) {
-	req := &productv1.GetZeroLevelCategoriesRequest{}
+func (h *ProductHandler) ListCategories(w http.ResponseWriter, r *http.Request) {
+	queryParams := r.URL.Query()
 
-	response, err := h.product.Api.GetZeroLevelCategories(r.Context(), req)
+	levelStr := queryParams.Get("level")
+	var level32 *int32
+
+	if levelStr != "" {
+		level, err := strconv.Atoi(levelStr)
+		if err != nil {
+			// Log the error or handle it as needed
+			level32 = nil // Set level32 to nil if conversion fails
+		} else {
+			level32Value := int32(level)
+			level32 = &level32Value
+		}
+	}
+
+	req := &productv1.ListCategoriesRequest{
+		Level: level32,
+	}
+
+	response, err := h.product.Api.ListCategories(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	json.WriteJSON(w, http.StatusOK, response)
-	return
 }
 
 func (h *ProductHandler) GetCategory(w http.ResponseWriter, r *http.Request) {

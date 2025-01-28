@@ -111,9 +111,9 @@ func (s *APIServer) Run() error {
 				authRouter.Post("/", productHandler.CreateProduct)
 				authRouter.Get("/{product_id}", productHandler.GetProduct)
 				authRouter.Patch("/{product_id}", productHandler.PatchProduct)
-				authRouter.Route("/category", func(categoryRouter chi.Router) {
+				authRouter.Route("/categories", func(categoryRouter chi.Router) {
+					categoryRouter.Get("/", productHandler.ListCategories)
 					categoryRouter.Post("/", productHandler.CreateCategory)
-					categoryRouter.Get("/", productHandler.GetFirstLevelCategories)
 					categoryRouter.Get("/{category_id}", productHandler.GetCategory)
 					categoryRouter.Group(func(authRouter chi.Router) {
 						authRouter.Use(auth.AuthMiddleware)

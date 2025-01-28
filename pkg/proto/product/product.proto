@@ -14,9 +14,8 @@ service ProductService {
     rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductResponse);
 
     rpc CreateProductCategory (CreateProductCategoryRequest) returns (CreateProductCategoryResponse);
-    rpc GetZeroLevelCategories (GetZeroLevelCategoriesRequest) returns (GetZeroLevelCategoriesResponse);
-    rpc GetFirstLevelCategories (GetFirstLevelCategoriesRequest) returns (GetFirstLevelCategoriesResponse);
     rpc GetProductCategoryWithChildren (GetProductCategoryWithChildrenRequest) returns (GetProductCategoryWithChildrenResponse);
+    rpc ListCategories (ListCategoriesRequest) returns (ListCategoriesResponse);
 
     rpc ListProductGroups (ListProductGroupsRequest) returns (ListProductGroupsResponse);
     rpc CreateProductGroup (CreateProductGroupRequest) returns (CreateProductGroupResponse);
@@ -202,17 +201,11 @@ message CreateProductCategoryResponse {
     CategoryModel category = 1;
 }
 
-message GetZeroLevelCategoriesRequest {}
-
-message GetZeroLevelCategoriesResponse {
-    repeated CategoryModel categories = 1;
+message ListCategoriesRequest {
+    optional int32 level = 1;
 }
 
-message GetFirstLevelCategoriesRequest {
-    string parent_id = 1;
-}
-
-message GetFirstLevelCategoriesResponse {
+message ListCategoriesResponse {
     repeated CategoryModel categories = 1;
 }
 
