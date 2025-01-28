@@ -7,6 +7,7 @@ import (
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	orderv1 "github.com/2group/2sales.core-service/pkg/gen/go/order"
+	organizationv1 "github.com/2group/2sales.core-service/pkg/gen/go/organization"
 	"github.com/2group/2sales.core-service/pkg/json"
 	middleware "github.com/2group/2sales.core-service/pkg/middeware"
 )
@@ -29,12 +30,12 @@ func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
 
 	req := &orderv1.CreateSubOrderRequest{}
 
-	req.SubOrder.FromOrganization.Id = &organizationID
-
 	if err := json.ParseJSON(r, req); err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+
+	req.SubOrder.FromOrganization = &organizationv1.Organization{Id: &organizationID}
 
 	response, err := h.order.Api.CreateSubOrder(r.Context(), req)
 	if err != nil {

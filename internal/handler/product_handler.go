@@ -154,19 +154,21 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	includeCharacteristicsStr := chi.URLParam(r, "include_characteristics")
+	queryParams := r.URL.Query()
+
+	includeCharacteristicsStr := queryParams.Get("include_characteristics")
 	includeCharacteristics, err := strconv.ParseBool(includeCharacteristicsStr)
 	if err != nil {
 		includeCharacteristics = false
 	}
 
-	includeImagesStr := chi.URLParam(r, "include_images")
+	includeImagesStr := queryParams.Get("include_images")
 	includeImages, err := strconv.ParseBool(includeImagesStr)
 	if err != nil {
 		includeImages = false
 	}
 
-	includeProductGroupsStr := chi.URLParam(r, "product_groups")
+	includeProductGroupsStr := queryParams.Get("include_product_groups")
 	includeProductGroups, err := strconv.ParseBool(includeProductGroupsStr)
 	if err != nil {
 		includeProductGroups = false
