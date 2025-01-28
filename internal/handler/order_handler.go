@@ -1,14 +1,14 @@
 package handler
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
-	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	orderv1 "github.com/2group/2sales.core-service/pkg/gen/go/order"
 	"github.com/2group/2sales.core-service/pkg/json"
-	"github.com/go-chi/chi/v5"
+	middleware "github.com/2group/2sales.core-service/pkg/middeware"
 )
 
 type OrderHandler struct {
@@ -20,19 +20,23 @@ func NewOrderHandler(log *slog.Logger, order *grpc.OrderClient) *OrderHandler {
 	return &OrderHandler{log: log, order: order}
 }
 
-func (h *OrderHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
-	orderIDStr := chi.URLParam(r, "order_id")
-	orderID, err := strconv.Atoi(orderIDStr)
-	if err != nil {
+func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
+	organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+		return
+	}
+
+	req := &orderv1.CreateSubOrderRequest{}
+
+	req.SubOrder.FromOrganization.Id = &organizationID
+
+	if err := json.ParseJSON(r, req); err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	req := &orderv1.GetOrderRequest{
-		Id: int64(orderID),
-	}
-
-	response, err := h.order.Api.GetOrder(r.Context(), req)
+	response, err := h.order.Api.CreateSubOrder(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return

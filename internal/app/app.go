@@ -211,7 +211,7 @@ func (s *APIServer) Run() error {
 					authRouter.Post("/", warehouseHandler.CreateWriteOff)
 				})
 			})
-                        warehouseRouter.Route("/moving", func(movingRouter chi.Router) {
+			warehouseRouter.Route("/moving", func(movingRouter chi.Router) {
 				movingRouter.Group(func(authRouter chi.Router) {
 					authRouter.Use(auth.AuthMiddleware)
 					authRouter.Get("/", warehouseHandler.ListMoving)
@@ -223,7 +223,7 @@ func (s *APIServer) Run() error {
 		apiRouter.Route("/orders", func(orderRouter chi.Router) {
 			orderRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/{order_id}", orderHandler.GetOrder)
+				authRouter.Post("/sub-orders", orderHandler.CreateSubOrder)
 			})
 		})
 	})
