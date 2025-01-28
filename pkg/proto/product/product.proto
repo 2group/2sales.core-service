@@ -60,13 +60,11 @@ message Product {
     optional bool is_external = 11;
     optional string design_url = 12;
     optional string sale_status = 13;
-    optional int64 count = 14;
-    optional int64 brand_id = 15;
-    optional string brand_name = 16;
-    repeated ImageModel images = 17;
-    repeated ProductCharacteristics characteristics = 18;
-    repeated CharacteristicGroup characteristic_groups = 19;
-    repeated ProductGroup product_groups = 20;
+    optional int64 brand_id = 14;
+    optional string brand_name = 15;
+    repeated ImageModel images = 16;
+    repeated ProductCharacteristics characteristics = 17;
+    repeated ProductGroup product_groups = 18;
 }
 
 message ProductModel {
@@ -175,7 +173,9 @@ message PatchProductResponse {
 
 message GetProductRequest {
     int64 id = 1;
-    string full = 2;
+    bool include_characteristics = 2;
+    bool include_images = 3;
+    bool include_product_groups = 4;
 }
 
 message GetProductResponse {

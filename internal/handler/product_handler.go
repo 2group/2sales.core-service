@@ -147,15 +147,36 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
-	product_id_str := chi.URLParam(r, "product_id")
-	product_id, err := strconv.Atoi(product_id_str)
+	productIDStr := chi.URLParam(r, "product_id")
+	productID, err := strconv.Atoi(productIDStr)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
+	includeCharacteristicsStr := chi.URLParam(r, "include_characteristics")
+	includeCharacteristics, err := strconv.ParseBool(includeCharacteristicsStr)
+	if err != nil {
+		includeCharacteristics = false
+	}
+
+	includeImagesStr := chi.URLParam(r, "include_images")
+	includeImages, err := strconv.ParseBool(includeImagesStr)
+	if err != nil {
+		includeImages = false
+	}
+
+	includeProductGroupsStr := chi.URLParam(r, "product_groups")
+	includeProductGroups, err := strconv.ParseBool(includeProductGroupsStr)
+	if err != nil {
+		includeProductGroups = false
+	}
+
 	req := &productv1.GetProductRequest{
-		Id: int64(product_id),
+		Id:                     int64(productID),
+		IncludeCharacteristics: includeCharacteristics,
+		IncludeImages:          includeImages,
+		IncludeProductGroups:   includeProductGroups,
 	}
 
 	response, err := h.product.Api.GetProduct(r.Context(), req)
