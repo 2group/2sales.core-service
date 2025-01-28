@@ -361,6 +361,7 @@ message ListWriteOffRequest {
 
 message ListWriteOffResponse {
     repeated WriteOff write_offs = 1;
+    int64 total = 2;
 }
 
 // Moving
@@ -388,6 +389,7 @@ message ListMovingRequest {
 
 message ListMovingResponse {
     repeated Moving movings = 1;
+    int64 total = 2;
 }
 
 message CreateInventoryRequest {
@@ -414,4 +416,5 @@ message ListInventoryRequest {
 
 message ListInventoryResponse {
     repeated Inventory inventories = 1;
+    int64 total = 2;
 }
