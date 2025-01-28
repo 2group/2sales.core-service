@@ -23,7 +23,7 @@ func (h *WarehouseHandler) CreateAcceptance(w http.ResponseWriter, r *http.Reque
 		return
 	}
     req := &warehousev1.CreateAcceptenceRequest{}
-    json.ParseJSON(r, req)
+    json.ParseJSON(r, &req)
     req.OrganizationId = organization_id
     req.UserId = user_id
 
