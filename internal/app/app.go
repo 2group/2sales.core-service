@@ -196,6 +196,7 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/", warehouseHandler.ListWarehouses)
 				authRouter.Post("/", warehouseHandler.CreateWarehouse)
 				authRouter.Get("/{warehouse_id}", warehouseHandler.GetWarehouse)
+				authRouter.Put("/{warehouse_id}", warehouseHandler.UpdateWarehouse)
 				authRouter.Route("/acceptance", func(acpRouter chi.Router) {
 					acpRouter.Use(auth.AuthMiddleware)
 					acpRouter.Get("/", warehouseHandler.ListAcceptances)
