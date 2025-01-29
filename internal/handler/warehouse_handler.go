@@ -77,10 +77,11 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 			return
 		}
 		warehouse_id = int64(new_warehouse_id)
-	}
-	if warehouse_id == 0 {
+	} else {
+		warehouse_id = 0
 		is_all = true
 	}
+	
 
 	query := r.URL.Query()
 
