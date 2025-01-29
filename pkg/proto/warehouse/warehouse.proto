@@ -16,11 +16,11 @@ service WarehouseService {
     rpc GetWarehouseAnalytics (GetWarehouseAnalyticsRequest) returns (GetWarehouseAnalyticsResponse);
     rpc AddProductToWarehouse (AddProductToWarehouseRequest) returns (AddProductToWarehouseResponse);
 
-    rpc CreateAcceptence (CreateAcceptenceRequest) returns (CreateAcceptenceResponse);
-    rpc GetAcceptence (GetAcceptenceRequest) returns (GetAcceptenceResponse);
-    rpc ListAcceptence (ListAcceptenceRequest) returns (ListAcceptenceResponse);
-    rpc UpdateAcceptence (UpdateAcceptenceRequest) returns (UpdateAcceptenceResponse);
-    rpc DeleteAcceptence (DeleteAcceptenceRequest) returns (DeleteAcceptenceResponse);
+    rpc CreateAcceptance (CreateAcceptanceRequest) returns (CreateAcceptanceResponse);
+    rpc GetAcceptance (GetAcceptanceRequest) returns (GetAcceptanceResponse);
+    rpc ListAcceptances (ListAcceptancesRequest) returns (ListAcceptancesResponse);
+    rpc UpdateAcceptance (UpdateAcceptanceRequest) returns (UpdateAcceptanceResponse);
+    rpc DeleteAcceptance (DeleteAcceptanceRequest) returns (DeleteAcceptanceResponse);
 
     rpc CreateWriteOff (CreateWriteOffRequest) returns (CreateWriteOffResponse);
     rpc GetWriteOff (GetWriteOffRequest) returns (GetWriteOffResponse);
@@ -73,19 +73,19 @@ message WarehouseProducts {
     product.Product product = 4;
 }
 
-//Acceptence
-message Acceptence {
+//Acceptance
+message Acceptance {
     int64 id = 1;
     organization.Organization organization = 2; 
     organization.Organization counterparty = 3;
     Warehouse warehouse = 4;
     optional string document_url = 5;
     user.User user = 6;
-    repeated AccpetenceProduct products = 7;
+    repeated AcceptanceProduct products = 7;
     string created_at = 8;
 }
 
-message AcceptenceModel {
+message AcceptanceModel {
     int64 id = 1;
     int64 organization_id = 2;
     int64 counterparty_id = 3;
@@ -95,14 +95,14 @@ message AcceptenceModel {
     string created_at = 7;
 }
 
-message AccpetenceProduct {
+message AcceptanceProduct {
     int64 id = 1;
     product.Product product = 2;
     int64 quantity = 3;
     float price = 4;
 }
 
-message AccpetenceProductModel {
+message AcceptanceProductModel {
     int64 id = 1;
     int64 product_id = 2;
     int64 quantity = 3;
@@ -284,56 +284,56 @@ message AddProductToWarehouseResponse {
     WarehouseProducts product = 1;
 }
 
-message CreateAcceptenceRequest {
+message CreateAcceptanceRequest {
     int64 organization_id = 1;
     int64 counterparty_id = 2;
     int64 warehouse_id = 3;
     int64 user_id = 5;
-    repeated AccpetenceProductModel products = 6;
+    repeated AcceptanceProductModel products = 6;
 }
 
-message CreateAcceptenceResponse {
-    Acceptence acceptence = 1;
+message CreateAcceptanceResponse {
+    Acceptance acceptance = 1;
 }
 
-message GetAcceptenceRequest {
+message GetAcceptanceRequest {
     int64 id = 1;
 }
 
-message GetAcceptenceResponse {
-    Acceptence acceptence = 1;
+message GetAcceptanceResponse {
+    Acceptance acceptance = 1;
 }
 
-message ListAcceptenceRequest {
+message ListAcceptancesRequest {
     int64 page = 1;
     int64 page_size = 2;
     int64 organization_id = 3;
 }
 
-message ListAcceptenceResponse {
-    repeated Acceptence acceptences = 1;
+message ListAcceptancesResponse {
+    repeated Acceptance acceptances = 1;
     int64 total_count = 2;
 }
 
-message UpdateAcceptenceRequest {
+message UpdateAcceptanceRequest {
     int64 id = 1;
     optional int64 organization_id = 2;
     optional int64 counterparty_id = 3;
     optional int64 warehouse_id = 4;
     optional string document_url = 5;
     optional int64 user_id = 6;
-    repeated AccpetenceProductModel products = 7;
+    repeated AcceptanceProductModel products = 7;
 }
 
-message UpdateAcceptenceResponse {
-    Acceptence acceptence = 1;
+message UpdateAcceptanceResponse {
+    Acceptance acceptance = 1;
 }
 
-message DeleteAcceptenceRequest {
+message DeleteAcceptanceRequest {
     int64 id = 1;
 }
 
-message DeleteAcceptenceResponse {
+message DeleteAcceptanceResponse {
     bool success = 1;
 }
 

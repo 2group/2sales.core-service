@@ -25,11 +25,11 @@ const (
 	WarehouseService_GetProductsInWarehouse_FullMethodName = "/warehouse.WarehouseService/GetProductsInWarehouse"
 	WarehouseService_GetWarehouseAnalytics_FullMethodName  = "/warehouse.WarehouseService/GetWarehouseAnalytics"
 	WarehouseService_AddProductToWarehouse_FullMethodName  = "/warehouse.WarehouseService/AddProductToWarehouse"
-	WarehouseService_CreateAcceptence_FullMethodName       = "/warehouse.WarehouseService/CreateAcceptence"
-	WarehouseService_GetAcceptence_FullMethodName          = "/warehouse.WarehouseService/GetAcceptence"
-	WarehouseService_ListAcceptence_FullMethodName         = "/warehouse.WarehouseService/ListAcceptence"
-	WarehouseService_UpdateAcceptence_FullMethodName       = "/warehouse.WarehouseService/UpdateAcceptence"
-	WarehouseService_DeleteAcceptence_FullMethodName       = "/warehouse.WarehouseService/DeleteAcceptence"
+	WarehouseService_CreateAcceptance_FullMethodName       = "/warehouse.WarehouseService/CreateAcceptance"
+	WarehouseService_GetAcceptance_FullMethodName          = "/warehouse.WarehouseService/GetAcceptance"
+	WarehouseService_ListAcceptances_FullMethodName        = "/warehouse.WarehouseService/ListAcceptances"
+	WarehouseService_UpdateAcceptance_FullMethodName       = "/warehouse.WarehouseService/UpdateAcceptance"
+	WarehouseService_DeleteAcceptance_FullMethodName       = "/warehouse.WarehouseService/DeleteAcceptance"
 	WarehouseService_CreateWriteOff_FullMethodName         = "/warehouse.WarehouseService/CreateWriteOff"
 	WarehouseService_GetWriteOff_FullMethodName            = "/warehouse.WarehouseService/GetWriteOff"
 	WarehouseService_ListWriteOff_FullMethodName           = "/warehouse.WarehouseService/ListWriteOff"
@@ -51,11 +51,11 @@ type WarehouseServiceClient interface {
 	GetProductsInWarehouse(ctx context.Context, in *GetProductsInWarehouseRequest, opts ...grpc.CallOption) (*GetProductsInWarehouseResponse, error)
 	GetWarehouseAnalytics(ctx context.Context, in *GetWarehouseAnalyticsRequest, opts ...grpc.CallOption) (*GetWarehouseAnalyticsResponse, error)
 	AddProductToWarehouse(ctx context.Context, in *AddProductToWarehouseRequest, opts ...grpc.CallOption) (*AddProductToWarehouseResponse, error)
-	CreateAcceptence(ctx context.Context, in *CreateAcceptenceRequest, opts ...grpc.CallOption) (*CreateAcceptenceResponse, error)
-	GetAcceptence(ctx context.Context, in *GetAcceptenceRequest, opts ...grpc.CallOption) (*GetAcceptenceResponse, error)
-	ListAcceptence(ctx context.Context, in *ListAcceptenceRequest, opts ...grpc.CallOption) (*ListAcceptenceResponse, error)
-	UpdateAcceptence(ctx context.Context, in *UpdateAcceptenceRequest, opts ...grpc.CallOption) (*UpdateAcceptenceResponse, error)
-	DeleteAcceptence(ctx context.Context, in *DeleteAcceptenceRequest, opts ...grpc.CallOption) (*DeleteAcceptenceResponse, error)
+	CreateAcceptance(ctx context.Context, in *CreateAcceptanceRequest, opts ...grpc.CallOption) (*CreateAcceptanceResponse, error)
+	GetAcceptance(ctx context.Context, in *GetAcceptanceRequest, opts ...grpc.CallOption) (*GetAcceptanceResponse, error)
+	ListAcceptances(ctx context.Context, in *ListAcceptancesRequest, opts ...grpc.CallOption) (*ListAcceptancesResponse, error)
+	UpdateAcceptance(ctx context.Context, in *UpdateAcceptanceRequest, opts ...grpc.CallOption) (*UpdateAcceptanceResponse, error)
+	DeleteAcceptance(ctx context.Context, in *DeleteAcceptanceRequest, opts ...grpc.CallOption) (*DeleteAcceptanceResponse, error)
 	CreateWriteOff(ctx context.Context, in *CreateWriteOffRequest, opts ...grpc.CallOption) (*CreateWriteOffResponse, error)
 	GetWriteOff(ctx context.Context, in *GetWriteOffRequest, opts ...grpc.CallOption) (*GetWriteOffResponse, error)
 	ListWriteOff(ctx context.Context, in *ListWriteOffRequest, opts ...grpc.CallOption) (*ListWriteOffResponse, error)
@@ -135,50 +135,50 @@ func (c *warehouseServiceClient) AddProductToWarehouse(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *warehouseServiceClient) CreateAcceptence(ctx context.Context, in *CreateAcceptenceRequest, opts ...grpc.CallOption) (*CreateAcceptenceResponse, error) {
+func (c *warehouseServiceClient) CreateAcceptance(ctx context.Context, in *CreateAcceptanceRequest, opts ...grpc.CallOption) (*CreateAcceptanceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateAcceptenceResponse)
-	err := c.cc.Invoke(ctx, WarehouseService_CreateAcceptence_FullMethodName, in, out, cOpts...)
+	out := new(CreateAcceptanceResponse)
+	err := c.cc.Invoke(ctx, WarehouseService_CreateAcceptance_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *warehouseServiceClient) GetAcceptence(ctx context.Context, in *GetAcceptenceRequest, opts ...grpc.CallOption) (*GetAcceptenceResponse, error) {
+func (c *warehouseServiceClient) GetAcceptance(ctx context.Context, in *GetAcceptanceRequest, opts ...grpc.CallOption) (*GetAcceptanceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAcceptenceResponse)
-	err := c.cc.Invoke(ctx, WarehouseService_GetAcceptence_FullMethodName, in, out, cOpts...)
+	out := new(GetAcceptanceResponse)
+	err := c.cc.Invoke(ctx, WarehouseService_GetAcceptance_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *warehouseServiceClient) ListAcceptence(ctx context.Context, in *ListAcceptenceRequest, opts ...grpc.CallOption) (*ListAcceptenceResponse, error) {
+func (c *warehouseServiceClient) ListAcceptances(ctx context.Context, in *ListAcceptancesRequest, opts ...grpc.CallOption) (*ListAcceptancesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListAcceptenceResponse)
-	err := c.cc.Invoke(ctx, WarehouseService_ListAcceptence_FullMethodName, in, out, cOpts...)
+	out := new(ListAcceptancesResponse)
+	err := c.cc.Invoke(ctx, WarehouseService_ListAcceptances_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *warehouseServiceClient) UpdateAcceptence(ctx context.Context, in *UpdateAcceptenceRequest, opts ...grpc.CallOption) (*UpdateAcceptenceResponse, error) {
+func (c *warehouseServiceClient) UpdateAcceptance(ctx context.Context, in *UpdateAcceptanceRequest, opts ...grpc.CallOption) (*UpdateAcceptanceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateAcceptenceResponse)
-	err := c.cc.Invoke(ctx, WarehouseService_UpdateAcceptence_FullMethodName, in, out, cOpts...)
+	out := new(UpdateAcceptanceResponse)
+	err := c.cc.Invoke(ctx, WarehouseService_UpdateAcceptance_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *warehouseServiceClient) DeleteAcceptence(ctx context.Context, in *DeleteAcceptenceRequest, opts ...grpc.CallOption) (*DeleteAcceptenceResponse, error) {
+func (c *warehouseServiceClient) DeleteAcceptance(ctx context.Context, in *DeleteAcceptanceRequest, opts ...grpc.CallOption) (*DeleteAcceptanceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteAcceptenceResponse)
-	err := c.cc.Invoke(ctx, WarehouseService_DeleteAcceptence_FullMethodName, in, out, cOpts...)
+	out := new(DeleteAcceptanceResponse)
+	err := c.cc.Invoke(ctx, WarehouseService_DeleteAcceptance_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -285,11 +285,11 @@ type WarehouseServiceServer interface {
 	GetProductsInWarehouse(context.Context, *GetProductsInWarehouseRequest) (*GetProductsInWarehouseResponse, error)
 	GetWarehouseAnalytics(context.Context, *GetWarehouseAnalyticsRequest) (*GetWarehouseAnalyticsResponse, error)
 	AddProductToWarehouse(context.Context, *AddProductToWarehouseRequest) (*AddProductToWarehouseResponse, error)
-	CreateAcceptence(context.Context, *CreateAcceptenceRequest) (*CreateAcceptenceResponse, error)
-	GetAcceptence(context.Context, *GetAcceptenceRequest) (*GetAcceptenceResponse, error)
-	ListAcceptence(context.Context, *ListAcceptenceRequest) (*ListAcceptenceResponse, error)
-	UpdateAcceptence(context.Context, *UpdateAcceptenceRequest) (*UpdateAcceptenceResponse, error)
-	DeleteAcceptence(context.Context, *DeleteAcceptenceRequest) (*DeleteAcceptenceResponse, error)
+	CreateAcceptance(context.Context, *CreateAcceptanceRequest) (*CreateAcceptanceResponse, error)
+	GetAcceptance(context.Context, *GetAcceptanceRequest) (*GetAcceptanceResponse, error)
+	ListAcceptances(context.Context, *ListAcceptancesRequest) (*ListAcceptancesResponse, error)
+	UpdateAcceptance(context.Context, *UpdateAcceptanceRequest) (*UpdateAcceptanceResponse, error)
+	DeleteAcceptance(context.Context, *DeleteAcceptanceRequest) (*DeleteAcceptanceResponse, error)
 	CreateWriteOff(context.Context, *CreateWriteOffRequest) (*CreateWriteOffResponse, error)
 	GetWriteOff(context.Context, *GetWriteOffRequest) (*GetWriteOffResponse, error)
 	ListWriteOff(context.Context, *ListWriteOffRequest) (*ListWriteOffResponse, error)
@@ -327,20 +327,20 @@ func (UnimplementedWarehouseServiceServer) GetWarehouseAnalytics(context.Context
 func (UnimplementedWarehouseServiceServer) AddProductToWarehouse(context.Context, *AddProductToWarehouseRequest) (*AddProductToWarehouseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddProductToWarehouse not implemented")
 }
-func (UnimplementedWarehouseServiceServer) CreateAcceptence(context.Context, *CreateAcceptenceRequest) (*CreateAcceptenceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAcceptence not implemented")
+func (UnimplementedWarehouseServiceServer) CreateAcceptance(context.Context, *CreateAcceptanceRequest) (*CreateAcceptanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAcceptance not implemented")
 }
-func (UnimplementedWarehouseServiceServer) GetAcceptence(context.Context, *GetAcceptenceRequest) (*GetAcceptenceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAcceptence not implemented")
+func (UnimplementedWarehouseServiceServer) GetAcceptance(context.Context, *GetAcceptanceRequest) (*GetAcceptanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAcceptance not implemented")
 }
-func (UnimplementedWarehouseServiceServer) ListAcceptence(context.Context, *ListAcceptenceRequest) (*ListAcceptenceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListAcceptence not implemented")
+func (UnimplementedWarehouseServiceServer) ListAcceptances(context.Context, *ListAcceptancesRequest) (*ListAcceptancesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAcceptances not implemented")
 }
-func (UnimplementedWarehouseServiceServer) UpdateAcceptence(context.Context, *UpdateAcceptenceRequest) (*UpdateAcceptenceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateAcceptence not implemented")
+func (UnimplementedWarehouseServiceServer) UpdateAcceptance(context.Context, *UpdateAcceptanceRequest) (*UpdateAcceptanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAcceptance not implemented")
 }
-func (UnimplementedWarehouseServiceServer) DeleteAcceptence(context.Context, *DeleteAcceptenceRequest) (*DeleteAcceptenceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteAcceptence not implemented")
+func (UnimplementedWarehouseServiceServer) DeleteAcceptance(context.Context, *DeleteAcceptanceRequest) (*DeleteAcceptanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAcceptance not implemented")
 }
 func (UnimplementedWarehouseServiceServer) CreateWriteOff(context.Context, *CreateWriteOffRequest) (*CreateWriteOffResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateWriteOff not implemented")
@@ -498,92 +498,92 @@ func _WarehouseService_AddProductToWarehouse_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WarehouseService_CreateAcceptence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAcceptenceRequest)
+func _WarehouseService_CreateAcceptance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAcceptanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WarehouseServiceServer).CreateAcceptence(ctx, in)
+		return srv.(WarehouseServiceServer).CreateAcceptance(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WarehouseService_CreateAcceptence_FullMethodName,
+		FullMethod: WarehouseService_CreateAcceptance_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WarehouseServiceServer).CreateAcceptence(ctx, req.(*CreateAcceptenceRequest))
+		return srv.(WarehouseServiceServer).CreateAcceptance(ctx, req.(*CreateAcceptanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WarehouseService_GetAcceptence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAcceptenceRequest)
+func _WarehouseService_GetAcceptance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAcceptanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WarehouseServiceServer).GetAcceptence(ctx, in)
+		return srv.(WarehouseServiceServer).GetAcceptance(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WarehouseService_GetAcceptence_FullMethodName,
+		FullMethod: WarehouseService_GetAcceptance_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WarehouseServiceServer).GetAcceptence(ctx, req.(*GetAcceptenceRequest))
+		return srv.(WarehouseServiceServer).GetAcceptance(ctx, req.(*GetAcceptanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WarehouseService_ListAcceptence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListAcceptenceRequest)
+func _WarehouseService_ListAcceptances_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAcceptancesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WarehouseServiceServer).ListAcceptence(ctx, in)
+		return srv.(WarehouseServiceServer).ListAcceptances(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WarehouseService_ListAcceptence_FullMethodName,
+		FullMethod: WarehouseService_ListAcceptances_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WarehouseServiceServer).ListAcceptence(ctx, req.(*ListAcceptenceRequest))
+		return srv.(WarehouseServiceServer).ListAcceptances(ctx, req.(*ListAcceptancesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WarehouseService_UpdateAcceptence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateAcceptenceRequest)
+func _WarehouseService_UpdateAcceptance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAcceptanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WarehouseServiceServer).UpdateAcceptence(ctx, in)
+		return srv.(WarehouseServiceServer).UpdateAcceptance(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WarehouseService_UpdateAcceptence_FullMethodName,
+		FullMethod: WarehouseService_UpdateAcceptance_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WarehouseServiceServer).UpdateAcceptence(ctx, req.(*UpdateAcceptenceRequest))
+		return srv.(WarehouseServiceServer).UpdateAcceptance(ctx, req.(*UpdateAcceptanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WarehouseService_DeleteAcceptence_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteAcceptenceRequest)
+func _WarehouseService_DeleteAcceptance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAcceptanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WarehouseServiceServer).DeleteAcceptence(ctx, in)
+		return srv.(WarehouseServiceServer).DeleteAcceptance(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WarehouseService_DeleteAcceptence_FullMethodName,
+		FullMethod: WarehouseService_DeleteAcceptance_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WarehouseServiceServer).DeleteAcceptence(ctx, req.(*DeleteAcceptenceRequest))
+		return srv.(WarehouseServiceServer).DeleteAcceptance(ctx, req.(*DeleteAcceptanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -782,24 +782,24 @@ var WarehouseService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _WarehouseService_AddProductToWarehouse_Handler,
 		},
 		{
-			MethodName: "CreateAcceptence",
-			Handler:    _WarehouseService_CreateAcceptence_Handler,
+			MethodName: "CreateAcceptance",
+			Handler:    _WarehouseService_CreateAcceptance_Handler,
 		},
 		{
-			MethodName: "GetAcceptence",
-			Handler:    _WarehouseService_GetAcceptence_Handler,
+			MethodName: "GetAcceptance",
+			Handler:    _WarehouseService_GetAcceptance_Handler,
 		},
 		{
-			MethodName: "ListAcceptence",
-			Handler:    _WarehouseService_ListAcceptence_Handler,
+			MethodName: "ListAcceptances",
+			Handler:    _WarehouseService_ListAcceptances_Handler,
 		},
 		{
-			MethodName: "UpdateAcceptence",
-			Handler:    _WarehouseService_UpdateAcceptence_Handler,
+			MethodName: "UpdateAcceptance",
+			Handler:    _WarehouseService_UpdateAcceptance_Handler,
 		},
 		{
-			MethodName: "DeleteAcceptence",
-			Handler:    _WarehouseService_DeleteAcceptence_Handler,
+			MethodName: "DeleteAcceptance",
+			Handler:    _WarehouseService_DeleteAcceptance_Handler,
 		},
 		{
 			MethodName: "CreateWriteOff",
