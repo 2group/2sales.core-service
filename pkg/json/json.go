@@ -16,7 +16,7 @@ func ParseJSON(r *http.Request, model any) error {
     }
     return json.NewDecoder(r.Body).Decode(model)
 }
-// jsonNumberMarshaler is used to handle int64 as numbers
+
 type jsonNumberMarshaler struct {
     json.Number
 }
@@ -45,13 +45,12 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
             UseProtoNames: true,
             UseEnumNumbers: true,
         }
-        // First marshal to JSON using protojson
         data, err = marshaler.Marshal(protoMsg)
         if err != nil {
             return err
         }
 
-        // Decode into a map to process the values
+        
         var objMap map[string]interface{}
         decoder := json.NewDecoder(bytes.NewReader(data))
         decoder.UseNumber()
@@ -59,11 +58,11 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
             return err
         }
 
-        // Convert string numbers to actual numbers
+        
         convertNumbers(objMap)
 
-        // Marshal back to JSON
-        data, err = json.Marshal(objMap)
+	
+	data, err = json.Marshal(objMap)
     } else {
         data, err = json.Marshal(v)
     }
@@ -76,7 +75,7 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
     return err
 }
 
-// convertNumbers recursively converts string numbers to json.Number
+
 func convertNumbers(v interface{}) interface{} {
     switch x := v.(type) {
     case map[string]interface{}:
@@ -90,7 +89,7 @@ func convertNumbers(v interface{}) interface{} {
         }
         return x
     case string:
-        // Try to convert string to number if it represents a number
+
         if _, err := strconv.ParseInt(x, 10, 64); err == nil {
             return json.Number(x)
         }
