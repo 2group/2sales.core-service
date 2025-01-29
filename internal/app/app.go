@@ -58,7 +58,12 @@ func (s *APIServer) Run() error {
 
 	ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
 	if err != nil {
-		//panic(err)
+		panic(err)
+	}
+
+	advertisementgrpc, err := grpc.NewAdvertisementClient(context, s.cfg.GRPC.Advertisement, time.Hour, 2)
+	if err != nil {
+		panic(err)
 	}
 
 	userHandler := handler.NewUserHandler(usergrpc)
@@ -67,6 +72,7 @@ func (s *APIServer) Run() error {
 	crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
+	advertisementHandler := handler.NewAdvertisementHandler(s.log, advertisementgrpc)
 	//adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
 	// router.Route("/admin", func(adminRouter chi.Router) {
@@ -225,6 +231,14 @@ func (s *APIServer) Run() error {
 			orderRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/sub-orders", orderHandler.CreateSubOrder)
+			})
+		})
+
+		apiRouter.Route("/advertisement", func(advertisementRouter chi.Router) {
+			advertisementRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/banners", advertisementHandler.CreateBanner)
+				authRouter.Get("/banners", advertisementHandler.ListBanners)
 			})
 		})
 	})

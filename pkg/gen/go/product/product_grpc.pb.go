@@ -27,8 +27,6 @@ const (
 	ProductService_GetProduct_FullMethodName                     = "/product.ProductService/GetProduct"
 	ProductService_DeleteProduct_FullMethodName                  = "/product.ProductService/DeleteProduct"
 	ProductService_CreateProductCategory_FullMethodName          = "/product.ProductService/CreateProductCategory"
-	ProductService_GetZeroLevelCategories_FullMethodName         = "/product.ProductService/GetZeroLevelCategories"
-	ProductService_GetFirstLevelCategories_FullMethodName        = "/product.ProductService/GetFirstLevelCategories"
 	ProductService_GetProductCategoryWithChildren_FullMethodName = "/product.ProductService/GetProductCategoryWithChildren"
 	ProductService_ListCategories_FullMethodName                 = "/product.ProductService/ListCategories"
 	ProductService_ListProductGroups_FullMethodName              = "/product.ProductService/ListProductGroups"
@@ -51,8 +49,6 @@ type ProductServiceClient interface {
 	GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error)
 	DeleteProduct(ctx context.Context, in *DeleteProductRequest, opts ...grpc.CallOption) (*DeleteProductResponse, error)
 	CreateProductCategory(ctx context.Context, in *CreateProductCategoryRequest, opts ...grpc.CallOption) (*CreateProductCategoryResponse, error)
-	GetZeroLevelCategories(ctx context.Context, in *GetZeroLevelCategoriesRequest, opts ...grpc.CallOption) (*GetZeroLevelCategoriesResponse, error)
-	GetFirstLevelCategories(ctx context.Context, in *GetFirstLevelCategoriesRequest, opts ...grpc.CallOption) (*GetFirstLevelCategoriesResponse, error)
 	GetProductCategoryWithChildren(ctx context.Context, in *GetProductCategoryWithChildrenRequest, opts ...grpc.CallOption) (*GetProductCategoryWithChildrenResponse, error)
 	ListCategories(ctx context.Context, in *ListCategoriesRequest, opts ...grpc.CallOption) (*ListCategoriesResponse, error)
 	ListProductGroups(ctx context.Context, in *ListProductGroupsRequest, opts ...grpc.CallOption) (*ListProductGroupsResponse, error)
@@ -151,26 +147,6 @@ func (c *productServiceClient) CreateProductCategory(ctx context.Context, in *Cr
 	return out, nil
 }
 
-func (c *productServiceClient) GetZeroLevelCategories(ctx context.Context, in *GetZeroLevelCategoriesRequest, opts ...grpc.CallOption) (*GetZeroLevelCategoriesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetZeroLevelCategoriesResponse)
-	err := c.cc.Invoke(ctx, ProductService_GetZeroLevelCategories_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *productServiceClient) GetFirstLevelCategories(ctx context.Context, in *GetFirstLevelCategoriesRequest, opts ...grpc.CallOption) (*GetFirstLevelCategoriesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetFirstLevelCategoriesResponse)
-	err := c.cc.Invoke(ctx, ProductService_GetFirstLevelCategories_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *productServiceClient) GetProductCategoryWithChildren(ctx context.Context, in *GetProductCategoryWithChildrenRequest, opts ...grpc.CallOption) (*GetProductCategoryWithChildrenResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetProductCategoryWithChildrenResponse)
@@ -263,8 +239,6 @@ type ProductServiceServer interface {
 	GetProduct(context.Context, *GetProductRequest) (*GetProductResponse, error)
 	DeleteProduct(context.Context, *DeleteProductRequest) (*DeleteProductResponse, error)
 	CreateProductCategory(context.Context, *CreateProductCategoryRequest) (*CreateProductCategoryResponse, error)
-	GetZeroLevelCategories(context.Context, *GetZeroLevelCategoriesRequest) (*GetZeroLevelCategoriesResponse, error)
-	GetFirstLevelCategories(context.Context, *GetFirstLevelCategoriesRequest) (*GetFirstLevelCategoriesResponse, error)
 	GetProductCategoryWithChildren(context.Context, *GetProductCategoryWithChildrenRequest) (*GetProductCategoryWithChildrenResponse, error)
 	ListCategories(context.Context, *ListCategoriesRequest) (*ListCategoriesResponse, error)
 	ListProductGroups(context.Context, *ListProductGroupsRequest) (*ListProductGroupsResponse, error)
@@ -306,12 +280,6 @@ func (UnimplementedProductServiceServer) DeleteProduct(context.Context, *DeleteP
 }
 func (UnimplementedProductServiceServer) CreateProductCategory(context.Context, *CreateProductCategoryRequest) (*CreateProductCategoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateProductCategory not implemented")
-}
-func (UnimplementedProductServiceServer) GetZeroLevelCategories(context.Context, *GetZeroLevelCategoriesRequest) (*GetZeroLevelCategoriesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetZeroLevelCategories not implemented")
-}
-func (UnimplementedProductServiceServer) GetFirstLevelCategories(context.Context, *GetFirstLevelCategoriesRequest) (*GetFirstLevelCategoriesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetFirstLevelCategories not implemented")
 }
 func (UnimplementedProductServiceServer) GetProductCategoryWithChildren(context.Context, *GetProductCategoryWithChildrenRequest) (*GetProductCategoryWithChildrenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProductCategoryWithChildren not implemented")
@@ -502,42 +470,6 @@ func _ProductService_CreateProductCategory_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProductService_GetZeroLevelCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetZeroLevelCategoriesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductServiceServer).GetZeroLevelCategories(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ProductService_GetZeroLevelCategories_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductServiceServer).GetZeroLevelCategories(ctx, req.(*GetZeroLevelCategoriesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ProductService_GetFirstLevelCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetFirstLevelCategoriesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductServiceServer).GetFirstLevelCategories(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ProductService_GetFirstLevelCategories_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductServiceServer).GetFirstLevelCategories(ctx, req.(*GetFirstLevelCategoriesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ProductService_GetProductCategoryWithChildren_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetProductCategoryWithChildrenRequest)
 	if err := dec(in); err != nil {
@@ -720,14 +652,6 @@ var ProductService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateProductCategory",
 			Handler:    _ProductService_CreateProductCategory_Handler,
-		},
-		{
-			MethodName: "GetZeroLevelCategories",
-			Handler:    _ProductService_GetZeroLevelCategories_Handler,
-		},
-		{
-			MethodName: "GetFirstLevelCategories",
-			Handler:    _ProductService_GetFirstLevelCategories_Handler,
 		},
 		{
 			MethodName: "GetProductCategoryWithChildren",

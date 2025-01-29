@@ -7,7 +7,8 @@ PROTO_FILES ?= \
     warehouse/warehouse.proto \
 	product/product.proto \
 	crm/crm.proto \
-	order/order.proto 
+	order/order.proto \
+	advertisement/advertisement.proto
 
 proto:
 	@protoc -I $(PROTO_PATH) $(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \

@@ -25,12 +25,13 @@ type RestConfig struct {
 }
 
 type GrpcConfig struct {
-	User         string `yaml:"user"`
-	Organization string `yaml:"organization"`
-	Product      string `yaml:"product"`
-	CRM          string `yaml:"crm"`
-	Warehouse    string `yaml:"warehouse"`
-	Order        string `yaml:"order"`
+	User          string `yaml:"user"`
+	Organization  string `yaml:"organization"`
+	Product       string `yaml:"product"`
+	CRM           string `yaml:"crm"`
+	Warehouse     string `yaml:"warehouse"`
+	Order         string `yaml:"order"`
+	Advertisement string `yaml:"advertisement"`
 }
 
 func MustLoad() *Config {
