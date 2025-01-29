@@ -104,6 +104,6 @@ func GetOrganizationID(r *http.Request) (int64, bool) {
 }
 
 func GetOrganizationType(r *http.Request) (string, bool) {
-	orgType, ok := r.Context().Value(OrganizationIDKey).(string)
+	orgType, ok := r.Context().Value(OrganizationTypeKey).(string)
 	return orgType, ok
 }
