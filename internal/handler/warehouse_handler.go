@@ -68,10 +68,18 @@ func (h *WarehouseHandler) ListWarehouses(w http.ResponseWriter, r *http.Request
 
 func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) {
 	warehouse_id_str := chi.URLParam(r, "warehouse_id")
-	warehouse_id, err := strconv.Atoi(warehouse_id_str)
-	if err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
+	is_all := false
+	var warehouse_id int64
+	if warehouse_id_str != "all" {
+		new_warehouse_id, err := strconv.Atoi(warehouse_id_str)
+		if err != nil {
+			json.WriteError(w, http.StatusBadRequest, err)
+			return
+		}
+		warehouse_id = int64(new_warehouse_id)
+	}
+	if warehouse_id == 0 {
+		is_all = true
 	}
 
 	query := r.URL.Query()
@@ -95,6 +103,7 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 		WarehouseId: int64(warehouse_id),
 		Page:        int64(offset),
 		PageSize:    int64(limit),
+		IsAll: is_all,
 	}
 
 	response, err := h.warehouse.Api.GetProductsInWarehouse(r.Context(), req)
