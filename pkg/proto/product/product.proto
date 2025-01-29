@@ -137,6 +137,7 @@ message ListProductsRequest {
     float price_from = 9;
     float price_to = 10;
     string pdf_url = 11;
+    string organization_type = 12;
 }
 
 message ListProductsResponse {
