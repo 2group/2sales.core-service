@@ -100,7 +100,8 @@ message CategoryModel {
     string parent_id = 4;
     int64 level = 5;
     bool is_parent = 6;
-    repeated CharacteristicGroup characteristic_groups = 7;
+    string image_url = 7;
+    repeated CharacteristicGroup characteristic_groups = 8;
 }
 
 message CharacteristicGroup {
