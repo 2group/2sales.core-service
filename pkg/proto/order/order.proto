@@ -37,7 +37,6 @@ message SubOrderModel {
     optional string discount_id = 8;
     optional string created_at = 9;
     optional string updated_at = 10;
-    repeated OrderItemModel order_items = 11;
 }
 
 message OrderItemModel {
@@ -87,7 +86,7 @@ message OrderItem {
 }
 
 message CreateSubOrderRequest {
-    SubOrderModel sub_order = 1;
+    SubOrder sub_order = 1;
 }
 
 message CreateSubOrderResponse {
