@@ -226,6 +226,14 @@ func (s *APIServer) Run() error {
 					authRouter.Post("/", warehouseHandler.CreateMoving)
 				})
 			})
+			warehouseRouter.Route("/inventory", func(movingRouter chi.Router) {
+				movingRouter.Group(func(authRouter chi.Router) {
+					authRouter.Use(auth.AuthMiddleware)
+					authRouter.Get("/", warehouseHandler.ListInventory)
+					authRouter.Get("/{inventory_id}", warehouseHandler.GetInventory)
+					authRouter.Post("/", warehouseHandler.CreateInventory)
+				})
+			})
 		})
 		apiRouter.Route("/orders", func(orderRouter chi.Router) {
 			orderRouter.Group(func(authRouter chi.Router) {

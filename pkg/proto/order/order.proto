@@ -10,6 +10,8 @@ option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/order;orde
 service OrderService {
     rpc CreateSubOrder (CreateSubOrderRequest) returns (CreateSubOrderResponse);
     rpc GetSubOrder (GetSubOrderRequest) returns (GetSubOrderResponse);
+    rpc UpdateSubOrder (UpdateSubOrderRequest) returns (UpdateSubOrderResponse);
+    rpc ListSubOrder (ListSubOrderRequest) returns (ListSubOrderResponse);
 }
 
 // message OrderModel {
@@ -35,8 +37,8 @@ message SubOrderModel {
     optional string discount_id = 8;
     optional string created_at = 9;
     optional string updated_at = 10;
+    repeated OrderItemModel order_items = 11;
 }
-
 
 message OrderItemModel {
     int64 id = 1;
@@ -85,7 +87,7 @@ message OrderItem {
 }
 
 message CreateSubOrderRequest {
-    SubOrder sub_order = 1;
+    SubOrderModel sub_order = 1;
 }
 
 message CreateSubOrderResponse {
@@ -100,37 +102,27 @@ message GetSubOrderResponse {
     SubOrder sub_order = 1;
 }
 
-// message ListSubOrdersRequest {
-//     int64 created_by = 1; // Optional filter
-//     string status = 2;    // Optional filter
-//     int64 limit = 3;
-//     int64 offset = 4;
-// }
+message ListSubOrderRequest {
+     int64 created_by = 1;
+     string status = 2;
+     int64 limit = 3;
+     int64 offset = 4;
+}
 
-// message ListSubOrdersResponse {
-//     repeated OrderModel orders = 1;
-//     int64 total_count = 2;
-// }
+message ListSubOrderResponse {
+     repeated SubOrder orders = 1;
+     int64 total_count = 2;
+}
 
-// message ListSubOrdersRequest {
-//     int64 order_id = 1;  // Optional filter
-//     int64 page = 2;      // For pagination
-//     int64 per_page = 3;  // Items per page
-// }
+message UpdateSubOrderRequest {
+     int64 id = 1;
+     float original_total = 2;
+     float final_total = 3;
+     string invoice_pdf = 4;
+     repeated OrderItem order_items = 5;
+     string status = 6;
+}
 
-// message ListSubOrdersResponse {
-//     repeated SubOrderModel suborders = 1;
-//     int64 total_count = 2;
-// }
-
-// message UpdateSubOrderRequest {
-//     int64 id = 1;
-//     float original_total = 2;
-//     float final_total = 3;
-//     string invoice_pdf = 4;
-//     repeated OrderItem order_items = 5;
-// }
-
-// message UpdateSubOrderResponse {
-//     SubOrderModel suborder = 1;
-// }
+message UpdateSubOrderResponse {
+     SubOrderModel suborder = 1;
+}
