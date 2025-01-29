@@ -4,6 +4,7 @@ import (
     "bytes"
     "encoding/json"
     "fmt"
+    "log"
     "net/http"
     "strconv"
     "google.golang.org/protobuf/proto"
@@ -33,7 +34,7 @@ func (j jsonNumberMarshaler) MarshalJSON() ([]byte, error) {
 }
 
 func WriteJSON(w http.ResponseWriter, status int, v any) error {
-    w.Header().Add("Content-Type", "application/json")
+    w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(status)
 
     var data []byte
@@ -45,36 +46,50 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
             UseProtoNames: true,
             UseEnumNumbers: true,
         }
+
+        // Marshal Protobuf to JSON
         data, err = marshaler.Marshal(protoMsg)
         if err != nil {
+            log.Printf("Error marshaling Protobuf: %v", err)
             return err
         }
 
-        
+        log.Printf("Original Protobuf JSON: %s", string(data))
+
         var objMap map[string]interface{}
         decoder := json.NewDecoder(bytes.NewReader(data))
         decoder.UseNumber()
+
         if err := decoder.Decode(&objMap); err != nil {
+            log.Printf("Error decoding JSON: %v", err)
             return err
         }
 
-        
-        convertNumbers(objMap)
+        log.Printf("Decoded JSON Map before conversion: %+v", objMap)
 
-	
-	data, err = json.Marshal(objMap)
+        objMap = convertNumbers(objMap).(map[string]interface{})
+
+        log.Printf("JSON Map after conversion: %+v", objMap)
+
+        data, err = json.Marshal(objMap)
+        if err != nil {
+            log.Printf("Error re-marshaling JSON: %v", err)
+            return err
+        }
     } else {
         data, err = json.Marshal(v)
     }
 
     if err != nil {
+        log.Printf("Error marshaling JSON: %v", err)
         return err
     }
+
+    log.Printf("Final JSON Response: %s", string(data))
 
     _, err = w.Write(data)
     return err
 }
-
 
 func convertNumbers(v interface{}) interface{} {
     switch x := v.(type) {
@@ -89,9 +104,8 @@ func convertNumbers(v interface{}) interface{} {
         }
         return x
     case string:
-
-        if _, err := strconv.ParseInt(x, 10, 64); err == nil {
-            return json.Number(x)
+        if num, err := strconv.ParseInt(x, 10, 64); err == nil {
+            return json.Number(strconv.FormatInt(num, 10))
         }
         return x
     default:
@@ -100,5 +114,6 @@ func convertNumbers(v interface{}) interface{} {
 }
 
 func WriteError(w http.ResponseWriter, status int, err error) {
+    log.Printf("Error Response: %v", err)
     WriteJSON(w, status, map[string]string{"error": err.Error()})
 }
