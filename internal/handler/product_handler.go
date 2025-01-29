@@ -133,6 +133,12 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	organization_type, ok := middleware.GetOrganizationType(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+	
 	req := &productv1.ListProductsRequest{
 		PageSize:       int32(limit),
 		Page:           int32(offset),
@@ -142,6 +148,7 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 		OrganizationId: organization_id,
 		CategoryId:     category_id,
 		SearchQuery:    name,
+		OrganizationType: organization_type,
 	}
 
 	brand_id_str := query.Get("brand_id")
