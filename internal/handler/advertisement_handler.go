@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
-	advertisementv1 "github.com/2group/2sales.core-service/pkg/gen/go/advertisement"
+	adv1 "github.com/2group/2sales.core-service/pkg/gen/go/advertisement"
 	"github.com/2group/2sales.core-service/pkg/json"
 )
 
@@ -20,7 +20,7 @@ func NewAdvertisementHandler(log *slog.Logger, advertisement *grpc.Advertisement
 }
 
 func (h *AdvertisementHandler) CreateBanner(w http.ResponseWriter, r *http.Request) {
-	req := &advertisementv1.CreateBannerRequest{}
+	req := &adv1.CreateBannerRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
@@ -40,15 +40,10 @@ func (h *AdvertisementHandler) ListBanners(w http.ResponseWriter, r *http.Reques
 	isActiveStr := query.Get("is_active")
 	isActive, err := strconv.ParseBool(isActiveStr)
 	if err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
+		isActive = true
 	}
 
-	req := &advertisementv1.ListBannersRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
+	req := &adv1.ListBannersRequest{}
 
 	req.IsActive = isActive
 

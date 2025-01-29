@@ -242,7 +242,7 @@ func (s *APIServer) Run() error {
 			})
 		})
 
-		apiRouter.Route("/advertisement", func(advertisementRouter chi.Router) {
+		apiRouter.Route("/advertisements", func(advertisementRouter chi.Router) {
 			advertisementRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/banners", advertisementHandler.CreateBanner)
