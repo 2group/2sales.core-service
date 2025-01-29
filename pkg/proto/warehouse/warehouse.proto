@@ -260,6 +260,7 @@ message GetProductsInWarehouseRequest {
     string sort_by = 5;
     bool is_ascending = 6;
     bool is_all = 7;
+    int64 organization_id = 8;
 }
 
 message GetProductsInWarehouseResponse {

@@ -99,11 +99,18 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 		}
 	}
 
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
 	req := &warehousev1.GetProductsInWarehouseRequest{
 		WarehouseId: int64(warehouse_id),
 		Page:        int64(offset),
 		PageSize:    int64(limit),
 		IsAll: is_all,
+		OrganizationId: organization_id,
 	}
 
 	response, err := h.warehouse.Api.GetProductsInWarehouse(r.Context(), req)
