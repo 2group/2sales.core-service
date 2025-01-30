@@ -82,7 +82,6 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 		is_all = true
 	}
 	
-
 	query := r.URL.Query()
 
 	limit := 10
@@ -99,13 +98,13 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 			offset = parsedOffset
 		}
 	}
-
+	h.log.Info("", limit, offset)
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
-
+	
 	req := &warehousev1.GetProductsInWarehouseRequest{
 		WarehouseId: int64(warehouse_id),
 		Page:        int64(offset),

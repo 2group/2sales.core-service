@@ -91,6 +91,13 @@ message ProductCharacteristics {
     string group_name = 3;
     string name = 4;
     string value = 5;
+    CharacteristicValues values = 6; 
+}
+
+message CharacteristicValues {
+	int64 id = 1;
+	int64 characteristic_id = 2;
+	repeated string values = 3;
 }
 
 message CategoryModel {
