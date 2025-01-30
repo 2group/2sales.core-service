@@ -127,6 +127,10 @@ message CreateProductResponse {
     Product product = 1;
 }
 
+message Values {
+    repeated string values = 1;
+}
+
 message ListProductsRequest {
     int32 page = 1;
     int32 page_size = 2;
@@ -140,6 +144,7 @@ message ListProductsRequest {
     float price_to = 10;
     string pdf_url = 11;
     string organization_type = 12;
+    map<string, Values> filter = 13;
 }
 
 message ListProductsResponse {
