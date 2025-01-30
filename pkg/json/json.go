@@ -4,7 +4,6 @@ import (
     "bytes"
     "encoding/json"
     "fmt"
-    "log"
     "net/http"
     "strconv"
     "google.golang.org/protobuf/proto"
@@ -50,30 +49,23 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
         // Marshal Protobuf to JSON
         data, err = marshaler.Marshal(protoMsg)
         if err != nil {
-            log.Printf("Error marshaling Protobuf: %v", err)
             return err
         }
-
-        log.Printf("Original Protobuf JSON: %s", string(data))
 
         var objMap map[string]interface{}
         decoder := json.NewDecoder(bytes.NewReader(data))
         decoder.UseNumber()
 
         if err := decoder.Decode(&objMap); err != nil {
-            log.Printf("Error decoding JSON: %v", err)
             return err
         }
 
-        log.Printf("Decoded JSON Map before conversion: %+v", objMap)
 
         objMap = convertNumbers(objMap).(map[string]interface{})
 
-        log.Printf("JSON Map after conversion: %+v", objMap)
 
         data, err = json.Marshal(objMap)
         if err != nil {
-            log.Printf("Error re-marshaling JSON: %v", err)
             return err
         }
     } else {
@@ -81,11 +73,8 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
     }
 
     if err != nil {
-        log.Printf("Error marshaling JSON: %v", err)
         return err
     }
-
-    log.Printf("Final JSON Response: %s", string(data))
 
     _, err = w.Write(data)
     return err
@@ -114,6 +103,5 @@ func convertNumbers(v interface{}) interface{} {
 }
 
 func WriteError(w http.ResponseWriter, status int, err error) {
-    log.Printf("Error Response: %v", err)
     WriteJSON(w, status, map[string]string{"error": err.Error()})
 }

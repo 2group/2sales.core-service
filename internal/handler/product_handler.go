@@ -39,14 +39,18 @@ func (h *ProductHandler) CreateCategory(w http.ResponseWriter, r *http.Request) 
 func (h *ProductHandler) ListCategories(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
 
-	popularStr := queryParams.Get("popular")
+	levelStr := queryParams.Get("level")
 	var level32 *int32
 
-	if popularStr == "true" {
-		level32 = nil // Set level32 to nil if conversion fails
-	} else {
-		level32Value := int32(1)
-		level32 = &level32Value
+	if levelStr != "" {
+		level, err := strconv.Atoi(levelStr)
+		if err != nil {
+			// Log the error or handle it as needed
+			level32 = nil // Set level32 to nil if conversion fails
+		} else {
+			level32Value := int32(level)
+			level32 = &level32Value
+		}
 	}
 
 	req := &productv1.ListCategoriesRequest{
@@ -135,16 +139,30 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	filters := make(map[string]*productv1.Values)
+	for key, value := range r.URL.Query() {
+		switch key {
+		case "name", "sort_by", "sort_order", "price_from", "price_to", "organization_id", "category_id", "url", "offset", "limit", "brand_id":
+			continue
+		}
+		if len(value) > 0 {
+			filters[key] = &productv1.Values{
+				Values: value,
+			}
+		}
+	}
+	
 	req := &productv1.ListProductsRequest{
-		PageSize:         int32(limit),
-		Page:             int32(offset),
-		PdfUrl:           url,
-		PriceFrom:        float32(price_from),
-		PriceTo:          float32(price_to),
-		OrganizationId:   organization_id,
-		CategoryId:       category_id,
-		SearchQuery:      name,
+		PageSize:       int32(limit),
+		Page:           int32(offset),
+		PdfUrl:         url,
+		PriceFrom:      float32(price_from),
+		PriceTo:        float32(price_to),
+		OrganizationId: organization_id,
+		CategoryId:     category_id,
+		SearchQuery:    name,
 		OrganizationType: organization_type,
+		Filter: filters,
 	}
 
 	brand_id_str := query.Get("brand_id")
