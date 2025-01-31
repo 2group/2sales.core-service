@@ -73,23 +73,15 @@ func (s *APIServer) Run() error {
 	warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
 	advertisementHandler := handler.NewAdvertisementHandler(s.log, advertisementgrpc)
-	//adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
+	adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
-	// router.Route("/admin", func(adminRouter chi.Router) {
-	// 	adminRouter.Get("/login", adminHandler.LoginPage)
-	// 	adminRouter.Get("/dashboard", adminHandler.DashboardPage)
-	// 	adminRouter.Get("/brands/create", adminHandler.CreateBrandPage)
-	// 	adminRouter.Get("/brands", adminHandler.BrandsPage)
-	// 	adminRouter.Get("/brands/{brand_id}", adminHandler.BrandPage)
-	// 	adminRouter.Get("/brands/{brand_id}/patch/images", adminHandler.PatchBrandImagesPage)
-	// 	adminRouter.Route("/api", func(adminApiRouter chi.Router) {
-	// 		adminApiRouter.Post("/login", adminHandler.Login)
-	// 		adminApiRouter.Get("/brands", adminHandler.ListBrands)
-	// 		adminApiRouter.Post("/brands", adminHandler.CreateBrand)
-	// 		adminApiRouter.Patch("/brands/{brand_id}/images", adminHandler.PatchBrand)
-	// 		adminApiRouter.Post("/brands/presigned-urls", adminHandler.GeneratePresignedURLs)
-	// 	})
-	// })
+	router.Route("/admin/api", func(adminRouter chi.Router) {
+		adminRouter.Post("/login", adminHandler.Login)
+		adminRouter.Get("/brands", adminHandler.ListBrands)
+		adminRouter.Post("/brands", adminHandler.CreateBrand)
+		adminRouter.Patch("/brands/{brand_id}/images", adminHandler.PatchBrand)
+		adminRouter.Post("/brands/presigned-urls", adminHandler.GeneratePresignedURLs)
+	})
 
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
