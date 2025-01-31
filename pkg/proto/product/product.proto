@@ -90,8 +90,7 @@ message ProductCharacteristics {
     optional int64 product_id = 2;
     string group_name = 3;
     string name = 4;
-    string value = 5;
-    repeated string values = 6; 
+    repeated string values = 5; 
 }
 
 message CategoryModel {
