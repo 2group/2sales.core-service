@@ -83,6 +83,7 @@ message Acceptance {
     user.User user = 6;
     repeated AcceptanceProduct products = 7;
     string created_at = 8;
+    int64 amount = 9;
 }
 
 message AcceptanceModel {
@@ -118,6 +119,7 @@ message WriteOff {
     user.User user = 5;
     repeated WriteOffProduct products = 6;
     string created_at = 7;
+    int64 amount = 8;
 }
 
 message WriteOffModel {
@@ -175,6 +177,7 @@ message Moving {
     optional string document_url = 5;
     repeated MovingProduct moving_products = 6;
     string created_at = 7;
+    int64 amount = 8;
 }
 
 message MovingProduct {
@@ -211,6 +214,7 @@ message Inventory {
         optional string document_url = 4;
         string created_at = 5;
         repeated InventoryProduct products = 6;
+        int64 amount = 7;
 }
 
 message InventoryProduct {
