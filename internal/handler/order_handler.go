@@ -46,3 +46,78 @@ func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
+
+func (h *OrderHandler) GetCart(w http.ResponseWriter, r *http.Request) {
+        organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+		return
+	}
+
+        req := &orderv1.ListCartRequest{
+                OrganizationId: organizationID,
+        }
+
+        response, err := h.order.Api.ListCart(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return 
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
+
+func (h *OrderHandler) AddProductToCart(w http.ResponseWriter, r *http.Request) {
+        organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+		return
+	}
+
+        req := &orderv1.AddProductToCartRequest{
+                Cart: &orderv1.Cart{
+                        Organization: &organizationv1.Organization{
+                                Id: &organizationID,
+                        },
+                },
+        }
+
+        json.ParseJSON(r, &req)
+
+        response, err := h.order.Api.AddProductToCart(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return 
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
+
+func (h *OrderHandler) DeleteProductFromCart(w http.ResponseWriter, r *http.Request) {
+        organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+		return
+	}
+
+        req := &orderv1.DeleteProductFromCartRequest{
+                Cart: &orderv1.Cart{
+                        Organization: &organizationv1.Organization{
+                                Id: &organizationID,
+                        },
+                },
+        }
+
+        json.ParseJSON(r, &req)
+
+        response, err := h.order.Api.DeleteProductFromCart(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return 
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
