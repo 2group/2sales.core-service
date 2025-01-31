@@ -11,6 +11,7 @@ service OrderService {
   rpc ListCart (ListCartRequest) returns (ListCartResponse);
   rpc AddProductToCart (AddProductToCartRequest) returns (AddProductToCartResponse);
   rpc DeleteProductFromCart (DeleteProductFromCartRequest) returns (DeleteProductFromCartResponse);
+  rpc GetCountOfProductInCart (GetCountOfProductInCartRequest) returns (GetCountOfProductInCartResponse);
 
   rpc CreateSubOrder(CreateSubOrderRequest) returns (CreateSubOrderResponse);
   rpc GetSubOrder(GetSubOrderRequest) returns (GetSubOrderResponse);
@@ -159,4 +160,13 @@ message ListCartRequest {
 
 message ListCartResponse {
   Cart cart = 1;
+}
+
+message GetCountOfProductInCartRequest {
+  int64 organization_id = 1;
+  int64 product_id = 2;
+}
+
+message GetCountOfProductInCartResponse {
+  int64 count = 1;
 }

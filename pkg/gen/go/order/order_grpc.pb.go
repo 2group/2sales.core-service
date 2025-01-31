@@ -19,13 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrderService_ListCart_FullMethodName              = "/order.OrderService/ListCart"
-	OrderService_AddProductToCart_FullMethodName      = "/order.OrderService/AddProductToCart"
-	OrderService_DeleteProductFromCart_FullMethodName = "/order.OrderService/DeleteProductFromCart"
-	OrderService_CreateSubOrder_FullMethodName        = "/order.OrderService/CreateSubOrder"
-	OrderService_GetSubOrder_FullMethodName           = "/order.OrderService/GetSubOrder"
-	OrderService_UpdateSubOrder_FullMethodName        = "/order.OrderService/UpdateSubOrder"
-	OrderService_ListSubOrder_FullMethodName          = "/order.OrderService/ListSubOrder"
+	OrderService_ListCart_FullMethodName                = "/order.OrderService/ListCart"
+	OrderService_AddProductToCart_FullMethodName        = "/order.OrderService/AddProductToCart"
+	OrderService_DeleteProductFromCart_FullMethodName   = "/order.OrderService/DeleteProductFromCart"
+	OrderService_GetCountOfProductInCart_FullMethodName = "/order.OrderService/GetCountOfProductInCart"
+	OrderService_CreateSubOrder_FullMethodName          = "/order.OrderService/CreateSubOrder"
+	OrderService_GetSubOrder_FullMethodName             = "/order.OrderService/GetSubOrder"
+	OrderService_UpdateSubOrder_FullMethodName          = "/order.OrderService/UpdateSubOrder"
+	OrderService_ListSubOrder_FullMethodName            = "/order.OrderService/ListSubOrder"
 )
 
 // OrderServiceClient is the client API for OrderService service.
@@ -35,6 +36,7 @@ type OrderServiceClient interface {
 	ListCart(ctx context.Context, in *ListCartRequest, opts ...grpc.CallOption) (*ListCartResponse, error)
 	AddProductToCart(ctx context.Context, in *AddProductToCartRequest, opts ...grpc.CallOption) (*AddProductToCartResponse, error)
 	DeleteProductFromCart(ctx context.Context, in *DeleteProductFromCartRequest, opts ...grpc.CallOption) (*DeleteProductFromCartResponse, error)
+	GetCountOfProductInCart(ctx context.Context, in *GetCountOfProductInCartRequest, opts ...grpc.CallOption) (*GetCountOfProductInCartResponse, error)
 	CreateSubOrder(ctx context.Context, in *CreateSubOrderRequest, opts ...grpc.CallOption) (*CreateSubOrderResponse, error)
 	GetSubOrder(ctx context.Context, in *GetSubOrderRequest, opts ...grpc.CallOption) (*GetSubOrderResponse, error)
 	UpdateSubOrder(ctx context.Context, in *UpdateSubOrderRequest, opts ...grpc.CallOption) (*UpdateSubOrderResponse, error)
@@ -73,6 +75,16 @@ func (c *orderServiceClient) DeleteProductFromCart(ctx context.Context, in *Dele
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteProductFromCartResponse)
 	err := c.cc.Invoke(ctx, OrderService_DeleteProductFromCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) GetCountOfProductInCart(ctx context.Context, in *GetCountOfProductInCartRequest, opts ...grpc.CallOption) (*GetCountOfProductInCartResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCountOfProductInCartResponse)
+	err := c.cc.Invoke(ctx, OrderService_GetCountOfProductInCart_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -126,6 +138,7 @@ type OrderServiceServer interface {
 	ListCart(context.Context, *ListCartRequest) (*ListCartResponse, error)
 	AddProductToCart(context.Context, *AddProductToCartRequest) (*AddProductToCartResponse, error)
 	DeleteProductFromCart(context.Context, *DeleteProductFromCartRequest) (*DeleteProductFromCartResponse, error)
+	GetCountOfProductInCart(context.Context, *GetCountOfProductInCartRequest) (*GetCountOfProductInCartResponse, error)
 	CreateSubOrder(context.Context, *CreateSubOrderRequest) (*CreateSubOrderResponse, error)
 	GetSubOrder(context.Context, *GetSubOrderRequest) (*GetSubOrderResponse, error)
 	UpdateSubOrder(context.Context, *UpdateSubOrderRequest) (*UpdateSubOrderResponse, error)
@@ -148,6 +161,9 @@ func (UnimplementedOrderServiceServer) AddProductToCart(context.Context, *AddPro
 }
 func (UnimplementedOrderServiceServer) DeleteProductFromCart(context.Context, *DeleteProductFromCartRequest) (*DeleteProductFromCartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProductFromCart not implemented")
+}
+func (UnimplementedOrderServiceServer) GetCountOfProductInCart(context.Context, *GetCountOfProductInCartRequest) (*GetCountOfProductInCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCountOfProductInCart not implemented")
 }
 func (UnimplementedOrderServiceServer) CreateSubOrder(context.Context, *CreateSubOrderRequest) (*CreateSubOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSubOrder not implemented")
@@ -232,6 +248,24 @@ func _OrderService_DeleteProductFromCart_Handler(srv interface{}, ctx context.Co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).DeleteProductFromCart(ctx, req.(*DeleteProductFromCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetCountOfProductInCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCountOfProductInCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetCountOfProductInCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrderService_GetCountOfProductInCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetCountOfProductInCart(ctx, req.(*GetCountOfProductInCartRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -326,6 +360,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteProductFromCart",
 			Handler:    _OrderService_DeleteProductFromCart_Handler,
+		},
+		{
+			MethodName: "GetCountOfProductInCart",
+			Handler:    _OrderService_GetCountOfProductInCart_Handler,
 		},
 		{
 			MethodName: "CreateSubOrder",
