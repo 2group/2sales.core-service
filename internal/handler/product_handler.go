@@ -151,7 +151,7 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 
 	req := &productv1.ListProductsRequest{
 		PageSize:         int32(limit),
-		Page:             int32(offset),
+		Page:             int32(offset)/int32(limit),
 		PdfUrl:           url,
 		PriceFrom:        float32(price_from),
 		PriceTo:          float32(price_to),
