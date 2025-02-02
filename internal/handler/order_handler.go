@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	orderv1 "github.com/2group/2sales.core-service/pkg/gen/go/order"
 	organizationv1 "github.com/2group/2sales.core-service/pkg/gen/go/organization"
 	"github.com/2group/2sales.core-service/pkg/json"
 	middleware "github.com/2group/2sales.core-service/pkg/middeware"
+	"github.com/go-chi/chi/v5"
 )
 
 type OrderHandler struct {
@@ -45,6 +47,27 @@ func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
 
 	json.WriteJSON(w, http.StatusOK, response)
 	return
+}
+
+func (h *OrderHandler) GetSubOrder(w http.ResponseWriter, r *http.Request) {
+        suborder_id_str := chi.URLParam(r, "suborder_id")
+        suborder_id, err := strconv.Atoi(suborder_id_str)
+        if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+                return
+        }
+        req := &orderv1.GetSubOrderRequest{
+                Id: int64(suborder_id),
+        }
+
+        response, err := h.order.Api.GetSubOrder(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
 }
 
 func (h *OrderHandler) GetCart(w http.ResponseWriter, r *http.Request) {

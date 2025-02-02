@@ -228,10 +228,13 @@ func (s *APIServer) Run() error {
 			})
 		})
 		apiRouter.Route("/orders", func(orderRouter chi.Router) {
-			orderRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Post("/sub-orders", orderHandler.CreateSubOrder)
-			})
+                        orderRouter.Route("/sub-orders", func(suborderRouter chi.Router) {
+                                suborderRouter.Group(func(authRouter chi.Router) {
+                                        authRouter.Use(auth.AuthMiddleware)
+                                        authRouter.Post("/", orderHandler.CreateSubOrder)
+                                        authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
+                                })
+                        })
                         orderRouter.Route("/carts", func(cartRouter chi.Router) {
                                 cartRouter.Group(func(authRouter chi.Router) {
                                         authRouter.Use(auth.AuthMiddleware)
