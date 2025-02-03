@@ -13,6 +13,8 @@ service OrderService {
   rpc DeleteProductFromCart (DeleteProductFromCartRequest) returns (DeleteProductFromCartResponse);
   rpc GetCountOfProductInCart (GetCountOfProductInCartRequest) returns (GetCountOfProductInCartResponse);
 
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+
   rpc CreateSubOrder(CreateSubOrderRequest) returns (CreateSubOrderResponse);
   rpc GetSubOrder(GetSubOrderRequest) returns (GetSubOrderResponse);
   rpc UpdateSubOrder(UpdateSubOrderRequest) returns (UpdateSubOrderResponse);
@@ -183,4 +185,12 @@ message GetCountOfProductInCartRequest {
 
 message GetCountOfProductInCartResponse {
   int64 count = 1;
+}
+
+message CreateOrderRequest {
+  int64 organization_id = 1;
+}
+
+message CreateOrderResponse {
+  repeated SubOrder suborders = 1;
 }
