@@ -59,6 +59,7 @@ message SubOrderModel {
   optional string discount_id = 8;
   optional string created_at = 9;
   optional string updated_at = 10;
+  optional string comment = 11;
 }
 
 message OrderItemModel {
@@ -96,6 +97,7 @@ message SubOrder {
   optional string invoice_pdf = 8;
   optional string created_at = 9;
   optional string updated_at = 10;
+  optional string comment = 11;
 }
 
 message OrderItem {
