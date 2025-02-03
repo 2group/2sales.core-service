@@ -240,6 +240,7 @@ message CreateWarehouseResponse {
 
 message ListWarehousesRequest {
     int64 organization_id = 1;
+    bool include_address = 2;
 }
 
 message ListWarehousesResponse {
