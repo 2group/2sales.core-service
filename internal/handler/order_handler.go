@@ -226,3 +226,24 @@ func (h *OrderHandler) DeleteProductFromCart(w http.ResponseWriter, r *http.Requ
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
+
+func (h *OrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
+        organizationID, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+		return
+	}
+
+        req := &orderv1.CreateOrderRequest{
+                OrganizationId: organizationID,
+        }
+
+        response, err := h.order.Api.CreateOrder(r.Context(), req)
+        if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+                return 
+        }
+
+	json.WriteJSON(w, http.StatusCreated, response)
+        return
+}
