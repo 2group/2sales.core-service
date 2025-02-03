@@ -69,6 +69,28 @@ func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+func (h *OrderHandler) UpdateSubOrder(w http.ResponseWriter, r *http.Request) {
+        suborder_id_str := chi.URLParam(r, "suborder_id")
+	suborder_id, err := strconv.Atoi(suborder_id_str)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+        
+        req := &orderv1.UpdateSubOrderRequest{
+                Id: int64(suborder_id),
+        }
+
+        response, err := h.order.Api.UpdateSubOrder(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
+
 func (h *OrderHandler) GetSubOrder(w http.ResponseWriter, r *http.Request) {
 	suborder_id_str := chi.URLParam(r, "suborder_id")
 	suborder_id, err := strconv.Atoi(suborder_id_str)

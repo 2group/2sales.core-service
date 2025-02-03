@@ -234,6 +234,7 @@ func (s *APIServer) Run() error {
                                         authRouter.Post("/", orderHandler.CreateSubOrder)
                                         authRouter.Get("/", orderHandler.ListSubOrder)
                                         authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
+                                        authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
                                 })
                         })
                         orderRouter.Route("/carts", func(cartRouter chi.Router) {
