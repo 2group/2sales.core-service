@@ -52,8 +52,17 @@ func (h *WarehouseHandler) ListWarehouses(w http.ResponseWriter, r *http.Request
 		return
 	}
 
+	query := r.URL.Query()
+
+	include_address := false
+	include_address_str := query.Get("include_address")
+	if include_address_str == "true" {
+		include_address = true
+	}
+	
 	req := &warehousev1.ListWarehousesRequest{
 		OrganizationId: organization_id,
+		IncludeAddress: include_address,
 	}
 
 	response, err := h.warehouse.Api.ListWarehouses(r.Context(), req)
