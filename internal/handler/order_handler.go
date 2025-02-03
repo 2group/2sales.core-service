@@ -70,6 +70,46 @@ func (h *OrderHandler) GetSubOrder(w http.ResponseWriter, r *http.Request) {
         return
 }
 
+func (h *OrderHandler) ListSubOrder(w http.ResponseWriter, r *http.Request) {
+        organization_id, ok := middleware.GetOrganizationID(r)
+        if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
+                return
+        }
+
+        query := r.URL.Query()
+
+	limit := 10
+	offset := 0
+
+	if limitStr := query.Get("limit"); limitStr != "" {
+		if parsedLimit, err := strconv.Atoi(limitStr); err == nil && parsedLimit > 0 {
+			limit = parsedLimit
+		}
+	}
+
+	if offsetStr := query.Get("offset"); offsetStr != "" {
+		if parsedOffset, err := strconv.Atoi(offsetStr); err == nil && parsedOffset >= 0 {
+			offset = parsedOffset
+		}
+	}
+        
+        req := &orderv1.ListSubOrderRequest{
+                OrganizationId: organization_id,
+                Limit: int64(limit),
+                Offset: int64(offset),
+        }
+
+        response, err := h.order.Api.ListSubOrder(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
+
 func (h *OrderHandler) GetCart(w http.ResponseWriter, r *http.Request) {
         organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {

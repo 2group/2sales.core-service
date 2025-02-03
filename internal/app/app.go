@@ -232,6 +232,7 @@ func (s *APIServer) Run() error {
                                 suborderRouter.Group(func(authRouter chi.Router) {
                                         authRouter.Use(auth.AuthMiddleware)
                                         authRouter.Post("/", orderHandler.CreateSubOrder)
+                                        authRouter.Get("/", orderHandler.ListSubOrder)
                                         authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
                                 })
                         })
