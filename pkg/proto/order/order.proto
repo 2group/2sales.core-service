@@ -79,7 +79,7 @@ message Order {
     string status = 3;
     float original_total = 4;
     float final_total = 5;
-    Organization from_organization = 6;
+    organization.Organization from_organization = 6;
     optional string created_at = 7;
     optional string updated_at = 8;
     repeated SubOrder suborders = 9;
@@ -129,6 +129,7 @@ message ListSubOrderRequest {
   string status = 2;
   int64 limit = 3;
   int64 offset = 4;
+  int64 organization_id = 5;
 }
 
 message ListSubOrderResponse {
