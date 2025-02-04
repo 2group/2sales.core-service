@@ -1,0 +1,2 @@
+ALTER TABLE suborders
+ADD COLUMN comment VARCHAR(1000) NULL;

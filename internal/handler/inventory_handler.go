@@ -21,6 +21,8 @@ func(h *WarehouseHandler) CreateInventory(w http.ResponseWriter, r *http.Request
 		Inventory: &warehousev1.InventoryModel{},
 	}
 	json.ParseJSON(r, &req)
+        h.log.Info("warehouse", "id", req)
+
 	req.Inventory.OrganizationId = organization_id
 
 	response, err := h.warehouse.Api.CreateInventory(r.Context(), req)

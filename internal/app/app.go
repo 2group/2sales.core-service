@@ -228,12 +228,25 @@ func (s *APIServer) Run() error {
 			})
 		})
 		apiRouter.Route("/orders", func(orderRouter chi.Router) {
-			orderRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Post("/sub-orders", orderHandler.CreateSubOrder)
-			})
+                        orderRouter.Route("/sub-orders", func(suborderRouter chi.Router) {
+                                suborderRouter.Group(func(authRouter chi.Router) {
+                                        authRouter.Use(auth.AuthMiddleware)
+                                        authRouter.Post("/", orderHandler.CreateSubOrder)
+                                        authRouter.Post("/order", orderHandler.CreateOrder)
+                                        authRouter.Get("/", orderHandler.ListSubOrder)
+                                        authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
+                                        authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
+                                })
+                        })
+                        orderRouter.Route("/carts", func(cartRouter chi.Router) {
+                                cartRouter.Group(func(authRouter chi.Router) {
+                                        authRouter.Use(auth.AuthMiddleware)
+                                        authRouter.Get("/", orderHandler.GetCart)
+                                        authRouter.Post("/add", orderHandler.AddProductToCart)
+                                        authRouter.Post("/delete", orderHandler.DeleteProductFromCart)
+                                })
+                        })
 		})
-
 		apiRouter.Route("/advertisements", func(advertisementRouter chi.Router) {
 			advertisementRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
