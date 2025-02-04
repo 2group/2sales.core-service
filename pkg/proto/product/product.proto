@@ -145,6 +145,7 @@ message ListProductsRequest {
     string pdf_url = 11;
     string organization_type = 12;
     map<string, Values> filter = 13;
+    repeated int64 exclude_product_ids = 14;
 }
 
 message ListProductsResponse {
