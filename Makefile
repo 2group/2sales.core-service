@@ -1,5 +1,6 @@
-PROTO_PATH ?= pkg/proto
-OUTPUT_PATH ?= ./pkg/gen/go
+PROTO_PATH       ?= pkg/proto
+OUTPUT_PATH_GO   ?= pkg/gen/go
+OUTPUT_PATH_PY   ?= pkg/gen/py
 
 PROTO_FILES ?= \
 	user/user.proto \
@@ -12,8 +13,16 @@ PROTO_FILES ?= \
 
 proto:
 	@protoc -I $(PROTO_PATH) $(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \
-		--go_out=$(OUTPUT_PATH) --go_opt=paths=source_relative \
-		--go-grpc_out=$(OUTPUT_PATH) --go-grpc_opt=paths=source_relative
+		--go_out=$(OUTPUT_PATH_GO) --go_opt=paths=source_relative \
+		--go-grpc_out=$(OUTPUT_PATH_GO) --go-grpc_opt=paths=source_relative
+
+	source venv/bin/activate && \
+	python -m grpc_tools.protoc \
+		-I $(PROTO_PATH) \
+		$(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \
+		--python_out=$(OUTPUT_PATH_PY) \
+		--grpc_python_out=$(OUTPUT_PATH_PY)
+
 
 build:
 	@templ generate
