@@ -1021,19 +1021,20 @@ type ListProductsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page             int32              `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize         int32              `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	SearchQuery      string             `protobuf:"bytes,3,opt,name=search_query,json=searchQuery,proto3" json:"search_query,omitempty"`
-	CategoryId       string             `protobuf:"bytes,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	SortBy           string             `protobuf:"bytes,5,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
-	Ascending        bool               `protobuf:"varint,6,opt,name=ascending,proto3" json:"ascending,omitempty"`
-	OrganizationId   int64              `protobuf:"varint,7,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
-	BrandId          int64              `protobuf:"varint,8,opt,name=brand_id,json=brandId,proto3" json:"brand_id,omitempty"`
-	PriceFrom        float32            `protobuf:"fixed32,9,opt,name=price_from,json=priceFrom,proto3" json:"price_from,omitempty"`
-	PriceTo          float32            `protobuf:"fixed32,10,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
-	PdfUrl           string             `protobuf:"bytes,11,opt,name=pdf_url,json=pdfUrl,proto3" json:"pdf_url,omitempty"`
-	OrganizationType string             `protobuf:"bytes,12,opt,name=organization_type,json=organizationType,proto3" json:"organization_type,omitempty"`
-	Filter           map[string]*Values `protobuf:"bytes,13,rep,name=filter,proto3" json:"filter,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Page              int32              `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize          int32              `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	SearchQuery       string             `protobuf:"bytes,3,opt,name=search_query,json=searchQuery,proto3" json:"search_query,omitempty"`
+	CategoryId        string             `protobuf:"bytes,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	SortBy            string             `protobuf:"bytes,5,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	Ascending         bool               `protobuf:"varint,6,opt,name=ascending,proto3" json:"ascending,omitempty"`
+	OrganizationId    int64              `protobuf:"varint,7,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	BrandId           int64              `protobuf:"varint,8,opt,name=brand_id,json=brandId,proto3" json:"brand_id,omitempty"`
+	PriceFrom         float32            `protobuf:"fixed32,9,opt,name=price_from,json=priceFrom,proto3" json:"price_from,omitempty"`
+	PriceTo           float32            `protobuf:"fixed32,10,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
+	PdfUrl            string             `protobuf:"bytes,11,opt,name=pdf_url,json=pdfUrl,proto3" json:"pdf_url,omitempty"`
+	OrganizationType  string             `protobuf:"bytes,12,opt,name=organization_type,json=organizationType,proto3" json:"organization_type,omitempty"`
+	Filter            map[string]*Values `protobuf:"bytes,13,rep,name=filter,proto3" json:"filter,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	ExcludeProductIds []int64            `protobuf:"varint,14,rep,packed,name=exclude_product_ids,json=excludeProductIds,proto3" json:"exclude_product_ids,omitempty"`
 }
 
 func (x *ListProductsRequest) Reset() {
@@ -1153,6 +1154,13 @@ func (x *ListProductsRequest) GetOrganizationType() string {
 func (x *ListProductsRequest) GetFilter() map[string]*Values {
 	if x != nil {
 		return x.Filter
+	}
+	return nil
+}
+
+func (x *ListProductsRequest) GetExcludeProductIds() []int64 {
+	if x != nil {
+		return x.ExcludeProductIds
 	}
 	return nil
 }
@@ -2868,7 +2876,7 @@ var file_product_product_proto_rawDesc = []byte{
 	0x63, 0x74, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x07, 0x70, 0x72, 0x6f, 0x64,
 	0x75, 0x63, 0x74, 0x22, 0x20, 0x0a, 0x06, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x12, 0x16, 0x0a,
 	0x06, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x06, 0x76,
-	0x61, 0x6c, 0x75, 0x65, 0x73, 0x22, 0x93, 0x04, 0x0a, 0x13, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x72,
+	0x61, 0x6c, 0x75, 0x65, 0x73, 0x22, 0xc3, 0x04, 0x0a, 0x13, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x72,
 	0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a,
 	0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61, 0x67,
 	0x65, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02,
@@ -2896,7 +2904,10 @@ var file_product_product_proto_rawDesc = []byte{
 	0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x18, 0x0d, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x28, 0x2e,
 	0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x64,
 	0x75, 0x63, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x46, 0x69, 0x6c, 0x74,
-	0x65, 0x72, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x1a,
+	0x65, 0x72, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x12,
+	0x2e, 0x0a, 0x13, 0x65, 0x78, 0x63, 0x6c, 0x75, 0x64, 0x65, 0x5f, 0x70, 0x72, 0x6f, 0x64, 0x75,
+	0x63, 0x74, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x0e, 0x20, 0x03, 0x28, 0x03, 0x52, 0x11, 0x65, 0x78,
+	0x63, 0x6c, 0x75, 0x64, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x73, 0x1a,
 	0x4a, 0x0a, 0x0b, 0x46, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10,
 	0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79,
 	0x12, 0x25, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
