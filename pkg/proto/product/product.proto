@@ -184,6 +184,8 @@ message GetProductRequest {
     bool include_characteristics = 2;
     bool include_images = 3;
     bool include_product_groups = 4;
+    int64 user_id = 5;
+    string organization_type = 6;
 }
 
 message GetProductResponse {
