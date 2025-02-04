@@ -34,6 +34,31 @@ class OrderServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.ListCart = channel.unary_unary(
+                '/order.OrderService/ListCart',
+                request_serializer=order_dot_order__pb2.ListCartRequest.SerializeToString,
+                response_deserializer=order_dot_order__pb2.ListCartResponse.FromString,
+                _registered_method=True)
+        self.AddProductToCart = channel.unary_unary(
+                '/order.OrderService/AddProductToCart',
+                request_serializer=order_dot_order__pb2.AddProductToCartRequest.SerializeToString,
+                response_deserializer=order_dot_order__pb2.AddProductToCartResponse.FromString,
+                _registered_method=True)
+        self.DeleteProductFromCart = channel.unary_unary(
+                '/order.OrderService/DeleteProductFromCart',
+                request_serializer=order_dot_order__pb2.DeleteProductFromCartRequest.SerializeToString,
+                response_deserializer=order_dot_order__pb2.DeleteProductFromCartResponse.FromString,
+                _registered_method=True)
+        self.GetCountOfProductInCart = channel.unary_unary(
+                '/order.OrderService/GetCountOfProductInCart',
+                request_serializer=order_dot_order__pb2.GetCountOfProductInCartRequest.SerializeToString,
+                response_deserializer=order_dot_order__pb2.GetCountOfProductInCartResponse.FromString,
+                _registered_method=True)
+        self.CreateOrder = channel.unary_unary(
+                '/order.OrderService/CreateOrder',
+                request_serializer=order_dot_order__pb2.CreateOrderRequest.SerializeToString,
+                response_deserializer=order_dot_order__pb2.CreateOrderResponse.FromString,
+                _registered_method=True)
         self.CreateSubOrder = channel.unary_unary(
                 '/order.OrderService/CreateSubOrder',
                 request_serializer=order_dot_order__pb2.CreateSubOrderRequest.SerializeToString,
@@ -58,6 +83,36 @@ class OrderServiceStub(object):
 
 class OrderServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
+
+    def ListCart(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddProductToCart(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteProductFromCart(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCountOfProductInCart(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateOrder(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def CreateSubOrder(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -86,6 +141,31 @@ class OrderServiceServicer(object):
 
 def add_OrderServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'ListCart': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListCart,
+                    request_deserializer=order_dot_order__pb2.ListCartRequest.FromString,
+                    response_serializer=order_dot_order__pb2.ListCartResponse.SerializeToString,
+            ),
+            'AddProductToCart': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddProductToCart,
+                    request_deserializer=order_dot_order__pb2.AddProductToCartRequest.FromString,
+                    response_serializer=order_dot_order__pb2.AddProductToCartResponse.SerializeToString,
+            ),
+            'DeleteProductFromCart': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteProductFromCart,
+                    request_deserializer=order_dot_order__pb2.DeleteProductFromCartRequest.FromString,
+                    response_serializer=order_dot_order__pb2.DeleteProductFromCartResponse.SerializeToString,
+            ),
+            'GetCountOfProductInCart': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountOfProductInCart,
+                    request_deserializer=order_dot_order__pb2.GetCountOfProductInCartRequest.FromString,
+                    response_serializer=order_dot_order__pb2.GetCountOfProductInCartResponse.SerializeToString,
+            ),
+            'CreateOrder': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateOrder,
+                    request_deserializer=order_dot_order__pb2.CreateOrderRequest.FromString,
+                    response_serializer=order_dot_order__pb2.CreateOrderResponse.SerializeToString,
+            ),
             'CreateSubOrder': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSubOrder,
                     request_deserializer=order_dot_order__pb2.CreateSubOrderRequest.FromString,
@@ -116,6 +196,141 @@ def add_OrderServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class OrderService(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def ListCart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/order.OrderService/ListCart',
+            order_dot_order__pb2.ListCartRequest.SerializeToString,
+            order_dot_order__pb2.ListCartResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddProductToCart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/order.OrderService/AddProductToCart',
+            order_dot_order__pb2.AddProductToCartRequest.SerializeToString,
+            order_dot_order__pb2.AddProductToCartResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteProductFromCart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/order.OrderService/DeleteProductFromCart',
+            order_dot_order__pb2.DeleteProductFromCartRequest.SerializeToString,
+            order_dot_order__pb2.DeleteProductFromCartResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountOfProductInCart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/order.OrderService/GetCountOfProductInCart',
+            order_dot_order__pb2.GetCountOfProductInCartRequest.SerializeToString,
+            order_dot_order__pb2.GetCountOfProductInCartResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateOrder(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/order.OrderService/CreateOrder',
+            order_dot_order__pb2.CreateOrderRequest.SerializeToString,
+            order_dot_order__pb2.CreateOrderResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CreateSubOrder(request,

@@ -151,7 +151,7 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 
 	req := &productv1.ListProductsRequest{
 		PageSize:         int32(limit),
-		Page:             int32(offset)/int32(limit),
+		Page:             int32(offset) / int32(limit),
 		PdfUrl:           url,
 		PriceFrom:        float32(price_from),
 		PriceTo:          float32(price_to),
@@ -209,11 +209,25 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 		includeProductGroups = false
 	}
 
+	userID, ok := middleware.GetUserID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	organizationType, ok := middleware.GetOrganizationType(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
 	req := &productv1.GetProductRequest{
 		Id:                     int64(productID),
 		IncludeCharacteristics: includeCharacteristics,
 		IncludeImages:          includeImages,
 		IncludeProductGroups:   includeProductGroups,
+		UserId:                 userID,
+		OrganizationType:       organizationType,
 	}
 
 	response, err := h.product.Api.GetProduct(r.Context(), req)
