@@ -136,11 +136,17 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+        var exclude_product_ids []int64
+        var exclude_product_ids_str []string
+
 	filters := make(map[string]*productv1.Values)
 	for key, value := range r.URL.Query() {
 		switch key {
 		case "name", "sort_by", "sort_order", "price_from", "price_to", "organization_id", "category_id", "url", "offset", "limit", "brand_id":
 			continue
+                case "exclude_product_id": 
+                       exclude_product_ids_str = value 
+		       continue
 		}
 		if len(value) > 0 {
 			filters[key] = &productv1.Values{
@@ -148,6 +154,13 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+
+        for _, value := range exclude_product_ids_str {
+                if value != "" {
+                        product_id, _ := strconv.Atoi(value)
+                        exclude_product_ids = append(exclude_product_ids, int64(product_id))
+                }
+        }
 
 	req := &productv1.ListProductsRequest{
 		PageSize:         int32(limit),
@@ -160,6 +173,7 @@ func (h *ProductHandler) ListProducts(w http.ResponseWriter, r *http.Request) {
 		SearchQuery:      name,
 		OrganizationType: organization_type,
 		Filter:           filters,
+                ExcludeProductIds: exclude_product_ids,
 	}
 
 	brand_id_str := query.Get("brand_id")

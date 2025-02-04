@@ -204,6 +204,21 @@ class OrganizationServiceStub(object):
                 request_serializer=organization_dot_organization__pb2.GeneratePresignedURLsRequest.SerializeToString,
                 response_deserializer=organization_dot_organization__pb2.GeneratePresignedURLsResponse.FromString,
                 _registered_method=True)
+        self.CreateSaleSettings = channel.unary_unary(
+                '/organization.OrganizationService/CreateSaleSettings',
+                request_serializer=organization_dot_organization__pb2.CreateSaleSettingsRequest.SerializeToString,
+                response_deserializer=organization_dot_organization__pb2.CreateSaleSettingsResponse.FromString,
+                _registered_method=True)
+        self.GetSaleSettings = channel.unary_unary(
+                '/organization.OrganizationService/GetSaleSettings',
+                request_serializer=organization_dot_organization__pb2.GetSaleSettingsRequest.SerializeToString,
+                response_deserializer=organization_dot_organization__pb2.GetSaleSEttingsResponse.FromString,
+                _registered_method=True)
+        self.UpdateSaleSettings = channel.unary_unary(
+                '/organization.OrganizationService/UpdateSaleSettings',
+                request_serializer=organization_dot_organization__pb2.UpdateSaleSettingsRequest.SerializeToString,
+                response_deserializer=organization_dot_organization__pb2.UpdateSaleSettingsResponse.FromString,
+                _registered_method=True)
 
 
 class OrganizationServiceServicer(object):
@@ -413,6 +428,24 @@ class OrganizationServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateSaleSettings(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSaleSettings(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateSaleSettings(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_OrganizationServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -585,6 +618,21 @@ def add_OrganizationServiceServicer_to_server(servicer, server):
                     servicer.GeneratePresignedURLs,
                     request_deserializer=organization_dot_organization__pb2.GeneratePresignedURLsRequest.FromString,
                     response_serializer=organization_dot_organization__pb2.GeneratePresignedURLsResponse.SerializeToString,
+            ),
+            'CreateSaleSettings': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSaleSettings,
+                    request_deserializer=organization_dot_organization__pb2.CreateSaleSettingsRequest.FromString,
+                    response_serializer=organization_dot_organization__pb2.CreateSaleSettingsResponse.SerializeToString,
+            ),
+            'GetSaleSettings': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSaleSettings,
+                    request_deserializer=organization_dot_organization__pb2.GetSaleSettingsRequest.FromString,
+                    response_serializer=organization_dot_organization__pb2.GetSaleSEttingsResponse.SerializeToString,
+            ),
+            'UpdateSaleSettings': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSaleSettings,
+                    request_deserializer=organization_dot_organization__pb2.UpdateSaleSettingsRequest.FromString,
+                    response_serializer=organization_dot_organization__pb2.UpdateSaleSettingsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1505,6 +1553,87 @@ class OrganizationService(object):
             '/organization.OrganizationService/GeneratePresignedURLs',
             organization_dot_organization__pb2.GeneratePresignedURLsRequest.SerializeToString,
             organization_dot_organization__pb2.GeneratePresignedURLsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateSaleSettings(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/organization.OrganizationService/CreateSaleSettings',
+            organization_dot_organization__pb2.CreateSaleSettingsRequest.SerializeToString,
+            organization_dot_organization__pb2.CreateSaleSettingsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetSaleSettings(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/organization.OrganizationService/GetSaleSettings',
+            organization_dot_organization__pb2.GetSaleSettingsRequest.SerializeToString,
+            organization_dot_organization__pb2.GetSaleSEttingsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateSaleSettings(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/organization.OrganizationService/UpdateSaleSettings',
+            organization_dot_organization__pb2.UpdateSaleSettingsRequest.SerializeToString,
+            organization_dot_organization__pb2.UpdateSaleSettingsResponse.FromString,
             options,
             channel_credentials,
             insecure,

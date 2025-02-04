@@ -4,8 +4,8 @@ OUTPUT_PATH_PY   ?= pkg/gen/py
 
 PROTO_FILES ?= \
 	user/user.proto \
-    organization/organization.proto \
-    warehouse/warehouse.proto \
+   	organization/organization.proto \
+    	warehouse/warehouse.proto \
 	product/product.proto \
 	crm/crm.proto \
 	order/order.proto \

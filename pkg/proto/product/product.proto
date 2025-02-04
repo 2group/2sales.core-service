@@ -145,6 +145,7 @@ message ListProductsRequest {
     string pdf_url = 11;
     string organization_type = 12;
     map<string, Values> filter = 13;
+    repeated int64 exclude_product_ids = 14;
 }
 
 message ListProductsResponse {
@@ -183,8 +184,6 @@ message GetProductRequest {
     bool include_characteristics = 2;
     bool include_images = 3;
     bool include_product_groups = 4;
-    int64 user_id = 5;
-    string organization_type = 6;
 }
 
 message GetProductResponse {
