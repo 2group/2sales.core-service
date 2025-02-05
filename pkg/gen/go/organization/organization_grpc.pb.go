@@ -97,7 +97,7 @@ type OrganizationServiceClient interface {
 	ListContacts(ctx context.Context, in *ListContactsRequest, opts ...grpc.CallOption) (*ListContactsResponse, error)
 	GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error)
 	CreateSaleSettings(ctx context.Context, in *CreateSaleSettingsRequest, opts ...grpc.CallOption) (*CreateSaleSettingsResponse, error)
-	GetSaleSettings(ctx context.Context, in *GetSaleSettingsRequest, opts ...grpc.CallOption) (*GetSaleSEttingsResponse, error)
+	GetSaleSettings(ctx context.Context, in *GetSaleSettingsRequest, opts ...grpc.CallOption) (*GetSaleSettingsResponse, error)
 	UpdateSaleSettings(ctx context.Context, in *UpdateSaleSettingsRequest, opts ...grpc.CallOption) (*UpdateSaleSettingsResponse, error)
 }
 
@@ -459,9 +459,9 @@ func (c *organizationServiceClient) CreateSaleSettings(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *organizationServiceClient) GetSaleSettings(ctx context.Context, in *GetSaleSettingsRequest, opts ...grpc.CallOption) (*GetSaleSEttingsResponse, error) {
+func (c *organizationServiceClient) GetSaleSettings(ctx context.Context, in *GetSaleSettingsRequest, opts ...grpc.CallOption) (*GetSaleSettingsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetSaleSEttingsResponse)
+	out := new(GetSaleSettingsResponse)
 	err := c.cc.Invoke(ctx, OrganizationService_GetSaleSettings_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -518,7 +518,7 @@ type OrganizationServiceServer interface {
 	ListContacts(context.Context, *ListContactsRequest) (*ListContactsResponse, error)
 	GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error)
 	CreateSaleSettings(context.Context, *CreateSaleSettingsRequest) (*CreateSaleSettingsResponse, error)
-	GetSaleSettings(context.Context, *GetSaleSettingsRequest) (*GetSaleSEttingsResponse, error)
+	GetSaleSettings(context.Context, *GetSaleSettingsRequest) (*GetSaleSettingsResponse, error)
 	UpdateSaleSettings(context.Context, *UpdateSaleSettingsRequest) (*UpdateSaleSettingsResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
@@ -635,7 +635,7 @@ func (UnimplementedOrganizationServiceServer) GeneratePresignedURLs(context.Cont
 func (UnimplementedOrganizationServiceServer) CreateSaleSettings(context.Context, *CreateSaleSettingsRequest) (*CreateSaleSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSaleSettings not implemented")
 }
-func (UnimplementedOrganizationServiceServer) GetSaleSettings(context.Context, *GetSaleSettingsRequest) (*GetSaleSEttingsResponse, error) {
+func (UnimplementedOrganizationServiceServer) GetSaleSettings(context.Context, *GetSaleSettingsRequest) (*GetSaleSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSaleSettings not implemented")
 }
 func (UnimplementedOrganizationServiceServer) UpdateSaleSettings(context.Context, *UpdateSaleSettingsRequest) (*UpdateSaleSettingsResponse, error) {

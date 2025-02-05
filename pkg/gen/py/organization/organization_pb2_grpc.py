@@ -212,7 +212,7 @@ class OrganizationServiceStub(object):
         self.GetSaleSettings = channel.unary_unary(
                 '/organization.OrganizationService/GetSaleSettings',
                 request_serializer=organization_dot_organization__pb2.GetSaleSettingsRequest.SerializeToString,
-                response_deserializer=organization_dot_organization__pb2.GetSaleSEttingsResponse.FromString,
+                response_deserializer=organization_dot_organization__pb2.GetSaleSettingsResponse.FromString,
                 _registered_method=True)
         self.UpdateSaleSettings = channel.unary_unary(
                 '/organization.OrganizationService/UpdateSaleSettings',
@@ -627,7 +627,7 @@ def add_OrganizationServiceServicer_to_server(servicer, server):
             'GetSaleSettings': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSaleSettings,
                     request_deserializer=organization_dot_organization__pb2.GetSaleSettingsRequest.FromString,
-                    response_serializer=organization_dot_organization__pb2.GetSaleSEttingsResponse.SerializeToString,
+                    response_serializer=organization_dot_organization__pb2.GetSaleSettingsResponse.SerializeToString,
             ),
             'UpdateSaleSettings': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateSaleSettings,
@@ -1606,7 +1606,7 @@ class OrganizationService(object):
             target,
             '/organization.OrganizationService/GetSaleSettings',
             organization_dot_organization__pb2.GetSaleSettingsRequest.SerializeToString,
-            organization_dot_organization__pb2.GetSaleSEttingsResponse.FromString,
+            organization_dot_organization__pb2.GetSaleSettingsResponse.FromString,
             options,
             channel_credentials,
             insecure,

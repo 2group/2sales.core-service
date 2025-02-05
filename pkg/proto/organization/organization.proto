@@ -48,7 +48,7 @@ service OrganizationService {
     rpc GeneratePresignedURLs (GeneratePresignedURLsRequest) returns (GeneratePresignedURLsResponse);
 
     rpc CreateSaleSettings (CreateSaleSettingsRequest) returns (CreateSaleSettingsResponse);
-    rpc GetSaleSettings (GetSaleSettingsRequest) returns (GetSaleSEttingsResponse);
+    rpc GetSaleSettings (GetSaleSettingsRequest) returns (GetSaleSettingsResponse);
     rpc UpdateSaleSettings (UpdateSaleSettingsRequest) returns (UpdateSaleSettingsResponse);
 }
 
@@ -77,6 +77,7 @@ message SaleSettings {
   int64 organization_id = 2;
   float profit_percent = 3;
   repeated  Expences expences = 4;
+  string category_id = 5;
 }
 
 message Expences {
@@ -89,6 +90,7 @@ message SaleSettingsModel {
   int64 id = 1;
   int64 organization_id = 2;
   float profit_percent = 3;
+  string category_id = 4;
 }
 
 message ExpencesModel {
@@ -509,25 +511,25 @@ message ListContactsResponse {
 }
 
 message CreateSaleSettingsRequest {
-        SaleSettings sale_settings = 1;
+        repeated SaleSettings sale_settings = 1;
 }
 
 message CreateSaleSettingsResponse {
-        SaleSettings sale_settings = 1;
+        repeated SaleSettings sale_settings = 1;
 }
 
 message UpdateSaleSettingsRequest {
-        SaleSettings sale_settings = 1;
+        repeated SaleSettings sale_settings = 1;
 }
 
 message UpdateSaleSettingsResponse {
-        SaleSettings sale_settings = 1;
+        repeated SaleSettings sale_settings = 1;
 }
 
 message GetSaleSettingsRequest {
         int64 organization_id = 1;
 }
 
-message GetSaleSEttingsResponse {
-        SaleSettings sale_settings = 1;
+message GetSaleSettingsResponse {
+        repeated SaleSettings sale_settings = 1;
 }
