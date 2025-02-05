@@ -173,6 +173,11 @@ func (s *APIServer) Run() error {
 					baRouter.Put("/{bank_account_id}", organizationHandler.UpdateBankAccount)
 					baRouter.Delete("/{bank_account_id}", organizationHandler.DeleteBankAccount)
 				})
+                                authRouter.Route("/settings", func(baRouter chi.Router) {
+					baRouter.Get("/", organizationHandler.ListSaleSettings)
+					baRouter.Put("/", organizationHandler.UpdateSaleSettings)
+					baRouter.Post("/", organizationHandler.CreateSaleSettings)
+				})
 			})
 		})
 		apiRouter.Route("/crm", func(crmRouter chi.Router) {

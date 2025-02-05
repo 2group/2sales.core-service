@@ -829,3 +829,74 @@ func (h *OrganizationHandler) DeleteBankAccount(w http.ResponseWriter, r *http.R
 	json.WriteJSON(w, http.StatusAccepted, response)
 	return
 }
+
+func (h *OrganizationHandler) CreateSaleSettings(w http.ResponseWriter, r *http.Request) {
+        organization_id, ok := middleware.GetOrganizationID(r)
+        if !ok {
+                json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
+                return
+        }
+
+        req := &organizationv1.CreateSaleSettingsRequest{}
+        json.ParseJSON(r, &req)
+
+        for i, sale_setting := range req.SaleSettings {
+                sale_setting.OrganizationId = organization_id
+                req.SaleSettings[i] = sale_setting 
+        }
+
+        response, err := h.organization.Api.CreateSaleSettings(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return
+        }
+
+        json.WriteJSON(w, http.StatusCreated, response)
+        return
+}
+
+func (h *OrganizationHandler) ListSaleSettings(w http.ResponseWriter, r *http.Request) {
+        organization_id, ok := middleware.GetOrganizationID(r)
+        if !ok {
+                json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
+                return
+        }
+
+        req := &organizationv1.GetSaleSettingsRequest{
+                OrganizationId: organization_id,
+        }
+        
+        response, err := h.organization.Api.GetSaleSettings(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
+
+func (h *OrganizationHandler) UpdateSaleSettings(w http.ResponseWriter, r *http.Request) {
+        organization_id, ok := middleware.GetOrganizationID(r)
+        if !ok {
+                json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
+                return
+        }
+
+        req := &organizationv1.UpdateSaleSettingsRequest{}
+        json.ParseJSON(r, &req)
+
+        for i, sale_setting := range req.SaleSettings {
+                sale_setting.OrganizationId = organization_id
+                req.SaleSettings[i] = sale_setting 
+        }
+
+        response, err := h.organization.Api.UpdateSaleSettings(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
