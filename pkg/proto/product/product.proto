@@ -65,6 +65,7 @@ message Product {
     repeated ProductCharacteristics characteristics = 17;
     repeated ProductGroup product_groups = 18;
     int64 cart_quantity = 19;
+    optional int64 views = 20;
 }
 
 message ProductModel {
@@ -146,6 +147,7 @@ message ListProductsRequest {
     string organization_type = 12;
     map<string, Values> filter = 13;
     repeated int64 exclude_product_ids = 14;
+    optional bool popular = 15;
 }
 
 message ListProductsResponse {
