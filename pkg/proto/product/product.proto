@@ -152,7 +152,7 @@ message ListProductsRequest {
 
 message ListProductsResponse {
     repeated Product products = 1;
-    optional int32 total_count = 2;
+    int32 total_count = 2;
     optional string pdf_url = 3;
 }
 
