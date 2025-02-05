@@ -154,3 +154,40 @@ func (h *WarehouseHandler) CreateWarehouse(w http.ResponseWriter, r *http.Reques
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
+
+func (h *WarehouseHandler) GetCountProducts(w http.ResponseWriter, r *http.Request) {
+        warehouse_id_str := chi.URLParam(r, "warehouse_id")
+        warehouse_id, err := strconv.Atoi(warehouse_id_str)
+        if err != nil {
+                json.WriteError(w, http.StatusBadRequest, err)
+                return
+        }
+        
+        var product_ids []int64
+        for key, values := range r.URL.Query() {
+                if key == "product_id" {
+                        for _, value := range values {
+                                product_id, err := strconv.Atoi(value)
+                                if err != nil {
+                                        json.WriteError(w, http.StatusBadRequest, err)
+                                        return
+                                }
+                                product_ids = append(product_ids, int64(product_id))
+                        }
+                }
+        }
+
+        req := &warehousev1.GetCountProductsRequest{
+                WarehouseId: int64(warehouse_id),
+                ProductIds: product_ids,
+        }
+
+        response, err := h.warehouse.Api.GetCountProducts(r.Context(), req)
+        if err != nil {
+                json.WriteError(w, http.StatusInternalServerError, err)
+                return
+        }
+
+        json.WriteJSON(w, http.StatusOK, response)
+        return
+}
