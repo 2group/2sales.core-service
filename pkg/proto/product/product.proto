@@ -65,7 +65,7 @@ message Product {
     repeated ProductCharacteristics characteristics = 17;
     repeated ProductGroup product_groups = 18;
     int64 cart_quantity = 19;
-    optional int64 views = 20;
+    optional uint64 views = 20;
 }
 
 message ProductModel {
