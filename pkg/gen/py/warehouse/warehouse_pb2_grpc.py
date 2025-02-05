@@ -134,6 +134,11 @@ class WarehouseServiceStub(object):
                 request_serializer=warehouse_dot_warehouse__pb2.ListInventoryRequest.SerializeToString,
                 response_deserializer=warehouse_dot_warehouse__pb2.ListInventoryResponse.FromString,
                 _registered_method=True)
+        self.GetCountProducts = channel.unary_unary(
+                '/warehouse.WarehouseService/GetCountProducts',
+                request_serializer=warehouse_dot_warehouse__pb2.GetCountProductsRequest.SerializeToString,
+                response_deserializer=warehouse_dot_warehouse__pb2.GetCountProductsResponse.FromString,
+                _registered_method=True)
 
 
 class WarehouseServiceServicer(object):
@@ -259,6 +264,12 @@ class WarehouseServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCountProducts(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_WarehouseServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -361,6 +372,11 @@ def add_WarehouseServiceServicer_to_server(servicer, server):
                     servicer.ListInventory,
                     request_deserializer=warehouse_dot_warehouse__pb2.ListInventoryRequest.FromString,
                     response_serializer=warehouse_dot_warehouse__pb2.ListInventoryResponse.SerializeToString,
+            ),
+            'GetCountProducts': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountProducts,
+                    request_deserializer=warehouse_dot_warehouse__pb2.GetCountProductsRequest.FromString,
+                    response_serializer=warehouse_dot_warehouse__pb2.GetCountProductsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -903,6 +919,33 @@ class WarehouseService(object):
             '/warehouse.WarehouseService/ListInventory',
             warehouse_dot_warehouse__pb2.ListInventoryRequest.SerializeToString,
             warehouse_dot_warehouse__pb2.ListInventoryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountProducts(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/warehouse.WarehouseService/GetCountProducts',
+            warehouse_dot_warehouse__pb2.GetCountProductsRequest.SerializeToString,
+            warehouse_dot_warehouse__pb2.GetCountProductsResponse.FromString,
             options,
             channel_credentials,
             insecure,

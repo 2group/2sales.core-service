@@ -9,30 +9,39 @@ import "product/product.proto";
 import "user/user.proto";
 
 service WarehouseService {
-    rpc CreateWarehouse (CreateWarehouseRequest) returns (CreateWarehouseResponse);
-    rpc ListWarehouses (ListWarehousesRequest) returns (ListWarehousesResponse);
-    rpc UpdateWarehouse (UpdateWarehouseRequest) returns (UpdateWarehouseResponse);
-    rpc GetProductsInWarehouse (GetProductsInWarehouseRequest) returns (GetProductsInWarehouseResponse);
-    rpc GetWarehouseAnalytics (GetWarehouseAnalyticsRequest) returns (GetWarehouseAnalyticsResponse);
-    rpc AddProductToWarehouse (AddProductToWarehouseRequest) returns (AddProductToWarehouseResponse);
+  rpc CreateWarehouse(CreateWarehouseRequest) returns (CreateWarehouseResponse);
+  rpc ListWarehouses(ListWarehousesRequest) returns (ListWarehousesResponse);
+  rpc UpdateWarehouse(UpdateWarehouseRequest) returns (UpdateWarehouseResponse);
+  rpc GetProductsInWarehouse(GetProductsInWarehouseRequest)
+      returns (GetProductsInWarehouseResponse);
+  rpc GetWarehouseAnalytics(GetWarehouseAnalyticsRequest)
+      returns (GetWarehouseAnalyticsResponse);
+  rpc AddProductToWarehouse(AddProductToWarehouseRequest)
+      returns (AddProductToWarehouseResponse);
 
-    rpc CreateAcceptance (CreateAcceptanceRequest) returns (CreateAcceptanceResponse);
-    rpc GetAcceptance (GetAcceptanceRequest) returns (GetAcceptanceResponse);
-    rpc ListAcceptances (ListAcceptancesRequest) returns (ListAcceptancesResponse);
-    rpc UpdateAcceptance (UpdateAcceptanceRequest) returns (UpdateAcceptanceResponse);
-    rpc DeleteAcceptance (DeleteAcceptanceRequest) returns (DeleteAcceptanceResponse);
+  rpc CreateAcceptance(CreateAcceptanceRequest)
+      returns (CreateAcceptanceResponse);
+  rpc GetAcceptance(GetAcceptanceRequest) returns (GetAcceptanceResponse);
+  rpc ListAcceptances(ListAcceptancesRequest) returns (ListAcceptancesResponse);
+  rpc UpdateAcceptance(UpdateAcceptanceRequest)
+      returns (UpdateAcceptanceResponse);
+  rpc DeleteAcceptance(DeleteAcceptanceRequest)
+      returns (DeleteAcceptanceResponse);
 
-    rpc CreateWriteOff (CreateWriteOffRequest) returns (CreateWriteOffResponse);
-    rpc GetWriteOff (GetWriteOffRequest) returns (GetWriteOffResponse);
-    rpc ListWriteOff (ListWriteOffRequest) returns (ListWriteOffResponse);
+  rpc CreateWriteOff(CreateWriteOffRequest) returns (CreateWriteOffResponse);
+  rpc GetWriteOff(GetWriteOffRequest) returns (GetWriteOffResponse);
+  rpc ListWriteOff(ListWriteOffRequest) returns (ListWriteOffResponse);
 
-    rpc CreateMoving (CreateMovingRequest) returns (CreateMovingResponse);
-    rpc GetMoving (GetMovingRequest) returns (GetMovingResponse);
-    rpc ListMoving (ListMovingRequest) returns (ListMovingResponse);
+  rpc CreateMoving(CreateMovingRequest) returns (CreateMovingResponse);
+  rpc GetMoving(GetMovingRequest) returns (GetMovingResponse);
+  rpc ListMoving(ListMovingRequest) returns (ListMovingResponse);
 
-    rpc CreateInventory (CreateInventoryRequest) returns (CreateInventoryResponse);
-    rpc GetInventory (GetInventoryRequest) returns (GetInventoryResponse);
-    rpc ListInventory (ListInventoryRequest) returns (ListInventoryResponse);
+  rpc CreateInventory(CreateInventoryRequest) returns (CreateInventoryResponse);
+  rpc GetInventory(GetInventoryRequest) returns (GetInventoryResponse);
+  rpc ListInventory(ListInventoryRequest) returns (ListInventoryResponse);
+
+  rpc GetCountProducts(GetCountProductsRequest)
+      returns (GetCountProductsResponse);
 }
 
 /*
@@ -43,386 +52,352 @@ service WarehouseService {
 
 // Warehouse
 message WarehouseModel {
-    int64 id = 1;
-    int64 organization_id = 2;
-    string name = 3;
-    organization.AddressModel address = 4;
-    int64 count = 5;
-    repeated WarehouseProducts products = 6;
+  int64 id = 1;
+  int64 organization_id = 2;
+  string name = 3;
+  organization.AddressModel address = 4;
+  int64 count = 5;
+  repeated WarehouseProducts products = 6;
 }
 
 message Warehouse {
-    int64 id = 1;
-    int64 organization_id = 2;
-    string name = 3;
-    organization.AddressModel address = 4;
-    int64 count = 5;
-    repeated WarehouseProducts products = 6;
+  int64 id = 1;
+  int64 organization_id = 2;
+  string name = 3;
+  organization.AddressModel address = 4;
+  int64 count = 5;
+  repeated WarehouseProducts products = 6;
 }
 
 message WarehouseAnalytics {
-    int64 product_count = 1;
-    float occupancy = 2;
-    float defect_rate = 3;
+  int64 product_count = 1;
+  float occupancy = 2;
+  float defect_rate = 3;
 }
 
 message WarehouseProducts {
-    int64 id = 1;
-    int64 product_id = 2;
-    int64 quantity = 3;
-    product.Product product = 4;
+  int64 id = 1;
+  int64 product_id = 2;
+  int64 quantity = 3;
+  product.Product product = 4;
 }
 
-//Acceptance
+// Acceptance
 message Acceptance {
-    int64 id = 1;
-    organization.Organization organization = 2; 
-    organization.Organization counterparty = 3;
-    Warehouse warehouse = 4;
-    optional string document_url = 5;
-    user.User user = 6;
-    repeated AcceptanceProduct products = 7;
-    string created_at = 8;
-    int64 amount = 9;
+  int64 id = 1;
+  organization.Organization organization = 2;
+  organization.Organization counterparty = 3;
+  Warehouse warehouse = 4;
+  optional string document_url = 5;
+  user.User user = 6;
+  repeated AcceptanceProduct products = 7;
+  string created_at = 8;
+  int64 amount = 9;
 }
 
 message AcceptanceModel {
-    int64 id = 1;
-    int64 organization_id = 2;
-    int64 counterparty_id = 3;
-    int64 warehouse_id = 4;
-    optional string document_url = 5;
-    int64 user_id = 6;
-    string created_at = 7;
+  int64 id = 1;
+  int64 organization_id = 2;
+  int64 counterparty_id = 3;
+  int64 warehouse_id = 4;
+  optional string document_url = 5;
+  int64 user_id = 6;
+  string created_at = 7;
 }
 
 message AcceptanceProduct {
-    int64 id = 1;
-    product.Product product = 2;
-    int64 quantity = 3;
-    float price = 4;
+  int64 id = 1;
+  product.Product product = 2;
+  int64 quantity = 3;
+  float price = 4;
 }
 
 message AcceptanceProductModel {
-    int64 id = 1;
-    int64 product_id = 2;
-    int64 quantity = 3;
-    float price = 4;
+  int64 id = 1;
+  int64 product_id = 2;
+  int64 quantity = 3;
+  float price = 4;
 }
 
 // Wrtite Off
 message WriteOff {
-    int64 id = 1;
-    organization.Organization organization = 2; 
-    Warehouse warehouse = 3;
-    optional string document_url = 4;
-    user.User user = 5;
-    repeated WriteOffProduct products = 6;
-    string created_at = 7;
-    int64 amount = 8;
+  int64 id = 1;
+  organization.Organization organization = 2;
+  Warehouse warehouse = 3;
+  optional string document_url = 4;
+  user.User user = 5;
+  repeated WriteOffProduct products = 6;
+  string created_at = 7;
+  int64 amount = 8;
 }
 
 message WriteOffModel {
-    int64 id = 1;
-    int64 organization_id = 2;
-    int64 warehouse_id = 4;
-    optional string document_url = 5;
-    int64 user_id = 6;
-    string created_at = 7;
-    repeated WriteOffProductModel write_off = 8;
+  int64 id = 1;
+  int64 organization_id = 2;
+  int64 warehouse_id = 4;
+  optional string document_url = 5;
+  int64 user_id = 6;
+  string created_at = 7;
+  repeated WriteOffProductModel write_off = 8;
 }
 
 message WriteOffProduct {
-    int64 id = 1;
-    product.Product product = 2;
-    int64 quantity = 3;
-    float price = 4;
-    string reason = 5;
+  int64 id = 1;
+  product.Product product = 2;
+  int64 quantity = 3;
+  float price = 4;
+  string reason = 5;
 }
 
 message WriteOffProductModel {
-    int64 id = 1;
-    int64 product_id = 2;
-    int64 quantity = 3;
-    float price = 4;
-    string reason = 5;
+  int64 id = 1;
+  int64 product_id = 2;
+  int64 quantity = 3;
+  float price = 4;
+  string reason = 5;
 }
 
-/* 
+/*
 Moving
  */
 
 message MovingModel {
-    int64 id = 1;
-    int64 organization_id = 2;
-    int64 to_warehouse_id = 3;
-    int64 from_warehouse_id = 4;
-    optional string document_url = 5;
-    repeated MovingProductModel moving_product_ids = 6;
-    string created_at = 7;
+  int64 id = 1;
+  int64 organization_id = 2;
+  int64 to_warehouse_id = 3;
+  int64 from_warehouse_id = 4;
+  optional string document_url = 5;
+  repeated MovingProductModel moving_product_ids = 6;
+  string created_at = 7;
 }
 
 message MovingProductModel {
-    int64 id = 1;
-    int64 product_id = 2;
-    int64 quantity = 3;
-    float price = 4;
+  int64 id = 1;
+  int64 product_id = 2;
+  int64 quantity = 3;
+  float price = 4;
 }
 
 message Moving {
-    int64 id = 1;
-    organization.Organization organization = 2;
-    Warehouse to_warehouse = 3;
-    Warehouse from_warehouse = 4;
-    optional string document_url = 5;
-    repeated MovingProduct moving_products = 6;
-    string created_at = 7;
-    int64 amount = 8;
+  int64 id = 1;
+  organization.Organization organization = 2;
+  Warehouse to_warehouse = 3;
+  Warehouse from_warehouse = 4;
+  optional string document_url = 5;
+  repeated MovingProduct moving_products = 6;
+  string created_at = 7;
+  int64 amount = 8;
 }
 
 message MovingProduct {
-    int64 id = 1;
-    product.Product product = 2;
-    int64 quantity = 3;
-    float price = 4;
+  int64 id = 1;
+  product.Product product = 2;
+  int64 quantity = 3;
+  float price = 4;
 }
 
 // Inventory
 
 message InventoryModel {
-        int64 id = 1;     
-        int64 organization_id = 2;
-        int64 warehouse_id = 3;
-        optional string document_url = 4;
-        string created_at = 5;
-        repeated InventoryProductModel products = 6;
+  int64 id = 1;
+  int64 organization_id = 2;
+  int64 warehouse_id = 3;
+  optional string document_url = 4;
+  string created_at = 5;
+  repeated InventoryProductModel products = 6;
 }
 
 message InventoryProductModel {
-        int64 id = 1;
-        int64 product_id = 2;
-        int64 excepted_quantity = 3;
-        int64 factual_quantity = 4;
-        int64 difference_quantity = 5;
-        float price = 6;
+  int64 id = 1;
+  int64 product_id = 2;
+  int64 excepted_quantity = 3;
+  int64 factual_quantity = 4;
+  int64 difference_quantity = 5;
+  float price = 6;
 }
 
 message Inventory {
-        int64 id = 1;
-        organization.Organization organization = 2;
-        Warehouse warehouse = 3;
-        optional string document_url = 4;
-        string created_at = 5;
-        repeated InventoryProduct products = 6;
-        int64 amount = 7;
+  int64 id = 1;
+  organization.Organization organization = 2;
+  Warehouse warehouse = 3;
+  optional string document_url = 4;
+  string created_at = 5;
+  repeated InventoryProduct products = 6;
+  int64 amount = 7;
 }
 
 message InventoryProduct {
-        int64 id = 1;
-        product.Product product = 2;
-        int64 excepted_quantity = 3;
-        int64 factual_quantity = 4;
-        int64 difference_quantity = 5;
-        float price = 6;
+  int64 id = 1;
+  product.Product product = 2;
+  int64 excepted_quantity = 3;
+  int64 factual_quantity = 4;
+  int64 difference_quantity = 5;
+  float price = 6;
+}
+
+message CountProducts {
+  int64 product_id = 1;
+  int64 count = 2;
 }
 
 // Requests and Response
 
 message CreateWarehouseRequest {
-    string name = 1;
-    int64 organization_id = 2;
-    organization.AddressModel address = 3;
+  string name = 1;
+  int64 organization_id = 2;
+  organization.AddressModel address = 3;
 }
 
-message CreateWarehouseResponse {
-    WarehouseModel warehouse = 1;
-}
+message CreateWarehouseResponse { WarehouseModel warehouse = 1; }
 
 message ListWarehousesRequest {
-    int64 organization_id = 1;
-    bool include_address = 2;
+  int64 organization_id = 1;
+  bool include_address = 2;
 }
 
-message ListWarehousesResponse {
-    repeated WarehouseModel warehouses = 1;
-}
+message ListWarehousesResponse { repeated WarehouseModel warehouses = 1; }
 
 message UpdateWarehouseRequest {
-    int64 id = 1;
-    string name = 2;
-    organization.AddressModel address = 3;
+  int64 id = 1;
+  string name = 2;
+  organization.AddressModel address = 3;
 }
 
-message UpdateWarehouseResponse {
-    WarehouseModel warehouse = 1;
-}
+message UpdateWarehouseResponse { WarehouseModel warehouse = 1; }
 
 message GetProductsInWarehouseRequest {
-    int64 warehouse_id = 1;
-    int64 page = 2;
-    int64 page_size = 3;
-    string name = 4;
-    string sort_by = 5;
-    bool is_ascending = 6;
-    bool is_all = 7;
-    int64 organization_id = 8;
+  int64 warehouse_id = 1;
+  int64 page = 2;
+  int64 page_size = 3;
+  string name = 4;
+  string sort_by = 5;
+  bool is_ascending = 6;
+  bool is_all = 7;
+  int64 organization_id = 8;
 }
 
 message GetProductsInWarehouseResponse {
-    repeated WarehouseProducts products = 1;
-    int64 total_count = 2;
+  repeated WarehouseProducts products = 1;
+  int64 total_count = 2;
 }
 
-message GetWarehouseAnalyticsRequest {
-    int64 warehouse_id = 1;
-}
+message GetWarehouseAnalyticsRequest { int64 warehouse_id = 1; }
 
-message GetWarehouseAnalyticsResponse {
-    WarehouseAnalytics analytics = 1;
-}
+message GetWarehouseAnalyticsResponse { WarehouseAnalytics analytics = 1; }
 
 message AddProductToWarehouseRequest {
-    int64 warehouse_id = 1;
-    int64 product_id = 2;
-    int64 quantity = 3;
+  int64 warehouse_id = 1;
+  int64 product_id = 2;
+  int64 quantity = 3;
 }
 
-message AddProductToWarehouseResponse {
-    WarehouseProducts product = 1;
-}
+message AddProductToWarehouseResponse { WarehouseProducts product = 1; }
 
 message CreateAcceptanceRequest {
-    int64 organization_id = 1;
-    int64 counterparty_id = 2;
-    int64 warehouse_id = 3;
-    int64 user_id = 5;
-    repeated AcceptanceProductModel products = 6;
+  int64 organization_id = 1;
+  int64 counterparty_id = 2;
+  int64 warehouse_id = 3;
+  int64 user_id = 5;
+  repeated AcceptanceProductModel products = 6;
 }
 
-message CreateAcceptanceResponse {
-    Acceptance acceptance = 1;
-}
+message CreateAcceptanceResponse { Acceptance acceptance = 1; }
 
-message GetAcceptanceRequest {
-    int64 id = 1;
-}
+message GetAcceptanceRequest { int64 id = 1; }
 
-message GetAcceptanceResponse {
-    Acceptance acceptance = 1;
-}
+message GetAcceptanceResponse { Acceptance acceptance = 1; }
 
 message ListAcceptancesRequest {
-    int64 page = 1;
-    int64 page_size = 2;
-    int64 organization_id = 3;
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 organization_id = 3;
 }
 
 message ListAcceptancesResponse {
-    repeated Acceptance acceptances = 1;
-    int64 total_count = 2;
+  repeated Acceptance acceptances = 1;
+  int64 total_count = 2;
 }
 
 message UpdateAcceptanceRequest {
-    int64 id = 1;
-    optional int64 organization_id = 2;
-    optional int64 counterparty_id = 3;
-    optional int64 warehouse_id = 4;
-    optional string document_url = 5;
-    optional int64 user_id = 6;
-    repeated AcceptanceProductModel products = 7;
+  int64 id = 1;
+  optional int64 organization_id = 2;
+  optional int64 counterparty_id = 3;
+  optional int64 warehouse_id = 4;
+  optional string document_url = 5;
+  optional int64 user_id = 6;
+  repeated AcceptanceProductModel products = 7;
 }
 
-message UpdateAcceptanceResponse {
-    Acceptance acceptance = 1;
-}
+message UpdateAcceptanceResponse { Acceptance acceptance = 1; }
 
-message DeleteAcceptanceRequest {
-    int64 id = 1;
-}
+message DeleteAcceptanceRequest { int64 id = 1; }
 
-message DeleteAcceptanceResponse {
-    bool success = 1;
-}
+message DeleteAcceptanceResponse { bool success = 1; }
 
-//Write Off
-message CreateWriteOffRequest {
-    WriteOffModel write_off = 1;
-}
+// Write Off
+message CreateWriteOffRequest { WriteOffModel write_off = 1; }
 
-message CreateWriteOffResponse {
-    WriteOff write_off = 1;
-}
+message CreateWriteOffResponse { WriteOff write_off = 1; }
 
-message GetWriteOffRequest {
-    int64 write_off_id = 1;
-}
+message GetWriteOffRequest { int64 write_off_id = 1; }
 
-message GetWriteOffResponse {
-    WriteOff write_off = 1;
-}
+message GetWriteOffResponse { WriteOff write_off = 1; }
 
 message ListWriteOffRequest {
-    int64 page = 1;
-    int64 page_size = 2;
-    int64 organization_id = 3;
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 organization_id = 3;
 }
 
 message ListWriteOffResponse {
-    repeated WriteOff write_offs = 1;
-    int64 total_count = 2;
+  repeated WriteOff write_offs = 1;
+  int64 total_count = 2;
 }
 
 // Moving
-message CreateMovingRequest {
-    MovingModel moving = 1;
-}
+message CreateMovingRequest { MovingModel moving = 1; }
 
-message CreateMovingResponse {
-    Moving moving = 1;
-}
+message CreateMovingResponse { Moving moving = 1; }
 
-message GetMovingRequest {
-    int64 id = 1;
-}
+message GetMovingRequest { int64 id = 1; }
 
-message GetMovingResponse {
-    Moving moving = 1;
-}
+message GetMovingResponse { Moving moving = 1; }
 
 message ListMovingRequest {
-    int64 page = 1;
-    int64 page_size = 2;
-    int64 organization_id = 3;
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 organization_id = 3;
 }
 
 message ListMovingResponse {
-    repeated Moving movings = 1;
-    int64 total_count = 2;
+  repeated Moving movings = 1;
+  int64 total_count = 2;
 }
 
-message CreateInventoryRequest {
-        InventoryModel inventory = 1;
-}
+message CreateInventoryRequest { InventoryModel inventory = 1; }
 
-message CreateInventoryResponse {
-        Inventory inventory = 2;
-}
+message CreateInventoryResponse { Inventory inventory = 2; }
 
-message GetInventoryRequest {
-    int64 id = 1;
-}
+message GetInventoryRequest { int64 id = 1; }
 
-message GetInventoryResponse {
-    Inventory invetory = 1;
-}
+message GetInventoryResponse { Inventory invetory = 1; }
 
 message ListInventoryRequest {
-    int64 page = 1;
-    int64 page_size = 2;
-    int64 organization_id = 3;
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 organization_id = 3;
 }
 
 message ListInventoryResponse {
-    repeated Inventory inventories = 1;
-    int64 total_count = 2;
+  repeated Inventory inventories = 1;
+  int64 total_count = 2;
+}
+
+message GetCountProductsRequest {
+  repeated int64 product_ids = 1;
+  int64 warehouse_id = 2;
+}
+
+message GetCountProductsResponse {
+  repeated CountProducts count_products = 1;
 }
