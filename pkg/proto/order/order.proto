@@ -8,10 +8,13 @@ import "organization/organization.proto";
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/order;orderv1";
 
 service OrderService {
-  rpc ListCart (ListCartRequest) returns (ListCartResponse);
-  rpc AddProductToCart (AddProductToCartRequest) returns (AddProductToCartResponse);
-  rpc DeleteProductFromCart (DeleteProductFromCartRequest) returns (DeleteProductFromCartResponse);
-  rpc GetCountOfProductInCart (GetCountOfProductInCartRequest) returns (GetCountOfProductInCartResponse);
+  rpc ListCart(ListCartRequest) returns (ListCartResponse);
+  rpc AddProductToCart(AddProductToCartRequest)
+      returns (AddProductToCartResponse);
+  rpc DeleteProductFromCart(DeleteProductFromCartRequest)
+      returns (DeleteProductFromCartResponse);
+  rpc GetCountOfProductInCart(GetCountOfProductInCartRequest)
+      returns (GetCountOfProductInCartResponse);
 
   rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
 
@@ -29,7 +32,7 @@ message CartModel {
 message Cart {
   int64 id = 1;
   organization.Organization organization = 2;
-  repeated CartProducts products = 3; 
+  repeated CartProducts products = 3;
 }
 
 message CartProducts {
@@ -39,15 +42,15 @@ message CartProducts {
 }
 
 message OrderModel {
-    int64 id = 1;
-    int64 created_by = 2;
-    string status = 3;
-    float original_total = 4;
-    float final_total = 5;
-    int64 from_organization_id = 6;
-    optional int64 discount_id = 7;
-    optional string created_at = 8;
-    optional string updated_at = 9;
+  int64 id = 1;
+  int64 created_by = 2;
+  string status = 3;
+  float original_total = 4;
+  float final_total = 5;
+  int64 from_organization_id = 6;
+  optional int64 discount_id = 7;
+  optional string created_at = 8;
+  optional string updated_at = 9;
 }
 
 message SubOrderModel {
@@ -77,15 +80,15 @@ message OrderItemModel {
 }
 
 message Order {
-    int64 id = 1;
-    int64 created_by = 2;
-    string status = 3;
-    float original_total = 4;
-    float final_total = 5;
-    organization.Organization from_organization = 6;
-    optional string created_at = 7;
-    optional string updated_at = 8;
-    repeated SubOrder suborders = 9;
+  int64 id = 1;
+  int64 created_by = 2;
+  string status = 3;
+  float original_total = 4;
+  float final_total = 5;
+  organization.Organization from_organization = 6;
+  optional string created_at = 7;
+  optional string updated_at = 8;
+  repeated SubOrder suborders = 9;
 }
 
 message SubOrder {
@@ -100,6 +103,7 @@ message SubOrder {
   optional string created_at = 9;
   optional string updated_at = 10;
   optional string comment = 11;
+  bool is_sale_outside = 12;
 }
 
 message OrderItem {
@@ -112,21 +116,13 @@ message OrderItem {
   optional string updated_at = 7;
 }
 
-message CreateSubOrderRequest { 
- SubOrder sub_order = 1; 
-}
+message CreateSubOrderRequest { SubOrder sub_order = 1; }
 
-message CreateSubOrderResponse { 
- SubOrder sub_order = 1; 
-}
+message CreateSubOrderResponse { SubOrder sub_order = 1; }
 
-message GetSubOrderRequest { 
-  int64 id = 1; 
-}
+message GetSubOrderRequest { int64 id = 1; }
 
-message GetSubOrderResponse { 
-  SubOrder sub_order = 1; 
-}
+message GetSubOrderResponse { SubOrder sub_order = 1; }
 
 message ListSubOrderRequest {
   int64 created_by = 1;
@@ -150,47 +146,27 @@ message UpdateSubOrderRequest {
   string status = 6;
 }
 
-message UpdateSubOrderResponse { 
-  SubOrderModel suborder = 1; 
-}
+message UpdateSubOrderResponse { SubOrderModel suborder = 1; }
 
-message AddProductToCartRequest {
-  Cart cart = 1;
-} 
+message AddProductToCartRequest { Cart cart = 1; }
 
-message AddProductToCartResponse {
-  Cart cart = 1;
-}
+message AddProductToCartResponse { Cart cart = 1; }
 
-message DeleteProductFromCartRequest {
-  Cart cart = 1;
-}
+message DeleteProductFromCartRequest { Cart cart = 1; }
 
-message DeleteProductFromCartResponse {
-  Cart cart = 1;
-}
+message DeleteProductFromCartResponse { Cart cart = 1; }
 
-message ListCartRequest {
-  int64 organization_id = 1;
-}
+message ListCartRequest { int64 organization_id = 1; }
 
-message ListCartResponse {
-  Cart cart = 1;
-}
+message ListCartResponse { Cart cart = 1; }
 
 message GetCountOfProductInCartRequest {
   int64 organization_id = 1;
   int64 product_id = 2;
 }
 
-message GetCountOfProductInCartResponse {
-  int64 count = 1;
-}
+message GetCountOfProductInCartResponse { int64 count = 1; }
 
-message CreateOrderRequest {
-  int64 organization_id = 1;
-}
+message CreateOrderRequest { int64 organization_id = 1; }
 
-message CreateOrderResponse {
-  repeated SubOrder suborders = 1;
-}
+message CreateOrderResponse { repeated SubOrder suborders = 1; }
