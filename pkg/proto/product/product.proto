@@ -154,6 +154,7 @@ message ListProductsResponse {
     repeated Product products = 1;
     int32 total_count = 2;
     optional string pdf_url = 3;
+    optional bool is_sale_settings_completed = 4;
 }
 
 message DuplicateProductRequest {
