@@ -16,6 +16,7 @@ service ProductService {
     rpc CreateProductCategory (CreateProductCategoryRequest) returns (CreateProductCategoryResponse);
     rpc GetProductCategoryWithChildren (GetProductCategoryWithChildrenRequest) returns (GetProductCategoryWithChildrenResponse);
     rpc ListCategories (ListCategoriesRequest) returns (ListCategoriesResponse);
+    rpc GetChildrenCategories (GetChildrenCategoriesRequest) returns (GetChildrenCategoriesResponse);
 
     rpc ListProductGroups (ListProductGroupsRequest) returns (ListProductGroupsResponse);
     rpc CreateProductGroup (CreateProductGroupRequest) returns (CreateProductGroupResponse);
@@ -296,4 +297,12 @@ message ProductViewAgg {
     int64 product_id = 1;
     uint64 total_views = 2;
     string last_seen = 3;
+}
+
+message GetChildrenCategoriesRequest {
+    string category_id = 1;
+}
+
+message GetChildrenCategoriesResponse {
+    repeated CategoryModel categories = 1;
 }

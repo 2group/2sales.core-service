@@ -84,6 +84,11 @@ class ProductServiceStub(object):
                 request_serializer=product_dot_product__pb2.ListCategoriesRequest.SerializeToString,
                 response_deserializer=product_dot_product__pb2.ListCategoriesResponse.FromString,
                 _registered_method=True)
+        self.GetChildrenCategories = channel.unary_unary(
+                '/product.ProductService/GetChildrenCategories',
+                request_serializer=product_dot_product__pb2.GetChildrenCategoriesRequest.SerializeToString,
+                response_deserializer=product_dot_product__pb2.GetChildrenCategoriesResponse.FromString,
+                _registered_method=True)
         self.ListProductGroups = channel.unary_unary(
                 '/product.ProductService/ListProductGroups',
                 request_serializer=product_dot_product__pb2.ListProductGroupsRequest.SerializeToString,
@@ -179,6 +184,12 @@ class ProductServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetChildrenCategories(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ListProductGroups(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -267,6 +278,11 @@ def add_ProductServiceServicer_to_server(servicer, server):
                     servicer.ListCategories,
                     request_deserializer=product_dot_product__pb2.ListCategoriesRequest.FromString,
                     response_serializer=product_dot_product__pb2.ListCategoriesResponse.SerializeToString,
+            ),
+            'GetChildrenCategories': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetChildrenCategories,
+                    request_deserializer=product_dot_product__pb2.GetChildrenCategoriesRequest.FromString,
+                    response_serializer=product_dot_product__pb2.GetChildrenCategoriesResponse.SerializeToString,
             ),
             'ListProductGroups': grpc.unary_unary_rpc_method_handler(
                     servicer.ListProductGroups,
@@ -569,6 +585,33 @@ class ProductService(object):
             '/product.ProductService/ListCategories',
             product_dot_product__pb2.ListCategoriesRequest.SerializeToString,
             product_dot_product__pb2.ListCategoriesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetChildrenCategories(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/product.ProductService/GetChildrenCategories',
+            product_dot_product__pb2.GetChildrenCategoriesRequest.SerializeToString,
+            product_dot_product__pb2.GetChildrenCategoriesResponse.FromString,
             options,
             channel_credentials,
             insecure,
