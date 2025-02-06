@@ -81,6 +81,8 @@ func (h *OrderHandler) UpdateSubOrder(w http.ResponseWriter, r *http.Request) {
                 Id: int64(suborder_id),
         }
 
+        json.ParseJSON(r, &req)
+
         response, err := h.order.Api.UpdateSubOrder(r.Context(), req)
         if err != nil {
                 json.WriteError(w, http.StatusInternalServerError, err)
