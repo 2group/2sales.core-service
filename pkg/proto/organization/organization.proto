@@ -122,6 +122,7 @@ message Organization {
     optional string legal_address = 10;
     repeated ImageModel images = 11;
     repeated ContactModel contacts = 12;
+    bool is_sale_settings_compeleted = 13;
 }
 
 message OrganizationModel {
@@ -516,6 +517,7 @@ message CreateSaleSettingsRequest {
 
 message CreateSaleSettingsResponse {
         repeated SaleSettings sale_settings = 1;
+        bool is_sale_settings_compeleted = 2;
 }
 
 message UpdateSaleSettingsRequest {
