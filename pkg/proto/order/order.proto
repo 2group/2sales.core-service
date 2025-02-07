@@ -116,7 +116,10 @@ message OrderItem {
   optional string updated_at = 7;
 }
 
-message CreateSubOrderRequest { SubOrder sub_order = 1; }
+message CreateSubOrderRequest {
+  SubOrder sub_order = 1;
+  string sale_type = 2;
+}
 
 message CreateSubOrderResponse { SubOrder sub_order = 1; }
 
