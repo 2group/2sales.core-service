@@ -78,6 +78,7 @@ message SaleSettings {
   float profit_percent = 3;
   repeated  Expences expences = 4;
   string category_id = 5;
+  string category_name = 6;
 }
 
 message Expences {
