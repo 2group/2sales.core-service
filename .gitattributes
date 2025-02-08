@@ -1,2 +1,5 @@
 *.pb.go linguist-language=Go
 
+*.pb.cc linguist-language=C++
+*.pb.h linguist-language=C++
+
