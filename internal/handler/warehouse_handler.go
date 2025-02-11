@@ -9,7 +9,7 @@ import (
 	"github.com/2group/2sales.core-service/internal/grpc"
 	warehousev1 "github.com/2group/2sales.core-service/pkg/gen/go/warehouse"
 	"github.com/2group/2sales.core-service/pkg/json"
-	middleware "github.com/2group/2sales.core-service/pkg/middeware"
+	middleware "github.com/2group/2sales.core-service/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -23,26 +23,26 @@ func NewWarehouseHandler(log *slog.Logger, warehouse *grpc.WarehouseClient) *War
 }
 
 func (h *WarehouseHandler) UpdateWarehouse(w http.ResponseWriter, r *http.Request) {
-        warehouse_id_str := chi.URLParam(r, "warehouse_id")
+	warehouse_id_str := chi.URLParam(r, "warehouse_id")
 	warehouse_id, err := strconv.Atoi(warehouse_id_str)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-        req := &warehousev1.UpdateWarehouseRequest{
-                Id: int64(warehouse_id),
-        }
-        json.ParseJSON(r, &req)
+	req := &warehousev1.UpdateWarehouseRequest{
+		Id: int64(warehouse_id),
+	}
+	json.ParseJSON(r, &req)
 
-        response, err := h.warehouse.Api.UpdateWarehouse(r.Context(), req)
-        if err != nil {
-                json.WriteError(w, http.StatusInternalServerError, err)
-                return
-        }
+	response, err := h.warehouse.Api.UpdateWarehouse(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
 
-        json.WriteJSON(w, http.StatusOK, response)
-        return
+	json.WriteJSON(w, http.StatusOK, response)
+	return
 }
 
 func (h *WarehouseHandler) ListWarehouses(w http.ResponseWriter, r *http.Request) {
@@ -59,7 +59,7 @@ func (h *WarehouseHandler) ListWarehouses(w http.ResponseWriter, r *http.Request
 	if include_address_str == "true" {
 		include_address = true
 	}
-	
+
 	req := &warehousev1.ListWarehousesRequest{
 		OrganizationId: organization_id,
 		IncludeAddress: include_address,
@@ -90,7 +90,7 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 		warehouse_id = 0
 		is_all = true
 	}
-	
+
 	query := r.URL.Query()
 
 	limit := 10
@@ -113,12 +113,12 @@ func (h *WarehouseHandler) GetWarehouse(w http.ResponseWriter, r *http.Request) 
 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
-	
+
 	req := &warehousev1.GetProductsInWarehouseRequest{
-		WarehouseId: int64(warehouse_id),
-		Page:        int64(offset),
-		PageSize:    int64(limit),
-		IsAll: is_all,
+		WarehouseId:    int64(warehouse_id),
+		Page:           int64(offset),
+		PageSize:       int64(limit),
+		IsAll:          is_all,
 		OrganizationId: organization_id,
 	}
 
@@ -156,38 +156,38 @@ func (h *WarehouseHandler) CreateWarehouse(w http.ResponseWriter, r *http.Reques
 }
 
 func (h *WarehouseHandler) GetCountProducts(w http.ResponseWriter, r *http.Request) {
-        warehouse_id_str := chi.URLParam(r, "warehouse_id")
-        warehouse_id, err := strconv.Atoi(warehouse_id_str)
-        if err != nil {
-                json.WriteError(w, http.StatusBadRequest, err)
-                return
-        }
-        
-        var product_ids []int64
-        for key, values := range r.URL.Query() {
-                if key == "product_id" {
-                        for _, value := range values {
-                                product_id, err := strconv.Atoi(value)
-                                if err != nil {
-                                        json.WriteError(w, http.StatusBadRequest, err)
-                                        return
-                                }
-                                product_ids = append(product_ids, int64(product_id))
-                        }
-                }
-        }
+	warehouse_id_str := chi.URLParam(r, "warehouse_id")
+	warehouse_id, err := strconv.Atoi(warehouse_id_str)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
 
-        req := &warehousev1.GetCountProductsRequest{
-                WarehouseId: int64(warehouse_id),
-                ProductIds: product_ids,
-        }
+	var product_ids []int64
+	for key, values := range r.URL.Query() {
+		if key == "product_id" {
+			for _, value := range values {
+				product_id, err := strconv.Atoi(value)
+				if err != nil {
+					json.WriteError(w, http.StatusBadRequest, err)
+					return
+				}
+				product_ids = append(product_ids, int64(product_id))
+			}
+		}
+	}
 
-        response, err := h.warehouse.Api.GetCountProducts(r.Context(), req)
-        if err != nil {
-                json.WriteError(w, http.StatusInternalServerError, err)
-                return
-        }
+	req := &warehousev1.GetCountProductsRequest{
+		WarehouseId: int64(warehouse_id),
+		ProductIds:  product_ids,
+	}
 
-        json.WriteJSON(w, http.StatusOK, response)
-        return
+	response, err := h.warehouse.Api.GetCountProducts(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+	return
 }

@@ -7,7 +7,7 @@ import (
 
 	warehousev1 "github.com/2group/2sales.core-service/pkg/gen/go/warehouse"
 	"github.com/2group/2sales.core-service/pkg/json"
-	middleware "github.com/2group/2sales.core-service/pkg/middeware"
+	middleware "github.com/2group/2sales.core-service/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 )
 

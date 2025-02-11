@@ -9,7 +9,7 @@ import (
 	"github.com/2group/2sales.core-service/internal/grpc"
 	organizationv1 "github.com/2group/2sales.core-service/pkg/gen/go/organization"
 	"github.com/2group/2sales.core-service/pkg/json"
-	middleware "github.com/2group/2sales.core-service/pkg/middeware"
+	middleware "github.com/2group/2sales.core-service/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -831,72 +831,72 @@ func (h *OrganizationHandler) DeleteBankAccount(w http.ResponseWriter, r *http.R
 }
 
 func (h *OrganizationHandler) CreateSaleSettings(w http.ResponseWriter, r *http.Request) {
-        organization_id, ok := middleware.GetOrganizationID(r)
-        if !ok {
-                json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
-                return
-        }
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
+		return
+	}
 
-        req := &organizationv1.CreateSaleSettingsRequest{}
-        json.ParseJSON(r, &req)
+	req := &organizationv1.CreateSaleSettingsRequest{}
+	json.ParseJSON(r, &req)
 
-        for i, sale_setting := range req.SaleSettings {
-                sale_setting.OrganizationId = organization_id
-                req.SaleSettings[i] = sale_setting 
-        }
+	for i, sale_setting := range req.SaleSettings {
+		sale_setting.OrganizationId = organization_id
+		req.SaleSettings[i] = sale_setting
+	}
 
-        response, err := h.organization.Api.CreateSaleSettings(r.Context(), req)
-        if err != nil {
-                json.WriteError(w, http.StatusInternalServerError, err)
-                return
-        }
+	response, err := h.organization.Api.CreateSaleSettings(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
 
-        json.WriteJSON(w, http.StatusCreated, response)
-        return
+	json.WriteJSON(w, http.StatusCreated, response)
+	return
 }
 
 func (h *OrganizationHandler) ListSaleSettings(w http.ResponseWriter, r *http.Request) {
-        organization_id, ok := middleware.GetOrganizationID(r)
-        if !ok {
-                json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
-                return
-        }
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
+		return
+	}
 
-        req := &organizationv1.GetSaleSettingsRequest{
-                OrganizationId: organization_id,
-        }
-        
-        response, err := h.organization.Api.GetSaleSettings(r.Context(), req)
-        if err != nil {
-                json.WriteError(w, http.StatusInternalServerError, err)
-                return
-        }
+	req := &organizationv1.GetSaleSettingsRequest{
+		OrganizationId: organization_id,
+	}
 
-        json.WriteJSON(w, http.StatusOK, response)
-        return
+	response, err := h.organization.Api.GetSaleSettings(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, response)
+	return
 }
 
 func (h *OrganizationHandler) UpdateSaleSettings(w http.ResponseWriter, r *http.Request) {
-        organization_id, ok := middleware.GetOrganizationID(r)
-        if !ok {
-                json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
-                return
-        }
+	organization_id, ok := middleware.GetOrganizationID(r)
+	if !ok {
+		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
+		return
+	}
 
-        req := &organizationv1.UpdateSaleSettingsRequest{}
-        json.ParseJSON(r, &req)
+	req := &organizationv1.UpdateSaleSettingsRequest{}
+	json.ParseJSON(r, &req)
 
-        for i, sale_setting := range req.SaleSettings {
-                sale_setting.OrganizationId = organization_id
-                req.SaleSettings[i] = sale_setting 
-        }
+	for i, sale_setting := range req.SaleSettings {
+		sale_setting.OrganizationId = organization_id
+		req.SaleSettings[i] = sale_setting
+	}
 
-        response, err := h.organization.Api.UpdateSaleSettings(r.Context(), req)
-        if err != nil {
-                json.WriteError(w, http.StatusInternalServerError, err)
-                return
-        }
+	response, err := h.organization.Api.UpdateSaleSettings(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
 
-        json.WriteJSON(w, http.StatusOK, response)
-        return
+	json.WriteJSON(w, http.StatusOK, response)
+	return
 }

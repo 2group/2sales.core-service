@@ -15,7 +15,7 @@ const (
 )
 
 func main() {
-    cfg := config.MustLoad()
+	cfg := config.MustLoad()
 
 	log := setupLogger(cfg.Env)
 
@@ -25,7 +25,7 @@ func main() {
 
 	if err := application.Run(); err != nil {
 		panic(err)
-	}    
+	}
 }
 
 func setupLogger(env string) *slog.Logger {
@@ -45,5 +45,5 @@ func setupLogger(env string) *slog.Logger {
 		)
 	}
 
-	return log
+	return log.With("service", "CoreService")
 }

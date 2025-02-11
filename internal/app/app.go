@@ -10,7 +10,7 @@ import (
 	"github.com/2group/2sales.core-service/internal/config"
 	"github.com/2group/2sales.core-service/internal/grpc"
 	"github.com/2group/2sales.core-service/internal/handler"
-	auth "github.com/2group/2sales.core-service/pkg/middeware"
+	auth "github.com/2group/2sales.core-service/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -29,6 +29,7 @@ func (s *APIServer) Run() error {
 	router.Use(middleware.Logger)
 	router.Use(middleware.URLFormat)
 	router.Use(auth.CorsMiddleware)
+	router.Use(auth.CorrelationMiddleware)
 	context := context.Background()
 
 	usergrpc, err := grpc.NewUserClient(context, s.cfg.GRPC.User, time.Hour, 2)
@@ -173,7 +174,7 @@ func (s *APIServer) Run() error {
 					baRouter.Put("/{bank_account_id}", organizationHandler.UpdateBankAccount)
 					baRouter.Delete("/{bank_account_id}", organizationHandler.DeleteBankAccount)
 				})
-                                authRouter.Route("/settings", func(baRouter chi.Router) {
+				authRouter.Route("/settings", func(baRouter chi.Router) {
 					baRouter.Get("/", organizationHandler.ListSaleSettings)
 					baRouter.Put("/", organizationHandler.UpdateSaleSettings)
 					baRouter.Post("/", organizationHandler.CreateSaleSettings)
@@ -234,24 +235,24 @@ func (s *APIServer) Run() error {
 			})
 		})
 		apiRouter.Route("/orders", func(orderRouter chi.Router) {
-                        orderRouter.Route("/sub-orders", func(suborderRouter chi.Router) {
-                                suborderRouter.Group(func(authRouter chi.Router) {
-                                        authRouter.Use(auth.AuthMiddleware)
-                                        authRouter.Post("/", orderHandler.CreateSubOrder)
-                                        authRouter.Post("/order", orderHandler.CreateOrder)
-                                        authRouter.Get("/", orderHandler.ListSubOrder)
-                                        authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
-                                        authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
-                                })
-                        })
-                        orderRouter.Route("/carts", func(cartRouter chi.Router) {
-                                cartRouter.Group(func(authRouter chi.Router) {
-                                        authRouter.Use(auth.AuthMiddleware)
-                                        authRouter.Get("/", orderHandler.GetCart)
-                                        authRouter.Post("/add", orderHandler.AddProductToCart)
-                                        authRouter.Post("/delete", orderHandler.DeleteProductFromCart)
-                                })
-                        })
+			orderRouter.Route("/sub-orders", func(suborderRouter chi.Router) {
+				suborderRouter.Group(func(authRouter chi.Router) {
+					authRouter.Use(auth.AuthMiddleware)
+					authRouter.Post("/", orderHandler.CreateSubOrder)
+					authRouter.Post("/order", orderHandler.CreateOrder)
+					authRouter.Get("/", orderHandler.ListSubOrder)
+					authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
+					authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
+				})
+			})
+			orderRouter.Route("/carts", func(cartRouter chi.Router) {
+				cartRouter.Group(func(authRouter chi.Router) {
+					authRouter.Use(auth.AuthMiddleware)
+					authRouter.Get("/", orderHandler.GetCart)
+					authRouter.Post("/add", orderHandler.AddProductToCart)
+					authRouter.Post("/delete", orderHandler.DeleteProductFromCart)
+				})
+			})
 		})
 		apiRouter.Route("/advertisements", func(advertisementRouter chi.Router) {
 			advertisementRouter.Group(func(authRouter chi.Router) {

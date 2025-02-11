@@ -10,11 +10,14 @@ import (
 )
 
 type OrganizationClient struct {
-    Api organizationv1.OrganizationServiceClient 
+	Api organizationv1.OrganizationServiceClient
 }
 
 func NewOrganizationClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*OrganizationClient, error) {
-	cc, err := grpc.DialContext(ctx, addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	cc, err := grpc.DialContext(ctx, addr,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor),
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -23,4 +26,3 @@ func NewOrganizationClient(ctx context.Context, addr string, timeout time.Durati
 		Api: organizationv1.NewOrganizationServiceClient(cc),
 	}, nil
 }
-

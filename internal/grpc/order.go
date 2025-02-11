@@ -14,7 +14,10 @@ type OrderClient struct {
 }
 
 func NewOrderClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*OrderClient, error) {
-	cc, err := grpc.DialContext(ctx, addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	cc, err := grpc.DialContext(ctx, addr,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor),
+	)
 	if err != nil {
 		return nil, err
 	}

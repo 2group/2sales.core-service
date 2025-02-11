@@ -1,17 +1,17 @@
 package handler
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 	"strconv"
 
 	warehousev1 "github.com/2group/2sales.core-service/pkg/gen/go/warehouse"
 	"github.com/2group/2sales.core-service/pkg/json"
-	middleware "github.com/2group/2sales.core-service/pkg/middeware"
+	middleware "github.com/2group/2sales.core-service/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 )
 
-func(h *WarehouseHandler) CreateInventory(w http.ResponseWriter, r *http.Request) {
+func (h *WarehouseHandler) CreateInventory(w http.ResponseWriter, r *http.Request) {
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
@@ -21,7 +21,7 @@ func(h *WarehouseHandler) CreateInventory(w http.ResponseWriter, r *http.Request
 		Inventory: &warehousev1.InventoryModel{},
 	}
 	json.ParseJSON(r, &req)
-        h.log.Info("warehouse", "id", req)
+	h.log.Info("warehouse", "id", req)
 
 	req.Inventory.OrganizationId = organization_id
 
@@ -35,7 +35,7 @@ func(h *WarehouseHandler) CreateInventory(w http.ResponseWriter, r *http.Request
 	return
 }
 
-func(h *WarehouseHandler) ListInventory(w http.ResponseWriter, r *http.Request) {
+func (h *WarehouseHandler) ListInventory(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 
 	limit := 10
@@ -61,8 +61,8 @@ func(h *WarehouseHandler) ListInventory(w http.ResponseWriter, r *http.Request) 
 
 	req := &warehousev1.ListInventoryRequest{
 		OrganizationId: organization_id,
-		Page: int64(offset),
-		PageSize: int64(limit),
+		Page:           int64(offset),
+		PageSize:       int64(limit),
 	}
 
 	response, err := h.warehouse.Api.ListInventory(r.Context(), req)
@@ -75,7 +75,7 @@ func(h *WarehouseHandler) ListInventory(w http.ResponseWriter, r *http.Request) 
 	return
 }
 
-func(h *WarehouseHandler) GetInventory(w http.ResponseWriter, r *http.Request) {
+func (h *WarehouseHandler) GetInventory(w http.ResponseWriter, r *http.Request) {
 	inventory_id_str := chi.URLParam(r, "inventory_id")
 	inventory_id, err := strconv.Atoi(inventory_id_str)
 	if err != nil {
