@@ -45,5 +45,5 @@ func setupLogger(env string) *slog.Logger {
 		)
 	}
 
-	return log.With("service", "CoreService")
+	return log.With("service", "core_service")
 }
