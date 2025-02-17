@@ -51,7 +51,8 @@ inline constexpr SubOrderModel::Impl_::Impl_(
         original_subtotal_{0},
         final_subtotal_{0},
         to_organization_id_{::int64_t{0}},
-        from_organization_id_{::int64_t{0}} {}
+        from_organization_id_{::int64_t{0}},
+        order_index_{::int64_t{0}} {}
 
 template <typename>
 PROTOBUF_CONSTEXPR SubOrderModel::SubOrderModel(::_pbi::ConstantInitialized)
@@ -431,6 +432,7 @@ inline constexpr UpdateSubOrderRequest::Impl_::Impl_(
         id_{::int64_t{0}},
         original_total_{0},
         final_total_{0},
+        order_index_{::int64_t{0}},
         _cached_size_{0} {}
 
 template <typename>
@@ -477,6 +479,7 @@ inline constexpr SubOrder::Impl_::Impl_(
         id_{::int64_t{0}},
         original_subtotal_{0},
         final_subtotal_{0},
+        order_index_{::int64_t{0}},
         is_sale_outside_{false} {}
 
 template <typename>
@@ -909,6 +912,7 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::order::SubOrderModel, _impl_.created_at_),
         PROTOBUF_FIELD_OFFSET(::order::SubOrderModel, _impl_.updated_at_),
         PROTOBUF_FIELD_OFFSET(::order::SubOrderModel, _impl_.comment_),
+        PROTOBUF_FIELD_OFFSET(::order::SubOrderModel, _impl_.order_index_),
         ~0u,
         ~0u,
         ~0u,
@@ -920,6 +924,7 @@ const ::uint32_t
         3,
         4,
         5,
+        ~0u,
         PROTOBUF_FIELD_OFFSET(::order::OrderItemModel, _impl_._has_bits_),
         PROTOBUF_FIELD_OFFSET(::order::OrderItemModel, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -992,6 +997,7 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::order::SubOrder, _impl_.updated_at_),
         PROTOBUF_FIELD_OFFSET(::order::SubOrder, _impl_.comment_),
         PROTOBUF_FIELD_OFFSET(::order::SubOrder, _impl_.is_sale_outside_),
+        PROTOBUF_FIELD_OFFSET(::order::SubOrder, _impl_.order_index_),
         ~0u,
         ~0u,
         ~0u,
@@ -1003,6 +1009,7 @@ const ::uint32_t
         2,
         3,
         4,
+        ~0u,
         ~0u,
         PROTOBUF_FIELD_OFFSET(::order::OrderItem, _impl_._has_bits_),
         PROTOBUF_FIELD_OFFSET(::order::OrderItem, _internal_metadata_),
@@ -1104,6 +1111,7 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::order::UpdateSubOrderRequest, _impl_.invoice_pdf_),
         PROTOBUF_FIELD_OFFSET(::order::UpdateSubOrderRequest, _impl_.order_items_),
         PROTOBUF_FIELD_OFFSET(::order::UpdateSubOrderRequest, _impl_.status_),
+        PROTOBUF_FIELD_OFFSET(::order::UpdateSubOrderRequest, _impl_.order_index_),
         PROTOBUF_FIELD_OFFSET(::order::UpdateSubOrderResponse, _impl_._has_bits_),
         PROTOBUF_FIELD_OFFSET(::order::UpdateSubOrderResponse, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -1218,29 +1226,29 @@ static const ::_pbi::MigrationSchema
         {10, 21, -1, sizeof(::order::Cart)},
         {24, 35, -1, sizeof(::order::CartProducts)},
         {38, 55, -1, sizeof(::order::OrderModel)},
-        {64, 83, -1, sizeof(::order::SubOrderModel)},
-        {94, 111, -1, sizeof(::order::OrderItemModel)},
-        {120, 137, -1, sizeof(::order::Order)},
-        {146, 166, -1, sizeof(::order::SubOrder)},
-        {178, 193, -1, sizeof(::order::OrderItem)},
-        {200, 210, -1, sizeof(::order::CreateSubOrderRequest)},
-        {212, 221, -1, sizeof(::order::CreateSubOrderResponse)},
-        {222, -1, -1, sizeof(::order::GetSubOrderRequest)},
-        {231, 240, -1, sizeof(::order::GetSubOrderResponse)},
-        {241, -1, -1, sizeof(::order::ListSubOrderRequest)},
-        {254, -1, -1, sizeof(::order::ListSubOrderResponse)},
-        {264, -1, -1, sizeof(::order::UpdateSubOrderRequest)},
-        {278, 287, -1, sizeof(::order::UpdateSubOrderResponse)},
-        {288, 297, -1, sizeof(::order::AddProductToCartRequest)},
-        {298, 307, -1, sizeof(::order::AddProductToCartResponse)},
-        {308, 317, -1, sizeof(::order::DeleteProductFromCartRequest)},
-        {318, 327, -1, sizeof(::order::DeleteProductFromCartResponse)},
-        {328, -1, -1, sizeof(::order::ListCartRequest)},
-        {337, 346, -1, sizeof(::order::ListCartResponse)},
-        {347, -1, -1, sizeof(::order::GetCountOfProductInCartRequest)},
-        {357, -1, -1, sizeof(::order::GetCountOfProductInCartResponse)},
-        {366, -1, -1, sizeof(::order::CreateOrderRequest)},
-        {375, -1, -1, sizeof(::order::CreateOrderResponse)},
+        {64, 84, -1, sizeof(::order::SubOrderModel)},
+        {96, 113, -1, sizeof(::order::OrderItemModel)},
+        {122, 139, -1, sizeof(::order::Order)},
+        {148, 169, -1, sizeof(::order::SubOrder)},
+        {182, 197, -1, sizeof(::order::OrderItem)},
+        {204, 214, -1, sizeof(::order::CreateSubOrderRequest)},
+        {216, 225, -1, sizeof(::order::CreateSubOrderResponse)},
+        {226, -1, -1, sizeof(::order::GetSubOrderRequest)},
+        {235, 244, -1, sizeof(::order::GetSubOrderResponse)},
+        {245, -1, -1, sizeof(::order::ListSubOrderRequest)},
+        {258, -1, -1, sizeof(::order::ListSubOrderResponse)},
+        {268, -1, -1, sizeof(::order::UpdateSubOrderRequest)},
+        {283, 292, -1, sizeof(::order::UpdateSubOrderResponse)},
+        {293, 302, -1, sizeof(::order::AddProductToCartRequest)},
+        {303, 312, -1, sizeof(::order::AddProductToCartResponse)},
+        {313, 322, -1, sizeof(::order::DeleteProductFromCartRequest)},
+        {323, 332, -1, sizeof(::order::DeleteProductFromCartResponse)},
+        {333, -1, -1, sizeof(::order::ListCartRequest)},
+        {342, 351, -1, sizeof(::order::ListCartResponse)},
+        {352, -1, -1, sizeof(::order::GetCountOfProductInCartRequest)},
+        {362, -1, -1, sizeof(::order::GetCountOfProductInCartResponse)},
+        {371, -1, -1, sizeof(::order::CreateOrderRequest)},
+        {380, -1, -1, sizeof(::order::CreateOrderResponse)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::order::_CartModel_default_instance_._instance,
@@ -1287,96 +1295,98 @@ const char descriptor_table_protodef_order_2forder_2eproto[] ABSL_ATTRIBUTE_SECT
     "rganization_id\030\006 \001(\003\022\030\n\013discount_id\030\007 \001("
     "\003H\000\210\001\001\022\027\n\ncreated_at\030\010 \001(\tH\001\210\001\001\022\027\n\nupdat"
     "ed_at\030\t \001(\tH\002\210\001\001B\016\n\014_discount_idB\r\n\013_cre"
-    "ated_atB\r\n\013_updated_at\"\356\002\n\rSubOrderModel"
+    "ated_atB\r\n\013_updated_at\"\203\003\n\rSubOrderModel"
     "\022\n\n\002id\030\001 \001(\003\022\031\n\021original_subtotal\030\002 \001(\002\022"
     "\026\n\016final_subtotal\030\003 \001(\002\022\032\n\022to_organizati"
     "on_id\030\004 \001(\003\022\034\n\024from_organization_id\030\005 \001("
     "\003\022\023\n\006status\030\006 \001(\tH\000\210\001\001\022\030\n\013invoice_pdf\030\007 "
     "\001(\tH\001\210\001\001\022\030\n\013discount_id\030\010 \001(\tH\002\210\001\001\022\027\n\ncr"
     "eated_at\030\t \001(\tH\003\210\001\001\022\027\n\nupdated_at\030\n \001(\tH"
-    "\004\210\001\001\022\024\n\007comment\030\013 \001(\tH\005\210\001\001B\t\n\007_statusB\016\n"
-    "\014_invoice_pdfB\016\n\014_discount_idB\r\n\013_create"
-    "d_atB\r\n\013_updated_atB\n\n\010_comment\"\377\001\n\016Orde"
-    "rItemModel\022\n\n\002id\030\001 \001(\003\022\024\n\014sub_order_id\030\002"
-    " \001(\003\022\022\n\nproduct_id\030\003 \001(\003\022\020\n\010quantity\030\004 \001"
-    "(\005\022\026\n\016original_price\030\005 \001(\002\022\023\n\013final_pric"
-    "e\030\006 \001(\002\022\030\n\013discount_id\030\007 \001(\003H\000\210\001\001\022\027\n\ncre"
-    "ated_at\030\t \001(\tH\001\210\001\001\022\027\n\nupdated_at\030\n \001(\tH\002"
-    "\210\001\001B\016\n\014_discount_idB\r\n\013_created_atB\r\n\013_u"
-    "pdated_at\"\217\002\n\005Order\022\n\n\002id\030\001 \001(\003\022\022\n\ncreat"
-    "ed_by\030\002 \001(\003\022\016\n\006status\030\003 \001(\t\022\026\n\016original_"
-    "total\030\004 \001(\002\022\023\n\013final_total\030\005 \001(\002\0225\n\021from"
+    "\004\210\001\001\022\024\n\007comment\030\013 \001(\tH\005\210\001\001\022\023\n\013order_inde"
+    "x\030\014 \001(\003B\t\n\007_statusB\016\n\014_invoice_pdfB\016\n\014_d"
+    "iscount_idB\r\n\013_created_atB\r\n\013_updated_at"
+    "B\n\n\010_comment\"\377\001\n\016OrderItemModel\022\n\n\002id\030\001 "
+    "\001(\003\022\024\n\014sub_order_id\030\002 \001(\003\022\022\n\nproduct_id\030"
+    "\003 \001(\003\022\020\n\010quantity\030\004 \001(\005\022\026\n\016original_pric"
+    "e\030\005 \001(\002\022\023\n\013final_price\030\006 \001(\002\022\030\n\013discount"
+    "_id\030\007 \001(\003H\000\210\001\001\022\027\n\ncreated_at\030\t \001(\tH\001\210\001\001\022"
+    "\027\n\nupdated_at\030\n \001(\tH\002\210\001\001B\016\n\014_discount_id"
+    "B\r\n\013_created_atB\r\n\013_updated_at\"\217\002\n\005Order"
+    "\022\n\n\002id\030\001 \001(\003\022\022\n\ncreated_by\030\002 \001(\003\022\016\n\006stat"
+    "us\030\003 \001(\t\022\026\n\016original_total\030\004 \001(\002\022\023\n\013fina"
+    "l_total\030\005 \001(\002\0225\n\021from_organization\030\006 \001(\013"
+    "2\032.organization.Organization\022\027\n\ncreated_"
+    "at\030\007 \001(\tH\000\210\001\001\022\027\n\nupdated_at\030\010 \001(\tH\001\210\001\001\022\""
+    "\n\tsuborders\030\t \003(\0132\017.order.SubOrderB\r\n\013_c"
+    "reated_atB\r\n\013_updated_at\"\306\003\n\010SubOrder\022\n\n"
+    "\002id\030\001 \001(\003\022%\n\013order_items\030\002 \003(\0132\020.order.O"
+    "rderItem\022\031\n\021original_subtotal\030\003 \001(\002\022\026\n\016f"
+    "inal_subtotal\030\004 \001(\002\0223\n\017to_organization\030\005"
+    " \001(\0132\032.organization.Organization\0225\n\021from"
     "_organization\030\006 \001(\0132\032.organization.Organ"
-    "ization\022\027\n\ncreated_at\030\007 \001(\tH\000\210\001\001\022\027\n\nupda"
-    "ted_at\030\010 \001(\tH\001\210\001\001\022\"\n\tsuborders\030\t \003(\0132\017.o"
-    "rder.SubOrderB\r\n\013_created_atB\r\n\013_updated"
-    "_at\"\261\003\n\010SubOrder\022\n\n\002id\030\001 \001(\003\022%\n\013order_it"
-    "ems\030\002 \003(\0132\020.order.OrderItem\022\031\n\021original_"
-    "subtotal\030\003 \001(\002\022\026\n\016final_subtotal\030\004 \001(\002\0223"
-    "\n\017to_organization\030\005 \001(\0132\032.organization.O"
-    "rganization\0225\n\021from_organization\030\006 \001(\0132\032"
-    ".organization.Organization\022\023\n\006status\030\007 \001"
-    "(\tH\000\210\001\001\022\030\n\013invoice_pdf\030\010 \001(\tH\001\210\001\001\022\027\n\ncre"
-    "ated_at\030\t \001(\tH\002\210\001\001\022\027\n\nupdated_at\030\n \001(\tH\003"
-    "\210\001\001\022\024\n\007comment\030\013 \001(\tH\004\210\001\001\022\027\n\017is_sale_out"
-    "side\030\014 \001(\010B\t\n\007_statusB\016\n\014_invoice_pdfB\r\n"
-    "\013_created_atB\r\n\013_updated_atB\n\n\010_comment\""
-    "\311\001\n\tOrderItem\022\n\n\002id\030\001 \001(\003\022!\n\007product\030\002 \001"
-    "(\0132\020.product.Product\022\020\n\010quantity\030\003 \001(\005\022\026"
-    "\n\016original_price\030\004 \001(\002\022\023\n\013final_price\030\005 "
-    "\001(\002\022\027\n\ncreated_at\030\006 \001(\tH\000\210\001\001\022\027\n\nupdated_"
-    "at\030\007 \001(\tH\001\210\001\001B\r\n\013_created_atB\r\n\013_updated"
-    "_at\"N\n\025CreateSubOrderRequest\022\"\n\tsub_orde"
-    "r\030\001 \001(\0132\017.order.SubOrder\022\021\n\tsale_type\030\002 "
-    "\001(\t\"<\n\026CreateSubOrderResponse\022\"\n\tsub_ord"
-    "er\030\001 \001(\0132\017.order.SubOrder\" \n\022GetSubOrder"
-    "Request\022\n\n\002id\030\001 \001(\003\"9\n\023GetSubOrderRespon"
-    "se\022\"\n\tsub_order\030\001 \001(\0132\017.order.SubOrder\"q"
-    "\n\023ListSubOrderRequest\022\022\n\ncreated_by\030\001 \001("
-    "\003\022\016\n\006status\030\002 \001(\t\022\r\n\005limit\030\003 \001(\003\022\016\n\006offs"
-    "et\030\004 \001(\003\022\027\n\017organization_id\030\005 \001(\003\"L\n\024Lis"
-    "tSubOrderResponse\022\037\n\006orders\030\001 \003(\0132\017.orde"
-    "r.SubOrder\022\023\n\013total_count\030\002 \001(\003\"\234\001\n\025Upda"
-    "teSubOrderRequest\022\n\n\002id\030\001 \001(\003\022\026\n\016origina"
-    "l_total\030\002 \001(\002\022\023\n\013final_total\030\003 \001(\002\022\023\n\013in"
-    "voice_pdf\030\004 \001(\t\022%\n\013order_items\030\005 \003(\0132\020.o"
-    "rder.OrderItem\022\016\n\006status\030\006 \001(\t\"@\n\026Update"
-    "SubOrderResponse\022&\n\010suborder\030\001 \001(\0132\024.ord"
-    "er.SubOrderModel\"4\n\027AddProductToCartRequ"
-    "est\022\031\n\004cart\030\001 \001(\0132\013.order.Cart\"5\n\030AddPro"
-    "ductToCartResponse\022\031\n\004cart\030\001 \001(\0132\013.order"
-    ".Cart\"9\n\034DeleteProductFromCartRequest\022\031\n"
-    "\004cart\030\001 \001(\0132\013.order.Cart\":\n\035DeleteProduc"
-    "tFromCartResponse\022\031\n\004cart\030\001 \001(\0132\013.order."
-    "Cart\"*\n\017ListCartRequest\022\027\n\017organization_"
-    "id\030\001 \001(\003\"-\n\020ListCartResponse\022\031\n\004cart\030\001 \001"
-    "(\0132\013.order.Cart\"M\n\036GetCountOfProductInCa"
-    "rtRequest\022\027\n\017organization_id\030\001 \001(\003\022\022\n\npr"
-    "oduct_id\030\002 \001(\003\"0\n\037GetCountOfProductInCar"
-    "tResponse\022\r\n\005count\030\001 \001(\003\"-\n\022CreateOrderR"
-    "equest\022\027\n\017organization_id\030\001 \001(\003\"9\n\023Creat"
-    "eOrderResponse\022\"\n\tsuborders\030\001 \003(\0132\017.orde"
-    "r.SubOrder2\341\005\n\014OrderService\022;\n\010ListCart\022"
-    "\026.order.ListCartRequest\032\027.order.ListCart"
-    "Response\022S\n\020AddProductToCart\022\036.order.Add"
-    "ProductToCartRequest\032\037.order.AddProductT"
-    "oCartResponse\022b\n\025DeleteProductFromCart\022#"
-    ".order.DeleteProductFromCartRequest\032$.or"
-    "der.DeleteProductFromCartResponse\022h\n\027Get"
-    "CountOfProductInCart\022%.order.GetCountOfP"
-    "roductInCartRequest\032&.order.GetCountOfPr"
-    "oductInCartResponse\022D\n\013CreateOrder\022\031.ord"
-    "er.CreateOrderRequest\032\032.order.CreateOrde"
-    "rResponse\022M\n\016CreateSubOrder\022\034.order.Crea"
-    "teSubOrderRequest\032\035.order.CreateSubOrder"
-    "Response\022D\n\013GetSubOrder\022\031.order.GetSubOr"
-    "derRequest\032\032.order.GetSubOrderResponse\022M"
-    "\n\016UpdateSubOrder\022\034.order.UpdateSubOrderR"
-    "equest\032\035.order.UpdateSubOrderResponse\022G\n"
-    "\014ListSubOrder\022\032.order.ListSubOrderReques"
-    "t\032\033.order.ListSubOrderResponseB@Z>github"
-    ".com/2group/2sales.core-service/pkg/gen/"
-    "go/order;orderv1b\006proto3"
+    "ization\022\023\n\006status\030\007 \001(\tH\000\210\001\001\022\030\n\013invoice_"
+    "pdf\030\010 \001(\tH\001\210\001\001\022\027\n\ncreated_at\030\t \001(\tH\002\210\001\001\022"
+    "\027\n\nupdated_at\030\n \001(\tH\003\210\001\001\022\024\n\007comment\030\013 \001("
+    "\tH\004\210\001\001\022\027\n\017is_sale_outside\030\014 \001(\010\022\023\n\013order"
+    "_index\030\r \001(\003B\t\n\007_statusB\016\n\014_invoice_pdfB"
+    "\r\n\013_created_atB\r\n\013_updated_atB\n\n\010_commen"
+    "t\"\311\001\n\tOrderItem\022\n\n\002id\030\001 \001(\003\022!\n\007product\030\002"
+    " \001(\0132\020.product.Product\022\020\n\010quantity\030\003 \001(\005"
+    "\022\026\n\016original_price\030\004 \001(\002\022\023\n\013final_price\030"
+    "\005 \001(\002\022\027\n\ncreated_at\030\006 \001(\tH\000\210\001\001\022\027\n\nupdate"
+    "d_at\030\007 \001(\tH\001\210\001\001B\r\n\013_created_atB\r\n\013_updat"
+    "ed_at\"N\n\025CreateSubOrderRequest\022\"\n\tsub_or"
+    "der\030\001 \001(\0132\017.order.SubOrder\022\021\n\tsale_type\030"
+    "\002 \001(\t\"<\n\026CreateSubOrderResponse\022\"\n\tsub_o"
+    "rder\030\001 \001(\0132\017.order.SubOrder\" \n\022GetSubOrd"
+    "erRequest\022\n\n\002id\030\001 \001(\003\"9\n\023GetSubOrderResp"
+    "onse\022\"\n\tsub_order\030\001 \001(\0132\017.order.SubOrder"
+    "\"q\n\023ListSubOrderRequest\022\022\n\ncreated_by\030\001 "
+    "\001(\003\022\016\n\006status\030\002 \001(\t\022\r\n\005limit\030\003 \001(\003\022\016\n\006of"
+    "fset\030\004 \001(\003\022\027\n\017organization_id\030\005 \001(\003\"L\n\024L"
+    "istSubOrderResponse\022\037\n\006orders\030\001 \003(\0132\017.or"
+    "der.SubOrder\022\023\n\013total_count\030\002 \001(\003\"\261\001\n\025Up"
+    "dateSubOrderRequest\022\n\n\002id\030\001 \001(\003\022\026\n\016origi"
+    "nal_total\030\002 \001(\002\022\023\n\013final_total\030\003 \001(\002\022\023\n\013"
+    "invoice_pdf\030\004 \001(\t\022%\n\013order_items\030\005 \003(\0132\020"
+    ".order.OrderItem\022\016\n\006status\030\006 \001(\t\022\023\n\013orde"
+    "r_index\030\007 \001(\003\"@\n\026UpdateSubOrderResponse\022"
+    "&\n\010suborder\030\001 \001(\0132\024.order.SubOrderModel\""
+    "4\n\027AddProductToCartRequest\022\031\n\004cart\030\001 \001(\013"
+    "2\013.order.Cart\"5\n\030AddProductToCartRespons"
+    "e\022\031\n\004cart\030\001 \001(\0132\013.order.Cart\"9\n\034DeletePr"
+    "oductFromCartRequest\022\031\n\004cart\030\001 \001(\0132\013.ord"
+    "er.Cart\":\n\035DeleteProductFromCartResponse"
+    "\022\031\n\004cart\030\001 \001(\0132\013.order.Cart\"*\n\017ListCartR"
+    "equest\022\027\n\017organization_id\030\001 \001(\003\"-\n\020ListC"
+    "artResponse\022\031\n\004cart\030\001 \001(\0132\013.order.Cart\"M"
+    "\n\036GetCountOfProductInCartRequest\022\027\n\017orga"
+    "nization_id\030\001 \001(\003\022\022\n\nproduct_id\030\002 \001(\003\"0\n"
+    "\037GetCountOfProductInCartResponse\022\r\n\005coun"
+    "t\030\001 \001(\003\"-\n\022CreateOrderRequest\022\027\n\017organiz"
+    "ation_id\030\001 \001(\003\"9\n\023CreateOrderResponse\022\"\n"
+    "\tsuborders\030\001 \003(\0132\017.order.SubOrder2\341\005\n\014Or"
+    "derService\022;\n\010ListCart\022\026.order.ListCartR"
+    "equest\032\027.order.ListCartResponse\022S\n\020AddPr"
+    "oductToCart\022\036.order.AddProductToCartRequ"
+    "est\032\037.order.AddProductToCartResponse\022b\n\025"
+    "DeleteProductFromCart\022#.order.DeleteProd"
+    "uctFromCartRequest\032$.order.DeleteProduct"
+    "FromCartResponse\022h\n\027GetCountOfProductInC"
+    "art\022%.order.GetCountOfProductInCartReque"
+    "st\032&.order.GetCountOfProductInCartRespon"
+    "se\022D\n\013CreateOrder\022\031.order.CreateOrderReq"
+    "uest\032\032.order.CreateOrderResponse\022M\n\016Crea"
+    "teSubOrder\022\034.order.CreateSubOrderRequest"
+    "\032\035.order.CreateSubOrderResponse\022D\n\013GetSu"
+    "bOrder\022\031.order.GetSubOrderRequest\032\032.orde"
+    "r.GetSubOrderResponse\022M\n\016UpdateSubOrder\022"
+    "\034.order.UpdateSubOrderRequest\032\035.order.Up"
+    "dateSubOrderResponse\022G\n\014ListSubOrder\022\032.o"
+    "rder.ListSubOrderRequest\032\033.order.ListSub"
+    "OrderResponseB@Z>github.com/2group/2sale"
+    "s.core-service/pkg/gen/go/order;orderv1b"
+    "\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_order_2forder_2eproto_deps[2] =
     {
@@ -1387,7 +1397,7 @@ static ::absl::once_flag descriptor_table_order_2forder_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_order_2forder_2eproto = {
     false,
     false,
-    4144,
+    4207,
     descriptor_table_protodef_order_2forder_2eproto,
     "order/order.proto",
     &descriptor_table_order_2forder_2eproto_once,
@@ -2816,9 +2826,9 @@ SubOrderModel::SubOrderModel(
                offsetof(Impl_, id_),
            reinterpret_cast<const char *>(&from._impl_) +
                offsetof(Impl_, id_),
-           offsetof(Impl_, from_organization_id_) -
+           offsetof(Impl_, order_index_) -
                offsetof(Impl_, id_) +
-               sizeof(Impl_::from_organization_id_));
+               sizeof(Impl_::order_index_));
 
   // @@protoc_insertion_point(copy_constructor:order.SubOrderModel)
 }
@@ -2838,9 +2848,9 @@ inline void SubOrderModel::SharedCtor(::_pb::Arena* arena) {
   ::memset(reinterpret_cast<char *>(&_impl_) +
                offsetof(Impl_, id_),
            0,
-           offsetof(Impl_, from_organization_id_) -
+           offsetof(Impl_, order_index_) -
                offsetof(Impl_, id_) +
-               sizeof(Impl_::from_organization_id_));
+               sizeof(Impl_::order_index_));
 }
 SubOrderModel::~SubOrderModel() {
   // @@protoc_insertion_point(destructor:order.SubOrderModel)
@@ -2895,15 +2905,15 @@ const ::google::protobuf::internal::ClassData* SubOrderModel::GetClassData() con
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<4, 11, 0, 91, 2> SubOrderModel::_table_ = {
+const ::_pbi::TcParseTable<4, 12, 0, 91, 2> SubOrderModel::_table_ = {
   {
     PROTOBUF_FIELD_OFFSET(SubOrderModel, _impl_._has_bits_),
     0, // no _extensions_
-    11, 120,  // max_field_number, fast_idx_mask
+    12, 120,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294965248,  // skipmap
+    4294963200,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    11,  // num_field_entries
+    12,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
@@ -2947,7 +2957,9 @@ const ::_pbi::TcParseTable<4, 11, 0, 91, 2> SubOrderModel::_table_ = {
     // optional string comment = 11;
     {::_pbi::TcParser::FastUS1,
      {90, 5, 0, PROTOBUF_FIELD_OFFSET(SubOrderModel, _impl_.comment_)}},
-    {::_pbi::TcParser::MiniParse, {}},
+    // int64 order_index = 12;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(SubOrderModel, _impl_.order_index_), 63>(),
+     {96, 63, 0, PROTOBUF_FIELD_OFFSET(SubOrderModel, _impl_.order_index_)}},
     {::_pbi::TcParser::MiniParse, {}},
     {::_pbi::TcParser::MiniParse, {}},
     {::_pbi::TcParser::MiniParse, {}},
@@ -2987,6 +2999,9 @@ const ::_pbi::TcParseTable<4, 11, 0, 91, 2> SubOrderModel::_table_ = {
     // optional string comment = 11;
     {PROTOBUF_FIELD_OFFSET(SubOrderModel, _impl_.comment_), _Internal::kHasBitsOffset + 5, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // int64 order_index = 12;
+    {PROTOBUF_FIELD_OFFSET(SubOrderModel, _impl_.order_index_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt64)},
   }},
   // no aux_entries
   {{
@@ -3030,8 +3045,8 @@ PROTOBUF_NOINLINE void SubOrderModel::Clear() {
     }
   }
   ::memset(&_impl_.id_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.from_organization_id_) -
-      reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.from_organization_id_));
+      reinterpret_cast<char*>(&_impl_.order_index_) -
+      reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.order_index_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
@@ -3135,6 +3150,13 @@ PROTOBUF_NOINLINE void SubOrderModel::Clear() {
             target = stream->WriteStringMaybeAliased(11, _s, target);
           }
 
+          // int64 order_index = 12;
+          if (this_._internal_order_index() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt64ToArrayWithField<12>(
+                    stream, this_._internal_order_index(), target);
+          }
+
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
             target =
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -3216,6 +3238,11 @@ PROTOBUF_NOINLINE void SubOrderModel::Clear() {
               total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
                   this_._internal_from_organization_id());
             }
+            // int64 order_index = 12;
+            if (this_._internal_order_index() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+                  this_._internal_order_index());
+            }
           }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
                                                      &this_._impl_._cached_size_);
@@ -3265,6 +3292,9 @@ void SubOrderModel::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::g
   if (from._internal_from_organization_id() != 0) {
     _this->_impl_.from_organization_id_ = from._impl_.from_organization_id_;
   }
+  if (from._internal_order_index() != 0) {
+    _this->_impl_.order_index_ = from._impl_.order_index_;
+  }
   _this->_impl_._has_bits_[0] |= cached_has_bits;
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -3290,8 +3320,8 @@ void SubOrderModel::InternalSwap(SubOrderModel* PROTOBUF_RESTRICT other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.updated_at_, &other->_impl_.updated_at_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.comment_, &other->_impl_.comment_, arena);
   ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SubOrderModel, _impl_.from_organization_id_)
-      + sizeof(SubOrderModel::_impl_.from_organization_id_)
+      PROTOBUF_FIELD_OFFSET(SubOrderModel, _impl_.order_index_)
+      + sizeof(SubOrderModel::_impl_.order_index_)
       - PROTOBUF_FIELD_OFFSET(SubOrderModel, _impl_.id_)>(
           reinterpret_cast<char*>(&_impl_.id_),
           reinterpret_cast<char*>(&other->_impl_.id_));
@@ -4429,15 +4459,15 @@ const ::google::protobuf::internal::ClassData* SubOrder::GetClassData() const {
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<4, 12, 3, 75, 2> SubOrder::_table_ = {
+const ::_pbi::TcParseTable<4, 13, 3, 75, 2> SubOrder::_table_ = {
   {
     PROTOBUF_FIELD_OFFSET(SubOrder, _impl_._has_bits_),
     0, // no _extensions_
-    12, 120,  // max_field_number, fast_idx_mask
+    13, 120,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294963200,  // skipmap
+    4294959104,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    12,  // num_field_entries
+    13,  // num_field_entries
     3,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     _class_data_.base(),
@@ -4484,7 +4514,9 @@ const ::_pbi::TcParseTable<4, 12, 3, 75, 2> SubOrder::_table_ = {
     // bool is_sale_outside = 12;
     {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(SubOrder, _impl_.is_sale_outside_), 63>(),
      {96, 63, 0, PROTOBUF_FIELD_OFFSET(SubOrder, _impl_.is_sale_outside_)}},
-    {::_pbi::TcParser::MiniParse, {}},
+    // int64 order_index = 13;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(SubOrder, _impl_.order_index_), 63>(),
+     {104, 63, 0, PROTOBUF_FIELD_OFFSET(SubOrder, _impl_.order_index_)}},
     {::_pbi::TcParser::MiniParse, {}},
     {::_pbi::TcParser::MiniParse, {}},
   }}, {{
@@ -4526,6 +4558,9 @@ const ::_pbi::TcParseTable<4, 12, 3, 75, 2> SubOrder::_table_ = {
     // bool is_sale_outside = 12;
     {PROTOBUF_FIELD_OFFSET(SubOrder, _impl_.is_sale_outside_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kBool)},
+    // int64 order_index = 13;
+    {PROTOBUF_FIELD_OFFSET(SubOrder, _impl_.order_index_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt64)},
   }}, {{
     {::_pbi::TcParser::GetTable<::order::OrderItem>()},
     {::_pbi::TcParser::GetTable<::organization::Organization>()},
@@ -4691,6 +4726,13 @@ PROTOBUF_NOINLINE void SubOrder::Clear() {
                 12, this_._internal_is_sale_outside(), target);
           }
 
+          // int64 order_index = 13;
+          if (this_._internal_order_index() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt64ToArrayWithField<13>(
+                    stream, this_._internal_order_index(), target);
+          }
+
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
             target =
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -4776,6 +4818,11 @@ PROTOBUF_NOINLINE void SubOrder::Clear() {
             if (::absl::bit_cast<::uint32_t>(this_._internal_final_subtotal()) != 0) {
               total_size += 5;
             }
+            // int64 order_index = 13;
+            if (this_._internal_order_index() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+                  this_._internal_order_index());
+            }
             // bool is_sale_outside = 12;
             if (this_._internal_is_sale_outside() != 0) {
               total_size += 2;
@@ -4840,6 +4887,9 @@ void SubOrder::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google
   }
   if (::absl::bit_cast<::uint32_t>(from._internal_final_subtotal()) != 0) {
     _this->_impl_.final_subtotal_ = from._impl_.final_subtotal_;
+  }
+  if (from._internal_order_index() != 0) {
+    _this->_impl_.order_index_ = from._impl_.order_index_;
   }
   if (from._internal_is_sale_outside() != 0) {
     _this->_impl_.is_sale_outside_ = from._impl_.is_sale_outside_;
@@ -6950,9 +7000,9 @@ UpdateSubOrderRequest::UpdateSubOrderRequest(
                offsetof(Impl_, id_),
            reinterpret_cast<const char *>(&from._impl_) +
                offsetof(Impl_, id_),
-           offsetof(Impl_, final_total_) -
+           offsetof(Impl_, order_index_) -
                offsetof(Impl_, id_) +
-               sizeof(Impl_::final_total_));
+               sizeof(Impl_::order_index_));
 
   // @@protoc_insertion_point(copy_constructor:order.UpdateSubOrderRequest)
 }
@@ -6969,9 +7019,9 @@ inline void UpdateSubOrderRequest::SharedCtor(::_pb::Arena* arena) {
   ::memset(reinterpret_cast<char *>(&_impl_) +
                offsetof(Impl_, id_),
            0,
-           offsetof(Impl_, final_total_) -
+           offsetof(Impl_, order_index_) -
                offsetof(Impl_, id_) +
-               sizeof(Impl_::final_total_));
+               sizeof(Impl_::order_index_));
 }
 UpdateSubOrderRequest::~UpdateSubOrderRequest() {
   // @@protoc_insertion_point(destructor:order.UpdateSubOrderRequest)
@@ -7034,15 +7084,15 @@ const ::google::protobuf::internal::ClassData* UpdateSubOrderRequest::GetClassDa
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 6, 1, 53, 2> UpdateSubOrderRequest::_table_ = {
+const ::_pbi::TcParseTable<3, 7, 1, 53, 2> UpdateSubOrderRequest::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    6, 56,  // max_field_number, fast_idx_mask
+    7, 56,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967232,  // skipmap
+    4294967168,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    6,  // num_field_entries
+    7,  // num_field_entries
     1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     _class_data_.base(),
@@ -7071,7 +7121,9 @@ const ::_pbi::TcParseTable<3, 6, 1, 53, 2> UpdateSubOrderRequest::_table_ = {
     // string status = 6;
     {::_pbi::TcParser::FastUS1,
      {50, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateSubOrderRequest, _impl_.status_)}},
-    {::_pbi::TcParser::MiniParse, {}},
+    // int64 order_index = 7;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateSubOrderRequest, _impl_.order_index_), 63>(),
+     {56, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateSubOrderRequest, _impl_.order_index_)}},
   }}, {{
     65535, 65535
   }}, {{
@@ -7093,6 +7145,9 @@ const ::_pbi::TcParseTable<3, 6, 1, 53, 2> UpdateSubOrderRequest::_table_ = {
     // string status = 6;
     {PROTOBUF_FIELD_OFFSET(UpdateSubOrderRequest, _impl_.status_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // int64 order_index = 7;
+    {PROTOBUF_FIELD_OFFSET(UpdateSubOrderRequest, _impl_.order_index_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt64)},
   }}, {{
     {::_pbi::TcParser::GetTable<::order::OrderItem>()},
   }}, {{
@@ -7114,8 +7169,8 @@ PROTOBUF_NOINLINE void UpdateSubOrderRequest::Clear() {
   _impl_.invoice_pdf_.ClearToEmpty();
   _impl_.status_.ClearToEmpty();
   ::memset(&_impl_.id_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.final_total_) -
-      reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.final_total_));
+      reinterpret_cast<char*>(&_impl_.order_index_) -
+      reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.order_index_));
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -7182,6 +7237,13 @@ PROTOBUF_NOINLINE void UpdateSubOrderRequest::Clear() {
             target = stream->WriteStringMaybeAliased(6, _s, target);
           }
 
+          // int64 order_index = 7;
+          if (this_._internal_order_index() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt64ToArrayWithField<7>(
+                    stream, this_._internal_order_index(), target);
+          }
+
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
             target =
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -7239,6 +7301,11 @@ PROTOBUF_NOINLINE void UpdateSubOrderRequest::Clear() {
             if (::absl::bit_cast<::uint32_t>(this_._internal_final_total()) != 0) {
               total_size += 5;
             }
+            // int64 order_index = 7;
+            if (this_._internal_order_index() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+                  this_._internal_order_index());
+            }
           }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
                                                      &this_._impl_._cached_size_);
@@ -7269,6 +7336,9 @@ void UpdateSubOrderRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, c
   if (::absl::bit_cast<::uint32_t>(from._internal_final_total()) != 0) {
     _this->_impl_.final_total_ = from._impl_.final_total_;
   }
+  if (from._internal_order_index() != 0) {
+    _this->_impl_.order_index_ = from._impl_.order_index_;
+  }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -7289,8 +7359,8 @@ void UpdateSubOrderRequest::InternalSwap(UpdateSubOrderRequest* PROTOBUF_RESTRIC
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.invoice_pdf_, &other->_impl_.invoice_pdf_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.status_, &other->_impl_.status_, arena);
   ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UpdateSubOrderRequest, _impl_.final_total_)
-      + sizeof(UpdateSubOrderRequest::_impl_.final_total_)
+      PROTOBUF_FIELD_OFFSET(UpdateSubOrderRequest, _impl_.order_index_)
+      + sizeof(UpdateSubOrderRequest::_impl_.order_index_)
       - PROTOBUF_FIELD_OFFSET(UpdateSubOrderRequest, _impl_.id_)>(
           reinterpret_cast<char*>(&_impl_.id_),
           reinterpret_cast<char*>(&other->_impl_.id_));

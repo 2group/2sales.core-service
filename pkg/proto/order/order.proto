@@ -65,6 +65,7 @@ message SubOrderModel {
   optional string created_at = 9;
   optional string updated_at = 10;
   optional string comment = 11;
+  int64 order_index = 12;
 }
 
 message OrderItemModel {
@@ -104,6 +105,7 @@ message SubOrder {
   optional string updated_at = 10;
   optional string comment = 11;
   bool is_sale_outside = 12;
+  int64 order_index = 13;
 }
 
 message OrderItem {
@@ -147,6 +149,7 @@ message UpdateSubOrderRequest {
   string invoice_pdf = 4;
   repeated OrderItem order_items = 5;
   string status = 6;
+  int64 order_index = 7;
 }
 
 message UpdateSubOrderResponse { SubOrderModel suborder = 1; }
