@@ -197,12 +197,15 @@ func (h *WarehouseHandler) CreateWarehouse(w http.ResponseWriter, r *http.Reques
 }
 
 func (h *WarehouseHandler) GetCountProducts(w http.ResponseWriter, r *http.Request) {
+	ci, _ := middleware.GetCorrelationID(r.Context())
+	log := h.log.With("method", "GetCountProducts", "correlation_id", ci)
 	warehouse_id_str := chi.URLParam(r, "warehouse_id")
 	warehouse_id, err := strconv.Atoi(warehouse_id_str)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+	log.Info("Starting getting count of products", "warehouse_id", warehouse_id)
 
 	var product_ids []int64
 	for key, values := range r.URL.Query() {
@@ -222,13 +225,17 @@ func (h *WarehouseHandler) GetCountProducts(w http.ResponseWriter, r *http.Reque
 		WarehouseId: int64(warehouse_id),
 		ProductIds:  product_ids,
 	}
+	log.Info("Getting count of products", "request", req)
 
 	response, err := h.warehouse.Api.GetCountProducts(r.Context(), req)
 	if err != nil {
+		log.Error("Failed to get count of products", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
+	log.Info("Response of count products", "response", response)
 
+	log.Info("Get Count of Products successfull")
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
