@@ -174,6 +174,7 @@ func (h *OrderHandler) ListSubOrder(w http.ResponseWriter, r *http.Request) {
 		Offset:         int64(offset),
 		Status:         status,
 	}
+
 	logger.Info("calling gRPC ListSubOrder", "request", req)
 	response, err := h.order.Api.ListSubOrder(ctx, req)
 	if err != nil {
