@@ -1,4 +1,4 @@
-// internal/grpc/interceptor.go
+// In your grpc/interceptor.go or similar file:
 package grpc
 
 import (
@@ -11,7 +11,7 @@ import (
 )
 
 // CorrelationUnaryInterceptor is a client interceptor that attaches the correlation ID
-// from the context (if any) to the outgoing gRPC metadata.
+// from the context to the outgoing gRPC metadata.
 func CorrelationUnaryInterceptor(
 	ctx context.Context,
 	method string,
@@ -21,14 +21,16 @@ func CorrelationUnaryInterceptor(
 	opts ...grpc.CallOption,
 ) error {
 	if cid, ok := middleware.GetCorrelationID(ctx); ok {
-		// Extract or create outgoing metadata.
+		// Get existing metadata or create new.
 		md, ok := metadata.FromOutgoingContext(ctx)
 		if !ok {
 			md = metadata.New(nil)
 		} else {
 			md = md.Copy()
 		}
+		// Set the correlation ID header (using a common header name, e.g., "x-correlation-id").
 		md.Set("x-correlation-id", cid)
+		// Create a new outgoing context with the metadata.
 		ctx = metadata.NewOutgoingContext(ctx, md)
 	}
 	return invoker(ctx, method, req, reply, cc, opts...)

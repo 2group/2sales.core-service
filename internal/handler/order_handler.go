@@ -10,15 +10,17 @@ import (
 	orderv1 "github.com/2group/2sales.core-service/pkg/gen/go/order"
 	organizationv1 "github.com/2group/2sales.core-service/pkg/gen/go/organization"
 	"github.com/2group/2sales.core-service/pkg/json"
-	middleware "github.com/2group/2sales.core-service/pkg/middleware"
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 )
 
+// OrderHandler handles order-related requests.
 type OrderHandler struct {
 	log   *slog.Logger
 	order *grpc.OrderClient
 }
 
+// NewOrderHandler creates a new OrderHandler and enriches the logger with the "component" field.
 func NewOrderHandler(log *slog.Logger, order *grpc.OrderClient) *OrderHandler {
 	return &OrderHandler{
 		log:   log.With("component", "order_handler"),
@@ -26,10 +28,16 @@ func NewOrderHandler(log *slog.Logger, order *grpc.OrderClient) *OrderHandler {
 	}
 }
 
+// loggerFor returns a sub-logger enriched with the method name and correlation ID.
+func (h *OrderHandler) loggerFor(r *http.Request, method string) *slog.Logger {
+	cid, _ := middleware.GetCorrelationID(r.Context())
+	return h.log.With("method", method, "correlation_id", cid)
+}
+
+// CreateSubOrder creates a new sub-order.
 func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	cid, _ := middleware.GetCorrelationID(ctx)
-	logger := h.log.With("method", "CreateSubOrder", "correlation_id", cid)
+	logger := h.loggerFor(r, "CreateSubOrder")
+	logger.Info("Starting CreateSubOrder")
 
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
@@ -69,7 +77,7 @@ func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
 	}
 
 	logger.Info("calling gRPC CreateSubOrder", "request", req)
-	response, err := h.order.Api.CreateSubOrder(ctx, req)
+	response, err := h.order.Api.CreateSubOrder(r.Context(), req)
 	if err != nil {
 		logger.Error("gRPC CreateSubOrder call failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
@@ -82,9 +90,8 @@ func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
 
 // UpdateSubOrder updates an existing sub-order.
 func (h *OrderHandler) UpdateSubOrder(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	cid, _ := middleware.GetCorrelationID(ctx)
-	logger := h.log.With("method", "UpdateSubOrder", "correlation_id", cid)
+	logger := h.loggerFor(r, "UpdateSubOrder")
+	logger.Info("Starting UpdateSubOrder")
 
 	suborderIDStr := chi.URLParam(r, "suborder_id")
 	suborderID, err := strconv.Atoi(suborderIDStr)
@@ -102,7 +109,7 @@ func (h *OrderHandler) UpdateSubOrder(w http.ResponseWriter, r *http.Request) {
 	}
 
 	logger.Info("calling gRPC UpdateSubOrder", "request", req)
-	response, err := h.order.Api.UpdateSubOrder(ctx, req)
+	response, err := h.order.Api.UpdateSubOrder(r.Context(), req)
 	if err != nil {
 		logger.Error("gRPC UpdateSubOrder call failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
@@ -115,9 +122,8 @@ func (h *OrderHandler) UpdateSubOrder(w http.ResponseWriter, r *http.Request) {
 
 // GetSubOrder retrieves a sub-order.
 func (h *OrderHandler) GetSubOrder(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	cid, _ := middleware.GetCorrelationID(ctx)
-	logger := h.log.With("method", "GetSubOrder", "correlation_id", cid)
+	logger := h.loggerFor(r, "GetSubOrder")
+	logger.Info("Starting GetSubOrder")
 
 	suborderIDStr := chi.URLParam(r, "suborder_id")
 	suborderID, err := strconv.Atoi(suborderIDStr)
@@ -129,7 +135,7 @@ func (h *OrderHandler) GetSubOrder(w http.ResponseWriter, r *http.Request) {
 
 	req := &orderv1.GetSubOrderRequest{Id: int64(suborderID)}
 	logger.Info("calling gRPC GetSubOrder", "request", req)
-	response, err := h.order.Api.GetSubOrder(ctx, req)
+	response, err := h.order.Api.GetSubOrder(r.Context(), req)
 	if err != nil {
 		logger.Error("gRPC GetSubOrder call failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
@@ -142,9 +148,8 @@ func (h *OrderHandler) GetSubOrder(w http.ResponseWriter, r *http.Request) {
 
 // ListSubOrder lists sub-orders.
 func (h *OrderHandler) ListSubOrder(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	cid, _ := middleware.GetCorrelationID(ctx)
-	logger := h.log.With("method", "ListSubOrder", "correlation_id", cid)
+	logger := h.loggerFor(r, "ListSubOrder")
+	logger.Info("Starting ListSubOrder")
 
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
@@ -173,7 +178,7 @@ func (h *OrderHandler) ListSubOrder(w http.ResponseWriter, r *http.Request) {
 		Offset:         int64(offset),
 	}
 	logger.Info("calling gRPC ListSubOrder", "request", req)
-	response, err := h.order.Api.ListSubOrder(ctx, req)
+	response, err := h.order.Api.ListSubOrder(r.Context(), req)
 	if err != nil {
 		logger.Error("gRPC ListSubOrder call failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
@@ -186,9 +191,8 @@ func (h *OrderHandler) ListSubOrder(w http.ResponseWriter, r *http.Request) {
 
 // GetCart retrieves the shopping cart.
 func (h *OrderHandler) GetCart(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	cid, _ := middleware.GetCorrelationID(ctx)
-	logger := h.log.With("method", "GetCart", "correlation_id", cid)
+	logger := h.loggerFor(r, "GetCart")
+	logger.Info("Starting GetCart")
 
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
@@ -200,7 +204,7 @@ func (h *OrderHandler) GetCart(w http.ResponseWriter, r *http.Request) {
 
 	req := &orderv1.ListCartRequest{OrganizationId: organizationID}
 	logger.Info("calling gRPC GetCart", "request", req)
-	response, err := h.order.Api.ListCart(ctx, req)
+	response, err := h.order.Api.ListCart(r.Context(), req)
 	if err != nil {
 		logger.Error("gRPC GetCart call failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
@@ -213,9 +217,8 @@ func (h *OrderHandler) GetCart(w http.ResponseWriter, r *http.Request) {
 
 // AddProductToCart adds a product to the shopping cart.
 func (h *OrderHandler) AddProductToCart(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	cid, _ := middleware.GetCorrelationID(ctx)
-	logger := h.log.With("method", "AddProductToCart", "correlation_id", cid)
+	logger := h.loggerFor(r, "AddProductToCart")
+	logger.Info("Starting AddProductToCart")
 
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
@@ -237,7 +240,7 @@ func (h *OrderHandler) AddProductToCart(w http.ResponseWriter, r *http.Request) 
 	}
 
 	logger.Info("calling gRPC AddProductToCart", "request", req)
-	response, err := h.order.Api.AddProductToCart(ctx, req)
+	response, err := h.order.Api.AddProductToCart(r.Context(), req)
 	if err != nil {
 		logger.Error("gRPC AddProductToCart call failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
@@ -250,9 +253,8 @@ func (h *OrderHandler) AddProductToCart(w http.ResponseWriter, r *http.Request) 
 
 // DeleteProductFromCart deletes a product from the shopping cart.
 func (h *OrderHandler) DeleteProductFromCart(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	cid, _ := middleware.GetCorrelationID(ctx)
-	logger := h.log.With("method", "DeleteProductFromCart", "correlation_id", cid)
+	logger := h.loggerFor(r, "DeleteProductFromCart")
+	logger.Info("Starting DeleteProductFromCart")
 
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
@@ -274,7 +276,7 @@ func (h *OrderHandler) DeleteProductFromCart(w http.ResponseWriter, r *http.Requ
 	}
 
 	logger.Info("calling gRPC DeleteProductFromCart", "request", req)
-	response, err := h.order.Api.DeleteProductFromCart(ctx, req)
+	response, err := h.order.Api.DeleteProductFromCart(r.Context(), req)
 	if err != nil {
 		logger.Error("gRPC DeleteProductFromCart call failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
@@ -287,9 +289,8 @@ func (h *OrderHandler) DeleteProductFromCart(w http.ResponseWriter, r *http.Requ
 
 // CreateOrder creates an order.
 func (h *OrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	cid, _ := middleware.GetCorrelationID(ctx)
-	logger := h.log.With("method", "CreateOrder", "correlation_id", cid)
+	logger := h.loggerFor(r, "CreateOrder")
+	logger.Info("Starting CreateOrder")
 
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
@@ -301,7 +302,7 @@ func (h *OrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 
 	req := &orderv1.CreateOrderRequest{OrganizationId: organizationID}
 	logger.Info("calling gRPC CreateOrder", "request", req)
-	response, err := h.order.Api.CreateOrder(ctx, req)
+	response, err := h.order.Api.CreateOrder(r.Context(), req)
 	if err != nil {
 		logger.Error("gRPC CreateOrder call failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
