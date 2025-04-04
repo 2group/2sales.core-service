@@ -32,6 +32,7 @@ type GrpcConfig struct {
 	Warehouse     string `yaml:"warehouse"`
 	Order         string `yaml:"order"`
 	Advertisement string `yaml:"advertisement"`
+	Customer      string `yaml:"customer"`
 }
 
 func MustLoad() *Config {
