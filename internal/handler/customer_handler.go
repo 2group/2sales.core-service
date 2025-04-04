@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
 
@@ -22,17 +23,24 @@ func NewCustomerHandler(log *slog.Logger, customer *grpc.CustomerClient) *Custom
 }
 
 func (h *CustomerHandler) CreateCustomer(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Received request to create customer")
+
 	req := &customerv1.CreateCustomerRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
+		fmt.Println("Failed to parse request JSON:", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+	fmt.Println("Parsed request JSON successfully:", req)
+
 	response, err := h.customer.Api.CreateCustomer(r.Context(), req)
 	if err != nil {
+		fmt.Println("Error creating customer:", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+	fmt.Println("Customer created successfully:", response)
 
 	json.WriteJSON(w, http.StatusCreated, response)
-	return
+	fmt.Println("Response sent with status 201")
 }

@@ -23,6 +23,8 @@ func main() {
 
 	application := app.NewAPIServer(cfg, log)
 
+	log.Info("SDA")
+
 	if err := application.Run(); err != nil {
 		panic(err)
 	}

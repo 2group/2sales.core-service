@@ -28,7 +28,6 @@ proto:
 	# 	--grpc_python_out=$(OUTPUT_PATH_PY)
 
 build:
-	@templ generate
 	@go build -o bin/core ./cmd/core/main.go
 
 run: build
