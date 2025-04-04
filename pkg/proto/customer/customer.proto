@@ -23,11 +23,7 @@ message Customer {
 }
 
 message GetCustomerRequest {
-    int64 id = 1;
-}
-
-message IdRequest {
-    int64 id = 1;
+    Customer customer = 1;
 }
 
 message GetCustomerResponse {
@@ -43,6 +39,10 @@ message CreateCustomerResponse {
 }
 
 message UpdateCustomerRequest {
+    Customer customer = 1;
+}
+
+message DeleteCustomerRequest {
     Customer customer = 1;
 }
 
