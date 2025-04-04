@@ -10,3 +10,5 @@ grpc:
   warehouse: "localhost:50055"
   order: "localhost:50056"
   advertisement: "localhost:50057"
+  customer: localhost:50058
+

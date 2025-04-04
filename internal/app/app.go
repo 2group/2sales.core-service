@@ -63,11 +63,16 @@ func (s *APIServer) Run() error {
 	}
 
 	advertisementgrpc, err := grpc.NewAdvertisementClient(context, s.cfg.GRPC.Advertisement, time.Hour, 2)
+	fmt.Println(s.cfg.GRPC.Advertisement)
 	if err != nil {
 		panic(err)
 	}
 
 	customergrpc, err := grpc.NewCustomerClient(context, s.cfg.GRPC.Customer, time.Hour, 2)
+	fmt.Println(s.cfg.GRPC.Customer)
+	if err != nil {
+		panic(err)
+	}
 
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
@@ -268,6 +273,10 @@ func (s *APIServer) Run() error {
 			customerRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", customerHandler.CreateCustomer)
+				authRouter.Get("/{id}", customerHandler.GetCustomer)
+				authRouter.Delete("/{id}", customerHandler.DeleteCustomer)
+				authRouter.Patch("/{id}", customerHandler.PatchCustomer)
+				authRouter.Put("/{id}", customerHandler.PutCustomer)
 			})
 		})
 	})

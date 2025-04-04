@@ -2,6 +2,7 @@ package config
 
 import (
 	"flag"
+	"fmt"
 	"os"
 	"time"
 
@@ -32,11 +33,13 @@ type GrpcConfig struct {
 	Warehouse     string `yaml:"warehouse"`
 	Order         string `yaml:"order"`
 	Advertisement string `yaml:"advertisement"`
-	Customer      string `yaml:"customer"`
+	Customer      string `yaml:"customer" env-default:"localhost:50058"`
 }
 
 func MustLoad() *Config {
 	path := fetchConfigPath()
+
+	fmt.Println("Using config path:", path)
 	if path == "" {
 		panic("config path is empty")
 	}
