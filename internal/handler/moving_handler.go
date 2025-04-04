@@ -12,6 +12,8 @@ import (
 )
 
 func (h *WarehouseHandler) CreateMoving(w http.ResponseWriter, r *http.Request) {
+	ci, _ := middleware.GetCorrelationID(r.Context())
+	log := h.log.With("method", "CreateMoving", "correlation_id", ci)
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteJSON(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
@@ -21,20 +23,28 @@ func (h *WarehouseHandler) CreateMoving(w http.ResponseWriter, r *http.Request) 
 	req := &warehousev1.CreateMovingRequest{
 		Moving: &warehousev1.MovingModel{},
 	}
+	
 	json.ParseJSON(r, &req)
 	req.Moving.OrganizationId = organization_id
-
+	
+	log.Info("Creating moving", "request", req)
+	
 	response, err := h.warehouse.Api.CreateMoving(r.Context(), req)
 	if err != nil {
+		log.Error("Failed to create moving", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
+
+	log.Info("Successfully created the moving", "response", response)
 
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
 
 func (h *WarehouseHandler) ListMoving(w http.ResponseWriter, r *http.Request) {
+	ci, _ := middleware.GetCorrelationID(r.Context())
+	log := h.log.With("method", "ListMoving", "correlation_id", ci)
 	query := r.URL.Query()
 
 	limit := 10
@@ -62,18 +72,24 @@ func (h *WarehouseHandler) ListMoving(w http.ResponseWriter, r *http.Request) {
 		Page:           int64(offset),
 		PageSize:       int64(limit),
 	}
+	log.Info("Listing movings", "request", req)
 
 	response, err := h.warehouse.Api.ListMoving(r.Context(), req)
 	if err != nil {
+		log.Error("Failed to list movings", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
+	log.Info("Successfully listed movings", "response", response)
 
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
 
 func (h *WarehouseHandler) GetMoving(w http.ResponseWriter, r *http.Request) {
+	ci, _ := middleware.GetCorrelationID(r.Context())
+	log := h.log.With("method", "GetMoving", "correlation_id", ci)
+	
 	moving_id_str := chi.URLParam(r, "moving_id")
 	moving_id, err := strconv.Atoi(moving_id_str)
 	if err != nil {
@@ -84,13 +100,16 @@ func (h *WarehouseHandler) GetMoving(w http.ResponseWriter, r *http.Request) {
 	req := &warehousev1.GetMovingRequest{
 		Id: int64(moving_id),
 	}
+	log.Info("Getting moving", "request", req)
 
 	response, err := h.warehouse.Api.GetMoving(r.Context(), req)
 	if err != nil {
+		log.Error("Failed to get moving", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-
+	
+	log.Info("Successfully get moving", "response", response)
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }

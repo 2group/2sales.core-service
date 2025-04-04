@@ -12,6 +12,9 @@ import (
 )
 
 func (h *WarehouseHandler) CreateInventory(w http.ResponseWriter, r *http.Request) {
+	ci, _ := middleware.GetCorrelationID(r.Context())
+	log := h.log.With("method", "CreateInventory", "correlation_id", ci)
+	
 	organization_id, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("Unauthorized"))
@@ -21,21 +24,24 @@ func (h *WarehouseHandler) CreateInventory(w http.ResponseWriter, r *http.Reques
 		Inventory: &warehousev1.InventoryModel{},
 	}
 	json.ParseJSON(r, &req)
-	h.log.Info("warehouse", "id", req)
-
 	req.Inventory.OrganizationId = organization_id
-
+	
+	log.Info("Creating inventory", "request", req)
 	response, err := h.warehouse.Api.CreateInventory(r.Context(), req)
 	if err != nil {
+		log.Error("Failed to create inventory", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
+	log.Info("Successfully created inventory", "response", response)
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
 
 func (h *WarehouseHandler) ListInventory(w http.ResponseWriter, r *http.Request) {
+	ci, _ := middleware.GetCorrelationID(r.Context())
+	log := h.log.With("method", "ListInventory", "correlation_id", ci)
 	query := r.URL.Query()
 
 	limit := 10
@@ -64,9 +70,11 @@ func (h *WarehouseHandler) ListInventory(w http.ResponseWriter, r *http.Request)
 		Page:           int64(offset),
 		PageSize:       int64(limit),
 	}
+	log.Info("Listing inventory", "request", req)
 
 	response, err := h.warehouse.Api.ListInventory(r.Context(), req)
 	if err != nil {
+		log.Error("Failed to list inventory", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
@@ -76,6 +84,9 @@ func (h *WarehouseHandler) ListInventory(w http.ResponseWriter, r *http.Request)
 }
 
 func (h *WarehouseHandler) GetInventory(w http.ResponseWriter, r *http.Request) {
+	ci, _ := middleware.GetCorrelationID(r.Context())
+	log := h.log.With("method", "GetInventory", "correlation_id", ci)
+	
 	inventory_id_str := chi.URLParam(r, "inventory_id")
 	inventory_id, err := strconv.Atoi(inventory_id_str)
 	if err != nil {
@@ -86,13 +97,16 @@ func (h *WarehouseHandler) GetInventory(w http.ResponseWriter, r *http.Request) 
 	req := &warehousev1.GetInventoryRequest{
 		Id: int64(inventory_id),
 	}
+	log.Info("Getting inventory", "request", req)
 
 	response, err := h.warehouse.Api.GetInventory(r.Context(), req)
 	if err != nil {
+		log.Error("Failed to get inventory", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
+	log.Info("Successfully get inventory", "response", response)
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }

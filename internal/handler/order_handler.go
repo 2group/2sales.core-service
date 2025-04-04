@@ -146,7 +146,6 @@ func (h *OrderHandler) GetSubOrder(w http.ResponseWriter, r *http.Request) {
 	json.WriteJSON(w, http.StatusOK, response)
 }
 
-// ListSubOrder lists sub-orders.
 func (h *OrderHandler) ListSubOrder(w http.ResponseWriter, r *http.Request) {
 	logger := h.loggerFor(r, "ListSubOrder")
 	logger.Info("Starting ListSubOrder")
@@ -172,11 +171,15 @@ func (h *OrderHandler) ListSubOrder(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	status := query.Get("status")
+
 	req := &orderv1.ListSubOrderRequest{
 		OrganizationId: organizationID,
 		Limit:          int64(limit),
 		Offset:         int64(offset),
+		Status:         status,
 	}
+
 	logger.Info("calling gRPC ListSubOrder", "request", req)
 	response, err := h.order.Api.ListSubOrder(r.Context(), req)
 	if err != nil {

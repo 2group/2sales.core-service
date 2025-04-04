@@ -305,6 +305,7 @@ class SubOrderModel final : public ::google::protobuf::Message
     kFinalSubtotalFieldNumber = 3,
     kToOrganizationIdFieldNumber = 4,
     kFromOrganizationIdFieldNumber = 5,
+    kOrderIndexFieldNumber = 12,
   };
   // optional string status = 6;
   bool has_status() const;
@@ -458,12 +459,22 @@ class SubOrderModel final : public ::google::protobuf::Message
   void _internal_set_from_organization_id(::int64_t value);
 
   public:
+  // int64 order_index = 12;
+  void clear_order_index() ;
+  ::int64_t order_index() const;
+  void set_order_index(::int64_t value);
+
+  private:
+  ::int64_t _internal_order_index() const;
+  void _internal_set_order_index(::int64_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:order.SubOrderModel)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      4, 11, 0,
+      4, 12, 0,
       91, 2>
       _table_;
 
@@ -494,6 +505,7 @@ class SubOrderModel final : public ::google::protobuf::Message
     float final_subtotal_;
     ::int64_t to_organization_id_;
     ::int64_t from_organization_id_;
+    ::int64_t order_index_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -3369,6 +3381,7 @@ class UpdateSubOrderRequest final : public ::google::protobuf::Message
     kIdFieldNumber = 1,
     kOriginalTotalFieldNumber = 2,
     kFinalTotalFieldNumber = 3,
+    kOrderIndexFieldNumber = 7,
   };
   // repeated .order.OrderItem order_items = 5;
   int order_items_size() const;
@@ -3449,12 +3462,22 @@ class UpdateSubOrderRequest final : public ::google::protobuf::Message
   void _internal_set_final_total(float value);
 
   public:
+  // int64 order_index = 7;
+  void clear_order_index() ;
+  ::int64_t order_index() const;
+  void set_order_index(::int64_t value);
+
+  private:
+  ::int64_t _internal_order_index() const;
+  void _internal_set_order_index(::int64_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:order.UpdateSubOrderRequest)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      3, 6, 1,
+      3, 7, 1,
       53, 2>
       _table_;
 
@@ -3478,6 +3501,7 @@ class UpdateSubOrderRequest final : public ::google::protobuf::Message
     ::int64_t id_;
     float original_total_;
     float final_total_;
+    ::int64_t order_index_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -3643,6 +3667,7 @@ class SubOrder final : public ::google::protobuf::Message
     kIdFieldNumber = 1,
     kOriginalSubtotalFieldNumber = 3,
     kFinalSubtotalFieldNumber = 4,
+    kOrderIndexFieldNumber = 13,
     kIsSaleOutsideFieldNumber = 12,
   };
   // repeated .order.OrderItem order_items = 2;
@@ -3807,6 +3832,16 @@ class SubOrder final : public ::google::protobuf::Message
   void _internal_set_final_subtotal(float value);
 
   public:
+  // int64 order_index = 13;
+  void clear_order_index() ;
+  ::int64_t order_index() const;
+  void set_order_index(::int64_t value);
+
+  private:
+  ::int64_t _internal_order_index() const;
+  void _internal_set_order_index(::int64_t value);
+
+  public:
   // bool is_sale_outside = 12;
   void clear_is_sale_outside() ;
   bool is_sale_outside() const;
@@ -3822,7 +3857,7 @@ class SubOrder final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      4, 12, 3,
+      4, 13, 3,
       75, 2>
       _table_;
 
@@ -3853,6 +3888,7 @@ class SubOrder final : public ::google::protobuf::Message
     ::int64_t id_;
     float original_subtotal_;
     float final_subtotal_;
+    ::int64_t order_index_;
     bool is_sale_outside_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -7619,6 +7655,28 @@ inline void SubOrderModel::set_allocated_comment(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:order.SubOrderModel.comment)
 }
 
+// int64 order_index = 12;
+inline void SubOrderModel::clear_order_index() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.order_index_ = ::int64_t{0};
+}
+inline ::int64_t SubOrderModel::order_index() const {
+  // @@protoc_insertion_point(field_get:order.SubOrderModel.order_index)
+  return _internal_order_index();
+}
+inline void SubOrderModel::set_order_index(::int64_t value) {
+  _internal_set_order_index(value);
+  // @@protoc_insertion_point(field_set:order.SubOrderModel.order_index)
+}
+inline ::int64_t SubOrderModel::_internal_order_index() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.order_index_;
+}
+inline void SubOrderModel::_internal_set_order_index(::int64_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.order_index_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // OrderItemModel
@@ -9007,6 +9065,28 @@ inline void SubOrder::_internal_set_is_sale_outside(bool value) {
   _impl_.is_sale_outside_ = value;
 }
 
+// int64 order_index = 13;
+inline void SubOrder::clear_order_index() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.order_index_ = ::int64_t{0};
+}
+inline ::int64_t SubOrder::order_index() const {
+  // @@protoc_insertion_point(field_get:order.SubOrder.order_index)
+  return _internal_order_index();
+}
+inline void SubOrder::set_order_index(::int64_t value) {
+  _internal_set_order_index(value);
+  // @@protoc_insertion_point(field_set:order.SubOrder.order_index)
+}
+inline ::int64_t SubOrder::_internal_order_index() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.order_index_;
+}
+inline void SubOrder::_internal_set_order_index(::int64_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.order_index_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // OrderItem
@@ -10130,6 +10210,28 @@ inline void UpdateSubOrderRequest::set_allocated_status(std::string* value) {
     _impl_.status_.Set("", GetArena());
   }
   // @@protoc_insertion_point(field_set_allocated:order.UpdateSubOrderRequest.status)
+}
+
+// int64 order_index = 7;
+inline void UpdateSubOrderRequest::clear_order_index() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.order_index_ = ::int64_t{0};
+}
+inline ::int64_t UpdateSubOrderRequest::order_index() const {
+  // @@protoc_insertion_point(field_get:order.UpdateSubOrderRequest.order_index)
+  return _internal_order_index();
+}
+inline void UpdateSubOrderRequest::set_order_index(::int64_t value) {
+  _internal_set_order_index(value);
+  // @@protoc_insertion_point(field_set:order.UpdateSubOrderRequest.order_index)
+}
+inline ::int64_t UpdateSubOrderRequest::_internal_order_index() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.order_index_;
+}
+inline void UpdateSubOrderRequest::_internal_set_order_index(::int64_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.order_index_ = value;
 }
 
 // -------------------------------------------------------------------
