@@ -74,6 +74,12 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
+	servicegrpc, err := grpc.NewServiceClient(context, s.cfg.GRPC.Service, time.Hour, 2)
+	fmt.Println(s.cfg.GRPC.Service)
+	if err != nil {
+		panic(err)
+	}
+
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	productHandler := handler.NewProductHandler(s.log, productgrpc)
@@ -82,6 +88,7 @@ func (s *APIServer) Run() error {
 	orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
 	advertisementHandler := handler.NewAdvertisementHandler(s.log, advertisementgrpc)
 	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
+	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
 	adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
 	router.Route("/admin/api", func(adminRouter chi.Router) {
@@ -277,6 +284,12 @@ func (s *APIServer) Run() error {
 				authRouter.Delete("/", customerHandler.DeleteCustomer)
 				authRouter.Patch("/", customerHandler.PartialUpdateCustomer)
 				authRouter.Put("/", customerHandler.UpdateCustomer)
+			})
+		})
+		apiRouter.Route("/service", func(serviceRouter chi.Router) {
+			serviceRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", serviceHandler.CreateService)
 			})
 		})
 	})

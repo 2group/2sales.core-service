@@ -11,7 +11,8 @@ PROTO_FILES ?= \
 	crm/crm.proto \
 	order/order.proto \
 	advertisement/advertisement.proto \
-	customer/customer.proto
+	customer/customer.proto \
+	service/service.proto
 
 proto:
 	@protoc -I $(PROTO_PATH) $(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \

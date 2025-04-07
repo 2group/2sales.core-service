@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package crm;
+
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1";
+
+service ServiceService {
+  rpc GetService (GetServiceRequest) returns (GetServiceResponse);
+  rpc CreateService (CreateServiceRequest) returns (CreateServiceResponse);
+  rpc DeleteService (DeleteServiceRequest) returns (DeleteServiceResponse);
+  rpc PartialUpdateService (PartialUpdateServiceRequest) returns (PartialUpdateServiceResponse);
+  rpc UpdateService (UpdateServiceRequest) returns (UpdateServiceResponse);
+}
+
+message Service {
+    optional int64 id = 1;
+    double price_from = 2;
+    double price_to = 3;
+    string status = 4;
+    string name = 5;
+    string description = 6;
+    optional string created_at = 7;
+    optional string updated_at = 8;
+}
+
+message GetServiceRequest {
+    Service service = 1;
+}
+
+message GetServiceResponse {
+    Service service = 1;
+}
+
+message CreateServiceRequest {
+    Service service = 1;
+}
+
+message CreateServiceResponse {
+    Service service = 1;
+}
+
+message DeleteServiceRequest {
+    int64 id = 1;
+}
+
+message DeleteServiceResponse {
+    Service service = 1;
+}
+
+message PartialUpdateServiceRequest {
+    Service service = 1;
+}
+
+message PartialUpdateServiceResponse {
+    Service service = 1;
+}
+
+message UpdateServiceRequest {
+    Service service = 1;
+}
+
+message UpdateServiceResponse {
+    Service service = 1;
+}

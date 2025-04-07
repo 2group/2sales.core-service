@@ -11,4 +11,4 @@ grpc:
   order: "localhost:50056"
   advertisement: "localhost:50057"
   customer: localhost:50058
-
+  service: localhost:50059

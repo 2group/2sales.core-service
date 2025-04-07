@@ -34,6 +34,7 @@ type GrpcConfig struct {
 	Order         string `yaml:"order"`
 	Advertisement string `yaml:"advertisement"`
 	Customer      string `yaml:"customer" env-default:"localhost:50058"`
+	Service       string `yaml:"service" env-default:"localhost:50059"`
 }
 
 func MustLoad() *Config {
