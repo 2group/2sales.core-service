@@ -7,9 +7,9 @@ option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1"
 service CustomerService {
   rpc GetCustomer (GetCustomerRequest) returns (GetCustomerResponse);
   rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerResponse);
-  rpc DeleteCustomer (IdRequest) returns (DeleteCustomerResponse);
-  rpc PatchCustomer (UpdateCustomerRequest) returns (UpdateCustomerRequest);
-  rpc PutCustomer (UpdateCustomerRequest) returns (UpdateCustomerRequest);
+  rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
+  rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
+  rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerRequest);
 }
 
 message Customer {
@@ -42,8 +42,20 @@ message UpdateCustomerRequest {
     Customer customer = 1;
 }
 
-message DeleteCustomerRequest {
+message UpdateCustomerResponse {
     Customer customer = 1;
+}
+
+message PartialUpdateCustomerRequest {
+    Customer customer = 1;
+}
+
+message PartialUpdateCustomerResponse {
+    Customer customer = 1;
+}
+
+message DeleteCustomerRequest {
+    int64 id = 1;
 }
 
 message DeleteCustomerResponse {
