@@ -90,7 +90,7 @@ func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request)
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
 
-func (h *CustomerHandler) PatchCustomer(w http.ResponseWriter, r *http.Request) {
+func (h *CustomerHandler) PartialUpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to patch customer")
 
 	req := &customerv1.PartialUpdateCustomerRequest{}
@@ -113,7 +113,7 @@ func (h *CustomerHandler) PatchCustomer(w http.ResponseWriter, r *http.Request) 
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
 
-func (h *CustomerHandler) PutCustomer(w http.ResponseWriter, r *http.Request) {
+func (h *CustomerHandler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to update customer")
 
 	req := &customerv1.UpdateCustomerRequest{}
