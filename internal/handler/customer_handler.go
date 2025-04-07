@@ -70,7 +70,7 @@ func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to delete customer")
 
-	req := &customerv1.IdRequest{}
+	req := &customerv1.DeleteCustomerRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
 		h.log.Error("Failed to parse request JSON", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
@@ -93,7 +93,7 @@ func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request)
 func (h *CustomerHandler) PatchCustomer(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to patch customer")
 
-	req := &customerv1.UpdateCustomerRequest{}
+	req := &customerv1.PartialUpdateCustomerRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
 		h.log.Error("Failed to parse request JSON", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
@@ -101,7 +101,7 @@ func (h *CustomerHandler) PatchCustomer(w http.ResponseWriter, r *http.Request) 
 	}
 	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.customer.Api.PatchCustomer(r.Context(), req)
+	response, err := h.customer.Api.PartialUpdateCustomer(r.Context(), req)
 	if err != nil {
 		h.log.Error("Error patching customer", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
@@ -124,7 +124,7 @@ func (h *CustomerHandler) PutCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.customer.Api.PutCustomer(r.Context(), req)
+	response, err := h.customer.Api.UpdateCustomer(r.Context(), req)
 	if err != nil {
 		h.log.Error("Error updating customer", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)

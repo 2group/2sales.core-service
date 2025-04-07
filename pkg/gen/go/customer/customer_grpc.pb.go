@@ -34,7 +34,7 @@ type CustomerServiceClient interface {
 	CreateCustomer(ctx context.Context, in *CreateCustomerRequest, opts ...grpc.CallOption) (*CreateCustomerResponse, error)
 	DeleteCustomer(ctx context.Context, in *DeleteCustomerRequest, opts ...grpc.CallOption) (*DeleteCustomerResponse, error)
 	PartialUpdateCustomer(ctx context.Context, in *PartialUpdateCustomerRequest, opts ...grpc.CallOption) (*PartialUpdateCustomerResponse, error)
-	UpdateCustomer(ctx context.Context, in *UpdateCustomerRequest, opts ...grpc.CallOption) (*UpdateCustomerRequest, error)
+	UpdateCustomer(ctx context.Context, in *UpdateCustomerRequest, opts ...grpc.CallOption) (*UpdateCustomerResponse, error)
 }
 
 type customerServiceClient struct {
@@ -85,9 +85,9 @@ func (c *customerServiceClient) PartialUpdateCustomer(ctx context.Context, in *P
 	return out, nil
 }
 
-func (c *customerServiceClient) UpdateCustomer(ctx context.Context, in *UpdateCustomerRequest, opts ...grpc.CallOption) (*UpdateCustomerRequest, error) {
+func (c *customerServiceClient) UpdateCustomer(ctx context.Context, in *UpdateCustomerRequest, opts ...grpc.CallOption) (*UpdateCustomerResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateCustomerRequest)
+	out := new(UpdateCustomerResponse)
 	err := c.cc.Invoke(ctx, CustomerService_UpdateCustomer_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -103,7 +103,7 @@ type CustomerServiceServer interface {
 	CreateCustomer(context.Context, *CreateCustomerRequest) (*CreateCustomerResponse, error)
 	DeleteCustomer(context.Context, *DeleteCustomerRequest) (*DeleteCustomerResponse, error)
 	PartialUpdateCustomer(context.Context, *PartialUpdateCustomerRequest) (*PartialUpdateCustomerResponse, error)
-	UpdateCustomer(context.Context, *UpdateCustomerRequest) (*UpdateCustomerRequest, error)
+	UpdateCustomer(context.Context, *UpdateCustomerRequest) (*UpdateCustomerResponse, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
 
@@ -126,7 +126,7 @@ func (UnimplementedCustomerServiceServer) DeleteCustomer(context.Context, *Delet
 func (UnimplementedCustomerServiceServer) PartialUpdateCustomer(context.Context, *PartialUpdateCustomerRequest) (*PartialUpdateCustomerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PartialUpdateCustomer not implemented")
 }
-func (UnimplementedCustomerServiceServer) UpdateCustomer(context.Context, *UpdateCustomerRequest) (*UpdateCustomerRequest, error) {
+func (UnimplementedCustomerServiceServer) UpdateCustomer(context.Context, *UpdateCustomerRequest) (*UpdateCustomerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCustomer not implemented")
 }
 func (UnimplementedCustomerServiceServer) mustEmbedUnimplementedCustomerServiceServer() {}

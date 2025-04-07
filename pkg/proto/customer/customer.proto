@@ -9,7 +9,7 @@ service CustomerService {
   rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerResponse);
   rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
   rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
-  rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerRequest);
+  rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
 }
 
 message Customer {
