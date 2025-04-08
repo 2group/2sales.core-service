@@ -81,7 +81,7 @@ func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	req := &customerv1.GetCustomerRequest{
+	req := &customerv1.DeleteCustomerRequest{
 		Id: customerID,
 	}
 	h.log.Info("Parsed request JSON successfully", "request", req)
