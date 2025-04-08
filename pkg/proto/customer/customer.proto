@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package crm;
 
-option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1";
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1";
 
 service CustomerService {
   rpc GetCustomer (GetCustomerRequest) returns (GetCustomerResponse);

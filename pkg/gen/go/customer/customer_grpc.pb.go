@@ -4,7 +4,7 @@
 // - protoc             v5.29.1
 // source: customer/customer.proto
 
-package crmv1
+package customerv1
 
 import (
 	context "context"

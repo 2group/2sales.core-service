@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package crm;
 
-option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1";
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/service;servicev1";
 
 service ServiceService {
   rpc GetService (GetServiceRequest) returns (GetServiceResponse);
@@ -16,9 +16,9 @@ message Service {
     optional int64 id = 1;
     double price_from = 2;
     double price_to = 3;
-    string status = 4;
+    optional string status = 4;
     string name = 5;
-    string description = 6;
+    optional string description = 6;
     optional string created_at = 7;
     optional string updated_at = 8;
 }
