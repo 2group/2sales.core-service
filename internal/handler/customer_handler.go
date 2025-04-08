@@ -3,10 +3,12 @@ package handler
 import (
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	customerv1 "github.com/2group/2sales.core-service/pkg/gen/go/customer"
 	"github.com/2group/2sales.core-service/pkg/json"
+	"github.com/go-chi/chi/v5"
 )
 
 type CustomerHandler struct {
@@ -70,11 +72,17 @@ func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to delete customer")
 
-	req := &customerv1.DeleteCustomerRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+	customerIDStr := chi.URLParam(r, "customer_id")
+
+	customerID, err := strconv.ParseInt(customerIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid customer_id format", "customer_id", customerIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
+	}
+
+	req := &customerv1.GetCustomerRequest{
+		Id: customerID,
 	}
 	h.log.Info("Parsed request JSON successfully", "request", req)
 
