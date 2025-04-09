@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package b2cserviceorder;
+
+import "service/service.proto";
+import "customer/customer.proto";
+
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/b2c_service_order;b2c_service_orderv1";
+
+service B2CServiceOrderService {
+    rpc CreateB2CServiceOrder (CreateB2CServiceOrderRequest) returns (CreateB2CServiceOrderResponse);
+    rpc GetB2CServiceOrder (GetB2CServiceOrderRequest) returns (GetB2CServiceOrderResponse);
+    rpc UpdateB2CServiceOrder (UpdateB2CServiceOrderRequest) returns (UpdateB2CServiceOrderResponse);
+}  
+
+message B2CServiceOrderDetail {
+    int64 id = 1;
+    customer.Customer customer = 2;
+    string status = 3;
+    float original_total_price = 4;
+    float final_total_price = 5;
+    repeated B2CServiceOrderItemDetail order_items = 6;
+}
+
+message B2CServiceOrder {
+    int64 id = 1;
+    int64 customer_id = 2;
+    string status = 3;
+    float original_total_price = 4;
+    float final_total_price = 5;
+    repeated B2CServiceOrderItem order_items = 6;
+}
+
+message B2CServiceOrderItem {
+    int64 id = 1;
+    int64 service_order_id = 2;
+    int64 service_id = 3;
+    int32 quantity = 4;
+    float final_price = 5;
+}
+
+message B2CServiceOrderItemDetail {
+    int64 id = 1;
+    int64 service_order_id = 2;
+    service.Service service = 3;
+    int32 quantity = 4;
+    float final_price = 5;
+  }
+
+// Request and Response messages for creating a service order.
+message CreateB2CServiceOrderRequest {
+  B2CServiceOrder order = 1;
+}
+
+message CreateB2CServiceOrderResponse {
+  B2CServiceOrderDetail order_detail = 1;
+}
+
+// Request and Response messages for retrieving a single service order.
+message GetB2CServiceOrderRequest {
+  int64 id = 1;
+}
+
+message GetB2CServiceOrderResponse {
+  B2CServiceOrderDetail order_detail = 1;
+}
+
+// message ListB2CServiceOrdersRequest {
+//   int64 customer_id = 1;
+//   string status = 2;
+//   int64 limit = 3;
+//   int64 offset = 4;
+// }
+
+// message ListB2CServiceOrdersResponse {
+//   repeated B2CServiceOrder orders = 1;
+//   int64 total_count = 2;
+// }
+
+message UpdateB2CServiceOrderRequest {
+  B2CServiceOrder order = 1;
+}
+
+message UpdateB2CServiceOrderResponse {
+  B2CServiceOrderDetail order_detail = 1;
+}

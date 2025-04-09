@@ -4,7 +4,7 @@
 // - protoc             v3.21.12
 // source: service/service.proto
 
-package crmv1
+package servicev1
 
 import (
 	context "context"

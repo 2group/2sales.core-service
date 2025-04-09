@@ -4,7 +4,7 @@
 // 	protoc        v3.21.12
 // source: customer/customer.proto
 
-package crmv1
+package customerv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -594,7 +594,7 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x0eCreateCustomer\x12\x1a.crm.CreateCustomerRequest\x1a\x1b.crm.CreateCustomerResponse\x12I\n" +
 	"\x0eDeleteCustomer\x12\x1a.crm.DeleteCustomerRequest\x1a\x1b.crm.DeleteCustomerResponse\x12^\n" +
 	"\x15PartialUpdateCustomer\x12!.crm.PartialUpdateCustomerRequest\x1a\".crm.PartialUpdateCustomerResponse\x12I\n" +
-	"\x0eUpdateCustomer\x12\x1a.crm.UpdateCustomerRequest\x1a\x1b.crm.UpdateCustomerResponseB<Z:github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1b\x06proto3"
+	"\x0eUpdateCustomer\x12\x1a.crm.UpdateCustomerRequest\x1a\x1b.crm.UpdateCustomerResponseBFZDgithub.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1b\x06proto3"
 
 var (
 	file_customer_customer_proto_rawDescOnce sync.Once

@@ -4,7 +4,7 @@
 // 	protoc        v3.21.12
 // source: service/service.proto
 
-package crmv1
+package servicev1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -26,9 +26,9 @@ type Service struct {
 	Id            *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
 	PriceFrom     float64                `protobuf:"fixed64,2,opt,name=price_from,json=priceFrom,proto3" json:"price_from,omitempty"`
 	PriceTo       float64                `protobuf:"fixed64,3,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
-	Status        string                 `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	Status        *string                `protobuf:"bytes,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	Name          string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Description   string                 `protobuf:"bytes,6,opt,name=description,proto3" json:"description,omitempty"`
+	Description   *string                `protobuf:"bytes,6,opt,name=description,proto3,oneof" json:"description,omitempty"`
 	CreatedAt     *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
 	UpdatedAt     *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -87,8 +87,8 @@ func (x *Service) GetPriceTo() float64 {
 }
 
 func (x *Service) GetStatus() string {
-	if x != nil {
-		return x.Status
+	if x != nil && x.Status != nil {
+		return *x.Status
 	}
 	return ""
 }
@@ -101,8 +101,8 @@ func (x *Service) GetName() string {
 }
 
 func (x *Service) GetDescription() string {
-	if x != nil {
-		return x.Description
+	if x != nil && x.Description != nil {
+		return *x.Description
 	}
 	return ""
 }
@@ -565,20 +565,22 @@ var File_service_service_proto protoreflect.FileDescriptor
 
 const file_service_service_proto_rawDesc = "" +
 	"\n" +
-	"\x15service/service.proto\x12\x03crm\"\x93\x02\n" +
+	"\x15service/service.proto\x12\x03crm\"\xb8\x02\n" +
 	"\aService\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1d\n" +
 	"\n" +
 	"price_from\x18\x02 \x01(\x01R\tpriceFrom\x12\x19\n" +
-	"\bprice_to\x18\x03 \x01(\x01R\apriceTo\x12\x16\n" +
-	"\x06status\x18\x04 \x01(\tR\x06status\x12\x12\n" +
-	"\x04name\x18\x05 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x06 \x01(\tR\vdescription\x12\"\n" +
+	"\bprice_to\x18\x03 \x01(\x01R\apriceTo\x12\x1b\n" +
+	"\x06status\x18\x04 \x01(\tH\x01R\x06status\x88\x01\x01\x12\x12\n" +
+	"\x04name\x18\x05 \x01(\tR\x04name\x12%\n" +
+	"\vdescription\x18\x06 \x01(\tH\x02R\vdescription\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"created_at\x18\a \x01(\tH\x01R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"created_at\x18\a \x01(\tH\x03R\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\b \x01(\tH\x02R\tupdatedAt\x88\x01\x01B\x05\n" +
-	"\x03_idB\r\n" +
+	"updated_at\x18\b \x01(\tH\x04R\tupdatedAt\x88\x01\x01B\x05\n" +
+	"\x03_idB\t\n" +
+	"\a_statusB\x0e\n" +
+	"\f_descriptionB\r\n" +
 	"\v_created_atB\r\n" +
 	"\v_updated_at\"#\n" +
 	"\x11GetServiceRequest\x12\x0e\n" +
@@ -607,7 +609,7 @@ const file_service_service_proto_rawDesc = "" +
 	"\rCreateService\x12\x19.crm.CreateServiceRequest\x1a\x1a.crm.CreateServiceResponse\x12F\n" +
 	"\rDeleteService\x12\x19.crm.DeleteServiceRequest\x1a\x1a.crm.DeleteServiceResponse\x12[\n" +
 	"\x14PartialUpdateService\x12 .crm.PartialUpdateServiceRequest\x1a!.crm.PartialUpdateServiceResponse\x12F\n" +
-	"\rUpdateService\x12\x19.crm.UpdateServiceRequest\x1a\x1a.crm.UpdateServiceResponseB<Z:github.com/2group/2sales.core-service/pkg/gen/go/crm;crmv1b\x06proto3"
+	"\rUpdateService\x12\x19.crm.UpdateServiceRequest\x1a\x1a.crm.UpdateServiceResponseBDZBgithub.com/2group/2sales.core-service/pkg/gen/go/service;servicev1b\x06proto3"
 
 var (
 	file_service_service_proto_rawDescOnce sync.Once
