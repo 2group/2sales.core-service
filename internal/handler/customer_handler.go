@@ -49,13 +49,18 @@ func (h *CustomerHandler) CreateCustomer(w http.ResponseWriter, r *http.Request)
 func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to get customer")
 
-	req := &customerv1.GetCustomerRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+	customerIDStr := chi.URLParam(r, "customer_id")
+
+	customerID, err := strconv.ParseInt(customerIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid customer_id format", "customer_id", customerIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
+
+	req := &customerv1.GetCustomerRequest{
+		Id: customerID,
+	}
 
 	response, err := h.customer.Api.GetCustomer(r.Context(), req)
 	if err != nil {
@@ -100,8 +105,21 @@ func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request)
 
 func (h *CustomerHandler) PartialUpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to patch customer")
+	customerIDStr := chi.URLParam(r, "customer_id")
 
-	req := &customerv1.PartialUpdateCustomerRequest{}
+	customerID, err := strconv.ParseInt(customerIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid customer_id format", "customer_id", customerIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &customerv1.PartialUpdateCustomerRequest{
+		Customer: &customerv1.Customer{
+			Id: &customerID,
+		},
+	}
+
 	if err := json.ParseJSON(r, req); err != nil {
 		h.log.Error("Failed to parse request JSON", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
@@ -124,12 +142,27 @@ func (h *CustomerHandler) PartialUpdateCustomer(w http.ResponseWriter, r *http.R
 func (h *CustomerHandler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to update customer")
 
-	req := &customerv1.UpdateCustomerRequest{}
+	customerIDStr := chi.URLParam(r, "customer_id")
+
+	customerID, err := strconv.ParseInt(customerIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid customer_id format", "customer_id", customerIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &customerv1.UpdateCustomerRequest{
+		Customer: &customerv1.Customer{
+			Id: &customerID,
+		},
+	}
+
 	if err := json.ParseJSON(r, req); err != nil {
 		h.log.Error("Failed to parse request JSON", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+
 	h.log.Info("Parsed request JSON successfully", "request", req)
 
 	response, err := h.customer.Api.UpdateCustomer(r.Context(), req)
