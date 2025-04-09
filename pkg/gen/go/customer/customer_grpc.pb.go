@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CustomerService_GetCustomer_FullMethodName           = "/crm.CustomerService/GetCustomer"
-	CustomerService_CreateCustomer_FullMethodName        = "/crm.CustomerService/CreateCustomer"
-	CustomerService_DeleteCustomer_FullMethodName        = "/crm.CustomerService/DeleteCustomer"
-	CustomerService_PartialUpdateCustomer_FullMethodName = "/crm.CustomerService/PartialUpdateCustomer"
-	CustomerService_UpdateCustomer_FullMethodName        = "/crm.CustomerService/UpdateCustomer"
+	CustomerService_GetCustomer_FullMethodName           = "/customer.CustomerService/GetCustomer"
+	CustomerService_CreateCustomer_FullMethodName        = "/customer.CustomerService/CreateCustomer"
+	CustomerService_DeleteCustomer_FullMethodName        = "/customer.CustomerService/DeleteCustomer"
+	CustomerService_PartialUpdateCustomer_FullMethodName = "/customer.CustomerService/PartialUpdateCustomer"
+	CustomerService_UpdateCustomer_FullMethodName        = "/customer.CustomerService/UpdateCustomer"
 )
 
 // CustomerServiceClient is the client API for CustomerService service.
@@ -244,7 +244,7 @@ func _CustomerService_UpdateCustomer_Handler(srv interface{}, ctx context.Contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CustomerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "crm.CustomerService",
+	ServiceName: "customer.CustomerService",
 	HandlerType: (*CustomerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

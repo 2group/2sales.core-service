@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ServiceService_GetService_FullMethodName           = "/crm.ServiceService/GetService"
-	ServiceService_CreateService_FullMethodName        = "/crm.ServiceService/CreateService"
-	ServiceService_DeleteService_FullMethodName        = "/crm.ServiceService/DeleteService"
-	ServiceService_PartialUpdateService_FullMethodName = "/crm.ServiceService/PartialUpdateService"
-	ServiceService_UpdateService_FullMethodName        = "/crm.ServiceService/UpdateService"
+	ServiceService_GetService_FullMethodName           = "/service.ServiceService/GetService"
+	ServiceService_CreateService_FullMethodName        = "/service.ServiceService/CreateService"
+	ServiceService_DeleteService_FullMethodName        = "/service.ServiceService/DeleteService"
+	ServiceService_PartialUpdateService_FullMethodName = "/service.ServiceService/PartialUpdateService"
+	ServiceService_UpdateService_FullMethodName        = "/service.ServiceService/UpdateService"
 )
 
 // ServiceServiceClient is the client API for ServiceService service.
@@ -244,7 +244,7 @@ func _ServiceService_UpdateService_Handler(srv interface{}, ctx context.Context,
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ServiceService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "crm.ServiceService",
+	ServiceName: "service.ServiceService",
 	HandlerType: (*ServiceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

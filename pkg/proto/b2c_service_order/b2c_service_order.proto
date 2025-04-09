@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package b2cserviceorder;
+package b2c_service_order;
+
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/b2c_service_order;b2c_service_orderv1";
 
 import "service/service.proto";
 import "customer/customer.proto";
 
-option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/b2c_service_order;b2c_service_orderv1";
-
 service B2CServiceOrderService {
-    rpc CreateB2CServiceOrder (CreateB2CServiceOrderRequest) returns (CreateB2CServiceOrderResponse);
-    rpc GetB2CServiceOrder (GetB2CServiceOrderRequest) returns (GetB2CServiceOrderResponse);
-    rpc UpdateB2CServiceOrder (UpdateB2CServiceOrderRequest) returns (UpdateB2CServiceOrderResponse);
+    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+    rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
+    rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
 }  
 
 message B2CServiceOrderDetail {
@@ -48,20 +48,28 @@ message B2CServiceOrderItemDetail {
   }
 
 // Request and Response messages for creating a service order.
-message CreateB2CServiceOrderRequest {
+message CreateOrderRequest {
   B2CServiceOrder order = 1;
 }
 
-message CreateB2CServiceOrderResponse {
+message CreateOrderResponse {
+  B2CServiceOrderDetail order_detail = 1;
+}
+
+message UpdateOrderRequest {
+  B2CServiceOrder order = 1;
+}
+
+message UpdateOrderResponse {
   B2CServiceOrderDetail order_detail = 1;
 }
 
 // Request and Response messages for retrieving a single service order.
-message GetB2CServiceOrderRequest {
+message GetOrderRequest {
   int64 id = 1;
 }
 
-message GetB2CServiceOrderResponse {
+message GetOrderResponse {
   B2CServiceOrderDetail order_detail = 1;
 }
 
@@ -76,11 +84,3 @@ message GetB2CServiceOrderResponse {
 //   repeated B2CServiceOrder orders = 1;
 //   int64 total_count = 2;
 // }
-
-message UpdateB2CServiceOrderRequest {
-  B2CServiceOrder order = 1;
-}
-
-message UpdateB2CServiceOrderResponse {
-  B2CServiceOrderDetail order_detail = 1;
-}

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package crm;
+package customer;
 
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1";
 
