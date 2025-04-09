@@ -9,6 +9,7 @@ import (
 	servicev1 "github.com/2group/2sales.core-service/pkg/gen/go/service"
 	"github.com/2group/2sales.core-service/pkg/json"
 	"github.com/go-chi/chi/v5"
+	"google.golang.org/protobuf/proto"
 )
 
 type ServiceHandler struct {
@@ -49,17 +50,17 @@ func (h *ServiceHandler) CreateService(w http.ResponseWriter, r *http.Request) {
 func (h *ServiceHandler) GetService(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to get service")
 
-	serviceIDStr := chi.URLParam(r, "customer_id")
+	idStr := chi.URLParam(r, "id")
 
-	serviceID, err := strconv.ParseInt(serviceIDStr, 10, 64)
+	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid service_id format", "service_id", serviceIDStr, "error", err)
+		h.log.Error("invalid id format", "id", idStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	req := &servicev1.GetServiceRequest{
-		Id: serviceID,
+		Id: id,
 	}
 
 	response, err := h.service.Api.GetService(r.Context(), req)
@@ -75,26 +76,26 @@ func (h *ServiceHandler) GetService(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ServiceHandler) DeleteService(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to delete customer")
+	h.log.Info("Received request to delete service")
 
-	serviceIDStr := chi.URLParam(r, "service_id")
+	idStr := chi.URLParam(r, "id")
 
-	serviceID, err := strconv.ParseInt(serviceIDStr, 10, 64)
+	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid service_id format", "service_id", serviceIDStr, "error", err)
+		h.log.Error("invalid id format", "id", idStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	req := &servicev1.DeleteServiceRequest{
-		Id: serviceID,
+		Id: id,
 	}
 
+	return
 	response, err := h.service.Api.DeleteService(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error deleting customer", "error", err)
+		h.log.Error("Error deleting service", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
-		return
 	}
 	h.log.Info("Service deleted successfully", "response", response)
 
@@ -105,7 +106,20 @@ func (h *ServiceHandler) DeleteService(w http.ResponseWriter, r *http.Request) {
 func (h *ServiceHandler) PartialUpdateService(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to partial update service")
 
-	req := &servicev1.PartialUpdateServiceRequest{}
+	idStr := chi.URLParam(r, "id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid id format", "id", idStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &servicev1.PartialUpdateServiceRequest{
+		Service: &servicev1.Service{
+			Id: proto.Int64(id),
+		},
+	}
+
 	if err := json.ParseJSON(r, req); err != nil {
 		h.log.Error("Failed to parse request JSON", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
@@ -115,18 +129,26 @@ func (h *ServiceHandler) PartialUpdateService(w http.ResponseWriter, r *http.Req
 
 	response, err := h.service.Api.PartialUpdateService(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error patching customer", "error", err)
+		h.log.Error("Error patching service", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Customer patched successfully", "response", response)
+	h.log.Info("Service patched successfully", "response", response)
 
 	json.WriteJSON(w, http.StatusOK, response)
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
 
 func (h *ServiceHandler) UpdateService(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to update customer")
+	h.log.Info("Received request to update service")
+
+	idStr := chi.URLParam(r, "id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid id format", "id", idStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
 
 	req := &servicev1.UpdateServiceRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
@@ -134,16 +156,22 @@ func (h *ServiceHandler) UpdateService(w http.ResponseWriter, r *http.Request) {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+
+	if req.Service == nil {
+		req.Service = &servicev1.Service{}
+	}
+	req.Service.Id = proto.Int64(id)
+
 	h.log.Info("Parsed request JSON successfully", "request", req)
 
 	response, err := h.service.Api.UpdateService(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error updating customer", "error", err)
+		h.log.Error("Error updating service", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Customer updated successfully", "response", response)
 
+	h.log.Info("Service updated successfully", "response", response)
 	json.WriteJSON(w, http.StatusOK, response)
 	h.log.Info("Response sent", "status", http.StatusOK)
 }

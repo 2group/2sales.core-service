@@ -290,6 +290,10 @@ func (s *APIServer) Run() error {
 			serviceRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", serviceHandler.CreateService)
+				authRouter.Get("/{id}", serviceHandler.GetService)
+				authRouter.Delete("/{id}", serviceHandler.DeleteService)
+				authRouter.Patch("/{id}", serviceHandler.PartialUpdateService)
+				authRouter.Put("/{id}", serviceHandler.UpdateService)
 			})
 		})
 	})
