@@ -26,15 +26,16 @@ type RestConfig struct {
 }
 
 type GrpcConfig struct {
-	User          string `yaml:"user"`
-	Organization  string `yaml:"organization"`
-	Product       string `yaml:"product"`
-	CRM           string `yaml:"crm"`
-	Warehouse     string `yaml:"warehouse"`
-	Order         string `yaml:"order"`
-	Advertisement string `yaml:"advertisement"`
-	Customer      string `yaml:"customer" env-default:"localhost:50058"`
-	Service       string `yaml:"service" env-default:"localhost:50059"`
+	User            string `yaml:"user"`
+	Organization    string `yaml:"organization"`
+	Product         string `yaml:"product"`
+	CRM             string `yaml:"crm"`
+	Warehouse       string `yaml:"warehouse"`
+	Order           string `yaml:"order"`
+	Advertisement   string `yaml:"advertisement"`
+	Customer        string `yaml:"customer" env-default:"localhost:50058"`
+	Service         string `yaml:"service" env-default:"localhost:50059"`
+	B2CServiceOrder string `yaml:"b2c_service_order" env-default:"localhost:50060"`
 }
 
 func MustLoad() *Config {

@@ -80,6 +80,12 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
+	B2CServiceOrderGrpc, err := grpc.NewB2CServiceOrderClient(context, s.cfg.GRPC.B2CServiceOrder, time.Hour, 2)
+	fmt.Println(s.cfg.GRPC.B2CServiceOrder)
+	if err != nil {
+		panic(err)
+	}
+
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	productHandler := handler.NewProductHandler(s.log, productgrpc)
@@ -89,6 +95,7 @@ func (s *APIServer) Run() error {
 	advertisementHandler := handler.NewAdvertisementHandler(s.log, advertisementgrpc)
 	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
 	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
+	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log, B2CServiceOrderGrpc)
 	adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
 	router.Route("/admin/api", func(adminRouter chi.Router) {
@@ -294,6 +301,14 @@ func (s *APIServer) Run() error {
 				authRouter.Delete("/{id}", serviceHandler.DeleteService)
 				authRouter.Patch("/{id}", serviceHandler.PartialUpdateService)
 				authRouter.Put("/{id}", serviceHandler.UpdateService)
+			})
+		})
+		apiRouter.Route("b2c_service_order", func(b2cServiceOrderRouter chi.Router) {
+			b2cServiceOrderRouter.Group(func(authRouter chi.Router) {
+				b2cServiceOrderRouter.Use(auth.AuthMiddleware)
+				b2cServiceOrderRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
+				b2cServiceOrderRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
+				b2cServiceOrderRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
 			})
 		})
 	})
