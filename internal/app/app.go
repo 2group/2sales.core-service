@@ -304,12 +304,12 @@ func (s *APIServer) Run() error {
 				authRouter.Put("/{id}", serviceHandler.UpdateService)
 			})
 		})
-		apiRouter.Route("b2c_service_order", func(b2cServiceOrderRouter chi.Router) {
-			b2cServiceOrderRouter.Group(func(authRouter chi.Router) {
-				b2cServiceOrderRouter.Use(auth.AuthMiddleware)
-				b2cServiceOrderRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
-				b2cServiceOrderRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
-				b2cServiceOrderRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
+		apiRouter.Route("/order", func(orderRouter chi.Router) {
+			orderRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
+				authRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
+				authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
 			})
 		})
 	})

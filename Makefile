@@ -12,8 +12,8 @@ PROTO_FILES ?= \
 	advertisement/advertisement.proto \
 	customer/customer.proto \
 	service/service.proto \
+	b2c_service_order/b2c_service_order.proto \
 	# warehouse/warehouse.proto \
-	# b2c_service_order/b2c_service_order.proto \
 
 proto:
 	@protoc -I $(PROTO_PATH) $(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \
