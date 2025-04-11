@@ -19,86 +19,42 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrganizationService_CreateOrganization_FullMethodName       = "/organization.OrganizationService/CreateOrganization"
-	OrganizationService_GetOrganization_FullMethodName          = "/organization.OrganizationService/GetOrganization"
-	OrganizationService_ListOrganizations_FullMethodName        = "/organization.OrganizationService/ListOrganizations"
-	OrganizationService_PatchOrganization_FullMethodName        = "/organization.OrganizationService/PatchOrganization"
-	OrganizationService_UpdateOrganization_FullMethodName       = "/organization.OrganizationService/UpdateOrganization"
-	OrganizationService_CreateCounterparty_FullMethodName       = "/organization.OrganizationService/CreateCounterparty"
-	OrganizationService_GetCounterparty_FullMethodName          = "/organization.OrganizationService/GetCounterparty"
-	OrganizationService_ListCounterparties_FullMethodName       = "/organization.OrganizationService/ListCounterparties"
-	OrganizationService_PatchCounterparty_FullMethodName        = "/organization.OrganizationService/PatchCounterparty"
-	OrganizationService_ListBankAccounts_FullMethodName         = "/organization.OrganizationService/ListBankAccounts"
-	OrganizationService_GetDefaultBankAccount_FullMethodName    = "/organization.OrganizationService/GetDefaultBankAccount"
-	OrganizationService_CreateBankAccount_FullMethodName        = "/organization.OrganizationService/CreateBankAccount"
-	OrganizationService_UpdateBankAccount_FullMethodName        = "/organization.OrganizationService/UpdateBankAccount"
-	OrganizationService_UpdateBankAccounts_FullMethodName       = "/organization.OrganizationService/UpdateBankAccounts"
-	OrganizationService_DeleteBankAccount_FullMethodName        = "/organization.OrganizationService/DeleteBankAccount"
-	OrganizationService_CreateAddress_FullMethodName            = "/organization.OrganizationService/CreateAddress"
-	OrganizationService_GetAddress_FullMethodName               = "/organization.OrganizationService/GetAddress"
-	OrganizationService_UpdateAddress_FullMethodName            = "/organization.OrganizationService/UpdateAddress"
-	OrganizationService_PatchAddress_FullMethodName             = "/organization.OrganizationService/PatchAddress"
-	OrganizationService_DeleteAddress_FullMethodName            = "/organization.OrganizationService/DeleteAddress"
-	OrganizationService_CreateRelationship_FullMethodName       = "/organization.OrganizationService/CreateRelationship"
-	OrganizationService_ListRelationships_FullMethodName        = "/organization.OrganizationService/ListRelationships"
-	OrganizationService_EnsureRelationshipExists_FullMethodName = "/organization.OrganizationService/EnsureRelationshipExists"
-	OrganizationService_UpdateRelationship_FullMethodName       = "/organization.OrganizationService/UpdateRelationship"
-	OrganizationService_GetRelationshipType_FullMethodName      = "/organization.OrganizationService/GetRelationshipType"
-	OrganizationService_ListRelationshipTypes_FullMethodName    = "/organization.OrganizationService/ListRelationshipTypes"
-	OrganizationService_CreateRelationshipType_FullMethodName   = "/organization.OrganizationService/CreateRelationshipType"
-	OrganizationService_UpdateRelationshipType_FullMethodName   = "/organization.OrganizationService/UpdateRelationshipType"
-	OrganizationService_CreateContact_FullMethodName            = "/organization.OrganizationService/CreateContact"
-	OrganizationService_GetContact_FullMethodName               = "/organization.OrganizationService/GetContact"
-	OrganizationService_UpdateContact_FullMethodName            = "/organization.OrganizationService/UpdateContact"
-	OrganizationService_DeleteContact_FullMethodName            = "/organization.OrganizationService/DeleteContact"
-	OrganizationService_ListContacts_FullMethodName             = "/organization.OrganizationService/ListContacts"
-	OrganizationService_GeneratePresignedURLs_FullMethodName    = "/organization.OrganizationService/GeneratePresignedURLs"
-	OrganizationService_CreateSaleSettings_FullMethodName       = "/organization.OrganizationService/CreateSaleSettings"
-	OrganizationService_GetSaleSettings_FullMethodName          = "/organization.OrganizationService/GetSaleSettings"
-	OrganizationService_UpdateSaleSettings_FullMethodName       = "/organization.OrganizationService/UpdateSaleSettings"
+	OrganizationService_CreateAddress_FullMethodName             = "/organization.OrganizationService/CreateAddress"
+	OrganizationService_GetAddress_FullMethodName                = "/organization.OrganizationService/GetAddress"
+	OrganizationService_UpdateAddress_FullMethodName             = "/organization.OrganizationService/UpdateAddress"
+	OrganizationService_PartialUpdateAddress_FullMethodName      = "/organization.OrganizationService/PartialUpdateAddress"
+	OrganizationService_DeleteAddress_FullMethodName             = "/organization.OrganizationService/DeleteAddress"
+	OrganizationService_CreateOrganization_FullMethodName        = "/organization.OrganizationService/CreateOrganization"
+	OrganizationService_GetOrganization_FullMethodName           = "/organization.OrganizationService/GetOrganization"
+	OrganizationService_UpdateOrganization_FullMethodName        = "/organization.OrganizationService/UpdateOrganization"
+	OrganizationService_PartialUpdateOrganization_FullMethodName = "/organization.OrganizationService/PartialUpdateOrganization"
+	OrganizationService_DeleteOrganization_FullMethodName        = "/organization.OrganizationService/DeleteOrganization"
+	OrganizationService_CreateBranch_FullMethodName              = "/organization.OrganizationService/CreateBranch"
+	OrganizationService_GetBranch_FullMethodName                 = "/organization.OrganizationService/GetBranch"
+	OrganizationService_UpdateBranch_FullMethodName              = "/organization.OrganizationService/UpdateBranch"
+	OrganizationService_PartialUpdateBranch_FullMethodName       = "/organization.OrganizationService/PartialUpdateBranch"
+	OrganizationService_DeleteBranch_FullMethodName              = "/organization.OrganizationService/DeleteBranch"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrganizationServiceClient interface {
-	CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error)
-	GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error)
-	ListOrganizations(ctx context.Context, in *ListOrganizationsRequest, opts ...grpc.CallOption) (*ListOrganizationsResponse, error)
-	PatchOrganization(ctx context.Context, in *PatchOrganizationRequest, opts ...grpc.CallOption) (*PatchOrganizationResponse, error)
-	UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error)
-	CreateCounterparty(ctx context.Context, in *CreateCounterpartyRequest, opts ...grpc.CallOption) (*CreateCounterpartyResponse, error)
-	GetCounterparty(ctx context.Context, in *GetCounterpartyRequest, opts ...grpc.CallOption) (*GetCounterpartyResponse, error)
-	ListCounterparties(ctx context.Context, in *ListCounterpartiesRequest, opts ...grpc.CallOption) (*ListCounterpartiesResponse, error)
-	PatchCounterparty(ctx context.Context, in *PatchCounterpartyRequest, opts ...grpc.CallOption) (*PatchCounterpartyResponse, error)
-	ListBankAccounts(ctx context.Context, in *ListBankAccountsRequest, opts ...grpc.CallOption) (*ListBankAccountsResponse, error)
-	GetDefaultBankAccount(ctx context.Context, in *GetDefaultBankAccountRequest, opts ...grpc.CallOption) (*GetDefaultBankAccountResponse, error)
-	CreateBankAccount(ctx context.Context, in *CreateBankAccountRequest, opts ...grpc.CallOption) (*CreateBankAccountResponse, error)
-	UpdateBankAccount(ctx context.Context, in *UpdateBankAccountRequest, opts ...grpc.CallOption) (*UpdateBankAccountResponse, error)
-	UpdateBankAccounts(ctx context.Context, in *UpdateBankAccountsRequest, opts ...grpc.CallOption) (*UpdateBankAccountsResponse, error)
-	DeleteBankAccount(ctx context.Context, in *DeleteBankAccountRequest, opts ...grpc.CallOption) (*DeleteBankAccountResponse, error)
 	CreateAddress(ctx context.Context, in *CreateAddressRequest, opts ...grpc.CallOption) (*CreateAddressResponse, error)
 	GetAddress(ctx context.Context, in *GetAddressRequest, opts ...grpc.CallOption) (*GetAddressResponse, error)
 	UpdateAddress(ctx context.Context, in *UpdateAddressRequest, opts ...grpc.CallOption) (*UpdateAddressResponse, error)
-	PatchAddress(ctx context.Context, in *PatchAddressRequest, opts ...grpc.CallOption) (*PatchAddressResponse, error)
+	PartialUpdateAddress(ctx context.Context, in *PartialUpdateAddressRequest, opts ...grpc.CallOption) (*PartialUpdateAddressResponse, error)
 	DeleteAddress(ctx context.Context, in *DeleteAddressRequest, opts ...grpc.CallOption) (*DeleteAddressResponse, error)
-	CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error)
-	ListRelationships(ctx context.Context, in *ListRelationshipsRequest, opts ...grpc.CallOption) (*ListRelationshipsResponse, error)
-	EnsureRelationshipExists(ctx context.Context, in *EnsureRelationshipExistsRequest, opts ...grpc.CallOption) (*EnsureRelationshipExistsResponse, error)
-	UpdateRelationship(ctx context.Context, in *UpdateRelationshipRequest, opts ...grpc.CallOption) (*UpdateRelationshipResponse, error)
-	GetRelationshipType(ctx context.Context, in *GetRelationshipTypeRequest, opts ...grpc.CallOption) (*GetRelationshipTypeResponse, error)
-	ListRelationshipTypes(ctx context.Context, in *ListRelationshipTypesRequest, opts ...grpc.CallOption) (*ListRelationshipTypesResponse, error)
-	CreateRelationshipType(ctx context.Context, in *CreateRelationshipTypeRequest, opts ...grpc.CallOption) (*CreateRelationshipTypeResponse, error)
-	UpdateRelationshipType(ctx context.Context, in *UpdateRelationshipTypeRequest, opts ...grpc.CallOption) (*UpdateRelationshipTypeResponse, error)
-	CreateContact(ctx context.Context, in *CreateContactRequest, opts ...grpc.CallOption) (*CreateContactResponse, error)
-	GetContact(ctx context.Context, in *GetContactRequest, opts ...grpc.CallOption) (*GetContactResponse, error)
-	UpdateContact(ctx context.Context, in *UpdateContactRequest, opts ...grpc.CallOption) (*UpdateContactResponse, error)
-	DeleteContact(ctx context.Context, in *DeleteContactRequest, opts ...grpc.CallOption) (*DeleteContactResponse, error)
-	ListContacts(ctx context.Context, in *ListContactsRequest, opts ...grpc.CallOption) (*ListContactsResponse, error)
-	GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error)
-	CreateSaleSettings(ctx context.Context, in *CreateSaleSettingsRequest, opts ...grpc.CallOption) (*CreateSaleSettingsResponse, error)
-	GetSaleSettings(ctx context.Context, in *GetSaleSettingsRequest, opts ...grpc.CallOption) (*GetSaleSettingsResponse, error)
-	UpdateSaleSettings(ctx context.Context, in *UpdateSaleSettingsRequest, opts ...grpc.CallOption) (*UpdateSaleSettingsResponse, error)
+	CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error)
+	GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error)
+	UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error)
+	PartialUpdateOrganization(ctx context.Context, in *PartialUpdateOrganizationRequest, opts ...grpc.CallOption) (*PartialUpdateOrganizationResponse, error)
+	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
+	CreateBranch(ctx context.Context, in *CreateBranchRequest, opts ...grpc.CallOption) (*CreateBranchResponse, error)
+	GetBranch(ctx context.Context, in *GetBranchRequest, opts ...grpc.CallOption) (*GetBranchResponse, error)
+	UpdateBranch(ctx context.Context, in *UpdateBranchRequest, opts ...grpc.CallOption) (*UpdateBranchResponse, error)
+	PartialUpdateBranch(ctx context.Context, in *PartialUpdateBranchRequest, opts ...grpc.CallOption) (*PartialUpdateBranchResponse, error)
+	DeleteBranch(ctx context.Context, in *DeleteBranchRequest, opts ...grpc.CallOption) (*DeleteBranchResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -107,156 +63,6 @@ type organizationServiceClient struct {
 
 func NewOrganizationServiceClient(cc grpc.ClientConnInterface) OrganizationServiceClient {
 	return &organizationServiceClient{cc}
-}
-
-func (c *organizationServiceClient) CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateOrganizationResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_CreateOrganization_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetOrganizationResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GetOrganization_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) ListOrganizations(ctx context.Context, in *ListOrganizationsRequest, opts ...grpc.CallOption) (*ListOrganizationsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListOrganizationsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_ListOrganizations_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) PatchOrganization(ctx context.Context, in *PatchOrganizationRequest, opts ...grpc.CallOption) (*PatchOrganizationResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PatchOrganizationResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_PatchOrganization_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateOrganizationResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_UpdateOrganization_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) CreateCounterparty(ctx context.Context, in *CreateCounterpartyRequest, opts ...grpc.CallOption) (*CreateCounterpartyResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateCounterpartyResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_CreateCounterparty_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) GetCounterparty(ctx context.Context, in *GetCounterpartyRequest, opts ...grpc.CallOption) (*GetCounterpartyResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetCounterpartyResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GetCounterparty_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) ListCounterparties(ctx context.Context, in *ListCounterpartiesRequest, opts ...grpc.CallOption) (*ListCounterpartiesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListCounterpartiesResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_ListCounterparties_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) PatchCounterparty(ctx context.Context, in *PatchCounterpartyRequest, opts ...grpc.CallOption) (*PatchCounterpartyResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PatchCounterpartyResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_PatchCounterparty_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) ListBankAccounts(ctx context.Context, in *ListBankAccountsRequest, opts ...grpc.CallOption) (*ListBankAccountsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListBankAccountsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_ListBankAccounts_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) GetDefaultBankAccount(ctx context.Context, in *GetDefaultBankAccountRequest, opts ...grpc.CallOption) (*GetDefaultBankAccountResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetDefaultBankAccountResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GetDefaultBankAccount_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) CreateBankAccount(ctx context.Context, in *CreateBankAccountRequest, opts ...grpc.CallOption) (*CreateBankAccountResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateBankAccountResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_CreateBankAccount_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) UpdateBankAccount(ctx context.Context, in *UpdateBankAccountRequest, opts ...grpc.CallOption) (*UpdateBankAccountResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateBankAccountResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_UpdateBankAccount_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) UpdateBankAccounts(ctx context.Context, in *UpdateBankAccountsRequest, opts ...grpc.CallOption) (*UpdateBankAccountsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateBankAccountsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_UpdateBankAccounts_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) DeleteBankAccount(ctx context.Context, in *DeleteBankAccountRequest, opts ...grpc.CallOption) (*DeleteBankAccountResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteBankAccountResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_DeleteBankAccount_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *organizationServiceClient) CreateAddress(ctx context.Context, in *CreateAddressRequest, opts ...grpc.CallOption) (*CreateAddressResponse, error) {
@@ -289,10 +95,10 @@ func (c *organizationServiceClient) UpdateAddress(ctx context.Context, in *Updat
 	return out, nil
 }
 
-func (c *organizationServiceClient) PatchAddress(ctx context.Context, in *PatchAddressRequest, opts ...grpc.CallOption) (*PatchAddressResponse, error) {
+func (c *organizationServiceClient) PartialUpdateAddress(ctx context.Context, in *PartialUpdateAddressRequest, opts ...grpc.CallOption) (*PartialUpdateAddressResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PatchAddressResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_PatchAddress_FullMethodName, in, out, cOpts...)
+	out := new(PartialUpdateAddressResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_PartialUpdateAddress_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -309,170 +115,100 @@ func (c *organizationServiceClient) DeleteAddress(ctx context.Context, in *Delet
 	return out, nil
 }
 
-func (c *organizationServiceClient) CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error) {
+func (c *organizationServiceClient) CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateRelationshipResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_CreateRelationship_FullMethodName, in, out, cOpts...)
+	out := new(CreateOrganizationResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateOrganization_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) ListRelationships(ctx context.Context, in *ListRelationshipsRequest, opts ...grpc.CallOption) (*ListRelationshipsResponse, error) {
+func (c *organizationServiceClient) GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListRelationshipsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_ListRelationships_FullMethodName, in, out, cOpts...)
+	out := new(GetOrganizationResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GetOrganization_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) EnsureRelationshipExists(ctx context.Context, in *EnsureRelationshipExistsRequest, opts ...grpc.CallOption) (*EnsureRelationshipExistsResponse, error) {
+func (c *organizationServiceClient) UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EnsureRelationshipExistsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_EnsureRelationshipExists_FullMethodName, in, out, cOpts...)
+	out := new(UpdateOrganizationResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateOrganization_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) UpdateRelationship(ctx context.Context, in *UpdateRelationshipRequest, opts ...grpc.CallOption) (*UpdateRelationshipResponse, error) {
+func (c *organizationServiceClient) PartialUpdateOrganization(ctx context.Context, in *PartialUpdateOrganizationRequest, opts ...grpc.CallOption) (*PartialUpdateOrganizationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateRelationshipResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_UpdateRelationship_FullMethodName, in, out, cOpts...)
+	out := new(PartialUpdateOrganizationResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_PartialUpdateOrganization_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) GetRelationshipType(ctx context.Context, in *GetRelationshipTypeRequest, opts ...grpc.CallOption) (*GetRelationshipTypeResponse, error) {
+func (c *organizationServiceClient) DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetRelationshipTypeResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GetRelationshipType_FullMethodName, in, out, cOpts...)
+	out := new(DeleteOrganizationResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_DeleteOrganization_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) ListRelationshipTypes(ctx context.Context, in *ListRelationshipTypesRequest, opts ...grpc.CallOption) (*ListRelationshipTypesResponse, error) {
+func (c *organizationServiceClient) CreateBranch(ctx context.Context, in *CreateBranchRequest, opts ...grpc.CallOption) (*CreateBranchResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListRelationshipTypesResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_ListRelationshipTypes_FullMethodName, in, out, cOpts...)
+	out := new(CreateBranchResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateBranch_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) CreateRelationshipType(ctx context.Context, in *CreateRelationshipTypeRequest, opts ...grpc.CallOption) (*CreateRelationshipTypeResponse, error) {
+func (c *organizationServiceClient) GetBranch(ctx context.Context, in *GetBranchRequest, opts ...grpc.CallOption) (*GetBranchResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateRelationshipTypeResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_CreateRelationshipType_FullMethodName, in, out, cOpts...)
+	out := new(GetBranchResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_GetBranch_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) UpdateRelationshipType(ctx context.Context, in *UpdateRelationshipTypeRequest, opts ...grpc.CallOption) (*UpdateRelationshipTypeResponse, error) {
+func (c *organizationServiceClient) UpdateBranch(ctx context.Context, in *UpdateBranchRequest, opts ...grpc.CallOption) (*UpdateBranchResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateRelationshipTypeResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_UpdateRelationshipType_FullMethodName, in, out, cOpts...)
+	out := new(UpdateBranchResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateBranch_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) CreateContact(ctx context.Context, in *CreateContactRequest, opts ...grpc.CallOption) (*CreateContactResponse, error) {
+func (c *organizationServiceClient) PartialUpdateBranch(ctx context.Context, in *PartialUpdateBranchRequest, opts ...grpc.CallOption) (*PartialUpdateBranchResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateContactResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_CreateContact_FullMethodName, in, out, cOpts...)
+	out := new(PartialUpdateBranchResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_PartialUpdateBranch_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *organizationServiceClient) GetContact(ctx context.Context, in *GetContactRequest, opts ...grpc.CallOption) (*GetContactResponse, error) {
+func (c *organizationServiceClient) DeleteBranch(ctx context.Context, in *DeleteBranchRequest, opts ...grpc.CallOption) (*DeleteBranchResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetContactResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GetContact_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) UpdateContact(ctx context.Context, in *UpdateContactRequest, opts ...grpc.CallOption) (*UpdateContactResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateContactResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_UpdateContact_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) DeleteContact(ctx context.Context, in *DeleteContactRequest, opts ...grpc.CallOption) (*DeleteContactResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteContactResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_DeleteContact_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) ListContacts(ctx context.Context, in *ListContactsRequest, opts ...grpc.CallOption) (*ListContactsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListContactsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_ListContacts_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GeneratePresignedURLsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GeneratePresignedURLs_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) CreateSaleSettings(ctx context.Context, in *CreateSaleSettingsRequest, opts ...grpc.CallOption) (*CreateSaleSettingsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateSaleSettingsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_CreateSaleSettings_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) GetSaleSettings(ctx context.Context, in *GetSaleSettingsRequest, opts ...grpc.CallOption) (*GetSaleSettingsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetSaleSettingsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_GetSaleSettings_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationServiceClient) UpdateSaleSettings(ctx context.Context, in *UpdateSaleSettingsRequest, opts ...grpc.CallOption) (*UpdateSaleSettingsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateSaleSettingsResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_UpdateSaleSettings_FullMethodName, in, out, cOpts...)
+	out := new(DeleteBranchResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_DeleteBranch_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -483,43 +219,21 @@ func (c *organizationServiceClient) UpdateSaleSettings(ctx context.Context, in *
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
 type OrganizationServiceServer interface {
-	CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error)
-	GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error)
-	ListOrganizations(context.Context, *ListOrganizationsRequest) (*ListOrganizationsResponse, error)
-	PatchOrganization(context.Context, *PatchOrganizationRequest) (*PatchOrganizationResponse, error)
-	UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error)
-	CreateCounterparty(context.Context, *CreateCounterpartyRequest) (*CreateCounterpartyResponse, error)
-	GetCounterparty(context.Context, *GetCounterpartyRequest) (*GetCounterpartyResponse, error)
-	ListCounterparties(context.Context, *ListCounterpartiesRequest) (*ListCounterpartiesResponse, error)
-	PatchCounterparty(context.Context, *PatchCounterpartyRequest) (*PatchCounterpartyResponse, error)
-	ListBankAccounts(context.Context, *ListBankAccountsRequest) (*ListBankAccountsResponse, error)
-	GetDefaultBankAccount(context.Context, *GetDefaultBankAccountRequest) (*GetDefaultBankAccountResponse, error)
-	CreateBankAccount(context.Context, *CreateBankAccountRequest) (*CreateBankAccountResponse, error)
-	UpdateBankAccount(context.Context, *UpdateBankAccountRequest) (*UpdateBankAccountResponse, error)
-	UpdateBankAccounts(context.Context, *UpdateBankAccountsRequest) (*UpdateBankAccountsResponse, error)
-	DeleteBankAccount(context.Context, *DeleteBankAccountRequest) (*DeleteBankAccountResponse, error)
 	CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressResponse, error)
 	GetAddress(context.Context, *GetAddressRequest) (*GetAddressResponse, error)
 	UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error)
-	PatchAddress(context.Context, *PatchAddressRequest) (*PatchAddressResponse, error)
+	PartialUpdateAddress(context.Context, *PartialUpdateAddressRequest) (*PartialUpdateAddressResponse, error)
 	DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error)
-	CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error)
-	ListRelationships(context.Context, *ListRelationshipsRequest) (*ListRelationshipsResponse, error)
-	EnsureRelationshipExists(context.Context, *EnsureRelationshipExistsRequest) (*EnsureRelationshipExistsResponse, error)
-	UpdateRelationship(context.Context, *UpdateRelationshipRequest) (*UpdateRelationshipResponse, error)
-	GetRelationshipType(context.Context, *GetRelationshipTypeRequest) (*GetRelationshipTypeResponse, error)
-	ListRelationshipTypes(context.Context, *ListRelationshipTypesRequest) (*ListRelationshipTypesResponse, error)
-	CreateRelationshipType(context.Context, *CreateRelationshipTypeRequest) (*CreateRelationshipTypeResponse, error)
-	UpdateRelationshipType(context.Context, *UpdateRelationshipTypeRequest) (*UpdateRelationshipTypeResponse, error)
-	CreateContact(context.Context, *CreateContactRequest) (*CreateContactResponse, error)
-	GetContact(context.Context, *GetContactRequest) (*GetContactResponse, error)
-	UpdateContact(context.Context, *UpdateContactRequest) (*UpdateContactResponse, error)
-	DeleteContact(context.Context, *DeleteContactRequest) (*DeleteContactResponse, error)
-	ListContacts(context.Context, *ListContactsRequest) (*ListContactsResponse, error)
-	GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error)
-	CreateSaleSettings(context.Context, *CreateSaleSettingsRequest) (*CreateSaleSettingsResponse, error)
-	GetSaleSettings(context.Context, *GetSaleSettingsRequest) (*GetSaleSettingsResponse, error)
-	UpdateSaleSettings(context.Context, *UpdateSaleSettingsRequest) (*UpdateSaleSettingsResponse, error)
+	CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error)
+	GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error)
+	UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error)
+	PartialUpdateOrganization(context.Context, *PartialUpdateOrganizationRequest) (*PartialUpdateOrganizationResponse, error)
+	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
+	CreateBranch(context.Context, *CreateBranchRequest) (*CreateBranchResponse, error)
+	GetBranch(context.Context, *GetBranchRequest) (*GetBranchResponse, error)
+	UpdateBranch(context.Context, *UpdateBranchRequest) (*UpdateBranchResponse, error)
+	PartialUpdateBranch(context.Context, *PartialUpdateBranchRequest) (*PartialUpdateBranchResponse, error)
+	DeleteBranch(context.Context, *DeleteBranchRequest) (*DeleteBranchResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -530,51 +244,6 @@ type OrganizationServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedOrganizationServiceServer struct{}
 
-func (UnimplementedOrganizationServiceServer) CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrganization not implemented")
-}
-func (UnimplementedOrganizationServiceServer) GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOrganization not implemented")
-}
-func (UnimplementedOrganizationServiceServer) ListOrganizations(context.Context, *ListOrganizationsRequest) (*ListOrganizationsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListOrganizations not implemented")
-}
-func (UnimplementedOrganizationServiceServer) PatchOrganization(context.Context, *PatchOrganizationRequest) (*PatchOrganizationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PatchOrganization not implemented")
-}
-func (UnimplementedOrganizationServiceServer) UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganization not implemented")
-}
-func (UnimplementedOrganizationServiceServer) CreateCounterparty(context.Context, *CreateCounterpartyRequest) (*CreateCounterpartyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateCounterparty not implemented")
-}
-func (UnimplementedOrganizationServiceServer) GetCounterparty(context.Context, *GetCounterpartyRequest) (*GetCounterpartyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCounterparty not implemented")
-}
-func (UnimplementedOrganizationServiceServer) ListCounterparties(context.Context, *ListCounterpartiesRequest) (*ListCounterpartiesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListCounterparties not implemented")
-}
-func (UnimplementedOrganizationServiceServer) PatchCounterparty(context.Context, *PatchCounterpartyRequest) (*PatchCounterpartyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PatchCounterparty not implemented")
-}
-func (UnimplementedOrganizationServiceServer) ListBankAccounts(context.Context, *ListBankAccountsRequest) (*ListBankAccountsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListBankAccounts not implemented")
-}
-func (UnimplementedOrganizationServiceServer) GetDefaultBankAccount(context.Context, *GetDefaultBankAccountRequest) (*GetDefaultBankAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDefaultBankAccount not implemented")
-}
-func (UnimplementedOrganizationServiceServer) CreateBankAccount(context.Context, *CreateBankAccountRequest) (*CreateBankAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateBankAccount not implemented")
-}
-func (UnimplementedOrganizationServiceServer) UpdateBankAccount(context.Context, *UpdateBankAccountRequest) (*UpdateBankAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateBankAccount not implemented")
-}
-func (UnimplementedOrganizationServiceServer) UpdateBankAccounts(context.Context, *UpdateBankAccountsRequest) (*UpdateBankAccountsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateBankAccounts not implemented")
-}
-func (UnimplementedOrganizationServiceServer) DeleteBankAccount(context.Context, *DeleteBankAccountRequest) (*DeleteBankAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteBankAccount not implemented")
-}
 func (UnimplementedOrganizationServiceServer) CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAddress not implemented")
 }
@@ -584,62 +253,41 @@ func (UnimplementedOrganizationServiceServer) GetAddress(context.Context, *GetAd
 func (UnimplementedOrganizationServiceServer) UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAddress not implemented")
 }
-func (UnimplementedOrganizationServiceServer) PatchAddress(context.Context, *PatchAddressRequest) (*PatchAddressResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PatchAddress not implemented")
+func (UnimplementedOrganizationServiceServer) PartialUpdateAddress(context.Context, *PartialUpdateAddressRequest) (*PartialUpdateAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PartialUpdateAddress not implemented")
 }
 func (UnimplementedOrganizationServiceServer) DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAddress not implemented")
 }
-func (UnimplementedOrganizationServiceServer) CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRelationship not implemented")
+func (UnimplementedOrganizationServiceServer) CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrganization not implemented")
 }
-func (UnimplementedOrganizationServiceServer) ListRelationships(context.Context, *ListRelationshipsRequest) (*ListRelationshipsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListRelationships not implemented")
+func (UnimplementedOrganizationServiceServer) GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrganization not implemented")
 }
-func (UnimplementedOrganizationServiceServer) EnsureRelationshipExists(context.Context, *EnsureRelationshipExistsRequest) (*EnsureRelationshipExistsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EnsureRelationshipExists not implemented")
+func (UnimplementedOrganizationServiceServer) UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganization not implemented")
 }
-func (UnimplementedOrganizationServiceServer) UpdateRelationship(context.Context, *UpdateRelationshipRequest) (*UpdateRelationshipResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateRelationship not implemented")
+func (UnimplementedOrganizationServiceServer) PartialUpdateOrganization(context.Context, *PartialUpdateOrganizationRequest) (*PartialUpdateOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PartialUpdateOrganization not implemented")
 }
-func (UnimplementedOrganizationServiceServer) GetRelationshipType(context.Context, *GetRelationshipTypeRequest) (*GetRelationshipTypeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRelationshipType not implemented")
+func (UnimplementedOrganizationServiceServer) DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrganization not implemented")
 }
-func (UnimplementedOrganizationServiceServer) ListRelationshipTypes(context.Context, *ListRelationshipTypesRequest) (*ListRelationshipTypesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListRelationshipTypes not implemented")
+func (UnimplementedOrganizationServiceServer) CreateBranch(context.Context, *CreateBranchRequest) (*CreateBranchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBranch not implemented")
 }
-func (UnimplementedOrganizationServiceServer) CreateRelationshipType(context.Context, *CreateRelationshipTypeRequest) (*CreateRelationshipTypeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRelationshipType not implemented")
+func (UnimplementedOrganizationServiceServer) GetBranch(context.Context, *GetBranchRequest) (*GetBranchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBranch not implemented")
 }
-func (UnimplementedOrganizationServiceServer) UpdateRelationshipType(context.Context, *UpdateRelationshipTypeRequest) (*UpdateRelationshipTypeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateRelationshipType not implemented")
+func (UnimplementedOrganizationServiceServer) UpdateBranch(context.Context, *UpdateBranchRequest) (*UpdateBranchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBranch not implemented")
 }
-func (UnimplementedOrganizationServiceServer) CreateContact(context.Context, *CreateContactRequest) (*CreateContactResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateContact not implemented")
+func (UnimplementedOrganizationServiceServer) PartialUpdateBranch(context.Context, *PartialUpdateBranchRequest) (*PartialUpdateBranchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PartialUpdateBranch not implemented")
 }
-func (UnimplementedOrganizationServiceServer) GetContact(context.Context, *GetContactRequest) (*GetContactResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetContact not implemented")
-}
-func (UnimplementedOrganizationServiceServer) UpdateContact(context.Context, *UpdateContactRequest) (*UpdateContactResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateContact not implemented")
-}
-func (UnimplementedOrganizationServiceServer) DeleteContact(context.Context, *DeleteContactRequest) (*DeleteContactResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteContact not implemented")
-}
-func (UnimplementedOrganizationServiceServer) ListContacts(context.Context, *ListContactsRequest) (*ListContactsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListContacts not implemented")
-}
-func (UnimplementedOrganizationServiceServer) GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GeneratePresignedURLs not implemented")
-}
-func (UnimplementedOrganizationServiceServer) CreateSaleSettings(context.Context, *CreateSaleSettingsRequest) (*CreateSaleSettingsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateSaleSettings not implemented")
-}
-func (UnimplementedOrganizationServiceServer) GetSaleSettings(context.Context, *GetSaleSettingsRequest) (*GetSaleSettingsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSaleSettings not implemented")
-}
-func (UnimplementedOrganizationServiceServer) UpdateSaleSettings(context.Context, *UpdateSaleSettingsRequest) (*UpdateSaleSettingsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateSaleSettings not implemented")
+func (UnimplementedOrganizationServiceServer) DeleteBranch(context.Context, *DeleteBranchRequest) (*DeleteBranchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteBranch not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -660,276 +308,6 @@ func RegisterOrganizationServiceServer(s grpc.ServiceRegistrar, srv Organization
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&OrganizationService_ServiceDesc, srv)
-}
-
-func _OrganizationService_CreateOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateOrganizationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).CreateOrganization(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_CreateOrganization_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).CreateOrganization(ctx, req.(*CreateOrganizationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_GetOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOrganizationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GetOrganization(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_GetOrganization_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GetOrganization(ctx, req.(*GetOrganizationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_ListOrganizations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListOrganizationsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).ListOrganizations(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_ListOrganizations_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).ListOrganizations(ctx, req.(*ListOrganizationsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_PatchOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PatchOrganizationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).PatchOrganization(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_PatchOrganization_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).PatchOrganization(ctx, req.(*PatchOrganizationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_UpdateOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOrganizationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).UpdateOrganization(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_UpdateOrganization_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).UpdateOrganization(ctx, req.(*UpdateOrganizationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_CreateCounterparty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateCounterpartyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).CreateCounterparty(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_CreateCounterparty_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).CreateCounterparty(ctx, req.(*CreateCounterpartyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_GetCounterparty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCounterpartyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GetCounterparty(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_GetCounterparty_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GetCounterparty(ctx, req.(*GetCounterpartyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_ListCounterparties_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListCounterpartiesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).ListCounterparties(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_ListCounterparties_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).ListCounterparties(ctx, req.(*ListCounterpartiesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_PatchCounterparty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PatchCounterpartyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).PatchCounterparty(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_PatchCounterparty_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).PatchCounterparty(ctx, req.(*PatchCounterpartyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_ListBankAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListBankAccountsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).ListBankAccounts(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_ListBankAccounts_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).ListBankAccounts(ctx, req.(*ListBankAccountsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_GetDefaultBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDefaultBankAccountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GetDefaultBankAccount(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_GetDefaultBankAccount_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GetDefaultBankAccount(ctx, req.(*GetDefaultBankAccountRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_CreateBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateBankAccountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).CreateBankAccount(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_CreateBankAccount_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).CreateBankAccount(ctx, req.(*CreateBankAccountRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_UpdateBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateBankAccountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).UpdateBankAccount(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_UpdateBankAccount_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).UpdateBankAccount(ctx, req.(*UpdateBankAccountRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_UpdateBankAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateBankAccountsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).UpdateBankAccounts(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_UpdateBankAccounts_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).UpdateBankAccounts(ctx, req.(*UpdateBankAccountsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_DeleteBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteBankAccountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).DeleteBankAccount(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_DeleteBankAccount_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).DeleteBankAccount(ctx, req.(*DeleteBankAccountRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _OrganizationService_CreateAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -986,20 +364,20 @@ func _OrganizationService_UpdateAddress_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_PatchAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PatchAddressRequest)
+func _OrganizationService_PartialUpdateAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PartialUpdateAddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).PatchAddress(ctx, in)
+		return srv.(OrganizationServiceServer).PartialUpdateAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_PatchAddress_FullMethodName,
+		FullMethod: OrganizationService_PartialUpdateAddress_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).PatchAddress(ctx, req.(*PatchAddressRequest))
+		return srv.(OrganizationServiceServer).PartialUpdateAddress(ctx, req.(*PartialUpdateAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1022,308 +400,182 @@ func _OrganizationService_DeleteAddress_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_CreateRelationship_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRelationshipRequest)
+func _OrganizationService_CreateOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrganizationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).CreateRelationship(ctx, in)
+		return srv.(OrganizationServiceServer).CreateOrganization(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_CreateRelationship_FullMethodName,
+		FullMethod: OrganizationService_CreateOrganization_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).CreateRelationship(ctx, req.(*CreateRelationshipRequest))
+		return srv.(OrganizationServiceServer).CreateOrganization(ctx, req.(*CreateOrganizationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_ListRelationships_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRelationshipsRequest)
+func _OrganizationService_GetOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrganizationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).ListRelationships(ctx, in)
+		return srv.(OrganizationServiceServer).GetOrganization(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_ListRelationships_FullMethodName,
+		FullMethod: OrganizationService_GetOrganization_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).ListRelationships(ctx, req.(*ListRelationshipsRequest))
+		return srv.(OrganizationServiceServer).GetOrganization(ctx, req.(*GetOrganizationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_EnsureRelationshipExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EnsureRelationshipExistsRequest)
+func _OrganizationService_UpdateOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateOrganizationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).EnsureRelationshipExists(ctx, in)
+		return srv.(OrganizationServiceServer).UpdateOrganization(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_EnsureRelationshipExists_FullMethodName,
+		FullMethod: OrganizationService_UpdateOrganization_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).EnsureRelationshipExists(ctx, req.(*EnsureRelationshipExistsRequest))
+		return srv.(OrganizationServiceServer).UpdateOrganization(ctx, req.(*UpdateOrganizationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_UpdateRelationship_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRelationshipRequest)
+func _OrganizationService_PartialUpdateOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PartialUpdateOrganizationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).UpdateRelationship(ctx, in)
+		return srv.(OrganizationServiceServer).PartialUpdateOrganization(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_UpdateRelationship_FullMethodName,
+		FullMethod: OrganizationService_PartialUpdateOrganization_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).UpdateRelationship(ctx, req.(*UpdateRelationshipRequest))
+		return srv.(OrganizationServiceServer).PartialUpdateOrganization(ctx, req.(*PartialUpdateOrganizationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_GetRelationshipType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRelationshipTypeRequest)
+func _OrganizationService_DeleteOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOrganizationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GetRelationshipType(ctx, in)
+		return srv.(OrganizationServiceServer).DeleteOrganization(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_GetRelationshipType_FullMethodName,
+		FullMethod: OrganizationService_DeleteOrganization_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GetRelationshipType(ctx, req.(*GetRelationshipTypeRequest))
+		return srv.(OrganizationServiceServer).DeleteOrganization(ctx, req.(*DeleteOrganizationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_ListRelationshipTypes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRelationshipTypesRequest)
+func _OrganizationService_CreateBranch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBranchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).ListRelationshipTypes(ctx, in)
+		return srv.(OrganizationServiceServer).CreateBranch(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_ListRelationshipTypes_FullMethodName,
+		FullMethod: OrganizationService_CreateBranch_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).ListRelationshipTypes(ctx, req.(*ListRelationshipTypesRequest))
+		return srv.(OrganizationServiceServer).CreateBranch(ctx, req.(*CreateBranchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_CreateRelationshipType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRelationshipTypeRequest)
+func _OrganizationService_GetBranch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBranchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).CreateRelationshipType(ctx, in)
+		return srv.(OrganizationServiceServer).GetBranch(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_CreateRelationshipType_FullMethodName,
+		FullMethod: OrganizationService_GetBranch_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).CreateRelationshipType(ctx, req.(*CreateRelationshipTypeRequest))
+		return srv.(OrganizationServiceServer).GetBranch(ctx, req.(*GetBranchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_UpdateRelationshipType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRelationshipTypeRequest)
+func _OrganizationService_UpdateBranch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBranchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).UpdateRelationshipType(ctx, in)
+		return srv.(OrganizationServiceServer).UpdateBranch(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_UpdateRelationshipType_FullMethodName,
+		FullMethod: OrganizationService_UpdateBranch_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).UpdateRelationshipType(ctx, req.(*UpdateRelationshipTypeRequest))
+		return srv.(OrganizationServiceServer).UpdateBranch(ctx, req.(*UpdateBranchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_CreateContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateContactRequest)
+func _OrganizationService_PartialUpdateBranch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PartialUpdateBranchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).CreateContact(ctx, in)
+		return srv.(OrganizationServiceServer).PartialUpdateBranch(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_CreateContact_FullMethodName,
+		FullMethod: OrganizationService_PartialUpdateBranch_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).CreateContact(ctx, req.(*CreateContactRequest))
+		return srv.(OrganizationServiceServer).PartialUpdateBranch(ctx, req.(*PartialUpdateBranchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_GetContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetContactRequest)
+func _OrganizationService_DeleteBranch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteBranchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GetContact(ctx, in)
+		return srv.(OrganizationServiceServer).DeleteBranch(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_GetContact_FullMethodName,
+		FullMethod: OrganizationService_DeleteBranch_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GetContact(ctx, req.(*GetContactRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_UpdateContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateContactRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).UpdateContact(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_UpdateContact_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).UpdateContact(ctx, req.(*UpdateContactRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_DeleteContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteContactRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).DeleteContact(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_DeleteContact_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).DeleteContact(ctx, req.(*DeleteContactRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_ListContacts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListContactsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).ListContacts(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_ListContacts_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).ListContacts(ctx, req.(*ListContactsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_GeneratePresignedURLs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GeneratePresignedURLsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GeneratePresignedURLs(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_GeneratePresignedURLs_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GeneratePresignedURLs(ctx, req.(*GeneratePresignedURLsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_CreateSaleSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateSaleSettingsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).CreateSaleSettings(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_CreateSaleSettings_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).CreateSaleSettings(ctx, req.(*CreateSaleSettingsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_GetSaleSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetSaleSettingsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).GetSaleSettings(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_GetSaleSettings_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).GetSaleSettings(ctx, req.(*GetSaleSettingsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationService_UpdateSaleSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateSaleSettingsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationServiceServer).UpdateSaleSettings(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrganizationService_UpdateSaleSettings_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).UpdateSaleSettings(ctx, req.(*UpdateSaleSettingsRequest))
+		return srv.(OrganizationServiceServer).DeleteBranch(ctx, req.(*DeleteBranchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1335,66 +587,6 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "organization.OrganizationService",
 	HandlerType: (*OrganizationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "CreateOrganization",
-			Handler:    _OrganizationService_CreateOrganization_Handler,
-		},
-		{
-			MethodName: "GetOrganization",
-			Handler:    _OrganizationService_GetOrganization_Handler,
-		},
-		{
-			MethodName: "ListOrganizations",
-			Handler:    _OrganizationService_ListOrganizations_Handler,
-		},
-		{
-			MethodName: "PatchOrganization",
-			Handler:    _OrganizationService_PatchOrganization_Handler,
-		},
-		{
-			MethodName: "UpdateOrganization",
-			Handler:    _OrganizationService_UpdateOrganization_Handler,
-		},
-		{
-			MethodName: "CreateCounterparty",
-			Handler:    _OrganizationService_CreateCounterparty_Handler,
-		},
-		{
-			MethodName: "GetCounterparty",
-			Handler:    _OrganizationService_GetCounterparty_Handler,
-		},
-		{
-			MethodName: "ListCounterparties",
-			Handler:    _OrganizationService_ListCounterparties_Handler,
-		},
-		{
-			MethodName: "PatchCounterparty",
-			Handler:    _OrganizationService_PatchCounterparty_Handler,
-		},
-		{
-			MethodName: "ListBankAccounts",
-			Handler:    _OrganizationService_ListBankAccounts_Handler,
-		},
-		{
-			MethodName: "GetDefaultBankAccount",
-			Handler:    _OrganizationService_GetDefaultBankAccount_Handler,
-		},
-		{
-			MethodName: "CreateBankAccount",
-			Handler:    _OrganizationService_CreateBankAccount_Handler,
-		},
-		{
-			MethodName: "UpdateBankAccount",
-			Handler:    _OrganizationService_UpdateBankAccount_Handler,
-		},
-		{
-			MethodName: "UpdateBankAccounts",
-			Handler:    _OrganizationService_UpdateBankAccounts_Handler,
-		},
-		{
-			MethodName: "DeleteBankAccount",
-			Handler:    _OrganizationService_DeleteBankAccount_Handler,
-		},
 		{
 			MethodName: "CreateAddress",
 			Handler:    _OrganizationService_CreateAddress_Handler,
@@ -1408,80 +600,52 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrganizationService_UpdateAddress_Handler,
 		},
 		{
-			MethodName: "PatchAddress",
-			Handler:    _OrganizationService_PatchAddress_Handler,
+			MethodName: "PartialUpdateAddress",
+			Handler:    _OrganizationService_PartialUpdateAddress_Handler,
 		},
 		{
 			MethodName: "DeleteAddress",
 			Handler:    _OrganizationService_DeleteAddress_Handler,
 		},
 		{
-			MethodName: "CreateRelationship",
-			Handler:    _OrganizationService_CreateRelationship_Handler,
+			MethodName: "CreateOrganization",
+			Handler:    _OrganizationService_CreateOrganization_Handler,
 		},
 		{
-			MethodName: "ListRelationships",
-			Handler:    _OrganizationService_ListRelationships_Handler,
+			MethodName: "GetOrganization",
+			Handler:    _OrganizationService_GetOrganization_Handler,
 		},
 		{
-			MethodName: "EnsureRelationshipExists",
-			Handler:    _OrganizationService_EnsureRelationshipExists_Handler,
+			MethodName: "UpdateOrganization",
+			Handler:    _OrganizationService_UpdateOrganization_Handler,
 		},
 		{
-			MethodName: "UpdateRelationship",
-			Handler:    _OrganizationService_UpdateRelationship_Handler,
+			MethodName: "PartialUpdateOrganization",
+			Handler:    _OrganizationService_PartialUpdateOrganization_Handler,
 		},
 		{
-			MethodName: "GetRelationshipType",
-			Handler:    _OrganizationService_GetRelationshipType_Handler,
+			MethodName: "DeleteOrganization",
+			Handler:    _OrganizationService_DeleteOrganization_Handler,
 		},
 		{
-			MethodName: "ListRelationshipTypes",
-			Handler:    _OrganizationService_ListRelationshipTypes_Handler,
+			MethodName: "CreateBranch",
+			Handler:    _OrganizationService_CreateBranch_Handler,
 		},
 		{
-			MethodName: "CreateRelationshipType",
-			Handler:    _OrganizationService_CreateRelationshipType_Handler,
+			MethodName: "GetBranch",
+			Handler:    _OrganizationService_GetBranch_Handler,
 		},
 		{
-			MethodName: "UpdateRelationshipType",
-			Handler:    _OrganizationService_UpdateRelationshipType_Handler,
+			MethodName: "UpdateBranch",
+			Handler:    _OrganizationService_UpdateBranch_Handler,
 		},
 		{
-			MethodName: "CreateContact",
-			Handler:    _OrganizationService_CreateContact_Handler,
+			MethodName: "PartialUpdateBranch",
+			Handler:    _OrganizationService_PartialUpdateBranch_Handler,
 		},
 		{
-			MethodName: "GetContact",
-			Handler:    _OrganizationService_GetContact_Handler,
-		},
-		{
-			MethodName: "UpdateContact",
-			Handler:    _OrganizationService_UpdateContact_Handler,
-		},
-		{
-			MethodName: "DeleteContact",
-			Handler:    _OrganizationService_DeleteContact_Handler,
-		},
-		{
-			MethodName: "ListContacts",
-			Handler:    _OrganizationService_ListContacts_Handler,
-		},
-		{
-			MethodName: "GeneratePresignedURLs",
-			Handler:    _OrganizationService_GeneratePresignedURLs_Handler,
-		},
-		{
-			MethodName: "CreateSaleSettings",
-			Handler:    _OrganizationService_CreateSaleSettings_Handler,
-		},
-		{
-			MethodName: "GetSaleSettings",
-			Handler:    _OrganizationService_GetSaleSettings_Handler,
-		},
-		{
-			MethodName: "UpdateSaleSettings",
-			Handler:    _OrganizationService_UpdateSaleSettings_Handler,
+			MethodName: "DeleteBranch",
+			Handler:    _OrganizationService_DeleteBranch_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

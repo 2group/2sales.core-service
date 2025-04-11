@@ -1,207 +1,133 @@
 syntax = "proto3";
 
-package organization;
-
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/organization;organizationv1";
 
+package organization;
+
 service OrganizationService {
-    rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationResponse);
-    rpc GetOrganization (GetOrganizationRequest) returns (GetOrganizationResponse);
-    rpc ListOrganizations (ListOrganizationsRequest) returns (ListOrganizationsResponse);
-    rpc PatchOrganization (PatchOrganizationRequest) returns (PatchOrganizationResponse);
-    rpc UpdateOrganization (UpdateOrganizationRequest) returns (UpdateOrganizationResponse);
-
-    rpc CreateCounterparty (CreateCounterpartyRequest) returns (CreateCounterpartyResponse);
-    rpc GetCounterparty (GetCounterpartyRequest) returns (GetCounterpartyResponse);
-    rpc ListCounterparties (ListCounterpartiesRequest) returns (ListCounterpartiesResponse);
-    rpc PatchCounterparty (PatchCounterpartyRequest) returns (PatchCounterpartyResponse);
-
-    rpc ListBankAccounts (ListBankAccountsRequest) returns (ListBankAccountsResponse);
-    rpc GetDefaultBankAccount (GetDefaultBankAccountRequest) returns (GetDefaultBankAccountResponse);
-    rpc CreateBankAccount (CreateBankAccountRequest) returns (CreateBankAccountResponse);
-    rpc UpdateBankAccount (UpdateBankAccountRequest) returns (UpdateBankAccountResponse);
-    rpc UpdateBankAccounts (UpdateBankAccountsRequest) returns (UpdateBankAccountsResponse);
-    rpc DeleteBankAccount (DeleteBankAccountRequest) returns (DeleteBankAccountResponse);
-
     rpc CreateAddress (CreateAddressRequest) returns (CreateAddressResponse);
     rpc GetAddress (GetAddressRequest) returns (GetAddressResponse);
     rpc UpdateAddress (UpdateAddressRequest) returns (UpdateAddressResponse);
-    rpc PatchAddress (PatchAddressRequest) returns (PatchAddressResponse);
+    rpc PartialUpdateAddress (PartialUpdateAddressRequest) returns (PartialUpdateAddressResponse);
     rpc DeleteAddress (DeleteAddressRequest) returns (DeleteAddressResponse);
 
-    rpc CreateRelationship (CreateRelationshipRequest) returns (CreateRelationshipResponse);
-    rpc ListRelationships (ListRelationshipsRequest) returns (ListRelationshipsResponse);
-    rpc EnsureRelationshipExists (EnsureRelationshipExistsRequest) returns (EnsureRelationshipExistsResponse);
-    rpc UpdateRelationship (UpdateRelationshipRequest) returns (UpdateRelationshipResponse);
+    rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationResponse);
+    rpc GetOrganization (GetOrganizationRequest) returns (GetOrganizationResponse);
+    rpc UpdateOrganization (UpdateOrganizationRequest) returns (UpdateOrganizationResponse);
+    rpc PartialUpdateOrganization (PartialUpdateOrganizationRequest) returns (PartialUpdateOrganizationResponse);
+    rpc DeleteOrganization (DeleteOrganizationRequest) returns (DeleteOrganizationResponse);
 
-    rpc GetRelationshipType (GetRelationshipTypeRequest) returns (GetRelationshipTypeResponse);
-    rpc ListRelationshipTypes (ListRelationshipTypesRequest) returns (ListRelationshipTypesResponse);
-    rpc CreateRelationshipType (CreateRelationshipTypeRequest) returns  (CreateRelationshipTypeResponse);
-    rpc UpdateRelationshipType (UpdateRelationshipTypeRequest) returns (UpdateRelationshipTypeResponse);
-
-    rpc CreateContact (CreateContactRequest) returns (CreateContactResponse);
-    rpc GetContact (GetContactRequest) returns (GetContactResponse);
-    rpc UpdateContact (UpdateContactRequest) returns (UpdateContactResponse);
-    rpc DeleteContact (DeleteContactRequest) returns (DeleteContactResponse);
-    rpc ListContacts (ListContactsRequest) returns (ListContactsResponse);
-
-    rpc GeneratePresignedURLs (GeneratePresignedURLsRequest) returns (GeneratePresignedURLsResponse);
-
-    rpc CreateSaleSettings (CreateSaleSettingsRequest) returns (CreateSaleSettingsResponse);
-    rpc GetSaleSettings (GetSaleSettingsRequest) returns (GetSaleSettingsResponse);
-    rpc UpdateSaleSettings (UpdateSaleSettingsRequest) returns (UpdateSaleSettingsResponse);
+    rpc CreateBranch (CreateBranchRequest) returns (CreateBranchResponse);
+    rpc GetBranch (GetBranchRequest) returns (GetBranchResponse);
+    rpc UpdateBranch (UpdateBranchRequest) returns (UpdateBranchResponse);
+    rpc PartialUpdateBranch (PartialUpdateBranchRequest) returns (PartialUpdateBranchResponse);
+    rpc DeleteBranch (DeleteBranchRequest) returns (DeleteBranchResponse);
 }
 
-message AddressModel {
+message Address {
     optional int64 id = 1;
-    optional string type = 2;
-    optional string country = 3;
+    string type = 2;
+    string country = 3;
     optional string state = 4;
     optional string city = 5;
     optional string address_line = 6;
-    optional float latitude = 7;
-    optional float longitude = 8;
-    optional string created_at = 11;
-    optional string updated_at = 12;
-}
-
-message ImageModel {
-    int64 id = 1;
-    string image_url = 2;
-    optional int64 image_index = 3;
-    string object_key = 4;
-}
-
-message SaleSettings {
-  int64 id = 1;
-  int64 organization_id = 2;
-  float profit_percent = 3;
-  repeated  Expences expences = 4;
-  string category_id = 5;
-  string category_name = 6;
-}
-
-message Expences {
-  int64 id = 1;
-  string name = 2;
-  float value = 3;
-}
-
-message SaleSettingsModel {
-  int64 id = 1;
-  int64 organization_id = 2;
-  float profit_percent = 3;
-  string category_id = 4;
-}
-
-message ExpencesModel {
-  int64 id = 1;
-  string name = 2;
-  float value = 3;
-  int64 sale_settings_id = 4;
-}
-
-message Counterparty {
-    optional int64 id = 1;
-    optional string name = 2;
-    optional string legal_name = 3;
-    optional AddressModel address = 4;
-    optional Relationship relationship = 5;
-    repeated ContactModel contacts = 6;
+    optional double latitude = 7;
+    optional double longitude = 8;
+    optional string created_at = 9;
+    optional string updated_at = 10;
 }
 
 message Organization {
     optional int64 id = 1;
     optional string name = 2;
     optional string image_url = 3;
-    optional string type = 4;
+    string type = 4;
     optional string legal_name = 5;
-    optional string bin = 6;
-    optional string phone_number = 7;
-    optional string email = 8;
-    optional AddressModel address = 9;
-    optional string legal_address = 10;
-    repeated ImageModel images = 11;
-    repeated ContactModel contacts = 12;
+    optional int64 address_id = 6;
+    optional string bin = 7;
+    optional string legal_address = 8;
+    optional string created_at = 9;
+    optional string updated_at = 10;
 }
 
-message OrganizationModel {
+message OrganizationDetail {
     optional int64 id = 1;
     optional string name = 2;
     optional string image_url = 3;
     string type = 4;
     optional string legal_name = 5;
-    optional string bin = 6;
-    optional string phone_number = 7;
-    optional string email = 8;
-    optional int64 address_id = 9;
-    optional string legal_address = 10;
-    string created_at = 11;
-    string updated_at = 12;
+    optional int64 address_id = 6;
+    optional string bin = 7;
+    optional string legal_address = 8;
+    repeated Branch branches = 9;
+    optional string created_at = 10;
+    optional string updated_at = 11;
 }
 
-message BankAccountModel {
-    int64 id = 1;
+message Branch {
+    optional int64 id = 1;
+    int64  organization_id = 2;
+    string name = 3;
+    int64  address_id = 4;
+    optional string created_at = 5;
+    optional string updated_at = 6;
+}
+
+message BranchDetail {
+    optional int64 id = 1;
     int64 organization_id = 2;
-    string account_number = 3;
-    optional string bank_name = 4;
-    string bic = 5;
-    optional int64 kbe = 6;
-    optional bool is_default = 7;
-    string created_at = 8;
-    string updated_at = 9;
-}
-
-message RelationshipTypeModel {
-    optional int64 id = 1;
-    optional int64 owning_organization_id = 2;
-    optional string type_name = 3;
-    optional string description = 4;
+    string name = 3;
+    Address address = 4;
     optional string created_at = 5;
     optional string updated_at = 6;
 }
 
-message RelationshipModel {
-    optional int64 id = 1;
-    optional int64 source_organization_id = 2;
-    optional int64 target_organization_id = 3;
-    optional int64 relationship_type_id = 4;
-    optional string created_at = 5;
-    optional string updated_at = 6;
+message CreateAddressRequest {
+    Address address = 1;
 }
 
-message Relationship {
-    optional int64 id = 1;
-    optional int64 source_organization_id = 2;
-    optional int64 target_organization_id = 3;
-    RelationshipTypeModel relationship_type = 4;
+message CreateAddressResponse {
+    Address address = 1;
 }
 
-message ContactModel {
-    optional int64 contact_id = 1;
-    optional int64 organization_id = 2;
-    optional int64 user_id = 3;
-    optional int64 lead_id = 4;
-    optional string contact_type = 5;
-    optional string contact_person = 6;
-    optional string phone_number = 7;
-    optional string email = 8;
-    optional string created_at = 9;
-    optional string updated_at = 10;
+message GetAddressRequest {
+    int64 id = 1;
 }
 
-//-----------------------
-//-----REQ_RESPONSES-----
-//-----------------------
+message GetAddressResponse {
+    Address address = 1;
+}
+
+message UpdateAddressRequest {
+    Address address = 1;
+}
+
+message UpdateAddressResponse {
+    Address address = 1;
+}
+
+message PartialUpdateAddressRequest {
+    Address address = 1;
+}
+
+message PartialUpdateAddressResponse {
+    Address address = 1;
+}
+
+message DeleteAddressRequest {
+    int64 id = 1;
+}
+
+message DeleteAddressResponse {
+
+}
 
 message CreateOrganizationRequest {
     Organization organization = 1;
-    optional int64 user_id = 2;
 }
 
 message CreateOrganizationResponse {
-    optional string token = 1;
-    Organization organization = 2;
+    Organization organization = 1;
 }
 
 message GetOrganizationRequest {
@@ -212,325 +138,66 @@ message GetOrganizationResponse {
     Organization organization = 1;
 }
 
-message GetCounterpartyRequest {
-    int64 id = 1;
-}
-
-message GetCounterpartyResponse {
-    Counterparty counterparty = 1;
-}
-
-message ListCounterpartiesRequest {
-    int64 source_organization_id = 1;
-    int32 limit = 2;
-    int32 offset = 3;
-}
-
-message ListCounterpartiesResponse {
-    repeated Counterparty counterparties = 1;
-    int32 total_count = 2;
-}
-
-message CreateCounterpartyRequest {
-    Counterparty counterparty = 1;
-    int64 source_organization_id = 2;
-}
-
-message CreateCounterpartyResponse {
-    Counterparty counterparty = 1;
-}
-
-message PatchCounterpartyRequest {
-    Counterparty counterparty = 1;
-    int64 source_organization_id = 2;
-}
-
-message PatchCounterpartyResponse {
-    Counterparty counterparty = 1;
-}
-
-message ListOrganizationsRequest {
-    int32 limit = 1;
-    int32 offset = 2;
-    string type = 3;
-    string name = 4;
-}
-
-message ListOrganizationsResponse {
-    repeated Organization organizations = 1;
-    int32 total_count = 2;
-}
-
-message PatchOrganizationRequest {
+message UpdateOrganizationRequest {
     Organization organization = 1;
 }
 
-message PatchOrganizationResponse {
-    string token = 1;
-    Organization organization = 2;
-}
-
-message UpdateOrganizationRequest {
-    OrganizationModel organization = 1;
-}
-
 message UpdateOrganizationResponse {
-    OrganizationModel organization = 1;
+    Organization organization = 1;
 }
 
-message GeneratePresignedURLsRequest {
-    int64 organization_id = 1;
-    repeated string file_names = 2;
+message PartialUpdateOrganizationRequest {
+    Organization organization = 1;
 }
 
-message PresignedURLInfo {
-    string file_name = 1;
-    string presigned_url = 2;
-    string object_key = 3;
+message PartialUpdateOrganizationResponse {
+    Organization organization = 1;
 }
 
-message GeneratePresignedURLsResponse {
-    repeated PresignedURLInfo presigned_urls = 1;
+message DeleteOrganizationRequest {
+    Organization organization = 1;
 }
 
-//-----------------------
-//-----BANK_ACCOUNTS-----
-//-----------------------
-
-message ListBankAccountsRequest {
-    int64 organization_id = 1;
+message DeleteOrganizationResponse {
+    Organization organization = 1;
 }
 
-message ListBankAccountsResponse {
-    repeated BankAccountModel bank_accounts = 1;
+message CreateBranchRequest {
+    Branch branch = 1;
 }
 
-message GetDefaultBankAccountRequest {
-    int64 organization_id = 1;
+message CreateBranchResponse {
+    Branch branch = 1;
 }
 
-message GetDefaultBankAccountResponse {
-    BankAccountModel bank_account = 1;
-}
-
-message CreateBankAccountRequest {
-    BankAccountModel bank_account = 1;
-}
-
-message CreateBankAccountResponse {
-    BankAccountModel bank_account = 1;
-}
-
-message UpdateBankAccountRequest {
-    BankAccountModel bank_account = 1;
-}
-
-message UpdateBankAccountResponse {
-    BankAccountModel bank_account = 1;
-}
-
-message UpdateBankAccountsRequest {
-    repeated BankAccountModel bank_accounts = 1;
-    int64 organization_id = 2;
-}
-
-message UpdateBankAccountsResponse {
-    repeated BankAccountModel bank_accounts = 1;
-}
-
-message DeleteBankAccountRequest {
+message GetBranchRequest {
     int64 id = 1;
 }
 
-message DeleteBankAccountResponse {
-    bool success = 1;
+message GetBranchResponse  {
+    Branch branch = 1;
 }
 
-//-----------------
-//-----ADDRESS-----
-//-----------------
-
-message CreateAddressRequest {
-    AddressModel address = 1;
+message UpdateBranchRequest {
+    Branch branch = 1;
 }
 
-message CreateAddressResponse {
-    AddressModel address = 1;
+message UpdateBranchResponse {
+    Branch branch = 1;
 }
 
-message GetAddressRequest {
-    int64 id = 1;
+message PartialUpdateBranchRequest {
+    Branch branch = 1;
 }
 
-message GetAddressResponse {
-    AddressModel address = 1;
+message PartialUpdateBranchResponse {
+    Branch branch = 1;
 }
 
-message UpdateAddressRequest {
-    AddressModel address = 1;
+message DeleteBranchRequest {
+    int64 id = 1;   
 }
 
-message UpdateAddressResponse {
-    AddressModel address = 1;
-}
+message DeleteBranchResponse {
 
-message PatchAddressRequest {
-    AddressModel address = 1;
-}
-
-message PatchAddressResponse {
-    AddressModel address = 1;
-}
-
-message DeleteAddressRequest {
-    int64 id = 1;
-}
-
-message DeleteAddressResponse {
-    bool success = 1;
-}
-
-//----------------------
-//-----RELATIONSHIP-----
-//----------------------
-
-message CreateRelationshipRequest {
-    RelationshipModel relationship = 1;
-}
-
-message CreateRelationshipResponse {
-    RelationshipModel relationship = 1;
-}
-
-message UpdateRelationshipRequest {
-    RelationshipModel relationship = 1;
-}
-
-message UpdateRelationshipResponse {
-    RelationshipModel relationship = 1;
-}
-
-message EnsureRelationshipExistsRequest {
-    RelationshipModel relationship = 1;
-}
-
-message EnsureRelationshipExistsResponse {
-    RelationshipModel relationship = 1;
-}
-
-message ListRelationshipsRequest {
-    int64 organization_id = 1;
-    int32 limit = 2;
-    int32 offset = 3;
-}
-
-message ListRelationshipsResponse {
-    repeated Relationship relationships = 1;
-    int32 total_count = 2;
-}
-
-
-//---------------------------
-//-----RELATIONSHIP_TYPE-----
-//---------------------------
-
-message GetRelationshipTypeRequest {
-    int64 id = 1;
-}
-
-message GetRelationshipTypeResponse {
-    RelationshipTypeModel relationship_type = 1;
-}
-
-message ListRelationshipTypesRequest {
-    int64 organization_id = 1;
-}
-
-message ListRelationshipTypesResponse {
-    repeated RelationshipTypeModel relationship_types = 1;
-}
-
-message CreateRelationshipTypeRequest {
-    RelationshipTypeModel relationship_type = 1;
-}
-
-message CreateRelationshipTypeResponse {
-    RelationshipTypeModel relationship_type = 1;
-}
-
-message UpdateRelationshipTypeRequest {
-    RelationshipTypeModel relationship_type = 1;
-}
-
-message UpdateRelationshipTypeResponse {
-    RelationshipTypeModel relationship_type = 1;
-}
-
-//------------------
-//-----CONTACTS-----
-//------------------
-
-message CreateContactRequest {
-    ContactModel contact = 1;
-}
-
-message CreateContactResponse {
-    ContactModel contact = 1;
-}
-
-message UpdateContactRequest {
-    ContactModel contact = 1;
-}
-
-message UpdateContactResponse {
-    ContactModel contact = 1;
-}
-
-message GetContactRequest {
-    int64 id = 1;
-}
-
-message GetContactResponse {
-    ContactModel contact = 1;
-}
-
-message DeleteContactRequest {
-    int64 id = 1;
-}
-
-message DeleteContactResponse {
-    bool success = 1;
-}
-
-message ListContactsRequest {
-    int64 lead_id = 1;
-    int64 organization_id = 2;
-}
-
-message ListContactsResponse {
-    repeated ContactModel contacts = 1;
-}
-
-message CreateSaleSettingsRequest {
-        repeated SaleSettings sale_settings = 1;
-}
-
-message CreateSaleSettingsResponse {
-        repeated SaleSettings sale_settings = 1;
-}
-
-message UpdateSaleSettingsRequest {
-        repeated SaleSettings sale_settings = 1;
-}
-
-message UpdateSaleSettingsResponse {
-        repeated SaleSettings sale_settings = 1;
-}
-
-message GetSaleSettingsRequest {
-        int64 organization_id = 1;
-}
-
-message GetSaleSettingsResponse {
-        repeated SaleSettings sale_settings = 1;
 }

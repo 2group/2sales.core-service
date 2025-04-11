@@ -6,14 +6,14 @@ OUTPUT_PATH_CPP  ?= pkg/gen/cpp
 PROTO_FILES ?= \
 	user/user.proto \
 	organization/organization.proto \
-	warehouse/warehouse.proto \
 	product/product.proto \
 	crm/crm.proto \
 	order/order.proto \
 	advertisement/advertisement.proto \
 	customer/customer.proto \
 	service/service.proto \
-	b2c_service_order/b2c_service_order.proto
+	# warehouse/warehouse.proto \
+	# b2c_service_order/b2c_service_order.proto \
 
 proto:
 	@protoc -I $(PROTO_PATH) $(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \

@@ -52,10 +52,10 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
-	warehousegrpc, err := grpc.NewWarehouseClient(context, s.cfg.GRPC.Warehouse, time.Hour, 2)
-	if err != nil {
-		panic(err)
-	}
+	// warehousegrpc, err := grpc.NewWarehouseClient(context, s.cfg.GRPC.Warehouse, time.Hour, 2)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
 	if err != nil {
@@ -90,20 +90,20 @@ func (s *APIServer) Run() error {
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	productHandler := handler.NewProductHandler(s.log, productgrpc)
 	crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
-	warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
+	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
 	advertisementHandler := handler.NewAdvertisementHandler(s.log, advertisementgrpc)
 	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
 	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log, B2CServiceOrderGrpc)
-	adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
+	// adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
 	router.Route("/admin/api", func(adminRouter chi.Router) {
-		adminRouter.Post("/login", adminHandler.Login)
-		adminRouter.Get("/brands", adminHandler.ListBrands)
-		adminRouter.Post("/brands", adminHandler.CreateBrand)
-		adminRouter.Patch("/brands/{brand_id}/images", adminHandler.PatchBrand)
-		adminRouter.Post("/brands/presigned-urls", adminHandler.GeneratePresignedURLs)
+		// adminRouter.Post("/login", adminHandler.Login)
+		// adminRouter.Get("/brands", adminHandler.ListBrands)
+		// adminRouter.Post("/brands", adminHandler.CreateBrand)
+		// adminRouter.Patch("/brands/{brand_id}/images", adminHandler.PatchBrand)
+		// adminRouter.Post("/brands/presigned-urls", adminHandler.GeneratePresignedURLs)
 	})
 
 	router.Route("/api/v1", func(apiRouter chi.Router) {
@@ -152,55 +152,56 @@ func (s *APIServer) Run() error {
 		apiRouter.Route("/organizations", func(orgRouter chi.Router) {
 			orgRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/", organizationHandler.ListOrganizations)
-				authRouter.Post("/my", organizationHandler.CreateOrganization)
-				authRouter.Get("/my", organizationHandler.GetMyOrganization)
-				authRouter.Put("/my", organizationHandler.UpdateMyOrganization)
-				authRouter.Patch("/my", organizationHandler.PatchMyOrganization)
-				authRouter.Post("/presigned-urls", organizationHandler.GeneratePresignedURLs)
-				authRouter.Get("/{organization_id}", organizationHandler.GetOrganization)
-				authRouter.Route("/addresses", func(aRouter chi.Router) {
-					aRouter.Post("/", organizationHandler.CreateAddress)
-					aRouter.Put("/{address_id}", organizationHandler.UpdateAddress)
-					aRouter.Get("/{address_id}", organizationHandler.GetAddress)
-					aRouter.Patch("/{address_id}", organizationHandler.PatchAddress)
-					aRouter.Delete("/{address_id}", organizationHandler.DeleteAddress)
-				})
-				authRouter.Route("/relationships", func(rRouter chi.Router) {
-					rRouter.Post("/", organizationHandler.CreateRelationship)
-					rRouter.Get("/my", organizationHandler.ListRelationships)
-					rRouter.Put("/{relationship_id}", organizationHandler.UpdateRelationship)
-				})
-				authRouter.Route("/relationship-types", func(rtRouter chi.Router) {
-					rtRouter.Post("/", organizationHandler.CreateRelationshipType)
-					rtRouter.Get("/my", organizationHandler.ListRelationshipTypes)
-					rtRouter.Get("/{relationship_type_id}", organizationHandler.GetRelationshipType)
-					rtRouter.Put("/{relationship_type_id}", organizationHandler.UpdateRelationshipType)
-				})
-				authRouter.Route("/contacts", func(cRouter chi.Router) {
-					cRouter.Post("/", organizationHandler.CreateContact)
-					cRouter.Get("/{contact_id}", organizationHandler.GetContact)
-					cRouter.Put("/{contact_id}", organizationHandler.UpdateContact)
-					cRouter.Delete("/{contact_id}", organizationHandler.DeleteContact)
-				})
-				authRouter.Route("/counterparties", func(coRouter chi.Router) {
-					coRouter.Post("/", organizationHandler.CreateCounterparty)
-					coRouter.Get("/my", organizationHandler.ListCounterparties)
-					coRouter.Get("/{counterparty_id}", organizationHandler.GetCounterparty)
-					coRouter.Patch("/{counterparty_id}", organizationHandler.PatchMyCounterparty)
-				})
-				authRouter.Route("/bank_accounts", func(baRouter chi.Router) {
-					baRouter.Get("/my", organizationHandler.ListMyBankAccounts)
-					baRouter.Put("/my", organizationHandler.UpdateMyBankAccounts)
-					baRouter.Post("/", organizationHandler.CreateBankAccount)
-					baRouter.Put("/{bank_account_id}", organizationHandler.UpdateBankAccount)
-					baRouter.Delete("/{bank_account_id}", organizationHandler.DeleteBankAccount)
-				})
-				authRouter.Route("/settings", func(baRouter chi.Router) {
-					baRouter.Get("/", organizationHandler.ListSaleSettings)
-					baRouter.Put("/", organizationHandler.UpdateSaleSettings)
-					baRouter.Post("/", organizationHandler.CreateSaleSettings)
-				})
+				authRouter.Post("/", organizationHandler.CreateOrganization)
+				// authRouter.Get("/", organizationHandler.ListOrganizations)
+				// authRouter.Post("/my", organizationHandler.CreateOrganization)
+				// authRouter.Get("/my", organizationHandler.GetMyOrganization)
+				// authRouter.Put("/my", organizationHandler.UpdateMyOrganization)
+				// authRouter.Patch("/my", organizationHandler.PatchMyOrganization)
+				// authRouter.Post("/presigned-urls", organizationHandler.GeneratePresignedURLs)
+				// authRouter.Get("/{organization_id}", organizationHandler.GetOrganization)
+				// authRouter.Route("/addresses", func(aRouter chi.Router) {
+				// 	aRouter.Post("/", organizationHandler.CreateAddress)
+				// 	aRouter.Put("/{address_id}", organizationHandler.UpdateAddress)
+				// 	aRouter.Get("/{address_id}", organizationHandler.GetAddress)
+				// 	aRouter.Patch("/{address_id}", organizationHandler.PatchAddress)
+				// 	aRouter.Delete("/{address_id}", organizationHandler.DeleteAddress)
+				// })
+				// authRouter.Route("/relationships", func(rRouter chi.Router) {
+				// 	rRouter.Post("/", organizationHandler.CreateRelationship)
+				// 	rRouter.Get("/my", organizationHandler.ListRelationships)
+				// 	rRouter.Put("/{relationship_id}", organizationHandler.UpdateRelationship)
+				// })
+				// authRouter.Route("/relationship-types", func(rtRouter chi.Router) {
+				// 	rtRouter.Post("/", organizationHandler.CreateRelationshipType)
+				// 	rtRouter.Get("/my", organizationHandler.ListRelationshipTypes)
+				// 	rtRouter.Get("/{relationship_type_id}", organizationHandler.GetRelationshipType)
+				// 	rtRouter.Put("/{relationship_type_id}", organizationHandler.UpdateRelationshipType)
+				// })
+				// authRouter.Route("/contacts", func(cRouter chi.Router) {
+				// 	cRouter.Post("/", organizationHandler.CreateContact)
+				// 	cRouter.Get("/{contact_id}", organizationHandler.GetContact)
+				// 	cRouter.Put("/{contact_id}", organizationHandler.UpdateContact)
+				// 	cRouter.Delete("/{contact_id}", organizationHandler.DeleteContact)
+				// })
+				// authRouter.Route("/counterparties", func(coRouter chi.Router) {
+				// 	coRouter.Post("/", organizationHandler.CreateCounterparty)
+				// 	coRouter.Get("/my", organizationHandler.ListCounterparties)
+				// 	coRouter.Get("/{counterparty_id}", organizationHandler.GetCounterparty)
+				// 	coRouter.Patch("/{counterparty_id}", organizationHandler.PatchMyCounterparty)
+				// })
+				// authRouter.Route("/bank_accounts", func(baRouter chi.Router) {
+				// 	baRouter.Get("/my", organizationHandler.ListMyBankAccounts)
+				// 	baRouter.Put("/my", organizationHandler.UpdateMyBankAccounts)
+				// 	baRouter.Post("/", organizationHandler.CreateBankAccount)
+				// 	baRouter.Put("/{bank_account_id}", organizationHandler.UpdateBankAccount)
+				// 	baRouter.Delete("/{bank_account_id}", organizationHandler.DeleteBankAccount)
+				// })
+				// authRouter.Route("/settings", func(baRouter chi.Router) {
+				// 	baRouter.Get("/", organizationHandler.ListSaleSettings)
+				// 	baRouter.Put("/", organizationHandler.UpdateSaleSettings)
+				// 	baRouter.Post("/", organizationHandler.CreateSaleSettings)
+				// })
 			})
 		})
 		apiRouter.Route("/crm", func(crmRouter chi.Router) {
@@ -216,46 +217,46 @@ func (s *APIServer) Run() error {
 				})
 			})
 		})
-		apiRouter.Route("/warehouse", func(warehouseRouter chi.Router) {
-			warehouseRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/", warehouseHandler.ListWarehouses)
-				authRouter.Post("/", warehouseHandler.CreateWarehouse)
-				authRouter.Get("/{warehouse_id}", warehouseHandler.GetWarehouse)
-				authRouter.Get("/product/{warehouse_id}", warehouseHandler.GetCountProducts)
-				authRouter.Put("/{warehouse_id}", warehouseHandler.UpdateWarehouse)
-				authRouter.Route("/acceptance", func(acpRouter chi.Router) {
-					acpRouter.Use(auth.AuthMiddleware)
-					acpRouter.Get("/", warehouseHandler.ListAcceptances)
-					acpRouter.Get("/{acceptance_id}", warehouseHandler.GetAcceptance)
-					acpRouter.Post("/", warehouseHandler.CreateAcceptance)
-				})
-			})
-			warehouseRouter.Route("/write_off", func(writeOffRouter chi.Router) {
-				writeOffRouter.Group(func(authRouter chi.Router) {
-					authRouter.Use(auth.AuthMiddleware)
-					authRouter.Get("/", warehouseHandler.ListWriteOff)
-					authRouter.Get("/{write_off_id}", warehouseHandler.GetWriteOff)
-					authRouter.Post("/", warehouseHandler.CreateWriteOff)
-				})
-			})
-			warehouseRouter.Route("/moving", func(movingRouter chi.Router) {
-				movingRouter.Group(func(authRouter chi.Router) {
-					authRouter.Use(auth.AuthMiddleware)
-					authRouter.Get("/", warehouseHandler.ListMoving)
-					authRouter.Get("/{moving_id}", warehouseHandler.GetMoving)
-					authRouter.Post("/", warehouseHandler.CreateMoving)
-				})
-			})
-			warehouseRouter.Route("/inventory", func(movingRouter chi.Router) {
-				movingRouter.Group(func(authRouter chi.Router) {
-					authRouter.Use(auth.AuthMiddleware)
-					authRouter.Get("/", warehouseHandler.ListInventory)
-					authRouter.Get("/{inventory_id}", warehouseHandler.GetInventory)
-					authRouter.Post("/", warehouseHandler.CreateInventory)
-				})
-			})
-		})
+		// apiRouter.Route("/warehouse", func(warehouseRouter chi.Router) {
+		// 	warehouseRouter.Group(func(authRouter chi.Router) {
+		// 		authRouter.Use(auth.AuthMiddleware)
+		// 		authRouter.Get("/", warehouseHandler.ListWarehouses)
+		// 		authRouter.Post("/", warehouseHandler.CreateWarehouse)
+		// 		authRouter.Get("/{warehouse_id}", warehouseHandler.GetWarehouse)
+		// 		authRouter.Get("/product/{warehouse_id}", warehouseHandler.GetCountProducts)
+		// 		authRouter.Put("/{warehouse_id}", warehouseHandler.UpdateWarehouse)
+		// 		authRouter.Route("/acceptance", func(acpRouter chi.Router) {
+		// 			acpRouter.Use(auth.AuthMiddleware)
+		// 			acpRouter.Get("/", warehouseHandler.ListAcceptances)
+		// 			acpRouter.Get("/{acceptance_id}", warehouseHandler.GetAcceptance)
+		// 			acpRouter.Post("/", warehouseHandler.CreateAcceptance)
+		// 		})
+		// 	})
+		// 	warehouseRouter.Route("/write_off", func(writeOffRouter chi.Router) {
+		// 		writeOffRouter.Group(func(authRouter chi.Router) {
+		// 			authRouter.Use(auth.AuthMiddleware)
+		// 			authRouter.Get("/", warehouseHandler.ListWriteOff)
+		// 			authRouter.Get("/{write_off_id}", warehouseHandler.GetWriteOff)
+		// 			authRouter.Post("/", warehouseHandler.CreateWriteOff)
+		// 		})
+		// 	})
+		// 	warehouseRouter.Route("/moving", func(movingRouter chi.Router) {
+		// 		movingRouter.Group(func(authRouter chi.Router) {
+		// 			authRouter.Use(auth.AuthMiddleware)
+		// 			authRouter.Get("/", warehouseHandler.ListMoving)
+		// 			authRouter.Get("/{moving_id}", warehouseHandler.GetMoving)
+		// 			authRouter.Post("/", warehouseHandler.CreateMoving)
+		// 		})
+		// 	})
+		// 	warehouseRouter.Route("/inventory", func(movingRouter chi.Router) {
+		// 		movingRouter.Group(func(authRouter chi.Router) {
+		// 			authRouter.Use(auth.AuthMiddleware)
+		// 			authRouter.Get("/", warehouseHandler.ListInventory)
+		// 			authRouter.Get("/{inventory_id}", warehouseHandler.GetInventory)
+		// 			authRouter.Post("/", warehouseHandler.CreateInventory)
+		// 		})
+		// 	})
+		// })
 		apiRouter.Route("/orders", func(orderRouter chi.Router) {
 			orderRouter.Route("/sub-orders", func(suborderRouter chi.Router) {
 				suborderRouter.Group(func(authRouter chi.Router) {
