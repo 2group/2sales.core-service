@@ -18,4 +18,4 @@ RUN go build -o bin/core ./cmd/core/main.go
 EXPOSE 8090
 
 # Command to run the application with the configuration file
-CMD ["./bin/core", "--config=./internal/config/local.yaml"]
+CMD ["./bin/core", "--config=./internal/config/server.yaml"]

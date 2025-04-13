@@ -91,7 +91,6 @@ func (h *ServiceHandler) DeleteService(w http.ResponseWriter, r *http.Request) {
 		Id: id,
 	}
 
-	return
 	response, err := h.service.Api.DeleteService(r.Context(), req)
 	if err != nil {
 		h.log.Error("Error deleting service", "error", err)
