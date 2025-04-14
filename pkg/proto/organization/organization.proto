@@ -155,11 +155,10 @@ message PartialUpdateOrganizationResponse {
 }
 
 message DeleteOrganizationRequest {
-    Organization organization = 1;
+    int64 id = 1;
 }
 
 message DeleteOrganizationResponse {
-    Organization organization = 1;
 }
 
 message CreateBranchRequest {
