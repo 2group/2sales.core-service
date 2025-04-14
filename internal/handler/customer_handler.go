@@ -59,7 +59,9 @@ func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	req := &customerv1.GetCustomerRequest{
-		Id: customerID,
+		Lookup: &customerv1.GetCustomerRequest_Id{
+			Id: customerID,
+		},
 	}
 
 	response, err := h.customer.Api.GetCustomer(r.Context(), req)
