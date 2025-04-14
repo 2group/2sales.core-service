@@ -20,7 +20,8 @@ message User {
 }
 
 message LoginRequest {
-    User user = 1;
+    string login = 1;
+    string passowrd = 2;
 }
 
 message LoginResponse {
