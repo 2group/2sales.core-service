@@ -21,7 +21,7 @@ message User {
 
 message LoginRequest {
     string login = 1;
-    string passowrd = 2;
+    string password = 2;
 }
 
 message LoginResponse {
