@@ -108,22 +108,22 @@ func (s *APIServer) Run() error {
 
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
-			userRouter.Post("/login", userHandler.HandleLogin)
-			userRouter.Post("/register", userHandler.HandleRegister)
-			userRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/me", userHandler.HandleGetMyProfile)
-				authRouter.Put("/me", userHandler.HandleUpdateMyProfile)
-				authRouter.Patch("/me", userHandler.HandlePatchMyProfile)
-				authRouter.Route("/roles", func(rolesRouter chi.Router) {
-					rolesRouter.Get("/my", userHandler.ListMyOrganizationRoles)
-				})
-				authRouter.Route("/users", func(usersRouter chi.Router) {
-					usersRouter.Post("/", userHandler.CreateUser)
-					usersRouter.Get("/my", userHandler.ListMyOrganizationUsers)
-					usersRouter.Patch("/{user_id}", userHandler.PatchUser)
-				})
-			})
+			userRouter.Post("/login", userHandler.Login)
+			userRouter.Post("/register", userHandler.Register)
+			// userRouter.Group(func(authRouter chi.Router) {
+			// 	authRouter.Use(auth.AuthMiddleware)
+			// 	authRouter.Get("/me", userHandler.HandleGetMyProfile)
+			// 	authRouter.Put("/me", userHandler.HandleUpdateMyProfile)
+			// 	authRouter.Patch("/me", userHandler.HandlePatchMyProfile)
+			// 	authRouter.Route("/roles", func(rolesRouter chi.Router) {
+			// 		rolesRouter.Get("/my", userHandler.ListMyOrganizationRoles)
+			// 	})
+			// 	authRouter.Route("/users", func(usersRouter chi.Router) {
+			// 		usersRouter.Post("/", userHandler.CreateUser)
+			// 		usersRouter.Get("/my", userHandler.ListMyOrganizationUsers)
+			// 		usersRouter.Patch("/{user_id}", userHandler.PatchUser)
+			// 	})
+			// })
 		})
 		apiRouter.Route("/product", func(productRouter chi.Router) {
 			productRouter.Group(func(authRouter chi.Router) {
@@ -153,7 +153,7 @@ func (s *APIServer) Run() error {
 			orgRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", organizationHandler.CreateOrganization)
-				authRouter.Get("/{organization}", organizationHandler.GetOrganization)
+				authRouter.Get("/{organization_id}", organizationHandler.GetOrganization)
 				// authRouter.Get("/", organizationHandler.ListOrganizations)
 				// authRouter.Post("/my", organizationHandler.CreateOrganization)
 				// authRouter.Get("/my", organizationHandler.GetMyOrganization)

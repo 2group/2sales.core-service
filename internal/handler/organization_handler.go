@@ -55,6 +55,6 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	json.WriteJSON(w, http.StatusFound, response)
+	json.WriteJSON(w, http.StatusAccepted, response)
 	return
 }

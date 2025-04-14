@@ -4,68 +4,23 @@ package user;
 
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/user;userv1";
 
+import "customer/customer.proto";
+
 service UserService {
     rpc Login (LoginRequest) returns (LoginResponse);
     rpc Register (RegisterRequest) returns (RegisterResponse);
-    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
-    rpc PatchUser (PatchUserRequest) returns (PatchUserResponse);
-    rpc GetUser (GetUserRequest) returns (GetUserResponse);
-    rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
-    rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
-    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
-
-    rpc CreateRole (CreateRoleRequest) returns (CreateRoleResponse);
-    rpc ListRoles (ListRolesRequest) returns (ListRolesResponse);
-    rpc UpdateRole (UpdateRoleRequest) returns (UpdateRoleResponse);
-    rpc DeleteRole (DeleteRoleRequest) returns (DeleteRoleResponse);
 }
 
 message User {
     optional int64 id = 1;
     optional string email = 2;
-    optional string password_hash = 3;
-    optional string phone_number = 4;
-    optional string first_name = 5;
-    optional string last_name = 6;
-    optional int64 organization_id = 7;
-    optional string organization_name = 8;
-    optional string organization_type = 9;
-    optional string created_at = 10;
-    optional string updated_at = 11;
-    optional RoleModel role = 12;
-}
-
-message UserModel {
-    optional int64 id = 1;
-    optional string email = 2;
-    optional string password_hash = 3;
-    optional string first_name = 4;
-    optional string last_name = 5;
-    optional string phone_number = 6;
-    optional int64 organization_id = 7;
-    optional string organization_type = 8;
-    optional string created_at = 9;
-    optional string updated_at = 10;
-}
-
-message RoleModel {
-    optional int64 role_id = 1;
-    string role_name = 2;
-    optional string description = 3;
-    optional int64 organization_id = 4;
-}
-
-message UserRoleModel {
-    optional int64 user_id = 1;
-    int64 role_id = 2;
-    int64 assigned_by = 3;
-    int64 organization_id = 4;
+    optional string phone_number = 3;
+    optional string password = 4;
+    optional customer.Customer customer = 5;
 }
 
 message LoginRequest {
-    string login = 1;
-    string platform = 2;
-    string password = 3;
+    User user = 1;
 }
 
 message LoginResponse {
@@ -75,93 +30,10 @@ message LoginResponse {
 }
 
 message RegisterRequest {
-    UserModel user = 1;
+    User user = 1;
 }
 
 message RegisterResponse {
-    string token = 1;
-    UserModel user = 2;
-}
-
-message CreateUserRequest {
     User user = 1;
-    optional int64 assigned_by = 2;
-}
-
-message CreateUserResponse {
-    User user = 1;
-}
-
-message UpdateUserRequest {
-    UserModel user = 1;
-}
-
-message UpdateUserResponse {
-    UserModel user = 1;
-}
-
-message PatchUserRequest {
-    User user = 1;
-    optional int64 assigned_by = 2;
-}
-
-message PatchUserResponse {
-    User user = 1;
-}
-
-message GetUserRequest {
-    int64 user_id = 1;
-}
-
-message GetUserResponse {
-    User user = 1;
-}
-
-message ListUsersRequest {
-    int64 organization_id = 1;
-}
-
-message ListUsersResponse {
-    repeated User users = 1; 
-}
-
-message DeleteUserRequest {
-    int64 user_id = 1;
-}
-
-message DeleteUserResponse {
-    bool success = 1;
-}
-
-message CreateRoleRequest {
-    RoleModel role = 1;
-}
-
-message CreateRoleResponse {
-    RoleModel role = 1;
-}
-
-message ListRolesRequest {
-    int64 organization_id = 1;
-}
-
-message ListRolesResponse {
-    repeated RoleModel roles = 1;
-    int32 total_count = 2;
-}
-
-message UpdateRoleRequest {
-    RoleModel role = 1;
-}
-
-message UpdateRoleResponse {
-    RoleModel role = 1;
-}
-
-message DeleteRoleRequest {
-    int64 role_id = 1;
-}
-
-message DeleteRoleResponse {
-    bool success = 1;
+    string token = 2;
 }
