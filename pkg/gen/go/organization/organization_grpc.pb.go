@@ -34,6 +34,7 @@ const (
 	OrganizationService_UpdateBranch_FullMethodName              = "/organization.OrganizationService/UpdateBranch"
 	OrganizationService_PartialUpdateBranch_FullMethodName       = "/organization.OrganizationService/PartialUpdateBranch"
 	OrganizationService_DeleteBranch_FullMethodName              = "/organization.OrganizationService/DeleteBranch"
+	OrganizationService_CreateBonusLevel_FullMethodName          = "/organization.OrganizationService/CreateBonusLevel"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -55,6 +56,7 @@ type OrganizationServiceClient interface {
 	UpdateBranch(ctx context.Context, in *UpdateBranchRequest, opts ...grpc.CallOption) (*UpdateBranchResponse, error)
 	PartialUpdateBranch(ctx context.Context, in *PartialUpdateBranchRequest, opts ...grpc.CallOption) (*PartialUpdateBranchResponse, error)
 	DeleteBranch(ctx context.Context, in *DeleteBranchRequest, opts ...grpc.CallOption) (*DeleteBranchResponse, error)
+	CreateBonusLevel(ctx context.Context, in *CreateBonusLevelRequest, opts ...grpc.CallOption) (*CreateAddressResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -215,6 +217,16 @@ func (c *organizationServiceClient) DeleteBranch(ctx context.Context, in *Delete
 	return out, nil
 }
 
+func (c *organizationServiceClient) CreateBonusLevel(ctx context.Context, in *CreateBonusLevelRequest, opts ...grpc.CallOption) (*CreateAddressResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateAddressResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateBonusLevel_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationServiceServer is the server API for OrganizationService service.
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
@@ -234,6 +246,7 @@ type OrganizationServiceServer interface {
 	UpdateBranch(context.Context, *UpdateBranchRequest) (*UpdateBranchResponse, error)
 	PartialUpdateBranch(context.Context, *PartialUpdateBranchRequest) (*PartialUpdateBranchResponse, error)
 	DeleteBranch(context.Context, *DeleteBranchRequest) (*DeleteBranchResponse, error)
+	CreateBonusLevel(context.Context, *CreateBonusLevelRequest) (*CreateAddressResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -288,6 +301,9 @@ func (UnimplementedOrganizationServiceServer) PartialUpdateBranch(context.Contex
 }
 func (UnimplementedOrganizationServiceServer) DeleteBranch(context.Context, *DeleteBranchRequest) (*DeleteBranchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteBranch not implemented")
+}
+func (UnimplementedOrganizationServiceServer) CreateBonusLevel(context.Context, *CreateBonusLevelRequest) (*CreateAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBonusLevel not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -580,6 +596,24 @@ func _OrganizationService_DeleteBranch_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_CreateBonusLevel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBonusLevelRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).CreateBonusLevel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_CreateBonusLevel_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).CreateBonusLevel(ctx, req.(*CreateBonusLevelRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationService_ServiceDesc is the grpc.ServiceDesc for OrganizationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -646,6 +680,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBranch",
 			Handler:    _OrganizationService_DeleteBranch_Handler,
+		},
+		{
+			MethodName: "CreateBonusLevel",
+			Handler:    _OrganizationService_CreateBonusLevel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
