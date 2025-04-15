@@ -23,7 +23,10 @@ service OrganizationService {
     rpc PartialUpdateBranch (PartialUpdateBranchRequest) returns (PartialUpdateBranchResponse);
     rpc DeleteBranch (DeleteBranchRequest) returns (DeleteBranchResponse);
 
-    rpc CreateBonusLevel (CreateBonusLevelRequest) returns (CreateAddressResponse);
+    rpc CreateBonusLevel (CreateBonusLevelRequest) returns (CreateBonusLevelResponse);
+    rpc GetBonusLevel (GetBonusLevelRequest) returns (GetBonusLevelResponse);
+    rpc UpdateBonusLevel (UpdateBonusLevelRequest) returns (UpdateBonusLevelResponse);
+    rpc ListBonusLevelsByOrganization (ListBonusLevelsByOrganizationRequest) returns (ListBonusLevelsByOrganizationResponse);
 }
 
 message Address {
@@ -100,6 +103,30 @@ message CreateBonusLevelRequest {
 
 message CreateBonusLevelResponse {
     BonusLevel bonus_level = 1;
+}
+
+message GetBonusLevelRequest {
+    int64 id = 1;
+}
+
+message GetBonusLevelResponse {
+    BonusLevel bonus_level = 1;
+}
+
+message UpdateBonusLevelRequest {
+    BonusLevel bonus_level = 1;
+}
+
+message UpdateBonusLevelResponse {
+    BonusLevel bonus_level = 1;
+}
+
+message ListBonusLevelsByOrganizationRequest {
+    int64 organization_id = 1;
+}
+
+message ListBonusLevelsByOrganizationResponse {
+    repeated BonusLevel bonus_levels = 1;
 }
 
 message CreateAddressRequest {
