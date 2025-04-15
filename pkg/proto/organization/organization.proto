@@ -22,6 +22,8 @@ service OrganizationService {
     rpc UpdateBranch (UpdateBranchRequest) returns (UpdateBranchResponse);
     rpc PartialUpdateBranch (PartialUpdateBranchRequest) returns (PartialUpdateBranchResponse);
     rpc DeleteBranch (DeleteBranchRequest) returns (DeleteBranchResponse);
+
+    rpc CreateBonusLevel (CreateBonusLevelRequest) returns (CreateAddressResponse);
 }
 
 message Address {
@@ -80,6 +82,24 @@ message BranchDetail {
     Address address = 4;
     optional string created_at = 5;
     optional string updated_at = 6;
+}
+
+message BonusLevel {
+    optional int64 id = 1;
+    int64 organization_id = 2;
+    string name = 3;
+    float min_sales_amount = 4;
+    int32 cashback_percentage = 5;
+    optional string created_at = 6;
+    optional string updated_at = 7;
+}
+
+message CreateBonusLevelRequest {
+    BonusLevel bonus_level = 1;
+}
+
+message CreateBonusLevelResponse {
+    BonusLevel bonus_level = 1;
 }
 
 message CreateAddressRequest {
@@ -194,7 +214,7 @@ message PartialUpdateBranchResponse {
 }
 
 message DeleteBranchRequest {
-    int64 id = 1;   
+    int64 id = 1;
 }
 
 message DeleteBranchResponse {

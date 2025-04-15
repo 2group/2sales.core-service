@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+
 	"net/http"
 	"strconv"
 	"unicode"
@@ -55,7 +56,6 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 		if err != nil {
 			return err
 		}
-		fmt.Println("After protojson.Marshal, data:", string(data))
 
 		// Decode the JSON into a map.
 		var objMap map[string]interface{}
@@ -64,26 +64,21 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 		if err := decoder.Decode(&objMap); err != nil {
 			return err
 		}
-		fmt.Println("After decoding to map, objMap:", objMap)
 
 		// Convert any number representations.
 		objMap = convertNumbers(objMap).(map[string]interface{})
-		fmt.Println("After convertNumbers, objMap:", objMap)
 
 		// Recursively fill missing fields with nil using proto reflection.
 		fillMissingFields(protoMsg.ProtoReflect(), objMap)
-		fmt.Println("After fillMissingFields, objMap:", objMap)
 
 		// Normalize all keys to snake_case.
 		objMap = normalizeKeysMap(objMap)
-		fmt.Println("After normalizeKeysMap, objMap:", objMap)
 
 		// Marshal the modified map back to JSON.
 		data, err = json.Marshal(objMap)
 		if err != nil {
 			return err
 		}
-		fmt.Println("Final marshaled JSON data:", string(data))
 	} else {
 		data, err = json.Marshal(v)
 		if err != nil {
@@ -106,11 +101,9 @@ func fillMissingFields(m protoreflect.Message, objMap map[string]interface{}) {
 		jsonName := fieldDesc.JSONName()
 
 		// Debug: show field name and whether it is present.
-		fmt.Printf("Field '%s': Has = %v\n", jsonName, m.Has(fieldDesc))
 
 		if _, exists := objMap[jsonName]; !exists {
 			objMap[jsonName] = nil
-			fmt.Printf("Setting missing field '%s' to nil\n", jsonName)
 		} else {
 			// If the field is a message, process recursively.
 			if fieldDesc.Kind() == protoreflect.MessageKind {
