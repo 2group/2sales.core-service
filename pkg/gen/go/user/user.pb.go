@@ -308,8 +308,7 @@ func (x *RegisterResponse) GetToken() string {
 
 type CreateUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Customer      *customer.Customer     `protobuf:"bytes,2,opt,name=customer,proto3" json:"customer,omitempty"`
+	User          *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -344,16 +343,9 @@ func (*CreateUserRequest) Descriptor() ([]byte, []int) {
 	return file_user_user_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *CreateUserRequest) GetUserId() int64 {
+func (x *CreateUserRequest) GetUser() *User {
 	if x != nil {
-		return x.UserId
-	}
-	return 0
-}
-
-func (x *CreateUserRequest) GetCustomer() *customer.Customer {
-	if x != nil {
-		return x.Customer
+		return x.User
 	}
 	return nil
 }
@@ -520,10 +512,10 @@ const file_user_user_proto_rawDesc = "" +
 	"\x10RegisterResponse\x12\x1e\n" +
 	"\x04user\x18\x01 \x01(\v2\n" +
 	".user.UserR\x04user\x12\x14\n" +
-	"\x05token\x18\x02 \x01(\tR\x05token\"\\\n" +
-	"\x11CreateUserRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12.\n" +
-	"\bcustomer\x18\x02 \x01(\v2\x12.customer.CustomerR\bcustomer\"4\n" +
+	"\x05token\x18\x02 \x01(\tR\x05token\"3\n" +
+	"\x11CreateUserRequest\x12\x1e\n" +
+	"\x04user\x18\x01 \x01(\v2\n" +
+	".user.UserR\x04user\"4\n" +
 	"\x12CreateUserResponse\x12\x1e\n" +
 	"\x04user\x18\x01 \x01(\v2\n" +
 	".user.UserR\x04user\"3\n" +
@@ -571,7 +563,7 @@ var file_user_user_proto_depIdxs = []int32{
 	0,  // 1: user.LoginResponse.user:type_name -> user.User
 	0,  // 2: user.RegisterRequest.user:type_name -> user.User
 	0,  // 3: user.RegisterResponse.user:type_name -> user.User
-	9,  // 4: user.CreateUserRequest.customer:type_name -> customer.Customer
+	0,  // 4: user.CreateUserRequest.user:type_name -> user.User
 	0,  // 5: user.CreateUserResponse.user:type_name -> user.User
 	0,  // 6: user.UpdateUserRequest.user:type_name -> user.User
 	0,  // 7: user.UpdateUserResponse.user:type_name -> user.User

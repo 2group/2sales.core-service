@@ -41,8 +41,7 @@ message RegisterResponse {
     string token = 2;
 }
 message CreateUserRequest {
-    int64 user_id = 1;
-    customer.Customer customer = 2;
+    User user = 1;
 }
 
 message CreateUserResponse {
