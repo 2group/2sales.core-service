@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-
 	"net/http"
 	"strconv"
 	"unicode"
@@ -14,6 +13,7 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
+// ParseJSON decodes the request body into the provided model.
 func ParseJSON(r *http.Request, model any) error {
 	if r.Body == nil {
 		return fmt.Errorf("Missing request body")
@@ -36,6 +36,11 @@ func (j jsonNumberMarshaler) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf("%d", i)), nil
 }
 
+// WriteJSON writes the data v as JSON with the specified HTTP status.
+// For protobuf messages, it marshals using protojson with EmitUnpopulated,
+// then post-processes the JSON to (1) convert numbers (while skipping "bin"),
+// (2) fill missing fields using proto reflection without overwriting valid values,
+// and (3) normalize keys to snake_case.
 func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
@@ -43,11 +48,10 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	var data []byte
 	var err error
 
-	// Special handling for protobuf messages.
 	if protoMsg, ok := v.(proto.Message); ok {
 		marshaler := protojson.MarshalOptions{
 			EmitUnpopulated: true,
-			UseProtoNames:   true, // forces snake_case keys (as defined in the proto)
+			UseProtoNames:   true, // forces keys defined in the proto (ideally snake_case)
 			UseEnumNumbers:  true,
 		}
 
@@ -56,6 +60,7 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 		if err != nil {
 			return err
 		}
+		fmt.Println("After protojson.Marshal, data:", string(data))
 
 		// Decode the JSON into a map.
 		var objMap map[string]interface{}
@@ -64,21 +69,27 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 		if err := decoder.Decode(&objMap); err != nil {
 			return err
 		}
+		fmt.Println("After decoding to map, objMap:", objMap)
 
-		// Convert any number representations.
+		// Convert any number representations (skipping the key "bin").
 		objMap = convertNumbers(objMap).(map[string]interface{})
+		fmt.Println("After convertNumbers, objMap:", objMap)
 
-		// Recursively fill missing fields with nil using proto reflection.
+		// Recursively fill missing fields using proto reflection,
+		// but do not override valid values.
 		fillMissingFields(protoMsg.ProtoReflect(), objMap)
+		fmt.Println("After fillMissingFields, objMap:", objMap)
 
 		// Normalize all keys to snake_case.
 		objMap = normalizeKeysMap(objMap)
+		fmt.Println("After normalizeKeysMap, objMap:", objMap)
 
 		// Marshal the modified map back to JSON.
 		data, err = json.Marshal(objMap)
 		if err != nil {
 			return err
 		}
+		fmt.Println("Final marshaled JSON data:", string(data))
 	} else {
 		data, err = json.Marshal(v)
 		if err != nil {
@@ -90,28 +101,36 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	return err
 }
 
-// fillMissingFields recursively walks through the proto message (m)
-// and ensures every field defined in the descriptor exists in objMap.
-// If a field is missing, it adds it with a nil value.
-// For message fields, it recurses into the nested map.
+// fillMissingFields recursively processes the proto message m and ensures that
+// for each field the normalized key (snake_case) exists in objMap. It will not
+// overwrite a value that is already non-nil. If a duplicate camelCase key exists,
+// its non-nil value is used if the normalized key is missing or nil.
 func fillMissingFields(m protoreflect.Message, objMap map[string]interface{}) {
 	fields := m.Descriptor().Fields()
 	for i := 0; i < fields.Len(); i++ {
 		fieldDesc := fields.Get(i)
-		jsonName := fieldDesc.JSONName()
+		normalizedKey := toSnakeCase(fieldDesc.JSONName())
+		camelKey := fieldDesc.JSONName()
 
-		// Debug: show field name and whether it is present.
+		// If the normalized key is missing or nil, then check if the camelCase version exists.
+		if existing, exists := objMap[normalizedKey]; !exists || existing == nil {
+			if val, existsCamel := objMap[camelKey]; existsCamel && val != nil {
+				objMap[normalizedKey] = val
+			} else if !exists {
+				objMap[normalizedKey] = nil
+			}
+		}
+		// Remove the duplicate camelCase key if it is different.
+		if camelKey != normalizedKey {
+			delete(objMap, camelKey)
+		}
 
-		if _, exists := objMap[jsonName]; !exists {
-			objMap[jsonName] = nil
-		} else {
-			// If the field is a message, process recursively.
-			if fieldDesc.Kind() == protoreflect.MessageKind {
-				if m.Has(fieldDesc) {
-					subMsg := m.Get(fieldDesc).Message()
-					if subMap, ok := objMap[jsonName].(map[string]interface{}); ok {
-						fillMissingFields(subMsg, subMap)
-					}
+		// For message fields, if set, process recursively.
+		if fieldDesc.Kind() == protoreflect.MessageKind {
+			if m.Has(fieldDesc) {
+				subMsg := m.Get(fieldDesc).Message()
+				if subMap, ok := objMap[normalizedKey].(map[string]interface{}); ok {
+					fillMissingFields(subMsg, subMap)
 				}
 			}
 		}
@@ -160,28 +179,36 @@ func toSnakeCase(s string) string {
 	return string(result)
 }
 
+// convertNumbers recursively converts string values to json.Number when appropriate,
+// except for keys that should remain as strings (for example, "bin").
 func convertNumbers(v interface{}) interface{} {
 	switch x := v.(type) {
 	case map[string]interface{}:
-		for k, v := range x {
-			x[k] = convertNumbers(v)
+		for k, val := range x {
+			// Skip conversion for key "bin".
+			if k == "bin" {
+				continue
+			}
+			x[k] = convertNumbers(val)
 		}
 		return x
 	case []interface{}:
-		for i, v := range x {
-			x[i] = convertNumbers(v)
+		for i, val := range x {
+			x[i] = convertNumbers(val)
 		}
 		return x
 	case string:
+		// Attempt conversion only if the string represents an integer.
 		if num, err := strconv.ParseInt(x, 10, 64); err == nil {
 			return json.Number(strconv.FormatInt(num, 10))
 		}
 		return x
 	default:
-		return v
+		return x
 	}
 }
 
+// WriteError sends an error message as JSON.
 func WriteError(w http.ResponseWriter, status int, err error) {
 	WriteJSON(w, status, map[string]string{"error": err.Error()})
 }

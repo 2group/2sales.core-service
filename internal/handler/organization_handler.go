@@ -33,7 +33,7 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-
+	fmt.Println(response)
 	json.WriteJSON(w, http.StatusCreated, response)
 	return
 }
@@ -56,7 +56,7 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	fmt.Println(response)
+
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
