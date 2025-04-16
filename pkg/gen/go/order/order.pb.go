@@ -4,7 +4,7 @@
 // 	protoc        v6.30.2
 // source: order/order.proto
 
-package order
+package orderv1
 
 import (
 	organization "github.com/2group/2sales.core-service/pkg/gen/go/organization"
@@ -553,8 +553,8 @@ type Order struct {
 	FinalTotal       float32                    `protobuf:"fixed32,5,opt,name=final_total,json=finalTotal,proto3" json:"final_total,omitempty"`
 	FromOrganization *organization.Organization `protobuf:"bytes,6,opt,name=from_organization,json=fromOrganization,proto3" json:"from_organization,omitempty"`
 	CreatedAt        *string                    `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
-	UpdatedAt        *string     `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
-	Suborders        []*SubOrder `protobuf:"bytes,9,rep,name=suborders,proto3" json:"suborders,omitempty"`
+	UpdatedAt        *string                    `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	Suborders        []*SubOrder                `protobuf:"bytes,9,rep,name=suborders,proto3" json:"suborders,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -654,9 +654,9 @@ func (x *Order) GetSuborders() []*SubOrder {
 
 type SubOrder struct {
 	state            protoimpl.MessageState     `protogen:"open.v1"`
-	Id               int64        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	OrderItems       []*OrderItem `protobuf:"bytes,2,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
-	OriginalSubtotal float32      `protobuf:"fixed32,3,opt,name=original_subtotal,json=originalSubtotal,proto3" json:"original_subtotal,omitempty"`
+	Id               int64                      `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	OrderItems       []*OrderItem               `protobuf:"bytes,2,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
+	OriginalSubtotal float32                    `protobuf:"fixed32,3,opt,name=original_subtotal,json=originalSubtotal,proto3" json:"original_subtotal,omitempty"`
 	FinalSubtotal    float32                    `protobuf:"fixed32,4,opt,name=final_subtotal,json=finalSubtotal,proto3" json:"final_subtotal,omitempty"`
 	ToOrganization   *organization.Organization `protobuf:"bytes,5,opt,name=to_organization,json=toOrganization,proto3" json:"to_organization,omitempty"`
 	FromOrganization *organization.Organization `protobuf:"bytes,6,opt,name=from_organization,json=fromOrganization,proto3" json:"from_organization,omitempty"`
@@ -1209,9 +1209,9 @@ type UpdateSubOrderRequest struct {
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	OriginalTotal float32                `protobuf:"fixed32,2,opt,name=original_total,json=originalTotal,proto3" json:"original_total,omitempty"`
 	FinalTotal    float32                `protobuf:"fixed32,3,opt,name=final_total,json=finalTotal,proto3" json:"final_total,omitempty"`
-	InvoicePdf    string       `protobuf:"bytes,4,opt,name=invoice_pdf,json=invoicePdf,proto3" json:"invoice_pdf,omitempty"`
-	OrderItems    []*OrderItem `protobuf:"bytes,5,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
-	Status        string       `protobuf:"bytes,6,opt,name=status,proto3" json:"status,omitempty"`
+	InvoicePdf    string                 `protobuf:"bytes,4,opt,name=invoice_pdf,json=invoicePdf,proto3" json:"invoice_pdf,omitempty"`
+	OrderItems    []*OrderItem           `protobuf:"bytes,5,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
+	Status        string                 `protobuf:"bytes,6,opt,name=status,proto3" json:"status,omitempty"`
 	OrderIndex    int64                  `protobuf:"varint,7,opt,name=order_index,json=orderIndex,proto3" json:"order_index,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache

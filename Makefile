@@ -21,7 +21,7 @@ proto:
 		--go_out=$(OUTPUT_PATH_GO) --go_opt=paths=source_relative \
 		--go-grpc_out=$(OUTPUT_PATH_GO) --go-grpc_opt=paths=source_relative \
 		# --cpp_out=$(OUTPUT_PATH_CPP) \
-		# --grpc_out=$(OUTPUT_PATH_CPP) --plugin=protoc-gen-grpc=`which grpc_cpp_plugin`
+        		# --grpc_out=$(OUTPUT_PATH_CPP) --plugin=protoc-gen-grpc=`which grpc_cpp_plugin`
 
 	# source venv/bin/activate && \
 	# python -m grpc_tools.protoc \
