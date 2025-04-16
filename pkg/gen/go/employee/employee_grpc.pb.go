@@ -22,8 +22,6 @@ const (
 	EmployeeService_GetEmployee_FullMethodName    = "/employee.EmployeeService/GetEmployee"
 	EmployeeService_CreateEmployee_FullMethodName = "/employee.EmployeeService/CreateEmployee"
 	EmployeeService_UpdateEmployee_FullMethodName = "/employee.EmployeeService/UpdateEmployee"
-	EmployeeService_CreateRole_FullMethodName     = "/employee.EmployeeService/CreateRole"
-	EmployeeService_ListRoles_FullMethodName      = "/employee.EmployeeService/ListRoles"
 )
 
 // EmployeeServiceClient is the client API for EmployeeService service.
@@ -33,8 +31,6 @@ type EmployeeServiceClient interface {
 	GetEmployee(ctx context.Context, in *GetEmployeeRequest, opts ...grpc.CallOption) (*GetEmployeeResponse, error)
 	CreateEmployee(ctx context.Context, in *CreateEmployeeRequest, opts ...grpc.CallOption) (*CreateEmployeeResponse, error)
 	UpdateEmployee(ctx context.Context, in *UpdateEmployeeRequest, opts ...grpc.CallOption) (*UpdateEmployeeResponse, error)
-	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
-	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
 }
 
 type employeeServiceClient struct {
@@ -75,26 +71,6 @@ func (c *employeeServiceClient) UpdateEmployee(ctx context.Context, in *UpdateEm
 	return out, nil
 }
 
-func (c *employeeServiceClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateRoleResponse)
-	err := c.cc.Invoke(ctx, EmployeeService_CreateRole_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *employeeServiceClient) ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListRolesResponse)
-	err := c.cc.Invoke(ctx, EmployeeService_ListRoles_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // EmployeeServiceServer is the server API for EmployeeService service.
 // All implementations must embed UnimplementedEmployeeServiceServer
 // for forward compatibility.
@@ -102,8 +78,6 @@ type EmployeeServiceServer interface {
 	GetEmployee(context.Context, *GetEmployeeRequest) (*GetEmployeeResponse, error)
 	CreateEmployee(context.Context, *CreateEmployeeRequest) (*CreateEmployeeResponse, error)
 	UpdateEmployee(context.Context, *UpdateEmployeeRequest) (*UpdateEmployeeResponse, error)
-	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
-	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
 	mustEmbedUnimplementedEmployeeServiceServer()
 }
 
@@ -122,12 +96,6 @@ func (UnimplementedEmployeeServiceServer) CreateEmployee(context.Context, *Creat
 }
 func (UnimplementedEmployeeServiceServer) UpdateEmployee(context.Context, *UpdateEmployeeRequest) (*UpdateEmployeeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateEmployee not implemented")
-}
-func (UnimplementedEmployeeServiceServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
-}
-func (UnimplementedEmployeeServiceServer) ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
 }
 func (UnimplementedEmployeeServiceServer) mustEmbedUnimplementedEmployeeServiceServer() {}
 func (UnimplementedEmployeeServiceServer) testEmbeddedByValue()                         {}
@@ -204,42 +172,6 @@ func _EmployeeService_UpdateEmployee_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EmployeeService_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRoleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(EmployeeServiceServer).CreateRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: EmployeeService_CreateRole_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EmployeeServiceServer).CreateRole(ctx, req.(*CreateRoleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _EmployeeService_ListRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRolesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(EmployeeServiceServer).ListRoles(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: EmployeeService_ListRoles_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EmployeeServiceServer).ListRoles(ctx, req.(*ListRolesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // EmployeeService_ServiceDesc is the grpc.ServiceDesc for EmployeeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -258,14 +190,6 @@ var EmployeeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateEmployee",
 			Handler:    _EmployeeService_UpdateEmployee_Handler,
-		},
-		{
-			MethodName: "CreateRole",
-			Handler:    _EmployeeService_CreateRole_Handler,
-		},
-		{
-			MethodName: "ListRoles",
-			Handler:    _EmployeeService_ListRoles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
