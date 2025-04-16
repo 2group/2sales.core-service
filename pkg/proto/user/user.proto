@@ -9,6 +9,8 @@ import "customer/customer.proto";
 service UserService {
     rpc Login (LoginRequest) returns (LoginResponse);
     rpc Register (RegisterRequest) returns (RegisterResponse);
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse); 
 }
 
 message User {
@@ -37,4 +39,20 @@ message RegisterRequest {
 message RegisterResponse {
     User user = 1;
     string token = 2;
+}
+message CreateUserRequest {
+    User user = 1;
+}
+
+message CreateUserResponse {
+    User user = 1;
+}
+
+
+message UpdateUserRequest {
+    User user = 1;
+}
+
+message UpdateUserResponse {
+    User user = 1;
 }
