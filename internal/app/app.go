@@ -42,15 +42,10 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
-	productgrpc, err := grpc.NewProductClient(context, s.cfg.GRPC.Product, time.Hour, 2)
-	if err != nil {
-		panic(err)
-	}
-
-	crmgrpc, err := grpc.NewCrmClient(context, s.cfg.GRPC.CRM, time.Hour, 2)
-	if err != nil {
-		panic(err)
-	}
+	// crmgrpc, err := grpc.NewCrmClient(context, s.cfg.GRPC.CRM, time.Hour, 2)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	// warehousegrpc, err := grpc.NewWarehouseClient(context, s.cfg.GRPC.Warehouse, time.Hour, 2)
 	// if err != nil {
@@ -58,12 +53,6 @@ func (s *APIServer) Run() error {
 	// }
 
 	ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
-	if err != nil {
-		panic(err)
-	}
-
-	advertisementgrpc, err := grpc.NewAdvertisementClient(context, s.cfg.GRPC.Advertisement, time.Hour, 2)
-	fmt.Println(s.cfg.GRPC.Advertisement)
 	if err != nil {
 		panic(err)
 	}
@@ -88,11 +77,9 @@ func (s *APIServer) Run() error {
 
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
-	productHandler := handler.NewProductHandler(s.log, productgrpc)
-	crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
+	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
-	advertisementHandler := handler.NewAdvertisementHandler(s.log, advertisementgrpc)
 	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
 	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log, B2CServiceOrderGrpc)
@@ -130,25 +117,25 @@ func (s *APIServer) Run() error {
 		apiRouter.Route("/product", func(productRouter chi.Router) {
 			productRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Get("/", productHandler.ListProducts)
-				authRouter.Post("/", productHandler.CreateProduct)
-				authRouter.Get("/{product_id}", productHandler.GetProduct)
-				authRouter.Patch("/{product_id}", productHandler.PatchProduct)
-				authRouter.Route("/categories", func(categoryRouter chi.Router) {
-					categoryRouter.Get("/", productHandler.ListCategories)
-					categoryRouter.Post("/", productHandler.CreateCategory)
-					categoryRouter.Get("/{category_id}", productHandler.GetCategory)
-					categoryRouter.Group(func(authRouter chi.Router) {
-						authRouter.Use(auth.AuthMiddleware)
-					})
-				})
-				authRouter.Route("/group", func(productGroupRouter chi.Router) {
-					productGroupRouter.Get("/{product_group_id}", productHandler.GetProductGroup)
-					productGroupRouter.Get("/", productHandler.ListProductGroup)
-					productGroupRouter.Post("/", productHandler.CreateProductGroup)
-					productGroupRouter.Put("/{product_group_id}", productHandler.UpdateProductGroup)
-					productGroupRouter.Delete("/{product_group_id}", productHandler.DeleteProductGroup)
-				})
+				// authRouter.Get("/", productHandler.ListProducts)
+				// authRouter.Post("/", productHandler.CreateProduct)
+				// authRouter.Get("/{product_id}", productHandler.GetProduct)
+				// authRouter.Patch("/{product_id}", productHandler.PatchProduct)
+				// authRouter.Route("/categories", func(categoryRouter chi.Router) {
+				// 	categoryRouter.Get("/", productHandler.ListCategories)
+				// 	categoryRouter.Post("/", productHandler.CreateCategory)
+				// 	categoryRouter.Get("/{category_id}", productHandler.GetCategory)
+				// 	categoryRouter.Group(func(authRouter chi.Router) {
+				// 		authRouter.Use(auth.AuthMiddleware)
+				// 	})
+				// })
+				// authRouter.Route("/group", func(productGroupRouter chi.Router) {
+				// 	productGroupRouter.Get("/{product_group_id}", productHandler.GetProductGroup)
+				// 	productGroupRouter.Get("/", productHandler.ListProductGroup)
+				// 	productGroupRouter.Post("/", productHandler.CreateProductGroup)
+				// 	productGroupRouter.Put("/{product_group_id}", productHandler.UpdateProductGroup)
+				// 	productGroupRouter.Delete("/{product_group_id}", productHandler.DeleteProductGroup)
+				// })
 			})
 		})
 		apiRouter.Route("/organization", func(orgRouter chi.Router) {
@@ -159,21 +146,27 @@ func (s *APIServer) Run() error {
 				authRouter.Put("/{organization_id}", organizationHandler.UpdateOrganization)
 				authRouter.Patch("/{organization_id}", organizationHandler.PartialUpdateOrganization)
 				authRouter.Delete("/{organization_id}", organizationHandler.DeleteOrganization)
-				authRouter.Post("/branch/", organizationHandler.CreateBranch)
-				authRouter.Get("/branch/{branch_id}", organizationHandler.GetBranch)
-				authRouter.Put("/branch/{branch_id}", organizationHandler.UpdateBranch)
-				authRouter.Patch("/branch/{branch_id}", organizationHandler.PartialUpdateBranch)
-				authRouter.Delete("/branch/{branch_id}", organizationHandler.DeleteBranch)
-				authRouter.Post("/address/", organizationHandler.CreateAddress)
-				authRouter.Get("/address/{address_id}", organizationHandler.GetAddress)
-				authRouter.Put("/address/{address_id}", organizationHandler.UpdateAddress)
-				authRouter.Patch("/address/{address_id}", organizationHandler.PartialUpdateAddress)
-				authRouter.Delete("/address/{address_id}", organizationHandler.DeleteAddress)
-				// BONUS LEVEL HANDLERS
-				authRouter.Post("/bonus-level", organizationHandler.CreateBonusLevel)
-				authRouter.Get("/bonus-level/{bonus_level_id}", organizationHandler.GetBonusLevel)
-				authRouter.Put("/bonus-level/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
-				authRouter.Get("/bonus-level/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
+				authRouter.Route("/branch", func(bRouter chi.Router) {
+					authRouter.Post("/", organizationHandler.CreateBranch)
+					authRouter.Get("/{branch_id}", organizationHandler.GetBranch)
+					authRouter.Put("/{branch_id}", organizationHandler.UpdateBranch)
+					authRouter.Patch("/{branch_id}", organizationHandler.PartialUpdateBranch)
+					authRouter.Delete("/{branch_id}", organizationHandler.DeleteBranch)
+				})
+				authRouter.Route("/address", func(aRouter chi.Router) {
+					authRouter.Post("/", organizationHandler.CreateAddress)
+					authRouter.Get("/{address_id}", organizationHandler.GetAddress)
+					authRouter.Put("/{address_id}", organizationHandler.UpdateAddress)
+					authRouter.Patch("/{address_id}", organizationHandler.PartialUpdateAddress)
+					authRouter.Delete("/{address_id}", organizationHandler.DeleteAddress)
+				})
+				authRouter.Route("/bonus-level", func(aRouter chi.Router) {
+					// BONUS LEVEL HANDLERS
+					authRouter.Post("", organizationHandler.CreateBonusLevel)
+					authRouter.Get("/{bonus_level_id}", organizationHandler.GetBonusLevel)
+					authRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
+					authRouter.Get("/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
+				})
 
 				// authRouter.Get("/", organizationHandler.ListOrganizations)
 				// authRouter.Post("/my", organizationHandler.CreateOrganization)
@@ -230,12 +223,12 @@ func (s *APIServer) Run() error {
 			crmRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Route("/leads", func(lRouter chi.Router) {
-					lRouter.Post("/", crmHandler.CreateLead)
-					lRouter.Get("/my", crmHandler.ListLeads)
-					lRouter.Get("/{lead_id}", crmHandler.GetLead)
-					lRouter.Put("/{lead_id}", crmHandler.UpdateLead)
-					lRouter.Patch("/{lead_id}", crmHandler.PatchLead)
-					lRouter.Delete("/{lead_id}", crmHandler.DeleteLead)
+					// lRouter.Post("/", crmHandler.CreateLead)
+					// lRouter.Get("/my", crmHandler.ListLeads)
+					// lRouter.Get("/{lead_id}", crmHandler.GetLead)
+					// lRouter.Put("/{lead_id}", crmHandler.UpdateLead)
+					// lRouter.Patch("/{lead_id}", crmHandler.PatchLead)
+					// lRouter.Delete("/{lead_id}", crmHandler.DeleteLead)
 				})
 			})
 		})
@@ -302,8 +295,8 @@ func (s *APIServer) Run() error {
 		apiRouter.Route("/advertisements", func(advertisementRouter chi.Router) {
 			advertisementRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
-				authRouter.Post("/banners", advertisementHandler.CreateBanner)
-				authRouter.Get("/banners", advertisementHandler.ListBanners)
+				// authRouter.Post("/banners", advertisementHandler.CreateBanner)
+				// authRouter.Get("/banners", advertisementHandler.ListBanners)
 			})
 		})
 		apiRouter.Route("/customer", func(customerRouter chi.Router) {
