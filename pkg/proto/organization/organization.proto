@@ -48,11 +48,12 @@ message Organization {
     optional string image_url = 3;
     string type = 4;
     optional string legal_name = 5;
-    optional int64 address_id = 6;
-    optional string bin = 7;
-    optional string legal_address = 8;
-    optional string created_at = 9;
-    optional string updated_at = 10;
+    optional int32 cashback_usage_limit = 6; 
+    optional int64 address_id = 7;
+    optional string bin = 8;
+    optional string legal_address = 9;
+    optional string created_at = 10;
+    optional string updated_at = 11;
 }
 
 message OrganizationDetail {

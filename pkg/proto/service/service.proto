@@ -21,6 +21,7 @@ message Service {
     optional string description = 6;
     optional string created_at = 7;
     optional string updated_at = 8;
+    optional int64 organization_id = 9;
 }
 
 message GetServiceRequest {

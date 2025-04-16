@@ -22,17 +22,18 @@ const (
 )
 
 type Service struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
-	PriceFrom     float64                `protobuf:"fixed64,2,opt,name=price_from,json=priceFrom,proto3" json:"price_from,omitempty"`
-	PriceTo       float64                `protobuf:"fixed64,3,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
-	Status        *string                `protobuf:"bytes,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
-	Name          string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Description   *string                `protobuf:"bytes,6,opt,name=description,proto3,oneof" json:"description,omitempty"`
-	CreatedAt     *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
-	UpdatedAt     *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
+	PriceFrom      float64                `protobuf:"fixed64,2,opt,name=price_from,json=priceFrom,proto3" json:"price_from,omitempty"`
+	PriceTo        float64                `protobuf:"fixed64,3,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
+	Status         *string                `protobuf:"bytes,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	Name           string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
+	Description    *string                `protobuf:"bytes,6,opt,name=description,proto3,oneof" json:"description,omitempty"`
+	CreatedAt      *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt      *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	OrganizationId *int64                 `protobuf:"varint,9,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *Service) Reset() {
@@ -119,6 +120,13 @@ func (x *Service) GetUpdatedAt() string {
 		return *x.UpdatedAt
 	}
 	return ""
+}
+
+func (x *Service) GetOrganizationId() int64 {
+	if x != nil && x.OrganizationId != nil {
+		return *x.OrganizationId
+	}
+	return 0
 }
 
 type GetServiceRequest struct {
@@ -565,7 +573,7 @@ var File_service_service_proto protoreflect.FileDescriptor
 
 const file_service_service_proto_rawDesc = "" +
 	"\n" +
-	"\x15service/service.proto\x12\aservice\"\xb8\x02\n" +
+	"\x15service/service.proto\x12\aservice\"\xfa\x02\n" +
 	"\aService\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1d\n" +
 	"\n" +
@@ -577,12 +585,14 @@ const file_service_service_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\a \x01(\tH\x03R\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\b \x01(\tH\x04R\tupdatedAt\x88\x01\x01B\x05\n" +
+	"updated_at\x18\b \x01(\tH\x04R\tupdatedAt\x88\x01\x01\x12,\n" +
+	"\x0forganization_id\x18\t \x01(\x03H\x05R\x0eorganizationId\x88\x01\x01B\x05\n" +
 	"\x03_idB\t\n" +
 	"\a_statusB\x0e\n" +
 	"\f_descriptionB\r\n" +
 	"\v_created_atB\r\n" +
-	"\v_updated_at\"#\n" +
+	"\v_updated_atB\x12\n" +
+	"\x10_organization_id\"#\n" +
 	"\x11GetServiceRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"@\n" +
 	"\x12GetServiceResponse\x12*\n" +

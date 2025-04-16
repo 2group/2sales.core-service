@@ -138,19 +138,20 @@ func (x *Address) GetUpdatedAt() string {
 }
 
 type Organization struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
-	Name          *string                `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
-	ImageUrl      *string                `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
-	Type          string                 `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"`
-	LegalName     *string                `protobuf:"bytes,5,opt,name=legal_name,json=legalName,proto3,oneof" json:"legal_name,omitempty"`
-	AddressId     *int64                 `protobuf:"varint,6,opt,name=address_id,json=addressId,proto3,oneof" json:"address_id,omitempty"`
-	Bin           *string                `protobuf:"bytes,7,opt,name=bin,proto3,oneof" json:"bin,omitempty"`
-	LegalAddress  *string                `protobuf:"bytes,8,opt,name=legal_address,json=legalAddress,proto3,oneof" json:"legal_address,omitempty"`
-	CreatedAt     *string                `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
-	UpdatedAt     *string                `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Id                 *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
+	Name               *string                `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	ImageUrl           *string                `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
+	Type               string                 `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"`
+	LegalName          *string                `protobuf:"bytes,5,opt,name=legal_name,json=legalName,proto3,oneof" json:"legal_name,omitempty"`
+	CashbackUsageLimit *int32                 `protobuf:"varint,6,opt,name=cashback_usage_limit,json=cashbackUsageLimit,proto3,oneof" json:"cashback_usage_limit,omitempty"`
+	AddressId          *int64                 `protobuf:"varint,7,opt,name=address_id,json=addressId,proto3,oneof" json:"address_id,omitempty"`
+	Bin                *string                `protobuf:"bytes,8,opt,name=bin,proto3,oneof" json:"bin,omitempty"`
+	LegalAddress       *string                `protobuf:"bytes,9,opt,name=legal_address,json=legalAddress,proto3,oneof" json:"legal_address,omitempty"`
+	CreatedAt          *string                `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt          *string                `protobuf:"bytes,11,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *Organization) Reset() {
@@ -216,6 +217,13 @@ func (x *Organization) GetLegalName() string {
 		return *x.LegalName
 	}
 	return ""
+}
+
+func (x *Organization) GetCashbackUsageLimit() int32 {
+	if x != nil && x.CashbackUsageLimit != nil {
+		return *x.CashbackUsageLimit
+	}
+	return 0
 }
 
 func (x *Organization) GetAddressId() int64 {
@@ -2312,28 +2320,30 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\n" +
 	"_longitudeB\r\n" +
 	"\v_created_atB\r\n" +
-	"\v_updated_at\"\xb7\x03\n" +
+	"\v_updated_at\"\x87\x04\n" +
 	"\fOrganization\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x01R\x04name\x88\x01\x01\x12 \n" +
 	"\timage_url\x18\x03 \x01(\tH\x02R\bimageUrl\x88\x01\x01\x12\x12\n" +
 	"\x04type\x18\x04 \x01(\tR\x04type\x12\"\n" +
 	"\n" +
-	"legal_name\x18\x05 \x01(\tH\x03R\tlegalName\x88\x01\x01\x12\"\n" +
+	"legal_name\x18\x05 \x01(\tH\x03R\tlegalName\x88\x01\x01\x125\n" +
+	"\x14cashback_usage_limit\x18\x06 \x01(\x05H\x04R\x12cashbackUsageLimit\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"address_id\x18\x06 \x01(\x03H\x04R\taddressId\x88\x01\x01\x12\x15\n" +
-	"\x03bin\x18\a \x01(\tH\x05R\x03bin\x88\x01\x01\x12(\n" +
-	"\rlegal_address\x18\b \x01(\tH\x06R\flegalAddress\x88\x01\x01\x12\"\n" +
+	"address_id\x18\a \x01(\x03H\x05R\taddressId\x88\x01\x01\x12\x15\n" +
+	"\x03bin\x18\b \x01(\tH\x06R\x03bin\x88\x01\x01\x12(\n" +
+	"\rlegal_address\x18\t \x01(\tH\aR\flegalAddress\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"created_at\x18\t \x01(\tH\aR\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"created_at\x18\n" +
+	" \x01(\tH\bR\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\n" +
-	" \x01(\tH\bR\tupdatedAt\x88\x01\x01B\x05\n" +
+	"updated_at\x18\v \x01(\tH\tR\tupdatedAt\x88\x01\x01B\x05\n" +
 	"\x03_idB\a\n" +
 	"\x05_nameB\f\n" +
 	"\n" +
 	"_image_urlB\r\n" +
-	"\v_legal_nameB\r\n" +
+	"\v_legal_nameB\x17\n" +
+	"\x15_cashback_usage_limitB\r\n" +
 	"\v_address_idB\x06\n" +
 	"\x04_binB\x10\n" +
 	"\x0e_legal_addressB\r\n" +
