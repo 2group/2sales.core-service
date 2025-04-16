@@ -23,12 +23,15 @@ message OrderDetail {
 }
 
 message Order {
-    optional int64 id = 1;
-    optional int64 customer_id = 2;
-    optional string status = 3;
-    optional float original_total_price = 4;
-    optional float final_total_price = 5;
-    repeated OrderItem order_items = 6;
+  optional int64 id = 1;
+  optional int64 customer_id = 2;
+  optional string status = 3;
+  optional float original_total_price = 4;
+  optional float final_total_price = 5;
+  repeated OrderItem order_items = 6;
+
+  optional string created_at = 7;
+  optional string updated_at = 8;
 }
 
 message OrderItem {
