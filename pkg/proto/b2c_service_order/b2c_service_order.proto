@@ -7,6 +7,7 @@ option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/b2c_servic
 import "service/service.proto";
 import "customer/customer.proto";
 
+
 service B2CServiceOrderService {
     rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
     rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
@@ -32,14 +33,16 @@ message Order {
 
   optional string created_at = 7;
   optional string updated_at = 8;
+  customer.Customer customer = 9;
 }
 
 message OrderItem {
-    int64 id = 1;
-    int64 service_order_id = 2;
-    int64 service_id = 3;
-    int32 quantity = 4;
-    float final_price = 5;
+  int64 id = 1;
+  int64 service_order_id = 2;
+  int64 service_id = 3;
+  int32 quantity = 4;
+  float final_price = 5;
+  service.Service service = 6;
 }
 
 message OrderItemDetail {
@@ -77,13 +80,13 @@ message GetOrderResponse {
 }
 
 
-// message ListB2CServiceOrdersRequest {
-//    int64 organization_id = 1;
-//    int64 limit = 2;
-//    int64 offset = 3;
-//  }
+message ListB2CServiceOrdersRequest {
+   int64 organization_id = 1;
+   int64 limit = 2;
+   int64 offset = 3;
+ }
 
-// //  message ListB2CServiceOrdersResponse {
-// //    repeated B2CServiceOrder orders = 1;
-// //    int64 total_count = 2;
-// //  }
+// message ListB2CServiceOrdersResponse {
+//   repeated B2CServiceOrder orders = 1;
+//   int64 total_count = 2;
+// }
