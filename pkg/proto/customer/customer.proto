@@ -20,6 +20,10 @@ message Customer {
     optional string date_of_birth = 5;
     optional string created_at = 6;
     optional string updated_at = 7;
+    optional string cashback_balance = 8;
+    optional string total_spent = 9;
+    optional string organization_id = 10;
+    optional string loyalty_level_id = 11;
 }
 
 message GetCustomerRequest {

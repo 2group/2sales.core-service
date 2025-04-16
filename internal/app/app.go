@@ -163,7 +163,7 @@ func (s *APIServer) Run() error {
 				})
 				authRouter.Route("/bonus-level", func(aRouter chi.Router) {
 					// BONUS LEVEL HANDLERS
-					authRouter.Post("", organizationHandler.CreateBonusLevel)
+					authRouter.Post("/", organizationHandler.CreateBonusLevel)
 					authRouter.Get("/{bonus_level_id}", organizationHandler.GetBonusLevel)
 					authRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
 					authRouter.Get("/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
