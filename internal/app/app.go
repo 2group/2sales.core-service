@@ -169,6 +169,12 @@ func (s *APIServer) Run() error {
 				authRouter.Put("/address/{address_id}", organizationHandler.UpdateAddress)
 				authRouter.Patch("/address/{address_id}", organizationHandler.PartialUpdateAddress)
 				authRouter.Delete("/address/{address_id}", organizationHandler.DeleteAddress)
+				// BONUS LEVEL HANDLERS
+				authRouter.Post("/bonus-level", organizationHandler.CreateBonusLevel)
+				authRouter.Get("/bonus-level/{bonus_level_id}", organizationHandler.GetBonusLevel)
+				authRouter.Put("/bonus-level/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
+				authRouter.Get("/bonus-level/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
+
 				// authRouter.Get("/", organizationHandler.ListOrganizations)
 				// authRouter.Post("/my", organizationHandler.CreateOrganization)
 				// authRouter.Get("/my", organizationHandler.GetMyOrganization)
