@@ -4,6 +4,7 @@ package order;
 
 import "product/product.proto";
 import "organization/organization.proto";
+import "service/service.proto";
 
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/order;orderv1";
 
@@ -110,13 +111,15 @@ message SubOrder {
 
 message OrderItem {
   int64 id = 1;
-  product.Product product = 2;
+  int64 service_id = 2;
   int32 quantity = 3;
   float original_price = 4;
   float final_price = 5;
   optional string created_at = 6;
   optional string updated_at = 7;
+  service.Service service = 8;
 }
+
 
 message CreateSubOrderRequest {
   SubOrder sub_order = 1;

@@ -89,3 +89,21 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	json.WriteJSON(w, http.StatusOK, response)
 	return
 }
+
+// func (h *UserHandler) GetUserByEmail(w http.ResponseWriter, r *http.Request) {
+// 	req := &userv1.GetUserRequest{}
+// 	err := json.ParseJSON(r, &req)
+// 	if err != nil {
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
+
+// 	response, err := h.user.Api.GetUser(r.Context(), req)
+// 	if err != nil {
+// 		json.WriteError(w, http.StatusInternalServerError, err)
+// 		return
+// 	}
+
+// 	json.WriteJSON(w, http.StatusOK, response)
+// 	return
+// }

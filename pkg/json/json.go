@@ -127,6 +127,11 @@ func fillMissingFields(m protoreflect.Message, objMap map[string]interface{}) {
 
 		// For message fields, if set, process recursively.
 		if fieldDesc.Kind() == protoreflect.MessageKind {
+			if fieldDesc.IsList() {
+				// Пропускаем repeated messages — не обрабатываем как подсообщение
+				continue
+			}
+
 			if m.Has(fieldDesc) {
 				subMsg := m.Get(fieldDesc).Message()
 				if subMap, ok := objMap[normalizedKey].(map[string]interface{}); ok {
@@ -134,6 +139,7 @@ func fillMissingFields(m protoreflect.Message, objMap map[string]interface{}) {
 				}
 			}
 		}
+
 	}
 }
 
