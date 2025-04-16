@@ -124,7 +124,14 @@ type GetCustomerRequest struct {
 	//
 	//	*GetCustomerRequest_Id
 	//	*GetCustomerRequest_UserId
+<<<<<<< Updated upstream
 	Lookup isGetCustomerRequest_Lookup `protobuf_oneof:"lookup"`
+=======
+	//	*GetCustomerRequest_PhoneNumber
+	Lookup        isGetCustomerRequest_Lookup `protobuf_oneof:"lookup"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+>>>>>>> Stashed changes
 }
 
 func (x *GetCustomerRequest) Reset() {
@@ -180,6 +187,15 @@ func (x *GetCustomerRequest) GetUserId() int64 {
 	return 0
 }
 
+func (x *GetCustomerRequest) GetPhoneNumber() string {
+	if x != nil {
+		if x, ok := x.Lookup.(*GetCustomerRequest_PhoneNumber); ok {
+			return x.PhoneNumber
+		}
+	}
+	return ""
+}
+
 type isGetCustomerRequest_Lookup interface {
 	isGetCustomerRequest_Lookup()
 }
@@ -192,9 +208,15 @@ type GetCustomerRequest_UserId struct {
 	UserId int64 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3,oneof"`
 }
 
+type GetCustomerRequest_PhoneNumber struct {
+	PhoneNumber string `protobuf:"bytes,3,opt,name=phone_number,json=phoneNumber,proto3,oneof"`
+}
+
 func (*GetCustomerRequest_Id) isGetCustomerRequest_Lookup() {}
 
 func (*GetCustomerRequest_UserId) isGetCustomerRequest_Lookup() {}
+
+func (*GetCustomerRequest_PhoneNumber) isGetCustomerRequest_Lookup() {}
 
 type GetCustomerResponse struct {
 	state         protoimpl.MessageState
@@ -244,7 +266,15 @@ func (x *GetCustomerResponse) GetCustomer() *Customer {
 }
 
 type CreateCustomerRequest struct {
+<<<<<<< Updated upstream
 	state         protoimpl.MessageState
+=======
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Customer      *Customer              `protobuf:"bytes,1,opt,name=customer,proto3" json:"customer,omitempty"`
+	PhoneNumber   string                 `protobuf:"bytes,2,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
+	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+>>>>>>> Stashed changes
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
@@ -288,6 +318,20 @@ func (x *CreateCustomerRequest) GetCustomer() *Customer {
 		return x.Customer
 	}
 	return nil
+}
+
+func (x *CreateCustomerRequest) GetPhoneNumber() string {
+	if x != nil {
+		return x.PhoneNumber
+	}
+	return ""
+}
+
+func (x *CreateCustomerRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
 }
 
 type CreateCustomerResponse struct {
@@ -612,6 +656,7 @@ func (*DeleteCustomerResponse) Descriptor() ([]byte, []int) {
 
 var File_customer_customer_proto protoreflect.FileDescriptor
 
+<<<<<<< Updated upstream
 var file_customer_customer_proto_rawDesc = []byte{
 	0x0a, 0x17, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x2f, 0x63, 0x75, 0x73, 0x74, 0x6f,
 	0x6d, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x08, 0x63, 0x75, 0x73, 0x74, 0x6f,
@@ -714,6 +759,61 @@ var file_customer_customer_proto_rawDesc = []byte{
 	0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x33,
 }
+=======
+const file_customer_customer_proto_rawDesc = "" +
+	"\n" +
+	"\x17customer/customer.proto\x12\bcustomer\"\xd4\x02\n" +
+	"\bCustomer\x12\x13\n" +
+	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1c\n" +
+	"\auser_id\x18\x02 \x01(\x03H\x01R\x06userId\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"first_name\x18\x03 \x01(\tH\x02R\tfirstName\x88\x01\x01\x12 \n" +
+	"\tlast_name\x18\x04 \x01(\tH\x03R\blastName\x88\x01\x01\x12'\n" +
+	"\rdate_of_birth\x18\x05 \x01(\tH\x04R\vdateOfBirth\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"created_at\x18\x06 \x01(\tH\x05R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"updated_at\x18\a \x01(\tH\x06R\tupdatedAt\x88\x01\x01B\x05\n" +
+	"\x03_idB\n" +
+	"\n" +
+	"\b_user_idB\r\n" +
+	"\v_first_nameB\f\n" +
+	"\n" +
+	"_last_nameB\x10\n" +
+	"\x0e_date_of_birthB\r\n" +
+	"\v_created_atB\r\n" +
+	"\v_updated_at\"p\n" +
+	"\x12GetCustomerRequest\x12\x10\n" +
+	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x12\x19\n" +
+	"\auser_id\x18\x02 \x01(\x03H\x00R\x06userId\x12#\n" +
+	"\fphone_number\x18\x03 \x01(\tH\x00R\vphoneNumberB\b\n" +
+	"\x06lookup\"E\n" +
+	"\x13GetCustomerResponse\x12.\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"\x80\x01\n" +
+	"\x15CreateCustomerRequest\x12.\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\x12!\n" +
+	"\fphone_number\x18\x02 \x01(\tR\vphoneNumber\x12\x14\n" +
+	"\x05email\x18\x03 \x01(\tR\x05email\"H\n" +
+	"\x16CreateCustomerResponse\x12.\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"G\n" +
+	"\x15UpdateCustomerRequest\x12.\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"H\n" +
+	"\x16UpdateCustomerResponse\x12.\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"N\n" +
+	"\x1cPartialUpdateCustomerRequest\x12.\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"O\n" +
+	"\x1dPartialUpdateCustomerResponse\x12.\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"'\n" +
+	"\x15DeleteCustomerRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"\x18\n" +
+	"\x16DeleteCustomerResponse2\xc6\x03\n" +
+	"\x0fCustomerService\x12J\n" +
+	"\vGetCustomer\x12\x1c.customer.GetCustomerRequest\x1a\x1d.customer.GetCustomerResponse\x12S\n" +
+	"\x0eCreateCustomer\x12\x1f.customer.CreateCustomerRequest\x1a .customer.CreateCustomerResponse\x12S\n" +
+	"\x0eDeleteCustomer\x12\x1f.customer.DeleteCustomerRequest\x1a .customer.DeleteCustomerResponse\x12h\n" +
+	"\x15PartialUpdateCustomer\x12&.customer.PartialUpdateCustomerRequest\x1a'.customer.PartialUpdateCustomerResponse\x12S\n" +
+	"\x0eUpdateCustomer\x12\x1f.customer.UpdateCustomerRequest\x1a .customer.UpdateCustomerResponseBFZDgithub.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1b\x06proto3"
+>>>>>>> Stashed changes
 
 var (
 	file_customer_customer_proto_rawDescOnce sync.Once
@@ -909,6 +1009,7 @@ func file_customer_customer_proto_init() {
 	file_customer_customer_proto_msgTypes[1].OneofWrappers = []interface{}{
 		(*GetCustomerRequest_Id)(nil),
 		(*GetCustomerRequest_UserId)(nil),
+		(*GetCustomerRequest_PhoneNumber)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
