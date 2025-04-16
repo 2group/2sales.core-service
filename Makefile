@@ -13,6 +13,7 @@ PROTO_FILES ?= \
 	customer/customer.proto \
 	service/service.proto \
 	b2c_service_order/b2c_service_order.proto \
+	employee/employee.proto \
 	# warehouse/warehouse.proto \
 
 proto:

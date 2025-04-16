@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package employee;
+
+option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/employee;employeev1";
+
+service EmployeeService {
+    rpc GetEmployee (GetEmployeeRequest) returns (GetEmployeeResponse);
+    rpc CreateEmployee (CreateEmployeeRequest) returns (CreateEmployeeResponse);
+    rpc UpdateEmployee (UpdateEmployeeRequest) returns (UpdateEmployeeResponse);
+
+    rpc CreateRole (CreateRoleRequest) returns  (CreateRoleResponse);
+    rpc ListRoles (ListRolesRequest) returns (ListRolesResponse);
+}
+
+message Employee {
+    optional int64 id = 1;
+    optional int64 user_id = 2;
+    optional string first_name = 3;
+    optional string last_name = 4;
+    optional int64 organization_id = 5;
+    optional int64 branch_id = 6;
+    optional string created_at = 7;
+    optional string updated_at = 8;
+    repeated Role roles = 9;
+}
+
+message Role {
+    optional int64 role_id = 1;
+    optional string role_name = 2;
+    optional string description = 3;
+}
+
+message GetEmployeeRequest {
+    int64 id = 1;
+}
+
+message GetEmployeeResponse {
+    Employee employee = 1;
+}
+
+message CreateEmployeeRequest {
+    Employee employee = 1;
+}
+
+message CreateEmployeeResponse {
+    Employee employee = 1;
+}
+
+message UpdateEmployeeRequest {
+    Employee employee = 1;
+}
+
+message UpdateEmployeeResponse {
+    Employee employee = 1;
+}
+
+message PartialUpdateEmployeeRequest {
+    Employee employee = 1;
+}
+
+message PartialUpdateEmployeeResponse {
+    Employee employee = 1;
+}
+
+message CreateRoleRequest {
+    Role role = 1;
+}
+
+message CreateRoleResponse {
+    Role role = 1;
+}
+
+message ListRolesRequest {
+
+}
+
+message ListRolesResponse {
+    repeated Role role = 1;
+}
