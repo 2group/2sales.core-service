@@ -117,6 +117,7 @@ type Order struct {
 	OrderItems         []*OrderItem           `protobuf:"bytes,6,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
 	CreatedAt          *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
 	UpdatedAt          *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	Customer           *customer.Customer     `protobuf:"bytes,9,opt,name=customer,proto3" json:"customer,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -205,6 +206,13 @@ func (x *Order) GetUpdatedAt() string {
 		return *x.UpdatedAt
 	}
 	return ""
+}
+
+func (x *Order) GetCustomer() *customer.Customer {
+	if x != nil {
+		return x.Customer
+	}
+	return nil
 }
 
 type OrderItem struct {
@@ -705,7 +713,7 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x14original_total_price\x18\x04 \x01(\x02R\x12originalTotalPrice\x12*\n" +
 	"\x11final_total_price\x18\x05 \x01(\x02R\x0ffinalTotalPrice\x12C\n" +
 	"\vorder_items\x18\x06 \x03(\v2\".b2c_service_order.OrderItemDetailR\n" +
-	"orderItems\"\xbd\x03\n" +
+	"orderItems\"\xed\x03\n" +
 	"\x05Order\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03H\x01R\n" +
@@ -718,7 +726,8 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\a \x01(\tH\x05R\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\b \x01(\tH\x06R\tupdatedAt\x88\x01\x01B\x05\n" +
+	"updated_at\x18\b \x01(\tH\x06R\tupdatedAt\x88\x01\x01\x12.\n" +
+	"\bcustomer\x18\t \x01(\v2\x12.customer.CustomerR\bcustomerB\x05\n" +
 	"\x03_idB\x0e\n" +
 	"\f_customer_idB\t\n" +
 	"\a_statusB\x17\n" +
@@ -794,22 +803,23 @@ var file_b2c_service_order_b2c_service_order_proto_depIdxs = []int32{
 	11, // 0: b2c_service_order.OrderDetail.customer:type_name -> customer.Customer
 	3,  // 1: b2c_service_order.OrderDetail.order_items:type_name -> b2c_service_order.OrderItemDetail
 	2,  // 2: b2c_service_order.Order.order_items:type_name -> b2c_service_order.OrderItem
-	12, // 3: b2c_service_order.OrderItem.service:type_name -> service.Service
-	12, // 4: b2c_service_order.OrderItemDetail.service:type_name -> service.Service
-	1,  // 5: b2c_service_order.CreateOrderRequest.order:type_name -> b2c_service_order.Order
-	0,  // 6: b2c_service_order.CreateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
-	1,  // 7: b2c_service_order.UpdateOrderRequest.order:type_name -> b2c_service_order.Order
-	0,  // 8: b2c_service_order.UpdateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
-	0,  // 9: b2c_service_order.GetOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
-	4,  // 10: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
-	8,  // 11: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
-	5,  // 12: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
-	9,  // 13: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
-	12, // [12:14] is the sub-list for method output_type
-	10, // [10:12] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	11, // 3: b2c_service_order.Order.customer:type_name -> customer.Customer
+	12, // 4: b2c_service_order.OrderItem.service:type_name -> service.Service
+	12, // 5: b2c_service_order.OrderItemDetail.service:type_name -> service.Service
+	1,  // 6: b2c_service_order.CreateOrderRequest.order:type_name -> b2c_service_order.Order
+	0,  // 7: b2c_service_order.CreateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	1,  // 8: b2c_service_order.UpdateOrderRequest.order:type_name -> b2c_service_order.Order
+	0,  // 9: b2c_service_order.UpdateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	0,  // 10: b2c_service_order.GetOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	4,  // 11: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
+	8,  // 12: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
+	5,  // 13: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
+	9,  // 14: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
+	13, // [13:15] is the sub-list for method output_type
+	11, // [11:13] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_b2c_service_order_b2c_service_order_proto_init() }
