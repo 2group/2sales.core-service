@@ -22,16 +22,20 @@ const (
 )
 
 type Customer struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
-	UserId        *int64                 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3,oneof" json:"user_id,omitempty"`
-	FirstName     *string                `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3,oneof" json:"first_name,omitempty"`
-	LastName      *string                `protobuf:"bytes,4,opt,name=last_name,json=lastName,proto3,oneof" json:"last_name,omitempty"`
-	DateOfBirth   *string                `protobuf:"bytes,5,opt,name=date_of_birth,json=dateOfBirth,proto3,oneof" json:"date_of_birth,omitempty"`
-	CreatedAt     *string                `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
-	UpdatedAt     *string                `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
+	UserId          *int64                 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3,oneof" json:"user_id,omitempty"`
+	FirstName       *string                `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3,oneof" json:"first_name,omitempty"`
+	LastName        *string                `protobuf:"bytes,4,opt,name=last_name,json=lastName,proto3,oneof" json:"last_name,omitempty"`
+	DateOfBirth     *string                `protobuf:"bytes,5,opt,name=date_of_birth,json=dateOfBirth,proto3,oneof" json:"date_of_birth,omitempty"`
+	CreatedAt       *string                `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt       *string                `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	CashbackBalance *string                `protobuf:"bytes,8,opt,name=cashback_balance,json=cashbackBalance,proto3,oneof" json:"cashback_balance,omitempty"`
+	TotalSpent      *string                `protobuf:"bytes,9,opt,name=total_spent,json=totalSpent,proto3,oneof" json:"total_spent,omitempty"`
+	OrganizationId  *string                `protobuf:"bytes,10,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	LoyaltyLevelId  *string                `protobuf:"bytes,11,opt,name=loyalty_level_id,json=loyaltyLevelId,proto3,oneof" json:"loyalty_level_id,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *Customer) Reset() {
@@ -109,6 +113,34 @@ func (x *Customer) GetCreatedAt() string {
 func (x *Customer) GetUpdatedAt() string {
 	if x != nil && x.UpdatedAt != nil {
 		return *x.UpdatedAt
+	}
+	return ""
+}
+
+func (x *Customer) GetCashbackBalance() string {
+	if x != nil && x.CashbackBalance != nil {
+		return *x.CashbackBalance
+	}
+	return ""
+}
+
+func (x *Customer) GetTotalSpent() string {
+	if x != nil && x.TotalSpent != nil {
+		return *x.TotalSpent
+	}
+	return ""
+}
+
+func (x *Customer) GetOrganizationId() string {
+	if x != nil && x.OrganizationId != nil {
+		return *x.OrganizationId
+	}
+	return ""
+}
+
+func (x *Customer) GetLoyaltyLevelId() string {
+	if x != nil && x.LoyaltyLevelId != nil {
+		return *x.LoyaltyLevelId
 	}
 	return ""
 }
@@ -619,7 +651,7 @@ var File_customer_customer_proto protoreflect.FileDescriptor
 
 const file_customer_customer_proto_rawDesc = "" +
 	"\n" +
-	"\x17customer/customer.proto\x12\bcustomer\"\xd4\x02\n" +
+	"\x17customer/customer.proto\x12\bcustomer\"\xd5\x04\n" +
 	"\bCustomer\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1c\n" +
 	"\auser_id\x18\x02 \x01(\x03H\x01R\x06userId\x88\x01\x01\x12\"\n" +
@@ -630,7 +662,14 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x06 \x01(\tH\x05R\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\a \x01(\tH\x06R\tupdatedAt\x88\x01\x01B\x05\n" +
+	"updated_at\x18\a \x01(\tH\x06R\tupdatedAt\x88\x01\x01\x12.\n" +
+	"\x10cashback_balance\x18\b \x01(\tH\aR\x0fcashbackBalance\x88\x01\x01\x12$\n" +
+	"\vtotal_spent\x18\t \x01(\tH\bR\n" +
+	"totalSpent\x88\x01\x01\x12,\n" +
+	"\x0forganization_id\x18\n" +
+	" \x01(\tH\tR\x0eorganizationId\x88\x01\x01\x12-\n" +
+	"\x10loyalty_level_id\x18\v \x01(\tH\n" +
+	"R\x0eloyaltyLevelId\x88\x01\x01B\x05\n" +
 	"\x03_idB\n" +
 	"\n" +
 	"\b_user_idB\r\n" +
@@ -639,7 +678,11 @@ const file_customer_customer_proto_rawDesc = "" +
 	"_last_nameB\x10\n" +
 	"\x0e_date_of_birthB\r\n" +
 	"\v_created_atB\r\n" +
-	"\v_updated_at\"p\n" +
+	"\v_updated_atB\x13\n" +
+	"\x11_cashback_balanceB\x0e\n" +
+	"\f_total_spentB\x12\n" +
+	"\x10_organization_idB\x13\n" +
+	"\x11_loyalty_level_id\"p\n" +
 	"\x12GetCustomerRequest\x12\x10\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x12\x19\n" +
 	"\auser_id\x18\x02 \x01(\x03H\x00R\x06userId\x12#\n" +
