@@ -324,7 +324,7 @@ func (s *APIServer) Run() error {
 				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
 				authRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
-				authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
+				// authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
 			})
 		})
 	})

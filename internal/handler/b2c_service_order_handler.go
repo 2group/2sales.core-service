@@ -79,21 +79,21 @@ func (h *B2CServiceOrderHandler) CreateOrder(w http.ResponseWriter, r *http.Requ
 	json.WriteJSON(w, http.StatusCreated, response)
 }
 
-func (h *B2CServiceOrderHandler) UpdateOrder(w http.ResponseWriter, r *http.Request) {
-	req := &orderv1.UpdateOrderRequest{}
-	if err := parseProtoJSON(r, req); err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
+// func (h *B2CServiceOrderHandler) UpdateOrder(w http.ResponseWriter, r *http.Request) {
+// 	req := &orderv1.UpdateOrderRequest{}
+// 	if err := parseProtoJSON(r, req); err != nil {
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
 
-	response, err := h.b2c_service_order.Api.UpdateOrder(r.Context(), req)
-	if err != nil {
-		h.log.Error("gRPC call to UpdateOrder failed", "error", err)
-		json.WriteError(w, http.StatusInternalServerError, errors.New("internal server error during order update"))
-		return
-	}
-	json.WriteJSON(w, http.StatusOK, response)
-}
+// 	response, err := h.b2c_service_order.Api.UpdateOrder(r.Context(), req)
+// 	if err != nil {
+// 		h.log.Error("gRPC call to UpdateOrder failed", "error", err)
+// 		json.WriteError(w, http.StatusInternalServerError, errors.New("internal server error during order update"))
+// 		return
+// 	}
+// 	json.WriteJSON(w, http.StatusOK, response)
+// }
 
 func (h *B2CServiceOrderHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
 	orderIDStr := chi.URLParam(r, "order_id")

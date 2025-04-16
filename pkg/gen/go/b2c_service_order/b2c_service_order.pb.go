@@ -684,11 +684,10 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x0fGetOrderRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"U\n" +
 	"\x10GetOrderResponse\x12A\n" +
-	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail2\xa9\x02\n" +
+	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail2\xcb\x01\n" +
 	"\x16B2CServiceOrderService\x12\\\n" +
 	"\vCreateOrder\x12%.b2c_service_order.CreateOrderRequest\x1a&.b2c_service_order.CreateOrderResponse\x12S\n" +
-	"\bGetOrder\x12\".b2c_service_order.GetOrderRequest\x1a#.b2c_service_order.GetOrderResponse\x12\\\n" +
-	"\vUpdateOrder\x12%.b2c_service_order.UpdateOrderRequest\x1a&.b2c_service_order.UpdateOrderResponseBXZVgithub.com/2group/2sales.core-service/pkg/gen/go/b2c_service_order;b2c_service_orderv1b\x06proto3"
+	"\bGetOrder\x12\".b2c_service_order.GetOrderRequest\x1a#.b2c_service_order.GetOrderResponseBXZVgithub.com/2group/2sales.core-service/pkg/gen/go/b2c_service_order;b2c_service_orderv1b\x06proto3"
 
 var (
 	file_b2c_service_order_b2c_service_order_proto_rawDescOnce sync.Once
@@ -729,12 +728,10 @@ var file_b2c_service_order_b2c_service_order_proto_depIdxs = []int32{
 	0,  // 8: b2c_service_order.GetOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
 	4,  // 9: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
 	8,  // 10: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
-	6,  // 11: b2c_service_order.B2CServiceOrderService.UpdateOrder:input_type -> b2c_service_order.UpdateOrderRequest
-	5,  // 12: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
-	9,  // 13: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
-	7,  // 14: b2c_service_order.B2CServiceOrderService.UpdateOrder:output_type -> b2c_service_order.UpdateOrderResponse
-	12, // [12:15] is the sub-list for method output_type
-	9,  // [9:12] is the sub-list for method input_type
+	5,  // 11: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
+	9,  // 12: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
+	11, // [11:13] is the sub-list for method output_type
+	9,  // [9:11] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
 	9,  // [9:9] is the sub-list for extension extendee
 	0,  // [0:9] is the sub-list for field type_name
