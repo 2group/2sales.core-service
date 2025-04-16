@@ -10,7 +10,7 @@ import "customer/customer.proto";
 service B2CServiceOrderService {
     rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
     rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
-    rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
+//    rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
 }  
 
 message OrderDetail {
@@ -76,14 +76,14 @@ message GetOrderResponse {
   OrderDetail order_detail = 1;
 }
 
-// message ListB2CServiceOrdersRequest {
-//   int64 customer_id = 1;
-//   string status = 2;
-//   int64 limit = 3;
-//   int64 offset = 4;
-// }
 
-// message ListB2CServiceOrdersResponse {
-//   repeated B2CServiceOrder orders = 1;
-//   int64 total_count = 2;
-// }
+message ListB2CServiceOrdersRequest {
+   int64 organization_id = 1;
+   int64 limit = 2;
+   int64 offset = 3;
+ }
+
+ message ListB2CServiceOrdersResponse {
+   repeated B2CServiceOrder orders = 1;
+   int64 total_count = 2;
+ }
