@@ -161,9 +161,8 @@ func (s *APIServer) Run() error {
 					authRouter.Patch("/{address_id}", organizationHandler.PartialUpdateAddress)
 					authRouter.Delete("/{address_id}", organizationHandler.DeleteAddress)
 				})
-				authRouter.Route("/bonus-level", func(aRouter chi.Router) {
-					// BONUS LEVEL HANDLERS
-					authRouter.Post("", organizationHandler.CreateBonusLevel)
+				authRouter.Route("/loyalty-level", func(aRouter chi.Router) {
+					authRouter.Post("/", organizationHandler.CreateBonusLevel)
 					authRouter.Get("/{bonus_level_id}", organizationHandler.GetBonusLevel)
 					authRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
 					authRouter.Get("/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
