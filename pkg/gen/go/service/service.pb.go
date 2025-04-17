@@ -21,6 +21,74 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type ImageModel struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	ImageUrl      string                 `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	ImageIndex    *int32                 `protobuf:"varint,4,opt,name=image_index,json=imageIndex,proto3,oneof" json:"image_index,omitempty"`
+	ObjectKey     string                 `protobuf:"bytes,7,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImageModel) Reset() {
+	*x = ImageModel{}
+	mi := &file_service_service_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImageModel) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImageModel) ProtoMessage() {}
+
+func (x *ImageModel) ProtoReflect() protoreflect.Message {
+	mi := &file_service_service_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImageModel.ProtoReflect.Descriptor instead.
+func (*ImageModel) Descriptor() ([]byte, []int) {
+	return file_service_service_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ImageModel) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *ImageModel) GetImageUrl() string {
+	if x != nil {
+		return x.ImageUrl
+	}
+	return ""
+}
+
+func (x *ImageModel) GetImageIndex() int32 {
+	if x != nil && x.ImageIndex != nil {
+		return *x.ImageIndex
+	}
+	return 0
+}
+
+func (x *ImageModel) GetObjectKey() string {
+	if x != nil {
+		return x.ObjectKey
+	}
+	return ""
+}
+
 type Service struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Id             *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
@@ -28,17 +96,19 @@ type Service struct {
 	PriceTo        float64                `protobuf:"fixed64,3,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
 	Status         *string                `protobuf:"bytes,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	Name           string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Description    *string                `protobuf:"bytes,6,opt,name=description,proto3,oneof" json:"description,omitempty"`
-	CreatedAt      *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
-	UpdatedAt      *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
-	OrganizationId *int64                 `protobuf:"varint,9,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	ImageUrl       *string                `protobuf:"bytes,6,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
+	Description    *string                `protobuf:"bytes,7,opt,name=description,proto3,oneof" json:"description,omitempty"`
+	CreatedAt      *string                `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt      *string                `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	OrganizationId *int64                 `protobuf:"varint,10,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	Images         []*ImageModel          `protobuf:"bytes,11,rep,name=images,proto3" json:"images,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
 
 func (x *Service) Reset() {
 	*x = Service{}
-	mi := &file_service_service_proto_msgTypes[0]
+	mi := &file_service_service_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -50,7 +120,7 @@ func (x *Service) String() string {
 func (*Service) ProtoMessage() {}
 
 func (x *Service) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[0]
+	mi := &file_service_service_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,7 +133,7 @@ func (x *Service) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Service.ProtoReflect.Descriptor instead.
 func (*Service) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{0}
+	return file_service_service_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Service) GetId() int64 {
@@ -101,6 +171,13 @@ func (x *Service) GetName() string {
 	return ""
 }
 
+func (x *Service) GetImageUrl() string {
+	if x != nil && x.ImageUrl != nil {
+		return *x.ImageUrl
+	}
+	return ""
+}
+
 func (x *Service) GetDescription() string {
 	if x != nil && x.Description != nil {
 		return *x.Description
@@ -129,6 +206,13 @@ func (x *Service) GetOrganizationId() int64 {
 	return 0
 }
 
+func (x *Service) GetImages() []*ImageModel {
+	if x != nil {
+		return x.Images
+	}
+	return nil
+}
+
 type GetServiceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -138,7 +222,7 @@ type GetServiceRequest struct {
 
 func (x *GetServiceRequest) Reset() {
 	*x = GetServiceRequest{}
-	mi := &file_service_service_proto_msgTypes[1]
+	mi := &file_service_service_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -150,7 +234,7 @@ func (x *GetServiceRequest) String() string {
 func (*GetServiceRequest) ProtoMessage() {}
 
 func (x *GetServiceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[1]
+	mi := &file_service_service_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -163,7 +247,7 @@ func (x *GetServiceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetServiceRequest.ProtoReflect.Descriptor instead.
 func (*GetServiceRequest) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{1}
+	return file_service_service_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetServiceRequest) GetId() int64 {
@@ -182,7 +266,7 @@ type GetServiceResponse struct {
 
 func (x *GetServiceResponse) Reset() {
 	*x = GetServiceResponse{}
-	mi := &file_service_service_proto_msgTypes[2]
+	mi := &file_service_service_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -194,7 +278,7 @@ func (x *GetServiceResponse) String() string {
 func (*GetServiceResponse) ProtoMessage() {}
 
 func (x *GetServiceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[2]
+	mi := &file_service_service_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -207,7 +291,7 @@ func (x *GetServiceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetServiceResponse.ProtoReflect.Descriptor instead.
 func (*GetServiceResponse) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{2}
+	return file_service_service_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetServiceResponse) GetService() *Service {
@@ -226,7 +310,7 @@ type CreateServiceRequest struct {
 
 func (x *CreateServiceRequest) Reset() {
 	*x = CreateServiceRequest{}
-	mi := &file_service_service_proto_msgTypes[3]
+	mi := &file_service_service_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -238,7 +322,7 @@ func (x *CreateServiceRequest) String() string {
 func (*CreateServiceRequest) ProtoMessage() {}
 
 func (x *CreateServiceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[3]
+	mi := &file_service_service_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -251,7 +335,7 @@ func (x *CreateServiceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateServiceRequest.ProtoReflect.Descriptor instead.
 func (*CreateServiceRequest) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{3}
+	return file_service_service_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateServiceRequest) GetService() *Service {
@@ -270,7 +354,7 @@ type CreateServiceResponse struct {
 
 func (x *CreateServiceResponse) Reset() {
 	*x = CreateServiceResponse{}
-	mi := &file_service_service_proto_msgTypes[4]
+	mi := &file_service_service_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -282,7 +366,7 @@ func (x *CreateServiceResponse) String() string {
 func (*CreateServiceResponse) ProtoMessage() {}
 
 func (x *CreateServiceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[4]
+	mi := &file_service_service_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -295,7 +379,7 @@ func (x *CreateServiceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateServiceResponse.ProtoReflect.Descriptor instead.
 func (*CreateServiceResponse) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{4}
+	return file_service_service_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *CreateServiceResponse) GetService() *Service {
@@ -314,7 +398,7 @@ type DeleteServiceRequest struct {
 
 func (x *DeleteServiceRequest) Reset() {
 	*x = DeleteServiceRequest{}
-	mi := &file_service_service_proto_msgTypes[5]
+	mi := &file_service_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -326,7 +410,7 @@ func (x *DeleteServiceRequest) String() string {
 func (*DeleteServiceRequest) ProtoMessage() {}
 
 func (x *DeleteServiceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[5]
+	mi := &file_service_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -339,7 +423,7 @@ func (x *DeleteServiceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteServiceRequest.ProtoReflect.Descriptor instead.
 func (*DeleteServiceRequest) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{5}
+	return file_service_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DeleteServiceRequest) GetId() int64 {
@@ -358,7 +442,7 @@ type DeleteServiceResponse struct {
 
 func (x *DeleteServiceResponse) Reset() {
 	*x = DeleteServiceResponse{}
-	mi := &file_service_service_proto_msgTypes[6]
+	mi := &file_service_service_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -370,7 +454,7 @@ func (x *DeleteServiceResponse) String() string {
 func (*DeleteServiceResponse) ProtoMessage() {}
 
 func (x *DeleteServiceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[6]
+	mi := &file_service_service_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -383,7 +467,7 @@ func (x *DeleteServiceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteServiceResponse.ProtoReflect.Descriptor instead.
 func (*DeleteServiceResponse) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{6}
+	return file_service_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DeleteServiceResponse) GetService() *Service {
@@ -402,7 +486,7 @@ type PartialUpdateServiceRequest struct {
 
 func (x *PartialUpdateServiceRequest) Reset() {
 	*x = PartialUpdateServiceRequest{}
-	mi := &file_service_service_proto_msgTypes[7]
+	mi := &file_service_service_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -414,7 +498,7 @@ func (x *PartialUpdateServiceRequest) String() string {
 func (*PartialUpdateServiceRequest) ProtoMessage() {}
 
 func (x *PartialUpdateServiceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[7]
+	mi := &file_service_service_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -427,7 +511,7 @@ func (x *PartialUpdateServiceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartialUpdateServiceRequest.ProtoReflect.Descriptor instead.
 func (*PartialUpdateServiceRequest) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{7}
+	return file_service_service_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *PartialUpdateServiceRequest) GetService() *Service {
@@ -446,7 +530,7 @@ type PartialUpdateServiceResponse struct {
 
 func (x *PartialUpdateServiceResponse) Reset() {
 	*x = PartialUpdateServiceResponse{}
-	mi := &file_service_service_proto_msgTypes[8]
+	mi := &file_service_service_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -458,7 +542,7 @@ func (x *PartialUpdateServiceResponse) String() string {
 func (*PartialUpdateServiceResponse) ProtoMessage() {}
 
 func (x *PartialUpdateServiceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[8]
+	mi := &file_service_service_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -471,7 +555,7 @@ func (x *PartialUpdateServiceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartialUpdateServiceResponse.ProtoReflect.Descriptor instead.
 func (*PartialUpdateServiceResponse) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{8}
+	return file_service_service_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *PartialUpdateServiceResponse) GetService() *Service {
@@ -490,7 +574,7 @@ type UpdateServiceRequest struct {
 
 func (x *UpdateServiceRequest) Reset() {
 	*x = UpdateServiceRequest{}
-	mi := &file_service_service_proto_msgTypes[9]
+	mi := &file_service_service_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -502,7 +586,7 @@ func (x *UpdateServiceRequest) String() string {
 func (*UpdateServiceRequest) ProtoMessage() {}
 
 func (x *UpdateServiceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[9]
+	mi := &file_service_service_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -515,7 +599,7 @@ func (x *UpdateServiceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateServiceRequest.ProtoReflect.Descriptor instead.
 func (*UpdateServiceRequest) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{9}
+	return file_service_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *UpdateServiceRequest) GetService() *Service {
@@ -534,7 +618,7 @@ type UpdateServiceResponse struct {
 
 func (x *UpdateServiceResponse) Reset() {
 	*x = UpdateServiceResponse{}
-	mi := &file_service_service_proto_msgTypes[10]
+	mi := &file_service_service_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -546,7 +630,7 @@ func (x *UpdateServiceResponse) String() string {
 func (*UpdateServiceResponse) ProtoMessage() {}
 
 func (x *UpdateServiceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_service_proto_msgTypes[10]
+	mi := &file_service_service_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -559,7 +643,7 @@ func (x *UpdateServiceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateServiceResponse.ProtoReflect.Descriptor instead.
 func (*UpdateServiceResponse) Descriptor() ([]byte, []int) {
-	return file_service_service_proto_rawDescGZIP(), []int{10}
+	return file_service_service_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *UpdateServiceResponse) GetService() *Service {
@@ -573,22 +657,36 @@ var File_service_service_proto protoreflect.FileDescriptor
 
 const file_service_service_proto_rawDesc = "" +
 	"\n" +
-	"\x15service/service.proto\x12\aservice\"\xfa\x02\n" +
+	"\x15service/service.proto\x12\aservice\"\x8e\x01\n" +
+	"\n" +
+	"ImageModel\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1b\n" +
+	"\timage_url\x18\x03 \x01(\tR\bimageUrl\x12$\n" +
+	"\vimage_index\x18\x04 \x01(\x05H\x00R\n" +
+	"imageIndex\x88\x01\x01\x12\x1d\n" +
+	"\n" +
+	"object_key\x18\a \x01(\tR\tobjectKeyB\x0e\n" +
+	"\f_image_index\"\xd7\x03\n" +
 	"\aService\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1d\n" +
 	"\n" +
 	"price_from\x18\x02 \x01(\x01R\tpriceFrom\x12\x19\n" +
 	"\bprice_to\x18\x03 \x01(\x01R\apriceTo\x12\x1b\n" +
 	"\x06status\x18\x04 \x01(\tH\x01R\x06status\x88\x01\x01\x12\x12\n" +
-	"\x04name\x18\x05 \x01(\tR\x04name\x12%\n" +
-	"\vdescription\x18\x06 \x01(\tH\x02R\vdescription\x88\x01\x01\x12\"\n" +
+	"\x04name\x18\x05 \x01(\tR\x04name\x12 \n" +
+	"\timage_url\x18\x06 \x01(\tH\x02R\bimageUrl\x88\x01\x01\x12%\n" +
+	"\vdescription\x18\a \x01(\tH\x03R\vdescription\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"created_at\x18\a \x01(\tH\x03R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"created_at\x18\b \x01(\tH\x04R\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\b \x01(\tH\x04R\tupdatedAt\x88\x01\x01\x12,\n" +
-	"\x0forganization_id\x18\t \x01(\x03H\x05R\x0eorganizationId\x88\x01\x01B\x05\n" +
+	"updated_at\x18\t \x01(\tH\x05R\tupdatedAt\x88\x01\x01\x12,\n" +
+	"\x0forganization_id\x18\n" +
+	" \x01(\x03H\x06R\x0eorganizationId\x88\x01\x01\x12+\n" +
+	"\x06images\x18\v \x03(\v2\x13.service.ImageModelR\x06imagesB\x05\n" +
 	"\x03_idB\t\n" +
-	"\a_statusB\x0e\n" +
+	"\a_statusB\f\n" +
+	"\n" +
+	"_image_urlB\x0e\n" +
 	"\f_descriptionB\r\n" +
 	"\v_created_atB\r\n" +
 	"\v_updated_atB\x12\n" +
@@ -633,44 +731,46 @@ func file_service_service_proto_rawDescGZIP() []byte {
 	return file_service_service_proto_rawDescData
 }
 
-var file_service_service_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_service_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_service_service_proto_goTypes = []any{
-	(*Service)(nil),                      // 0: service.Service
-	(*GetServiceRequest)(nil),            // 1: service.GetServiceRequest
-	(*GetServiceResponse)(nil),           // 2: service.GetServiceResponse
-	(*CreateServiceRequest)(nil),         // 3: service.CreateServiceRequest
-	(*CreateServiceResponse)(nil),        // 4: service.CreateServiceResponse
-	(*DeleteServiceRequest)(nil),         // 5: service.DeleteServiceRequest
-	(*DeleteServiceResponse)(nil),        // 6: service.DeleteServiceResponse
-	(*PartialUpdateServiceRequest)(nil),  // 7: service.PartialUpdateServiceRequest
-	(*PartialUpdateServiceResponse)(nil), // 8: service.PartialUpdateServiceResponse
-	(*UpdateServiceRequest)(nil),         // 9: service.UpdateServiceRequest
-	(*UpdateServiceResponse)(nil),        // 10: service.UpdateServiceResponse
+	(*ImageModel)(nil),                   // 0: service.ImageModel
+	(*Service)(nil),                      // 1: service.Service
+	(*GetServiceRequest)(nil),            // 2: service.GetServiceRequest
+	(*GetServiceResponse)(nil),           // 3: service.GetServiceResponse
+	(*CreateServiceRequest)(nil),         // 4: service.CreateServiceRequest
+	(*CreateServiceResponse)(nil),        // 5: service.CreateServiceResponse
+	(*DeleteServiceRequest)(nil),         // 6: service.DeleteServiceRequest
+	(*DeleteServiceResponse)(nil),        // 7: service.DeleteServiceResponse
+	(*PartialUpdateServiceRequest)(nil),  // 8: service.PartialUpdateServiceRequest
+	(*PartialUpdateServiceResponse)(nil), // 9: service.PartialUpdateServiceResponse
+	(*UpdateServiceRequest)(nil),         // 10: service.UpdateServiceRequest
+	(*UpdateServiceResponse)(nil),        // 11: service.UpdateServiceResponse
 }
 var file_service_service_proto_depIdxs = []int32{
-	0,  // 0: service.GetServiceResponse.service:type_name -> service.Service
-	0,  // 1: service.CreateServiceRequest.service:type_name -> service.Service
-	0,  // 2: service.CreateServiceResponse.service:type_name -> service.Service
-	0,  // 3: service.DeleteServiceResponse.service:type_name -> service.Service
-	0,  // 4: service.PartialUpdateServiceRequest.service:type_name -> service.Service
-	0,  // 5: service.PartialUpdateServiceResponse.service:type_name -> service.Service
-	0,  // 6: service.UpdateServiceRequest.service:type_name -> service.Service
-	0,  // 7: service.UpdateServiceResponse.service:type_name -> service.Service
-	1,  // 8: service.ServiceService.GetService:input_type -> service.GetServiceRequest
-	3,  // 9: service.ServiceService.CreateService:input_type -> service.CreateServiceRequest
-	5,  // 10: service.ServiceService.DeleteService:input_type -> service.DeleteServiceRequest
-	7,  // 11: service.ServiceService.PartialUpdateService:input_type -> service.PartialUpdateServiceRequest
-	9,  // 12: service.ServiceService.UpdateService:input_type -> service.UpdateServiceRequest
-	2,  // 13: service.ServiceService.GetService:output_type -> service.GetServiceResponse
-	4,  // 14: service.ServiceService.CreateService:output_type -> service.CreateServiceResponse
-	6,  // 15: service.ServiceService.DeleteService:output_type -> service.DeleteServiceResponse
-	8,  // 16: service.ServiceService.PartialUpdateService:output_type -> service.PartialUpdateServiceResponse
-	10, // 17: service.ServiceService.UpdateService:output_type -> service.UpdateServiceResponse
-	13, // [13:18] is the sub-list for method output_type
-	8,  // [8:13] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	0,  // 0: service.Service.images:type_name -> service.ImageModel
+	1,  // 1: service.GetServiceResponse.service:type_name -> service.Service
+	1,  // 2: service.CreateServiceRequest.service:type_name -> service.Service
+	1,  // 3: service.CreateServiceResponse.service:type_name -> service.Service
+	1,  // 4: service.DeleteServiceResponse.service:type_name -> service.Service
+	1,  // 5: service.PartialUpdateServiceRequest.service:type_name -> service.Service
+	1,  // 6: service.PartialUpdateServiceResponse.service:type_name -> service.Service
+	1,  // 7: service.UpdateServiceRequest.service:type_name -> service.Service
+	1,  // 8: service.UpdateServiceResponse.service:type_name -> service.Service
+	2,  // 9: service.ServiceService.GetService:input_type -> service.GetServiceRequest
+	4,  // 10: service.ServiceService.CreateService:input_type -> service.CreateServiceRequest
+	6,  // 11: service.ServiceService.DeleteService:input_type -> service.DeleteServiceRequest
+	8,  // 12: service.ServiceService.PartialUpdateService:input_type -> service.PartialUpdateServiceRequest
+	10, // 13: service.ServiceService.UpdateService:input_type -> service.UpdateServiceRequest
+	3,  // 14: service.ServiceService.GetService:output_type -> service.GetServiceResponse
+	5,  // 15: service.ServiceService.CreateService:output_type -> service.CreateServiceResponse
+	7,  // 16: service.ServiceService.DeleteService:output_type -> service.DeleteServiceResponse
+	9,  // 17: service.ServiceService.PartialUpdateService:output_type -> service.PartialUpdateServiceResponse
+	11, // 18: service.ServiceService.UpdateService:output_type -> service.UpdateServiceResponse
+	14, // [14:19] is the sub-list for method output_type
+	9,  // [9:14] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_service_service_proto_init() }
@@ -679,13 +779,14 @@ func file_service_service_proto_init() {
 		return
 	}
 	file_service_service_proto_msgTypes[0].OneofWrappers = []any{}
+	file_service_service_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_service_service_proto_rawDesc), len(file_service_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
