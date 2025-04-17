@@ -542,3 +542,168 @@ func (h *OrganizationHandler) ListBonusLevelsByOrganization(w http.ResponseWrite
 
 	json.WriteJSON(w, http.StatusOK, resp)
 }
+
+func (h *OrganizationHandler) ListStory(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to list stories")
+
+	// Получаем ID из URL
+	organizationIDStr := chi.URLParam(r, "organization_id")
+	organizationID, err := strconv.ParseInt(organizationIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid organization_id format", "organization_id", organizationIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// Парсим JSON
+	req := &organizationv1.ListStoryRequest{
+		OrganizationId: organizationID,
+	}
+
+	// Вызов gRPC
+	resp, err := h.organization.Api.ListStory(r.Context(), req)
+	if err != nil {
+		h.log.Error("Failed to list stories", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	h.log.Info("Stories listed successfully", "response", resp)
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+func (h *OrganizationHandler) CreateStory(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to create story")
+
+	// Парсим JSON
+	req := &organizationv1.CreateStoryRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// Вызов gRPC
+	resp, err := h.organization.Api.CreateStory(r.Context(), req)
+	if err != nil {
+		h.log.Error("Failed to create story", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	h.log.Info("Story created successfully", "response", resp)
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+func (h *OrganizationHandler) UpdateStory(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to update story")
+	// Получаем ID из URL
+	storyIDStr := chi.URLParam(r, "story_id")
+	storyID, err := strconv.ParseInt(storyIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid story_id format", "story_id", storyIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	// Парсим JSON
+	req := &organizationv1.UpdateStoryRequest{
+		Story: &organizationv1.Story{
+			Id: &storyID,
+		},
+	}
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("Parsed request JSON successfully", "request", req)
+	// Вызов gRPC
+	resp, err := h.organization.Api.UpdateStory(r.Context(), req)
+	if err != nil {
+		h.log.Error("Failed to update story", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+	h.log.Info("Story updated successfully", "response", resp)
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+func (h *OrganizationHandler) ListBanner(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to list banners")
+
+	// Получаем ID из URL
+	organizationIDStr := chi.URLParam(r, "organization_id")
+	organizationID, err := strconv.ParseInt(organizationIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid organization_id format", "organization_id", organizationIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// Парсим JSON
+	req := &organizationv1.ListBannerRequest{
+		OrganizationId: organizationID,
+	}
+
+	// Вызов gRPC
+	resp, err := h.organization.Api.ListBanner(r.Context(), req)
+	if err != nil {
+		h.log.Error("Failed to list banners", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	h.log.Info("Banners listed successfully", "response", resp)
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+func (h *OrganizationHandler) CreateBanner(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to create banner")
+
+	// Парсим JSON
+	req := &organizationv1.CreateBannerRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// Вызов gRPC
+	resp, err := h.organization.Api.CreateBanner(r.Context(), req)
+	if err != nil {
+		h.log.Error("Failed to create banner", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	h.log.Info("Banner created successfully", "response", resp)
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+func (h *OrganizationHandler) UpdateBanner(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to update banner")
+	// Получаем ID из URL
+	bannerIDStr := chi.URLParam(r, "banner_id")
+	bannerID, err := strconv.ParseInt(bannerIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid banner_id format", "banner_id", bannerIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	// Парсим JSON
+	req := &organizationv1.UpdateBannerRequest{
+		Banner: &organizationv1.Banner{
+			Id: &bannerID,
+		},
+	}
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("Parsed request JSON successfully", "request", req)
+	// Вызов gRPC
+	resp, err := h.organization.Api.UpdateBanner(r.Context(), req)
+	if err != nil {
+		h.log.Error("Failed to update banner", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+	h.log.Info("Banner updated successfully", "response", resp)
+	json.WriteJSON(w, http.StatusOK, resp)
+}

@@ -586,14 +586,14 @@ struct GetAddressRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAddressRequestDefaultTypeInternal _GetAddressRequest_default_instance_;
 
-inline constexpr GeneratePresignedURLsRequest::Impl_::Impl_(
+inline constexpr Request::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : file_names_{},
         organization_id_{::int64_t{0}},
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR GeneratePresignedURLsRequest::GeneratePresignedURLsRequest(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR Request::Request(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(_class_data_.base()),
 #else   // PROTOBUF_CUSTOM_VTABLE
@@ -601,16 +601,16 @@ PROTOBUF_CONSTEXPR GeneratePresignedURLsRequest::GeneratePresignedURLsRequest(::
 #endif  // PROTOBUF_CUSTOM_VTABLE
       _impl_(::_pbi::ConstantInitialized()) {
 }
-struct GeneratePresignedURLsRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GeneratePresignedURLsRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GeneratePresignedURLsRequestDefaultTypeInternal() {}
+struct RequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RequestDefaultTypeInternal() {}
   union {
-    GeneratePresignedURLsRequest _instance;
+    Request _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GeneratePresignedURLsRequestDefaultTypeInternal _GeneratePresignedURLsRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestDefaultTypeInternal _Request_default_instance_;
 
 inline constexpr ExpencesModel::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -1648,13 +1648,13 @@ struct GetAddressResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAddressResponseDefaultTypeInternal _GetAddressResponse_default_instance_;
 
-inline constexpr GeneratePresignedURLsResponse::Impl_::Impl_(
+inline constexpr Response::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : presigned_urls_{},
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR GeneratePresignedURLsResponse::GeneratePresignedURLsResponse(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR Response::Response(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(_class_data_.base()),
 #else   // PROTOBUF_CUSTOM_VTABLE
@@ -1662,16 +1662,16 @@ PROTOBUF_CONSTEXPR GeneratePresignedURLsResponse::GeneratePresignedURLsResponse(
 #endif  // PROTOBUF_CUSTOM_VTABLE
       _impl_(::_pbi::ConstantInitialized()) {
 }
-struct GeneratePresignedURLsResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GeneratePresignedURLsResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GeneratePresignedURLsResponseDefaultTypeInternal() {}
+struct ResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ResponseDefaultTypeInternal() {}
   union {
-    GeneratePresignedURLsResponse _instance;
+    Response _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GeneratePresignedURLsResponseDefaultTypeInternal _GeneratePresignedURLsResponse_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResponseDefaultTypeInternal _Response_default_instance_;
 
 inline constexpr EnsureRelationshipExistsResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -2955,15 +2955,15 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::organization::UpdateOrganizationResponse, _impl_.organization_),
         0,
         ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::organization::GeneratePresignedURLsRequest, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::organization::Request, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::organization::GeneratePresignedURLsRequest, _impl_.organization_id_),
-        PROTOBUF_FIELD_OFFSET(::organization::GeneratePresignedURLsRequest, _impl_.file_names_),
+        PROTOBUF_FIELD_OFFSET(::organization::Request, _impl_.organization_id_),
+        PROTOBUF_FIELD_OFFSET(::organization::Request, _impl_.file_names_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::organization::PresignedURLInfo, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -2976,14 +2976,14 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::organization::PresignedURLInfo, _impl_.presigned_url_),
         PROTOBUF_FIELD_OFFSET(::organization::PresignedURLInfo, _impl_.object_key_),
         ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::organization::GeneratePresignedURLsResponse, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::organization::Response, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::organization::GeneratePresignedURLsResponse, _impl_.presigned_urls_),
+        PROTOBUF_FIELD_OFFSET(::organization::Response, _impl_.presigned_urls_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::organization::ListBankAccountsRequest, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -3539,9 +3539,9 @@ static const ::_pbi::MigrationSchema
         {446, 456, -1, sizeof(::organization::PatchOrganizationResponse)},
         {458, 467, -1, sizeof(::organization::UpdateOrganizationRequest)},
         {468, 477, -1, sizeof(::organization::UpdateOrganizationResponse)},
-        {478, -1, -1, sizeof(::organization::GeneratePresignedURLsRequest)},
+        {478, -1, -1, sizeof(::organization::Request)},
         {488, -1, -1, sizeof(::organization::PresignedURLInfo)},
-        {499, -1, -1, sizeof(::organization::GeneratePresignedURLsResponse)},
+        {499, -1, -1, sizeof(::organization::Response)},
         {508, -1, -1, sizeof(::organization::ListBankAccountsRequest)},
         {517, -1, -1, sizeof(::organization::ListBankAccountsResponse)},
         {526, -1, -1, sizeof(::organization::GetDefaultBankAccountRequest)},
@@ -3630,9 +3630,9 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::organization::_PatchOrganizationResponse_default_instance_._instance,
     &::organization::_UpdateOrganizationRequest_default_instance_._instance,
     &::organization::_UpdateOrganizationResponse_default_instance_._instance,
-    &::organization::_GeneratePresignedURLsRequest_default_instance_._instance,
+    &::organization::_Request_default_instance_._instance,
     &::organization::_PresignedURLInfo_default_instance_._instance,
-    &::organization::_GeneratePresignedURLsResponse_default_instance_._instance,
+    &::organization::_Response_default_instance_._instance,
     &::organization::_ListBankAccountsRequest_default_instance_._instance,
     &::organization::_ListBankAccountsResponse_default_instance_._instance,
     &::organization::_GetDefaultBankAccountRequest_default_instance_._instance,
@@ -4005,9 +4005,9 @@ const char descriptor_table_protodef_organization_2forganization_2eproto[] ABSL_
     "anization.DeleteContactResponse\022U\n\014ListC"
     "ontacts\022!.organization.ListContactsReque"
     "st\032\".organization.ListContactsResponse\022p"
-    "\n\025GeneratePresignedURLs\022*.organization.G"
+    "\n\025\022*.organization.G"
     "eneratePresignedURLsRequest\032+.organizati"
-    "on.GeneratePresignedURLsResponse\022g\n\022Crea"
+    "on.Response\022g\n\022Crea"
     "teSaleSettings\022\'.organization.CreateSale"
     "SettingsRequest\032(.organization.CreateSal"
     "eSettingsResponse\022^\n\017GetSaleSettings\022$.o"
@@ -14732,112 +14732,112 @@ void UpdateOrganizationResponse::InternalSwap(UpdateOrganizationResponse* PROTOB
 }
 // ===================================================================
 
-class GeneratePresignedURLsRequest::_Internal {
+class Request::_Internal {
  public:
 };
 
-GeneratePresignedURLsRequest::GeneratePresignedURLsRequest(::google::protobuf::Arena* arena)
+Request::Request(::google::protobuf::Arena* arena)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base()) {
 #else   // PROTOBUF_CUSTOM_VTABLE
     : ::google::protobuf::Message(arena) {
 #endif  // PROTOBUF_CUSTOM_VTABLE
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:organization.GeneratePresignedURLsRequest)
+  // @@protoc_insertion_point(arena_constructor:organization.Request)
 }
-inline PROTOBUF_NDEBUG_INLINE GeneratePresignedURLsRequest::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE Request::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::organization::GeneratePresignedURLsRequest& from_msg)
+    const Impl_& from, const ::organization::Request& from_msg)
       : file_names_{visibility, arena, from.file_names_},
         _cached_size_{0} {}
 
-GeneratePresignedURLsRequest::GeneratePresignedURLsRequest(
+Request::Request(
     ::google::protobuf::Arena* arena,
-    const GeneratePresignedURLsRequest& from)
+    const Request& from)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base()) {
 #else   // PROTOBUF_CUSTOM_VTABLE
     : ::google::protobuf::Message(arena) {
 #endif  // PROTOBUF_CUSTOM_VTABLE
-  GeneratePresignedURLsRequest* const _this = this;
+  Request* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
   _impl_.organization_id_ = from._impl_.organization_id_;
 
-  // @@protoc_insertion_point(copy_constructor:organization.GeneratePresignedURLsRequest)
+  // @@protoc_insertion_point(copy_constructor:organization.Request)
 }
-inline PROTOBUF_NDEBUG_INLINE GeneratePresignedURLsRequest::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE Request::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : file_names_{visibility, arena},
         _cached_size_{0} {}
 
-inline void GeneratePresignedURLsRequest::SharedCtor(::_pb::Arena* arena) {
+inline void Request::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
   _impl_.organization_id_ = {};
 }
-GeneratePresignedURLsRequest::~GeneratePresignedURLsRequest() {
-  // @@protoc_insertion_point(destructor:organization.GeneratePresignedURLsRequest)
+Request::~Request() {
+  // @@protoc_insertion_point(destructor:organization.Request)
   SharedDtor(*this);
 }
-inline void GeneratePresignedURLsRequest::SharedDtor(MessageLite& self) {
-  GeneratePresignedURLsRequest& this_ = static_cast<GeneratePresignedURLsRequest&>(self);
+inline void Request::SharedDtor(MessageLite& self) {
+  Request& this_ = static_cast<Request&>(self);
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
   this_._impl_.~Impl_();
 }
 
-inline void* GeneratePresignedURLsRequest::PlacementNew_(const void*, void* mem,
+inline void* Request::PlacementNew_(const void*, void* mem,
                                         ::google::protobuf::Arena* arena) {
-  return ::new (mem) GeneratePresignedURLsRequest(arena);
+  return ::new (mem) Request(arena);
 }
-constexpr auto GeneratePresignedURLsRequest::InternalNewImpl_() {
+constexpr auto Request::InternalNewImpl_() {
   constexpr auto arena_bits = ::google::protobuf::internal::EncodePlacementArenaOffsets({
-      PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsRequest, _impl_.file_names_) +
-          decltype(GeneratePresignedURLsRequest::_impl_.file_names_)::
+      PROTOBUF_FIELD_OFFSET(Request, _impl_.file_names_) +
+          decltype(Request::_impl_.file_names_)::
               InternalGetArenaOffset(
                   ::google::protobuf::Message::internal_visibility()),
   });
   if (arena_bits.has_value()) {
     return ::google::protobuf::internal::MessageCreator::ZeroInit(
-        sizeof(GeneratePresignedURLsRequest), alignof(GeneratePresignedURLsRequest), *arena_bits);
+        sizeof(Request), alignof(Request), *arena_bits);
   } else {
-    return ::google::protobuf::internal::MessageCreator(&GeneratePresignedURLsRequest::PlacementNew_,
-                                 sizeof(GeneratePresignedURLsRequest),
-                                 alignof(GeneratePresignedURLsRequest));
+    return ::google::protobuf::internal::MessageCreator(&Request::PlacementNew_,
+                                 sizeof(Request),
+                                 alignof(Request));
   }
 }
 PROTOBUF_CONSTINIT
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::google::protobuf::internal::ClassDataFull GeneratePresignedURLsRequest::_class_data_ = {
+const ::google::protobuf::internal::ClassDataFull Request::_class_data_ = {
     ::google::protobuf::internal::ClassData{
-        &_GeneratePresignedURLsRequest_default_instance_._instance,
+        &_Request_default_instance_._instance,
         &_table_.header,
         nullptr,  // OnDemandRegisterArenaDtor
         nullptr,  // IsInitialized
-        &GeneratePresignedURLsRequest::MergeImpl,
-        ::google::protobuf::Message::GetNewImpl<GeneratePresignedURLsRequest>(),
+        &Request::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<Request>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        &GeneratePresignedURLsRequest::SharedDtor,
-        ::google::protobuf::Message::GetClearImpl<GeneratePresignedURLsRequest>(), &GeneratePresignedURLsRequest::ByteSizeLong,
-            &GeneratePresignedURLsRequest::_InternalSerialize,
+        &Request::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<Request>(), &Request::ByteSizeLong,
+            &Request::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
-        PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsRequest, _impl_._cached_size_),
+        PROTOBUF_FIELD_OFFSET(Request, _impl_._cached_size_),
         false,
     },
-    &GeneratePresignedURLsRequest::kDescriptorMethods,
+    &Request::kDescriptorMethods,
     &descriptor_table_organization_2forganization_2eproto,
     nullptr,  // tracker
 };
-const ::google::protobuf::internal::ClassData* GeneratePresignedURLsRequest::GetClassData() const {
+const ::google::protobuf::internal::ClassData* Request::GetClassData() const {
   ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
   ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 60, 2> GeneratePresignedURLsRequest::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 60, 2> Request::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -14852,35 +14852,35 @@ const ::_pbi::TcParseTable<1, 2, 0, 60, 2> GeneratePresignedURLsRequest::_table_
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::organization::GeneratePresignedURLsRequest>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::organization::Request>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
     // repeated string file_names = 2;
     {::_pbi::TcParser::FastUR1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsRequest, _impl_.file_names_)}},
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(Request, _impl_.file_names_)}},
     // int64 organization_id = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(GeneratePresignedURLsRequest, _impl_.organization_id_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsRequest, _impl_.organization_id_)}},
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(Request, _impl_.organization_id_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(Request, _impl_.organization_id_)}},
   }}, {{
     65535, 65535
   }}, {{
     // int64 organization_id = 1;
-    {PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsRequest, _impl_.organization_id_), 0, 0,
+    {PROTOBUF_FIELD_OFFSET(Request, _impl_.organization_id_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kInt64)},
     // repeated string file_names = 2;
-    {PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsRequest, _impl_.file_names_), 0, 0,
+    {PROTOBUF_FIELD_OFFSET(Request, _impl_.file_names_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kUtf8String | ::_fl::kRepSString)},
   }},
   // no aux_entries
   {{
     "\51\0\12\0\0\0\0\0"
-    "organization.GeneratePresignedURLsRequest"
+    "organization.Request"
     "file_names"
   }},
 };
 
-PROTOBUF_NOINLINE void GeneratePresignedURLsRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:organization.GeneratePresignedURLsRequest)
+PROTOBUF_NOINLINE void Request::Clear() {
+// @@protoc_insertion_point(message_clear_start:organization.Request)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
@@ -14892,17 +14892,17 @@ PROTOBUF_NOINLINE void GeneratePresignedURLsRequest::Clear() {
 }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::uint8_t* GeneratePresignedURLsRequest::_InternalSerialize(
+        ::uint8_t* Request::_InternalSerialize(
             const MessageLite& base, ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) {
-          const GeneratePresignedURLsRequest& this_ = static_cast<const GeneratePresignedURLsRequest&>(base);
+          const Request& this_ = static_cast<const Request&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::uint8_t* GeneratePresignedURLsRequest::_InternalSerialize(
+        ::uint8_t* Request::_InternalSerialize(
             ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-          const GeneratePresignedURLsRequest& this_ = *this;
+          const Request& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(serialize_to_array_start:organization.GeneratePresignedURLsRequest)
+          // @@protoc_insertion_point(serialize_to_array_start:organization.Request)
           ::uint32_t cached_has_bits = 0;
           (void)cached_has_bits;
 
@@ -14917,7 +14917,7 @@ PROTOBUF_NOINLINE void GeneratePresignedURLsRequest::Clear() {
           for (int i = 0, n = this_._internal_file_names_size(); i < n; ++i) {
             const auto& s = this_._internal_file_names().Get(i);
             ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                s.data(), static_cast<int>(s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "organization.GeneratePresignedURLsRequest.file_names");
+                s.data(), static_cast<int>(s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "organization.Request.file_names");
             target = stream->WriteString(2, s, target);
           }
 
@@ -14926,18 +14926,18 @@ PROTOBUF_NOINLINE void GeneratePresignedURLsRequest::Clear() {
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
                     this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
           }
-          // @@protoc_insertion_point(serialize_to_array_end:organization.GeneratePresignedURLsRequest)
+          // @@protoc_insertion_point(serialize_to_array_end:organization.Request)
           return target;
         }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::size_t GeneratePresignedURLsRequest::ByteSizeLong(const MessageLite& base) {
-          const GeneratePresignedURLsRequest& this_ = static_cast<const GeneratePresignedURLsRequest&>(base);
+        ::size_t Request::ByteSizeLong(const MessageLite& base) {
+          const Request& this_ = static_cast<const Request&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::size_t GeneratePresignedURLsRequest::ByteSizeLong() const {
-          const GeneratePresignedURLsRequest& this_ = *this;
+        ::size_t Request::ByteSizeLong() const {
+          const Request& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(message_byte_size_start:organization.GeneratePresignedURLsRequest)
+          // @@protoc_insertion_point(message_byte_size_start:organization.Request)
           ::size_t total_size = 0;
 
           ::uint32_t cached_has_bits = 0;
@@ -14967,10 +14967,10 @@ PROTOBUF_NOINLINE void GeneratePresignedURLsRequest::Clear() {
                                                      &this_._impl_._cached_size_);
         }
 
-void GeneratePresignedURLsRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<GeneratePresignedURLsRequest*>(&to_msg);
-  auto& from = static_cast<const GeneratePresignedURLsRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:organization.GeneratePresignedURLsRequest)
+void Request::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<Request*>(&to_msg);
+  auto& from = static_cast<const Request&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:organization.Request)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -14982,22 +14982,22 @@ void GeneratePresignedURLsRequest::MergeImpl(::google::protobuf::MessageLite& to
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GeneratePresignedURLsRequest::CopyFrom(const GeneratePresignedURLsRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:organization.GeneratePresignedURLsRequest)
+void Request::CopyFrom(const Request& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:organization.Request)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void GeneratePresignedURLsRequest::InternalSwap(GeneratePresignedURLsRequest* PROTOBUF_RESTRICT other) {
+void Request::InternalSwap(Request* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.file_names_.InternalSwap(&other->_impl_.file_names_);
         swap(_impl_.organization_id_, other->_impl_.organization_id_);
 }
 
-::google::protobuf::Metadata GeneratePresignedURLsRequest::GetMetadata() const {
+::google::protobuf::Metadata Request::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================
@@ -15291,110 +15291,110 @@ void PresignedURLInfo::InternalSwap(PresignedURLInfo* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
-class GeneratePresignedURLsResponse::_Internal {
+class Response::_Internal {
  public:
 };
 
-GeneratePresignedURLsResponse::GeneratePresignedURLsResponse(::google::protobuf::Arena* arena)
+Response::Response(::google::protobuf::Arena* arena)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base()) {
 #else   // PROTOBUF_CUSTOM_VTABLE
     : ::google::protobuf::Message(arena) {
 #endif  // PROTOBUF_CUSTOM_VTABLE
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:organization.GeneratePresignedURLsResponse)
+  // @@protoc_insertion_point(arena_constructor:organization.Response)
 }
-inline PROTOBUF_NDEBUG_INLINE GeneratePresignedURLsResponse::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE Response::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::organization::GeneratePresignedURLsResponse& from_msg)
+    const Impl_& from, const ::organization::Response& from_msg)
       : presigned_urls_{visibility, arena, from.presigned_urls_},
         _cached_size_{0} {}
 
-GeneratePresignedURLsResponse::GeneratePresignedURLsResponse(
+Response::Response(
     ::google::protobuf::Arena* arena,
-    const GeneratePresignedURLsResponse& from)
+    const Response& from)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base()) {
 #else   // PROTOBUF_CUSTOM_VTABLE
     : ::google::protobuf::Message(arena) {
 #endif  // PROTOBUF_CUSTOM_VTABLE
-  GeneratePresignedURLsResponse* const _this = this;
+  Response* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
 
-  // @@protoc_insertion_point(copy_constructor:organization.GeneratePresignedURLsResponse)
+  // @@protoc_insertion_point(copy_constructor:organization.Response)
 }
-inline PROTOBUF_NDEBUG_INLINE GeneratePresignedURLsResponse::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE Response::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : presigned_urls_{visibility, arena},
         _cached_size_{0} {}
 
-inline void GeneratePresignedURLsResponse::SharedCtor(::_pb::Arena* arena) {
+inline void Response::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
 }
-GeneratePresignedURLsResponse::~GeneratePresignedURLsResponse() {
-  // @@protoc_insertion_point(destructor:organization.GeneratePresignedURLsResponse)
+Response::~Response() {
+  // @@protoc_insertion_point(destructor:organization.Response)
   SharedDtor(*this);
 }
-inline void GeneratePresignedURLsResponse::SharedDtor(MessageLite& self) {
-  GeneratePresignedURLsResponse& this_ = static_cast<GeneratePresignedURLsResponse&>(self);
+inline void Response::SharedDtor(MessageLite& self) {
+  Response& this_ = static_cast<Response&>(self);
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
   this_._impl_.~Impl_();
 }
 
-inline void* GeneratePresignedURLsResponse::PlacementNew_(const void*, void* mem,
+inline void* Response::PlacementNew_(const void*, void* mem,
                                         ::google::protobuf::Arena* arena) {
-  return ::new (mem) GeneratePresignedURLsResponse(arena);
+  return ::new (mem) Response(arena);
 }
-constexpr auto GeneratePresignedURLsResponse::InternalNewImpl_() {
+constexpr auto Response::InternalNewImpl_() {
   constexpr auto arena_bits = ::google::protobuf::internal::EncodePlacementArenaOffsets({
-      PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsResponse, _impl_.presigned_urls_) +
-          decltype(GeneratePresignedURLsResponse::_impl_.presigned_urls_)::
+      PROTOBUF_FIELD_OFFSET(Response, _impl_.presigned_urls_) +
+          decltype(Response::_impl_.presigned_urls_)::
               InternalGetArenaOffset(
                   ::google::protobuf::Message::internal_visibility()),
   });
   if (arena_bits.has_value()) {
     return ::google::protobuf::internal::MessageCreator::ZeroInit(
-        sizeof(GeneratePresignedURLsResponse), alignof(GeneratePresignedURLsResponse), *arena_bits);
+        sizeof(Response), alignof(Response), *arena_bits);
   } else {
-    return ::google::protobuf::internal::MessageCreator(&GeneratePresignedURLsResponse::PlacementNew_,
-                                 sizeof(GeneratePresignedURLsResponse),
-                                 alignof(GeneratePresignedURLsResponse));
+    return ::google::protobuf::internal::MessageCreator(&Response::PlacementNew_,
+                                 sizeof(Response),
+                                 alignof(Response));
   }
 }
 PROTOBUF_CONSTINIT
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::google::protobuf::internal::ClassDataFull GeneratePresignedURLsResponse::_class_data_ = {
+const ::google::protobuf::internal::ClassDataFull Response::_class_data_ = {
     ::google::protobuf::internal::ClassData{
-        &_GeneratePresignedURLsResponse_default_instance_._instance,
+        &_Response_default_instance_._instance,
         &_table_.header,
         nullptr,  // OnDemandRegisterArenaDtor
         nullptr,  // IsInitialized
-        &GeneratePresignedURLsResponse::MergeImpl,
-        ::google::protobuf::Message::GetNewImpl<GeneratePresignedURLsResponse>(),
+        &Response::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<Response>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        &GeneratePresignedURLsResponse::SharedDtor,
-        ::google::protobuf::Message::GetClearImpl<GeneratePresignedURLsResponse>(), &GeneratePresignedURLsResponse::ByteSizeLong,
-            &GeneratePresignedURLsResponse::_InternalSerialize,
+        &Response::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<Response>(), &Response::ByteSizeLong,
+            &Response::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
-        PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsResponse, _impl_._cached_size_),
+        PROTOBUF_FIELD_OFFSET(Response, _impl_._cached_size_),
         false,
     },
-    &GeneratePresignedURLsResponse::kDescriptorMethods,
+    &Response::kDescriptorMethods,
     &descriptor_table_organization_2forganization_2eproto,
     nullptr,  // tracker
 };
-const ::google::protobuf::internal::ClassData* GeneratePresignedURLsResponse::GetClassData() const {
+const ::google::protobuf::internal::ClassData* Response::GetClassData() const {
   ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
   ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 1, 0, 2> GeneratePresignedURLsResponse::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> Response::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -15409,17 +15409,17 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> GeneratePresignedURLsResponse::_table_
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::organization::GeneratePresignedURLsResponse>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::organization::Response>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
     // repeated .organization.PresignedURLInfo presigned_urls = 1;
     {::_pbi::TcParser::FastMtR1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsResponse, _impl_.presigned_urls_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(Response, _impl_.presigned_urls_)}},
   }}, {{
     65535, 65535
   }}, {{
     // repeated .organization.PresignedURLInfo presigned_urls = 1;
-    {PROTOBUF_FIELD_OFFSET(GeneratePresignedURLsResponse, _impl_.presigned_urls_), 0, 0,
+    {PROTOBUF_FIELD_OFFSET(Response, _impl_.presigned_urls_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
     {::_pbi::TcParser::GetTable<::organization::PresignedURLInfo>()},
@@ -15427,8 +15427,8 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> GeneratePresignedURLsResponse::_table_
   }},
 };
 
-PROTOBUF_NOINLINE void GeneratePresignedURLsResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:organization.GeneratePresignedURLsResponse)
+PROTOBUF_NOINLINE void Response::Clear() {
+// @@protoc_insertion_point(message_clear_start:organization.Response)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
@@ -15439,17 +15439,17 @@ PROTOBUF_NOINLINE void GeneratePresignedURLsResponse::Clear() {
 }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::uint8_t* GeneratePresignedURLsResponse::_InternalSerialize(
+        ::uint8_t* Response::_InternalSerialize(
             const MessageLite& base, ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) {
-          const GeneratePresignedURLsResponse& this_ = static_cast<const GeneratePresignedURLsResponse&>(base);
+          const Response& this_ = static_cast<const Response&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::uint8_t* GeneratePresignedURLsResponse::_InternalSerialize(
+        ::uint8_t* Response::_InternalSerialize(
             ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-          const GeneratePresignedURLsResponse& this_ = *this;
+          const Response& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(serialize_to_array_start:organization.GeneratePresignedURLsResponse)
+          // @@protoc_insertion_point(serialize_to_array_start:organization.Response)
           ::uint32_t cached_has_bits = 0;
           (void)cached_has_bits;
 
@@ -15469,18 +15469,18 @@ PROTOBUF_NOINLINE void GeneratePresignedURLsResponse::Clear() {
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
                     this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
           }
-          // @@protoc_insertion_point(serialize_to_array_end:organization.GeneratePresignedURLsResponse)
+          // @@protoc_insertion_point(serialize_to_array_end:organization.Response)
           return target;
         }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::size_t GeneratePresignedURLsResponse::ByteSizeLong(const MessageLite& base) {
-          const GeneratePresignedURLsResponse& this_ = static_cast<const GeneratePresignedURLsResponse&>(base);
+        ::size_t Response::ByteSizeLong(const MessageLite& base) {
+          const Response& this_ = static_cast<const Response&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::size_t GeneratePresignedURLsResponse::ByteSizeLong() const {
-          const GeneratePresignedURLsResponse& this_ = *this;
+        ::size_t Response::ByteSizeLong() const {
+          const Response& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(message_byte_size_start:organization.GeneratePresignedURLsResponse)
+          // @@protoc_insertion_point(message_byte_size_start:organization.Response)
           ::size_t total_size = 0;
 
           ::uint32_t cached_has_bits = 0;
@@ -15501,10 +15501,10 @@ PROTOBUF_NOINLINE void GeneratePresignedURLsResponse::Clear() {
                                                      &this_._impl_._cached_size_);
         }
 
-void GeneratePresignedURLsResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<GeneratePresignedURLsResponse*>(&to_msg);
-  auto& from = static_cast<const GeneratePresignedURLsResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:organization.GeneratePresignedURLsResponse)
+void Response::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<Response*>(&to_msg);
+  auto& from = static_cast<const Response&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:organization.Response)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -15514,21 +15514,21 @@ void GeneratePresignedURLsResponse::MergeImpl(::google::protobuf::MessageLite& t
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GeneratePresignedURLsResponse::CopyFrom(const GeneratePresignedURLsResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:organization.GeneratePresignedURLsResponse)
+void Response::CopyFrom(const Response& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:organization.Response)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void GeneratePresignedURLsResponse::InternalSwap(GeneratePresignedURLsResponse* PROTOBUF_RESTRICT other) {
+void Response::InternalSwap(Response* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.presigned_urls_.InternalSwap(&other->_impl_.presigned_urls_);
 }
 
-::google::protobuf::Metadata GeneratePresignedURLsResponse::GetMetadata() const {
+::google::protobuf::Metadata Response::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================

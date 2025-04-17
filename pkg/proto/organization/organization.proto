@@ -98,6 +98,27 @@ message BonusLevel {
     optional string updated_at = 7;
 }
 
+message Story {
+    optional int64 id = 1;
+    optional string title = 2;
+    optional string ImageURL = 3;
+    optional string reference_url = 4;
+    optional int32  display_index   = 5;
+    optional int64  organization_id   = 6;
+    optional string created_at = 7;
+    optional string updated_at =  8;
+}
+message Banner{
+    optional int64 id = 1;
+    optional string title = 2;
+    optional string description = 3;
+    optional string image_url = 4;
+    optional string reference_url = 5;
+    optional int32  display_index = 6;
+    optional int64  organization_id   = 7;
+    optional string created_at = 8;
+    optional string updated_at = 9;
+}
 message CreateBonusLevelRequest {
     BonusLevel bonus_level = 1;
 }
@@ -247,4 +268,41 @@ message DeleteBranchRequest {
 
 message DeleteBranchResponse {
 
+}
+
+message CreateStoryResponse {
+    Story story = 1;
+}
+message CreateStoryRequest {
+    Story story = 1;
+}
+ message UpdateStoryResponse {
+    Story story = 1;
+}
+message UpdateStoryRequest {
+    Story story = 1;
+}   
+message ListStoryResponse {
+    repeated Story stories = 1;
+}
+message ListStoryRequest {
+    int64 organization_id = 1;
+}
+message CreateBannerResponse {
+    Banner banner = 1;
+}
+message CreateBannerRequest {
+    Banner banner = 1;
+}
+ message UpdateBannerResponse {
+    Banner banner = 1;
+}
+message UpdateBannerRequest {
+    Banner banner = 1;
+}
+message ListBannerResponse {
+    repeated Banner banners = 1;
+}
+message ListBannerRequest {
+    int64 organization_id = 1;
 }
