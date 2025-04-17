@@ -20,6 +20,15 @@ proto:
 	@protoc -I $(PROTO_PATH) $(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \
 		--go_out=$(OUTPUT_PATH_GO) --go_opt=paths=source_relative \
 		--go-grpc_out=$(OUTPUT_PATH_GO) --go-grpc_opt=paths=source_relative \
+		# --cpp_out=$(OUTPUT_PATH_CPP) \
+		# --grpc_out=$(OUTPUT_PATH_CPP) --plugin=protoc-gen-grpc=`which grpc_cpp_plugin`
+
+	# source venv/bin/activate && \
+	# python -m grpc_tools.protoc \
+	# 	-I $(PROTO_PATH) \
+	# 	$(addprefix $(PROTO_PATH)/, $(PROTO_FILES)) \
+	# 	--python_out=$(OUTPUT_PATH_PY) \
+	# 	--grpc_python_out=$(OUTPUT_PATH_PY)
 
 
 build:

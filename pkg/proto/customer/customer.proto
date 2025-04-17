@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package customer;
 
+import "google/protobuf/empty.proto";
+
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1";
 
 service CustomerService {
@@ -10,6 +12,8 @@ service CustomerService {
   rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
   rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
   rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
+  rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (google.protobuf.Empty);
+  rpc GetBonusBalance (GetBonusBalanceRequest) returns (GetBonusBalanceResponse);
 }
 
 message Customer {
@@ -20,10 +24,10 @@ message Customer {
     optional string date_of_birth = 5;
     optional string created_at = 6;
     optional string updated_at = 7;
-    optional string cashback_balance = 8;
-    optional string total_spent = 9;
-    optional string organization_id = 10;
-    optional string loyalty_level_id = 11;
+    optional float cashback_balance = 8;
+    optional float total_spent = 9;
+    optional int64 organization_id = 10;
+    optional int64 loyalty_level_id = 11;
 }
 
 message GetCustomerRequest {
@@ -40,8 +44,8 @@ message GetCustomerResponse {
 
 message CreateCustomerRequest {
     Customer customer = 1;
-    string phone_number = 2;
-    string email = 3;
+    optional string phone_number = 2;
+    optional string email = 3;
 }
 
 message CreateCustomerResponse {
@@ -70,4 +74,19 @@ message DeleteCustomerRequest {
 
 message DeleteCustomerResponse {
 
+}
+
+message CreateBonusTransactionRequest {
+    int64 customer_id = 1;
+    int64 organization_id = 2;
+    int64 order_id = 3;
+    double bonus_change = 4;
+}
+
+message GetBonusBalanceRequest {
+    int64 customer_id = 1;
+}
+
+message GetBonusBalanceResponse {
+    double balance = 1;
 }

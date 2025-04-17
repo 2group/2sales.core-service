@@ -60,7 +60,6 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 		if err != nil {
 			return err
 		}
-		fmt.Println("After protojson.Marshal, data:", string(data))
 
 		// Decode the JSON into a map.
 		var objMap map[string]interface{}
@@ -69,27 +68,22 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 		if err := decoder.Decode(&objMap); err != nil {
 			return err
 		}
-		fmt.Println("After decoding to map, objMap:", objMap)
 
 		// Convert any number representations (skipping the key "bin").
 		objMap = convertNumbers(objMap).(map[string]interface{})
-		fmt.Println("After convertNumbers, objMap:", objMap)
 
 		// Recursively fill missing fields using proto reflection,
 		// but do not override valid values.
 		fillMissingFields(protoMsg.ProtoReflect(), objMap)
-		fmt.Println("After fillMissingFields, objMap:", objMap)
 
 		// Normalize all keys to snake_case.
 		objMap = normalizeKeysMap(objMap)
-		fmt.Println("After normalizeKeysMap, objMap:", objMap)
 
 		// Marshal the modified map back to JSON.
 		data, err = json.Marshal(objMap)
 		if err != nil {
 			return err
 		}
-		fmt.Println("Final marshaled JSON data:", string(data))
 	} else {
 		data, err = json.Marshal(v)
 		if err != nil {
