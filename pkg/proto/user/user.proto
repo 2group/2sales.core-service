@@ -5,6 +5,7 @@ package user;
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/user;userv1";
 
 import "customer/customer.proto";
+import "employee/employee.proto";
 
 service UserService {
     rpc Login (LoginRequest) returns (LoginResponse);
@@ -19,6 +20,7 @@ message User {
     optional string phone_number = 3;
     optional string password = 4;
     optional customer.Customer customer = 5;
+    optional employee.Employee employee = 6;
 }
 
 message LoginRequest {
