@@ -12,16 +12,24 @@ service ServiceService {
   rpc UpdateService (UpdateServiceRequest) returns (UpdateServiceResponse);
 }
 
+message ImageModel {
+    int64 id = 1;
+    string image_url = 3;
+    optional int32 image_index = 4;
+    string object_key = 7;
+}
+
 message Service {
     optional int64 id = 1;
     double price_from = 2;
     double price_to = 3;
     optional string status = 4;
     string name = 5;
-    optional string description = 6;
-    optional string created_at = 7;
-    optional string updated_at = 8;
-    optional int64 organization_id = 9;
+    optional string description = 7;
+    optional string created_at = 8;
+    optional string updated_at = 9;
+    optional int64 organization_id = 10;
+    repeated ImageModel images = 11;
 }
 
 message GetServiceRequest {
