@@ -9,6 +9,7 @@ package customerv1
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -647,11 +648,167 @@ func (*DeleteCustomerResponse) Descriptor() ([]byte, []int) {
 	return file_customer_customer_proto_rawDescGZIP(), []int{10}
 }
 
+type CreateBonusTransactionRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	CustomerId     int64                  `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	OrganizationId int64                  `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OrderId        int64                  `protobuf:"varint,3,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	BonusChange    float64                `protobuf:"fixed64,4,opt,name=bonus_change,json=bonusChange,proto3" json:"bonus_change,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *CreateBonusTransactionRequest) Reset() {
+	*x = CreateBonusTransactionRequest{}
+	mi := &file_customer_customer_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateBonusTransactionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateBonusTransactionRequest) ProtoMessage() {}
+
+func (x *CreateBonusTransactionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateBonusTransactionRequest.ProtoReflect.Descriptor instead.
+func (*CreateBonusTransactionRequest) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *CreateBonusTransactionRequest) GetCustomerId() int64 {
+	if x != nil {
+		return x.CustomerId
+	}
+	return 0
+}
+
+func (x *CreateBonusTransactionRequest) GetOrganizationId() int64 {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return 0
+}
+
+func (x *CreateBonusTransactionRequest) GetOrderId() int64 {
+	if x != nil {
+		return x.OrderId
+	}
+	return 0
+}
+
+func (x *CreateBonusTransactionRequest) GetBonusChange() float64 {
+	if x != nil {
+		return x.BonusChange
+	}
+	return 0
+}
+
+type GetBonusBalanceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CustomerId    int64                  `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetBonusBalanceRequest) Reset() {
+	*x = GetBonusBalanceRequest{}
+	mi := &file_customer_customer_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBonusBalanceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBonusBalanceRequest) ProtoMessage() {}
+
+func (x *GetBonusBalanceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBonusBalanceRequest.ProtoReflect.Descriptor instead.
+func (*GetBonusBalanceRequest) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetBonusBalanceRequest) GetCustomerId() int64 {
+	if x != nil {
+		return x.CustomerId
+	}
+	return 0
+}
+
+type GetBonusBalanceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Balance       float64                `protobuf:"fixed64,1,opt,name=balance,proto3" json:"balance,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetBonusBalanceResponse) Reset() {
+	*x = GetBonusBalanceResponse{}
+	mi := &file_customer_customer_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBonusBalanceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBonusBalanceResponse) ProtoMessage() {}
+
+func (x *GetBonusBalanceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBonusBalanceResponse.ProtoReflect.Descriptor instead.
+func (*GetBonusBalanceResponse) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetBonusBalanceResponse) GetBalance() float64 {
+	if x != nil {
+		return x.Balance
+	}
+	return 0
+}
+
 var File_customer_customer_proto protoreflect.FileDescriptor
 
 const file_customer_customer_proto_rawDesc = "" +
 	"\n" +
-	"\x17customer/customer.proto\x12\bcustomer\"\xd5\x04\n" +
+	"\x17customer/customer.proto\x12\bcustomer\x1a\x1bgoogle/protobuf/empty.proto\"\xd5\x04\n" +
 	"\bCustomer\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1c\n" +
 	"\auser_id\x18\x02 \x01(\x03H\x01R\x06userId\x88\x01\x01\x12\"\n" +
@@ -708,13 +865,26 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"'\n" +
 	"\x15DeleteCustomerRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"\x18\n" +
-	"\x16DeleteCustomerResponse2\xc6\x03\n" +
+	"\x16DeleteCustomerResponse\"\xa7\x01\n" +
+	"\x1dCreateBonusTransactionRequest\x12\x1f\n" +
+	"\vcustomer_id\x18\x01 \x01(\x03R\n" +
+	"customerId\x12'\n" +
+	"\x0forganization_id\x18\x02 \x01(\x03R\x0eorganizationId\x12\x19\n" +
+	"\border_id\x18\x03 \x01(\x03R\aorderId\x12!\n" +
+	"\fbonus_change\x18\x04 \x01(\x01R\vbonusChange\"9\n" +
+	"\x16GetBonusBalanceRequest\x12\x1f\n" +
+	"\vcustomer_id\x18\x01 \x01(\x03R\n" +
+	"customerId\"3\n" +
+	"\x17GetBonusBalanceResponse\x12\x18\n" +
+	"\abalance\x18\x01 \x01(\x01R\abalance2\xf9\x04\n" +
 	"\x0fCustomerService\x12J\n" +
 	"\vGetCustomer\x12\x1c.customer.GetCustomerRequest\x1a\x1d.customer.GetCustomerResponse\x12S\n" +
 	"\x0eCreateCustomer\x12\x1f.customer.CreateCustomerRequest\x1a .customer.CreateCustomerResponse\x12S\n" +
 	"\x0eDeleteCustomer\x12\x1f.customer.DeleteCustomerRequest\x1a .customer.DeleteCustomerResponse\x12h\n" +
 	"\x15PartialUpdateCustomer\x12&.customer.PartialUpdateCustomerRequest\x1a'.customer.PartialUpdateCustomerResponse\x12S\n" +
-	"\x0eUpdateCustomer\x12\x1f.customer.UpdateCustomerRequest\x1a .customer.UpdateCustomerResponseBFZDgithub.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1b\x06proto3"
+	"\x0eUpdateCustomer\x12\x1f.customer.UpdateCustomerRequest\x1a .customer.UpdateCustomerResponse\x12Y\n" +
+	"\x16CreateBonusTransaction\x12'.customer.CreateBonusTransactionRequest\x1a\x16.google.protobuf.Empty\x12V\n" +
+	"\x0fGetBonusBalance\x12 .customer.GetBonusBalanceRequest\x1a!.customer.GetBonusBalanceResponseBFZDgithub.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1b\x06proto3"
 
 var (
 	file_customer_customer_proto_rawDescOnce sync.Once
@@ -728,7 +898,7 @@ func file_customer_customer_proto_rawDescGZIP() []byte {
 	return file_customer_customer_proto_rawDescData
 }
 
-var file_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_customer_customer_proto_goTypes = []any{
 	(*Customer)(nil),                      // 0: customer.Customer
 	(*GetCustomerRequest)(nil),            // 1: customer.GetCustomerRequest
@@ -741,6 +911,10 @@ var file_customer_customer_proto_goTypes = []any{
 	(*PartialUpdateCustomerResponse)(nil), // 8: customer.PartialUpdateCustomerResponse
 	(*DeleteCustomerRequest)(nil),         // 9: customer.DeleteCustomerRequest
 	(*DeleteCustomerResponse)(nil),        // 10: customer.DeleteCustomerResponse
+	(*CreateBonusTransactionRequest)(nil), // 11: customer.CreateBonusTransactionRequest
+	(*GetBonusBalanceRequest)(nil),        // 12: customer.GetBonusBalanceRequest
+	(*GetBonusBalanceResponse)(nil),       // 13: customer.GetBonusBalanceResponse
+	(*emptypb.Empty)(nil),                 // 14: google.protobuf.Empty
 }
 var file_customer_customer_proto_depIdxs = []int32{
 	0,  // 0: customer.GetCustomerResponse.customer:type_name -> customer.Customer
@@ -755,13 +929,17 @@ var file_customer_customer_proto_depIdxs = []int32{
 	9,  // 9: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
 	7,  // 10: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
 	5,  // 11: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
-	2,  // 12: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
-	4,  // 13: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
-	10, // 14: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
-	8,  // 15: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
-	6,  // 16: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
-	12, // [12:17] is the sub-list for method output_type
-	7,  // [7:12] is the sub-list for method input_type
+	11, // 12: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
+	12, // 13: customer.CustomerService.GetBonusBalance:input_type -> customer.GetBonusBalanceRequest
+	2,  // 14: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
+	4,  // 15: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
+	10, // 16: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
+	8,  // 17: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
+	6,  // 18: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
+	14, // 19: customer.CustomerService.CreateBonusTransaction:output_type -> google.protobuf.Empty
+	13, // 20: customer.CustomerService.GetBonusBalance:output_type -> customer.GetBonusBalanceResponse
+	14, // [14:21] is the sub-list for method output_type
+	7,  // [7:14] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name
 	7,  // [7:7] is the sub-list for extension extendee
 	0,  // [0:7] is the sub-list for field type_name
@@ -785,7 +963,7 @@ func file_customer_customer_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_customer_customer_proto_rawDesc), len(file_customer_customer_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
