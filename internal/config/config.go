@@ -36,6 +36,7 @@ type GrpcConfig struct {
 	Customer        string `yaml:"customer" env-default:"localhost:50058"`
 	Service         string `yaml:"service" env-default:"localhost:50059"`
 	B2CServiceOrder string `yaml:"b2c_service_order" env-default:"localhost:50060"`
+	Employee        string `yaml:"employee" env-default:"localhost:50061"`
 }
 
 func MustLoad() *Config {
