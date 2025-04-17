@@ -96,7 +96,6 @@ type Service struct {
 	PriceTo        float64                `protobuf:"fixed64,3,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
 	Status         *string                `protobuf:"bytes,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	Name           string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	ImageUrl       *string                `protobuf:"bytes,6,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
 	Description    *string                `protobuf:"bytes,7,opt,name=description,proto3,oneof" json:"description,omitempty"`
 	CreatedAt      *string                `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
 	UpdatedAt      *string                `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
@@ -167,13 +166,6 @@ func (x *Service) GetStatus() string {
 func (x *Service) GetName() string {
 	if x != nil {
 		return x.Name
-	}
-	return ""
-}
-
-func (x *Service) GetImageUrl() string {
-	if x != nil && x.ImageUrl != nil {
-		return *x.ImageUrl
 	}
 	return ""
 }
@@ -666,27 +658,24 @@ const file_service_service_proto_rawDesc = "" +
 	"imageIndex\x88\x01\x01\x12\x1d\n" +
 	"\n" +
 	"object_key\x18\a \x01(\tR\tobjectKeyB\x0e\n" +
-	"\f_image_index\"\xd7\x03\n" +
+	"\f_image_index\"\xa7\x03\n" +
 	"\aService\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1d\n" +
 	"\n" +
 	"price_from\x18\x02 \x01(\x01R\tpriceFrom\x12\x19\n" +
 	"\bprice_to\x18\x03 \x01(\x01R\apriceTo\x12\x1b\n" +
 	"\x06status\x18\x04 \x01(\tH\x01R\x06status\x88\x01\x01\x12\x12\n" +
-	"\x04name\x18\x05 \x01(\tR\x04name\x12 \n" +
-	"\timage_url\x18\x06 \x01(\tH\x02R\bimageUrl\x88\x01\x01\x12%\n" +
-	"\vdescription\x18\a \x01(\tH\x03R\vdescription\x88\x01\x01\x12\"\n" +
+	"\x04name\x18\x05 \x01(\tR\x04name\x12%\n" +
+	"\vdescription\x18\a \x01(\tH\x02R\vdescription\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"created_at\x18\b \x01(\tH\x04R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"created_at\x18\b \x01(\tH\x03R\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\t \x01(\tH\x05R\tupdatedAt\x88\x01\x01\x12,\n" +
+	"updated_at\x18\t \x01(\tH\x04R\tupdatedAt\x88\x01\x01\x12,\n" +
 	"\x0forganization_id\x18\n" +
-	" \x01(\x03H\x06R\x0eorganizationId\x88\x01\x01\x12+\n" +
+	" \x01(\x03H\x05R\x0eorganizationId\x88\x01\x01\x12+\n" +
 	"\x06images\x18\v \x03(\v2\x13.service.ImageModelR\x06imagesB\x05\n" +
 	"\x03_idB\t\n" +
-	"\a_statusB\f\n" +
-	"\n" +
-	"_image_urlB\x0e\n" +
+	"\a_statusB\x0e\n" +
 	"\f_descriptionB\r\n" +
 	"\v_created_atB\r\n" +
 	"\v_updated_atB\x12\n" +

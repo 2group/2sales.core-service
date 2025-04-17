@@ -25,7 +25,6 @@ message Service {
     double price_to = 3;
     optional string status = 4;
     string name = 5;
-    optional string image_url = 6;
     optional string description = 7;
     optional string created_at = 8;
     optional string updated_at = 9;
