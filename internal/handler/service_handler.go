@@ -174,3 +174,26 @@ func (h *ServiceHandler) UpdateService(w http.ResponseWriter, r *http.Request) {
 	json.WriteJSON(w, http.StatusOK, response)
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
+
+func (h *ServiceHandler) GeneratePresignedURLs(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to generate presigned URLs")
+
+	req := &servicev1.GeneratePresignedURLsRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("Parsed request JSON successfully", "request", req)
+
+	response, err := h.service.Api.GeneratePresignedURLs(r.Context(), req)
+	if err != nil {
+		h.log.Error("Error generating presigned URLs", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("Presigned URLs generated successfully", "response", response)
+
+	json.WriteJSON(w, http.StatusOK, response)
+	h.log.Info("Response sent", "status", http.StatusOK)
+}

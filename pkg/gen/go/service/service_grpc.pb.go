@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ServiceService_GetService_FullMethodName           = "/service.ServiceService/GetService"
-	ServiceService_CreateService_FullMethodName        = "/service.ServiceService/CreateService"
-	ServiceService_DeleteService_FullMethodName        = "/service.ServiceService/DeleteService"
-	ServiceService_PartialUpdateService_FullMethodName = "/service.ServiceService/PartialUpdateService"
-	ServiceService_UpdateService_FullMethodName        = "/service.ServiceService/UpdateService"
+	ServiceService_GetService_FullMethodName            = "/service.ServiceService/GetService"
+	ServiceService_CreateService_FullMethodName         = "/service.ServiceService/CreateService"
+	ServiceService_DeleteService_FullMethodName         = "/service.ServiceService/DeleteService"
+	ServiceService_PartialUpdateService_FullMethodName  = "/service.ServiceService/PartialUpdateService"
+	ServiceService_UpdateService_FullMethodName         = "/service.ServiceService/UpdateService"
+	ServiceService_GeneratePresignedURLs_FullMethodName = "/service.ServiceService/GeneratePresignedURLs"
 )
 
 // ServiceServiceClient is the client API for ServiceService service.
@@ -35,6 +36,7 @@ type ServiceServiceClient interface {
 	DeleteService(ctx context.Context, in *DeleteServiceRequest, opts ...grpc.CallOption) (*DeleteServiceResponse, error)
 	PartialUpdateService(ctx context.Context, in *PartialUpdateServiceRequest, opts ...grpc.CallOption) (*PartialUpdateServiceResponse, error)
 	UpdateService(ctx context.Context, in *UpdateServiceRequest, opts ...grpc.CallOption) (*UpdateServiceResponse, error)
+	GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error)
 }
 
 type serviceServiceClient struct {
@@ -95,6 +97,16 @@ func (c *serviceServiceClient) UpdateService(ctx context.Context, in *UpdateServ
 	return out, nil
 }
 
+func (c *serviceServiceClient) GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GeneratePresignedURLsResponse)
+	err := c.cc.Invoke(ctx, ServiceService_GeneratePresignedURLs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceServiceServer is the server API for ServiceService service.
 // All implementations must embed UnimplementedServiceServiceServer
 // for forward compatibility.
@@ -104,6 +116,7 @@ type ServiceServiceServer interface {
 	DeleteService(context.Context, *DeleteServiceRequest) (*DeleteServiceResponse, error)
 	PartialUpdateService(context.Context, *PartialUpdateServiceRequest) (*PartialUpdateServiceResponse, error)
 	UpdateService(context.Context, *UpdateServiceRequest) (*UpdateServiceResponse, error)
+	GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error)
 	mustEmbedUnimplementedServiceServiceServer()
 }
 
@@ -128,6 +141,9 @@ func (UnimplementedServiceServiceServer) PartialUpdateService(context.Context, *
 }
 func (UnimplementedServiceServiceServer) UpdateService(context.Context, *UpdateServiceRequest) (*UpdateServiceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateService not implemented")
+}
+func (UnimplementedServiceServiceServer) GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GeneratePresignedURLs not implemented")
 }
 func (UnimplementedServiceServiceServer) mustEmbedUnimplementedServiceServiceServer() {}
 func (UnimplementedServiceServiceServer) testEmbeddedByValue()                        {}
@@ -240,6 +256,24 @@ func _ServiceService_UpdateService_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceService_GeneratePresignedURLs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GeneratePresignedURLsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServiceServer).GeneratePresignedURLs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceService_GeneratePresignedURLs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServiceServer).GeneratePresignedURLs(ctx, req.(*GeneratePresignedURLsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceService_ServiceDesc is the grpc.ServiceDesc for ServiceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +300,10 @@ var ServiceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateService",
 			Handler:    _ServiceService_UpdateService_Handler,
+		},
+		{
+			MethodName: "GeneratePresignedURLs",
+			Handler:    _ServiceService_GeneratePresignedURLs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

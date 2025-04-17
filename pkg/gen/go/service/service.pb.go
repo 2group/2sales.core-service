@@ -24,9 +24,9 @@ const (
 type ImageModel struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	ImageUrl      string                 `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	ImageIndex    *int32                 `protobuf:"varint,4,opt,name=image_index,json=imageIndex,proto3,oneof" json:"image_index,omitempty"`
-	ObjectKey     string                 `protobuf:"bytes,7,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
+	ImageUrl      string                 `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	ImageIndex    *int32                 `protobuf:"varint,3,opt,name=image_index,json=imageIndex,proto3,oneof" json:"image_index,omitempty"`
+	ObjectKey     string                 `protobuf:"bytes,4,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -645,6 +645,162 @@ func (x *UpdateServiceResponse) GetService() *Service {
 	return nil
 }
 
+type GeneratePresignedURLsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceId     int64                  `protobuf:"varint,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	FileNames     []string               `protobuf:"bytes,2,rep,name=file_names,json=fileNames,proto3" json:"file_names,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GeneratePresignedURLsRequest) Reset() {
+	*x = GeneratePresignedURLsRequest{}
+	mi := &file_service_service_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GeneratePresignedURLsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GeneratePresignedURLsRequest) ProtoMessage() {}
+
+func (x *GeneratePresignedURLsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_service_service_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GeneratePresignedURLsRequest.ProtoReflect.Descriptor instead.
+func (*GeneratePresignedURLsRequest) Descriptor() ([]byte, []int) {
+	return file_service_service_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GeneratePresignedURLsRequest) GetServiceId() int64 {
+	if x != nil {
+		return x.ServiceId
+	}
+	return 0
+}
+
+func (x *GeneratePresignedURLsRequest) GetFileNames() []string {
+	if x != nil {
+		return x.FileNames
+	}
+	return nil
+}
+
+type PresignedURLInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	FileName      string                 `protobuf:"bytes,1,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	PresignedUrl  string                 `protobuf:"bytes,2,opt,name=presigned_url,json=presignedUrl,proto3" json:"presigned_url,omitempty"`
+	ObjectKey     string                 `protobuf:"bytes,3,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PresignedURLInfo) Reset() {
+	*x = PresignedURLInfo{}
+	mi := &file_service_service_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PresignedURLInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PresignedURLInfo) ProtoMessage() {}
+
+func (x *PresignedURLInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_service_service_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PresignedURLInfo.ProtoReflect.Descriptor instead.
+func (*PresignedURLInfo) Descriptor() ([]byte, []int) {
+	return file_service_service_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *PresignedURLInfo) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *PresignedURLInfo) GetPresignedUrl() string {
+	if x != nil {
+		return x.PresignedUrl
+	}
+	return ""
+}
+
+func (x *PresignedURLInfo) GetObjectKey() string {
+	if x != nil {
+		return x.ObjectKey
+	}
+	return ""
+}
+
+type GeneratePresignedURLsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PresignedUrls []*PresignedURLInfo    `protobuf:"bytes,1,rep,name=presigned_urls,json=presignedUrls,proto3" json:"presigned_urls,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GeneratePresignedURLsResponse) Reset() {
+	*x = GeneratePresignedURLsResponse{}
+	mi := &file_service_service_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GeneratePresignedURLsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GeneratePresignedURLsResponse) ProtoMessage() {}
+
+func (x *GeneratePresignedURLsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_service_service_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GeneratePresignedURLsResponse.ProtoReflect.Descriptor instead.
+func (*GeneratePresignedURLsResponse) Descriptor() ([]byte, []int) {
+	return file_service_service_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GeneratePresignedURLsResponse) GetPresignedUrls() []*PresignedURLInfo {
+	if x != nil {
+		return x.PresignedUrls
+	}
+	return nil
+}
+
 var File_service_service_proto protoreflect.FileDescriptor
 
 const file_service_service_proto_rawDesc = "" +
@@ -653,11 +809,11 @@ const file_service_service_proto_rawDesc = "" +
 	"\n" +
 	"ImageModel\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1b\n" +
-	"\timage_url\x18\x03 \x01(\tR\bimageUrl\x12$\n" +
-	"\vimage_index\x18\x04 \x01(\x05H\x00R\n" +
+	"\timage_url\x18\x02 \x01(\tR\bimageUrl\x12$\n" +
+	"\vimage_index\x18\x03 \x01(\x05H\x00R\n" +
 	"imageIndex\x88\x01\x01\x12\x1d\n" +
 	"\n" +
-	"object_key\x18\a \x01(\tR\tobjectKeyB\x0e\n" +
+	"object_key\x18\x04 \x01(\tR\tobjectKeyB\x0e\n" +
 	"\f_image_index\"\xa7\x03\n" +
 	"\aService\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1d\n" +
@@ -699,14 +855,27 @@ const file_service_service_proto_rawDesc = "" +
 	"\x14UpdateServiceRequest\x12*\n" +
 	"\aservice\x18\x01 \x01(\v2\x10.service.ServiceR\aservice\"C\n" +
 	"\x15UpdateServiceResponse\x12*\n" +
-	"\aservice\x18\x01 \x01(\v2\x10.service.ServiceR\aservice2\xac\x03\n" +
+	"\aservice\x18\x01 \x01(\v2\x10.service.ServiceR\aservice\"\\\n" +
+	"\x1cGeneratePresignedURLsRequest\x12\x1d\n" +
+	"\n" +
+	"service_id\x18\x01 \x01(\x03R\tserviceId\x12\x1d\n" +
+	"\n" +
+	"file_names\x18\x02 \x03(\tR\tfileNames\"s\n" +
+	"\x10PresignedURLInfo\x12\x1b\n" +
+	"\tfile_name\x18\x01 \x01(\tR\bfileName\x12#\n" +
+	"\rpresigned_url\x18\x02 \x01(\tR\fpresignedUrl\x12\x1d\n" +
+	"\n" +
+	"object_key\x18\x03 \x01(\tR\tobjectKey\"a\n" +
+	"\x1dGeneratePresignedURLsResponse\x12@\n" +
+	"\x0epresigned_urls\x18\x01 \x03(\v2\x19.service.PresignedURLInfoR\rpresignedUrls2\x94\x04\n" +
 	"\x0eServiceService\x12E\n" +
 	"\n" +
 	"GetService\x12\x1a.service.GetServiceRequest\x1a\x1b.service.GetServiceResponse\x12N\n" +
 	"\rCreateService\x12\x1d.service.CreateServiceRequest\x1a\x1e.service.CreateServiceResponse\x12N\n" +
 	"\rDeleteService\x12\x1d.service.DeleteServiceRequest\x1a\x1e.service.DeleteServiceResponse\x12c\n" +
 	"\x14PartialUpdateService\x12$.service.PartialUpdateServiceRequest\x1a%.service.PartialUpdateServiceResponse\x12N\n" +
-	"\rUpdateService\x12\x1d.service.UpdateServiceRequest\x1a\x1e.service.UpdateServiceResponseBDZBgithub.com/2group/2sales.core-service/pkg/gen/go/service;servicev1b\x06proto3"
+	"\rUpdateService\x12\x1d.service.UpdateServiceRequest\x1a\x1e.service.UpdateServiceResponse\x12f\n" +
+	"\x15GeneratePresignedURLs\x12%.service.GeneratePresignedURLsRequest\x1a&.service.GeneratePresignedURLsResponseBDZBgithub.com/2group/2sales.core-service/pkg/gen/go/service;servicev1b\x06proto3"
 
 var (
 	file_service_service_proto_rawDescOnce sync.Once
@@ -720,20 +889,23 @@ func file_service_service_proto_rawDescGZIP() []byte {
 	return file_service_service_proto_rawDescData
 }
 
-var file_service_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_service_service_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_service_service_proto_goTypes = []any{
-	(*ImageModel)(nil),                   // 0: service.ImageModel
-	(*Service)(nil),                      // 1: service.Service
-	(*GetServiceRequest)(nil),            // 2: service.GetServiceRequest
-	(*GetServiceResponse)(nil),           // 3: service.GetServiceResponse
-	(*CreateServiceRequest)(nil),         // 4: service.CreateServiceRequest
-	(*CreateServiceResponse)(nil),        // 5: service.CreateServiceResponse
-	(*DeleteServiceRequest)(nil),         // 6: service.DeleteServiceRequest
-	(*DeleteServiceResponse)(nil),        // 7: service.DeleteServiceResponse
-	(*PartialUpdateServiceRequest)(nil),  // 8: service.PartialUpdateServiceRequest
-	(*PartialUpdateServiceResponse)(nil), // 9: service.PartialUpdateServiceResponse
-	(*UpdateServiceRequest)(nil),         // 10: service.UpdateServiceRequest
-	(*UpdateServiceResponse)(nil),        // 11: service.UpdateServiceResponse
+	(*ImageModel)(nil),                    // 0: service.ImageModel
+	(*Service)(nil),                       // 1: service.Service
+	(*GetServiceRequest)(nil),             // 2: service.GetServiceRequest
+	(*GetServiceResponse)(nil),            // 3: service.GetServiceResponse
+	(*CreateServiceRequest)(nil),          // 4: service.CreateServiceRequest
+	(*CreateServiceResponse)(nil),         // 5: service.CreateServiceResponse
+	(*DeleteServiceRequest)(nil),          // 6: service.DeleteServiceRequest
+	(*DeleteServiceResponse)(nil),         // 7: service.DeleteServiceResponse
+	(*PartialUpdateServiceRequest)(nil),   // 8: service.PartialUpdateServiceRequest
+	(*PartialUpdateServiceResponse)(nil),  // 9: service.PartialUpdateServiceResponse
+	(*UpdateServiceRequest)(nil),          // 10: service.UpdateServiceRequest
+	(*UpdateServiceResponse)(nil),         // 11: service.UpdateServiceResponse
+	(*GeneratePresignedURLsRequest)(nil),  // 12: service.GeneratePresignedURLsRequest
+	(*PresignedURLInfo)(nil),              // 13: service.PresignedURLInfo
+	(*GeneratePresignedURLsResponse)(nil), // 14: service.GeneratePresignedURLsResponse
 }
 var file_service_service_proto_depIdxs = []int32{
 	0,  // 0: service.Service.images:type_name -> service.ImageModel
@@ -745,21 +917,24 @@ var file_service_service_proto_depIdxs = []int32{
 	1,  // 6: service.PartialUpdateServiceResponse.service:type_name -> service.Service
 	1,  // 7: service.UpdateServiceRequest.service:type_name -> service.Service
 	1,  // 8: service.UpdateServiceResponse.service:type_name -> service.Service
-	2,  // 9: service.ServiceService.GetService:input_type -> service.GetServiceRequest
-	4,  // 10: service.ServiceService.CreateService:input_type -> service.CreateServiceRequest
-	6,  // 11: service.ServiceService.DeleteService:input_type -> service.DeleteServiceRequest
-	8,  // 12: service.ServiceService.PartialUpdateService:input_type -> service.PartialUpdateServiceRequest
-	10, // 13: service.ServiceService.UpdateService:input_type -> service.UpdateServiceRequest
-	3,  // 14: service.ServiceService.GetService:output_type -> service.GetServiceResponse
-	5,  // 15: service.ServiceService.CreateService:output_type -> service.CreateServiceResponse
-	7,  // 16: service.ServiceService.DeleteService:output_type -> service.DeleteServiceResponse
-	9,  // 17: service.ServiceService.PartialUpdateService:output_type -> service.PartialUpdateServiceResponse
-	11, // 18: service.ServiceService.UpdateService:output_type -> service.UpdateServiceResponse
-	14, // [14:19] is the sub-list for method output_type
-	9,  // [9:14] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	13, // 9: service.GeneratePresignedURLsResponse.presigned_urls:type_name -> service.PresignedURLInfo
+	2,  // 10: service.ServiceService.GetService:input_type -> service.GetServiceRequest
+	4,  // 11: service.ServiceService.CreateService:input_type -> service.CreateServiceRequest
+	6,  // 12: service.ServiceService.DeleteService:input_type -> service.DeleteServiceRequest
+	8,  // 13: service.ServiceService.PartialUpdateService:input_type -> service.PartialUpdateServiceRequest
+	10, // 14: service.ServiceService.UpdateService:input_type -> service.UpdateServiceRequest
+	12, // 15: service.ServiceService.GeneratePresignedURLs:input_type -> service.GeneratePresignedURLsRequest
+	3,  // 16: service.ServiceService.GetService:output_type -> service.GetServiceResponse
+	5,  // 17: service.ServiceService.CreateService:output_type -> service.CreateServiceResponse
+	7,  // 18: service.ServiceService.DeleteService:output_type -> service.DeleteServiceResponse
+	9,  // 19: service.ServiceService.PartialUpdateService:output_type -> service.PartialUpdateServiceResponse
+	11, // 20: service.ServiceService.UpdateService:output_type -> service.UpdateServiceResponse
+	14, // 21: service.ServiceService.GeneratePresignedURLs:output_type -> service.GeneratePresignedURLsResponse
+	16, // [16:22] is the sub-list for method output_type
+	10, // [10:16] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_service_service_proto_init() }
@@ -775,7 +950,7 @@ func file_service_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_service_service_proto_rawDesc), len(file_service_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

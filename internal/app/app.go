@@ -317,6 +317,7 @@ func (s *APIServer) Run() error {
 				authRouter.Delete("/{id}", serviceHandler.DeleteService)
 				authRouter.Patch("/{id}", serviceHandler.PartialUpdateService)
 				authRouter.Put("/{id}", serviceHandler.UpdateService)
+				authRouter.Post("/presigned-urls", serviceHandler.GeneratePresignedURLs)
 			})
 		})
 		apiRouter.Route("/order", func(orderRouter chi.Router) {
