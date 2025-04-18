@@ -16,6 +16,7 @@ service OrganizationService {
     rpc UpdateOrganization (UpdateOrganizationRequest) returns (UpdateOrganizationResponse);
     rpc PartialUpdateOrganization (PartialUpdateOrganizationRequest) returns (PartialUpdateOrganizationResponse);
     rpc DeleteOrganization (DeleteOrganizationRequest) returns (DeleteOrganizationResponse);
+    rpc ListOrganizations (ListOrganizationsRequest) returns (ListOrganizationsResponse);
 
     rpc CreateBranch (CreateBranchRequest) returns (CreateBranchResponse);
     rpc GetBranch (GetBranchRequest) returns (GetBranchResponse);
@@ -49,7 +50,6 @@ message Organization {
     string type = 4;
     optional string legal_name = 5;
     optional int32 cashback_usage_limit = 6; 
-    optional int64 address_id = 7;
     optional string bin = 8;
     optional string legal_address = 9;
     optional string created_at = 10;
@@ -183,7 +183,7 @@ message GetOrganizationRequest {
 }
 
 message GetOrganizationResponse {
-    Organization organization = 1;
+    OrganizationDetail organization = 1;
 }
 
 message UpdateOrganizationRequest {
@@ -209,6 +209,14 @@ message DeleteOrganizationRequest {
 message DeleteOrganizationResponse {
 }
 
+message ListOrganizationsRequest {
+
+}
+
+message ListOrganizationsResponse {
+    repeated Organization organizations = 1;
+}
+
 message CreateBranchRequest {
     Branch branch = 1;
 }
@@ -222,7 +230,7 @@ message GetBranchRequest {
 }
 
 message GetBranchResponse  {
-    Branch branch = 1;
+    BranchDetail branch = 1;
 }
 
 message UpdateBranchRequest {

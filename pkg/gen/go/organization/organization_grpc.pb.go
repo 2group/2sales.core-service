@@ -29,6 +29,7 @@ const (
 	OrganizationService_UpdateOrganization_FullMethodName            = "/organization.OrganizationService/UpdateOrganization"
 	OrganizationService_PartialUpdateOrganization_FullMethodName     = "/organization.OrganizationService/PartialUpdateOrganization"
 	OrganizationService_DeleteOrganization_FullMethodName            = "/organization.OrganizationService/DeleteOrganization"
+	OrganizationService_ListOrganizations_FullMethodName             = "/organization.OrganizationService/ListOrganizations"
 	OrganizationService_CreateBranch_FullMethodName                  = "/organization.OrganizationService/CreateBranch"
 	OrganizationService_GetBranch_FullMethodName                     = "/organization.OrganizationService/GetBranch"
 	OrganizationService_UpdateBranch_FullMethodName                  = "/organization.OrganizationService/UpdateBranch"
@@ -54,6 +55,7 @@ type OrganizationServiceClient interface {
 	UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error)
 	PartialUpdateOrganization(ctx context.Context, in *PartialUpdateOrganizationRequest, opts ...grpc.CallOption) (*PartialUpdateOrganizationResponse, error)
 	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
+	ListOrganizations(ctx context.Context, in *ListOrganizationsRequest, opts ...grpc.CallOption) (*ListOrganizationsResponse, error)
 	CreateBranch(ctx context.Context, in *CreateBranchRequest, opts ...grpc.CallOption) (*CreateBranchResponse, error)
 	GetBranch(ctx context.Context, in *GetBranchRequest, opts ...grpc.CallOption) (*GetBranchResponse, error)
 	UpdateBranch(ctx context.Context, in *UpdateBranchRequest, opts ...grpc.CallOption) (*UpdateBranchResponse, error)
@@ -173,6 +175,16 @@ func (c *organizationServiceClient) DeleteOrganization(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *organizationServiceClient) ListOrganizations(ctx context.Context, in *ListOrganizationsRequest, opts ...grpc.CallOption) (*ListOrganizationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListOrganizationsResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_ListOrganizations_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *organizationServiceClient) CreateBranch(ctx context.Context, in *CreateBranchRequest, opts ...grpc.CallOption) (*CreateBranchResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateBranchResponse)
@@ -277,6 +289,7 @@ type OrganizationServiceServer interface {
 	UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error)
 	PartialUpdateOrganization(context.Context, *PartialUpdateOrganizationRequest) (*PartialUpdateOrganizationResponse, error)
 	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
+	ListOrganizations(context.Context, *ListOrganizationsRequest) (*ListOrganizationsResponse, error)
 	CreateBranch(context.Context, *CreateBranchRequest) (*CreateBranchResponse, error)
 	GetBranch(context.Context, *GetBranchRequest) (*GetBranchResponse, error)
 	UpdateBranch(context.Context, *UpdateBranchRequest) (*UpdateBranchResponse, error)
@@ -325,6 +338,9 @@ func (UnimplementedOrganizationServiceServer) PartialUpdateOrganization(context.
 }
 func (UnimplementedOrganizationServiceServer) DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrganization not implemented")
+}
+func (UnimplementedOrganizationServiceServer) ListOrganizations(context.Context, *ListOrganizationsRequest) (*ListOrganizationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOrganizations not implemented")
 }
 func (UnimplementedOrganizationServiceServer) CreateBranch(context.Context, *CreateBranchRequest) (*CreateBranchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateBranch not implemented")
@@ -554,6 +570,24 @@ func _OrganizationService_DeleteOrganization_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_ListOrganizations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOrganizationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).ListOrganizations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_ListOrganizations_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).ListOrganizations(ctx, req.(*ListOrganizationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrganizationService_CreateBranch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateBranchRequest)
 	if err := dec(in); err != nil {
@@ -762,6 +796,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteOrganization",
 			Handler:    _OrganizationService_DeleteOrganization_Handler,
+		},
+		{
+			MethodName: "ListOrganizations",
+			Handler:    _OrganizationService_ListOrganizations_Handler,
 		},
 		{
 			MethodName: "CreateBranch",
