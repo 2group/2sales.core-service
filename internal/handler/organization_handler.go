@@ -565,32 +565,37 @@ func (h *OrganizationHandler) UpdateStory(w http.ResponseWriter, r *http.Request
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-
+	idStr := chi.URLParam(r, "story_id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	req.Story.Id = &id
 	response, err := h.organization.Api.UpdateStory(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	json.WriteJSON(w, http.StatusCreated, response)
-	return
+	json.WriteJSON(w, http.StatusOK, response)
 }
 
-// func (h *OrganizationHandler) ListStories(w http.ResponseWriter, r *http.Request) {
-// 	if err := json.ParseJSON(r, req); err != nil {
-// 		json.WriteError(w, http.StatusBadRequest, err)
-// 		return
-// 	}
+func (h *OrganizationHandler) ListStories(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.ListStoryRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
 
-// 	response, err := h.organization.Api.ListStories(r.Context(), req)
-// 	if err != nil {
-// 		json.WriteError(w, http.StatusInternalServerError, err)
-// 		return
-// 	}
+	response, err := h.organization.Api.ListStory(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
 
-// 	json.WriteJSON(w, http.StatusCreated, response)
-// 	return
-// }
+	json.WriteJSON(w, http.StatusOK, response)
+}
 
 func (h *OrganizationHandler) CreateBanner(w http.ResponseWriter, r *http.Request) {
 	req := &organizationv1.CreateBannerRequest{}
@@ -614,29 +619,34 @@ func (h *OrganizationHandler) UpdateBanner(w http.ResponseWriter, r *http.Reques
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-
+	idStr := chi.URLParam(r, "banner_id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	req.Banner.Id = &id
 	response, err := h.organization.Api.UpdateBanner(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	json.WriteJSON(w, http.StatusCreated, response)
-	return
+	json.WriteJSON(w, http.StatusOK, response)
 }
 
-// func (h *OrganizationHandler) ListBanners(w http.ResponseWriter, r *http.Request) {
-// 	if err := json.ParseJSON(r, req); err != nil {
-// 		json.WriteError(w, http.StatusBadRequest, err)
-// 		return
-// 	}
+func (h *OrganizationHandler) ListBanners(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.ListBannerRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
 
-// 	response, err := h.organization.Api.ListBanners(r.Context(), req)
-// 	if err != nil {
-// 		json.WriteError(w, http.StatusInternalServerError, err)
-// 		return
-// 	}
+	response, err := h.organization.Api.ListBanner(r.Context(), req)
+	if err != nil {
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
 
-// 	json.WriteJSON(w, http.StatusCreated, response)
-// 	return
-// }
+	json.WriteJSON(w, http.StatusOK, response)
+}
