@@ -649,7 +649,7 @@ type Story struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Id             *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
 	Title          *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
-	ImageURL       *string                `protobuf:"bytes,3,opt,name=ImageURL,proto3,oneof" json:"ImageURL,omitempty"`
+	ImageUrl       *string                `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
 	ReferenceUrl   *string                `protobuf:"bytes,4,opt,name=reference_url,json=referenceUrl,proto3,oneof" json:"reference_url,omitempty"`
 	DisplayIndex   *int32                 `protobuf:"varint,5,opt,name=display_index,json=displayIndex,proto3,oneof" json:"display_index,omitempty"`
 	OrganizationId *int64                 `protobuf:"varint,6,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
@@ -703,9 +703,9 @@ func (x *Story) GetTitle() string {
 	return ""
 }
 
-func (x *Story) GetImageURL() string {
-	if x != nil && x.ImageURL != nil {
-		return *x.ImageURL
+func (x *Story) GetImageUrl() string {
+	if x != nil && x.ImageUrl != nil {
+		return *x.ImageUrl
 	}
 	return ""
 }
@@ -3149,11 +3149,11 @@ const file_organization_organization_proto_rawDesc = "" +
 	"updated_at\x18\a \x01(\tH\x02R\tupdatedAt\x88\x01\x01B\x05\n" +
 	"\x03_idB\r\n" +
 	"\v_created_atB\r\n" +
-	"\v_updated_at\"\x96\x03\n" +
+	"\v_updated_at\"\x98\x03\n" +
 	"\x05Story\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x19\n" +
-	"\x05title\x18\x02 \x01(\tH\x01R\x05title\x88\x01\x01\x12\x1f\n" +
-	"\bImageURL\x18\x03 \x01(\tH\x02R\bImageURL\x88\x01\x01\x12(\n" +
+	"\x05title\x18\x02 \x01(\tH\x01R\x05title\x88\x01\x01\x12 \n" +
+	"\timage_url\x18\x03 \x01(\tH\x02R\bimageUrl\x88\x01\x01\x12(\n" +
 	"\rreference_url\x18\x04 \x01(\tH\x03R\freferenceUrl\x88\x01\x01\x12(\n" +
 	"\rdisplay_index\x18\x05 \x01(\x05H\x04R\fdisplayIndex\x88\x01\x01\x12,\n" +
 	"\x0forganization_id\x18\x06 \x01(\x03H\x05R\x0eorganizationId\x88\x01\x01\x12\"\n" +
@@ -3162,8 +3162,9 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\b \x01(\tH\aR\tupdatedAt\x88\x01\x01B\x05\n" +
 	"\x03_idB\b\n" +
-	"\x06_titleB\v\n" +
-	"\t_ImageURLB\x10\n" +
+	"\x06_titleB\f\n" +
+	"\n" +
+	"_image_urlB\x10\n" +
 	"\x0e_reference_urlB\x10\n" +
 	"\x0e_display_indexB\x12\n" +
 	"\x10_organization_idB\r\n" +

@@ -109,7 +109,7 @@ message BonusLevel {
 message Story {
     optional int64 id = 1;
     optional string title = 2;
-    optional string ImageURL = 3;
+    optional string image_url = 3;
     optional string reference_url = 4;
     optional int32  display_index   = 5;
     optional int64  organization_id   = 6;
