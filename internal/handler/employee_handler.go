@@ -109,3 +109,121 @@ func (h *EmployeeHandler) UpdateEmployee(w http.ResponseWriter, r *http.Request)
 	json.WriteJSON(w, http.StatusOK, response)
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
+
+func (h *EmployeeHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to create Role")
+
+	req := &employeev1.CreateRoleRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("Parsed request JSON successfully", "request", req)
+
+	response, err := h.employee.Api.CreateRole(r.Context(), req)
+	if err != nil {
+		h.log.Error("Error creating role", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("role created successfully", "response", response)
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	h.log.Info("Response sent", "status", http.StatusCreated)
+}
+
+func (h *EmployeeHandler) ListRole(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to list Role")
+
+	req := &employeev1.ListRoleRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("Parsed request JSON successfully", "request", req)
+
+	response, err := h.employee.Api.ListRole(r.Context(), req)
+	if err != nil {
+		h.log.Error("Error listing role", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("role listed successfully", "response", response)
+
+	json.WriteJSON(w, http.StatusCreated, response)
+	h.log.Info("Response sent", "status", http.StatusCreated)
+}
+func (h *EmployeeHandler) UpdateRole(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to update Role")
+
+	roleIDStr := chi.URLParam(r, "role_id")
+
+	roleID, err := strconv.ParseInt(roleIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid role_id format", "role_id", roleIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &employeev1.UpdateRoleRequest{
+		Role: &employeev1.Role{
+			Id: &roleID,
+		},
+	}
+
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	h.log.Info("Parsed request JSON successfully", "request", req)
+
+	response, err := h.employee.Api.UpdateRole(r.Context(), req)
+	if err != nil {
+		h.log.Error("Error updating Role", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("role updated successfully", "response", response)
+
+	json.WriteJSON(w, http.StatusOK, response)
+	h.log.Info("Response sent", "status", http.StatusOK)
+}
+func (h *EmployeeHandler) DeleteRole(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to delete Role")
+
+	roleIDStr := chi.URLParam(r, "role_id")
+
+	roleID, err := strconv.ParseInt(roleIDStr, 10, 64)
+	if err != nil {
+		h.log.Error("invalid role_id format", "role_id", roleIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &employeev1.DeleteRoleRequest{
+		Id: roleID,
+	}
+
+	if err := json.ParseJSON(r, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	h.log.Info("Parsed request JSON successfully", "request", req)
+
+	response, err := h.employee.Api.DeleteRole(r.Context(), req)
+	if err != nil {
+		h.log.Error("Error deleting Role", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("role deleted successfully", "response", response)
+
+	json.WriteJSON(w, http.StatusOK, response)
+	h.log.Info("Response sent", "status", http.StatusOK)
+}
