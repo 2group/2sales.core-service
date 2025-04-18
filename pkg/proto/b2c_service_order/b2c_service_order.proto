@@ -33,7 +33,8 @@ message Order {
 
   optional string created_at = 7;
   optional string updated_at = 8;
-  customer.Customer customer = 9;
+  optional customer.Customer customer = 9;
+  optional float bonus_used = 10;
 }
 
 message OrderItem {

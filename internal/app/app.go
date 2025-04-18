@@ -74,6 +74,11 @@ func (s *APIServer) Run() error {
 	if err != nil {
 		panic(err)
 	}
+	Employeegrpc, err := grpc.NewEmployeeClient(context, s.cfg.GRPC.Employee, time.Hour, 2)
+	fmt.Println(s.cfg.GRPC.Employee)
+	if err != nil {
+		panic(err)
+	}
 
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
@@ -83,6 +88,7 @@ func (s *APIServer) Run() error {
 	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
 	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log, B2CServiceOrderGrpc)
+	EmployeeHandler := handler.NewEmployeeHandler(s.log, Employeegrpc)
 	// adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
 	router.Route("/admin/api", func(adminRouter chi.Router) {
@@ -166,6 +172,16 @@ func (s *APIServer) Run() error {
 					lRouter.Get("/{bonus_level_id}", organizationHandler.GetBonusLevel)
 					lRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
 					lRouter.Get("/organization/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
+				})
+				authRouter.Route("/story", func(sRouter chi.Router) {
+					sRouter.Post("/", organizationHandler.CreateStory)
+					sRouter.Put("/{story_id}", organizationHandler.UpdateStory)
+					// sRouter.Get("/", organizationHandler.ListStories)
+				})
+				authRouter.Route("/banner", func(bRouter chi.Router) {
+					bRouter.Post("/", organizationHandler.CreateBanner)
+					bRouter.Put("/{banner_id}", organizationHandler.UpdateBanner)
+					// bRouter.Get("/", organizationHandler.ListBanners)
 				})
 
 				// authRouter.Get("/", organizationHandler.ListOrganizations)
@@ -320,6 +336,22 @@ func (s *APIServer) Run() error {
 				authRouter.Post("/presigned-urls", serviceHandler.GeneratePresignedURLs)
 			})
 		})
+		apiRouter.Route("/employee", func(employeeRouter chi.Router) {
+			employeeRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", EmployeeHandler.CreateEmployee)
+				authRouter.Get("/{employee_id}", EmployeeHandler.GetEmployee)
+				authRouter.Put("/{employee_id}", EmployeeHandler.UpdateEmployee)
+
+				authRouter.Route("/role", func(roleRouter chi.Router) {
+					roleRouter.Post("/", EmployeeHandler.CreateRole)
+					roleRouter.Get("/{role_id}", EmployeeHandler.ListRole)
+					roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
+					roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
+				})
+			})
+		})
+
 		apiRouter.Route("/order", func(orderRouter chi.Router) {
 			orderRouter.Group(func(authRouter chi.Router) {
 				//authRouter.Use(auth.AuthMiddleware)

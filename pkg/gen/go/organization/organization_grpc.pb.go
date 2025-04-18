@@ -39,6 +39,12 @@ const (
 	OrganizationService_GetBonusLevel_FullMethodName                 = "/organization.OrganizationService/GetBonusLevel"
 	OrganizationService_UpdateBonusLevel_FullMethodName              = "/organization.OrganizationService/UpdateBonusLevel"
 	OrganizationService_ListBonusLevelsByOrganization_FullMethodName = "/organization.OrganizationService/ListBonusLevelsByOrganization"
+	OrganizationService_CreateStory_FullMethodName                   = "/organization.OrganizationService/CreateStory"
+	OrganizationService_UpdateStory_FullMethodName                   = "/organization.OrganizationService/UpdateStory"
+	OrganizationService_ListStory_FullMethodName                     = "/organization.OrganizationService/ListStory"
+	OrganizationService_CreateBanner_FullMethodName                  = "/organization.OrganizationService/CreateBanner"
+	OrganizationService_UpdateBanner_FullMethodName                  = "/organization.OrganizationService/UpdateBanner"
+	OrganizationService_ListBanner_FullMethodName                    = "/organization.OrganizationService/ListBanner"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -65,6 +71,12 @@ type OrganizationServiceClient interface {
 	GetBonusLevel(ctx context.Context, in *GetBonusLevelRequest, opts ...grpc.CallOption) (*GetBonusLevelResponse, error)
 	UpdateBonusLevel(ctx context.Context, in *UpdateBonusLevelRequest, opts ...grpc.CallOption) (*UpdateBonusLevelResponse, error)
 	ListBonusLevelsByOrganization(ctx context.Context, in *ListBonusLevelsByOrganizationRequest, opts ...grpc.CallOption) (*ListBonusLevelsByOrganizationResponse, error)
+	CreateStory(ctx context.Context, in *CreateStoryRequest, opts ...grpc.CallOption) (*CreateStoryResponse, error)
+	UpdateStory(ctx context.Context, in *UpdateStoryRequest, opts ...grpc.CallOption) (*UpdateStoryResponse, error)
+	ListStory(ctx context.Context, in *ListStoryRequest, opts ...grpc.CallOption) (*ListStoryResponse, error)
+	CreateBanner(ctx context.Context, in *CreateBannerRequest, opts ...grpc.CallOption) (*CreateBannerResponse, error)
+	UpdateBanner(ctx context.Context, in *UpdateBannerRequest, opts ...grpc.CallOption) (*UpdateBannerResponse, error)
+	ListBanner(ctx context.Context, in *ListBannerRequest, opts ...grpc.CallOption) (*ListBannerResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -275,6 +287,66 @@ func (c *organizationServiceClient) ListBonusLevelsByOrganization(ctx context.Co
 	return out, nil
 }
 
+func (c *organizationServiceClient) CreateStory(ctx context.Context, in *CreateStoryRequest, opts ...grpc.CallOption) (*CreateStoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateStoryResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateStory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) UpdateStory(ctx context.Context, in *UpdateStoryRequest, opts ...grpc.CallOption) (*UpdateStoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateStoryResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateStory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) ListStory(ctx context.Context, in *ListStoryRequest, opts ...grpc.CallOption) (*ListStoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListStoryResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_ListStory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) CreateBanner(ctx context.Context, in *CreateBannerRequest, opts ...grpc.CallOption) (*CreateBannerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateBannerResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateBanner_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) UpdateBanner(ctx context.Context, in *UpdateBannerRequest, opts ...grpc.CallOption) (*UpdateBannerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateBannerResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateBanner_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) ListBanner(ctx context.Context, in *ListBannerRequest, opts ...grpc.CallOption) (*ListBannerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListBannerResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_ListBanner_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationServiceServer is the server API for OrganizationService service.
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
@@ -299,6 +371,12 @@ type OrganizationServiceServer interface {
 	GetBonusLevel(context.Context, *GetBonusLevelRequest) (*GetBonusLevelResponse, error)
 	UpdateBonusLevel(context.Context, *UpdateBonusLevelRequest) (*UpdateBonusLevelResponse, error)
 	ListBonusLevelsByOrganization(context.Context, *ListBonusLevelsByOrganizationRequest) (*ListBonusLevelsByOrganizationResponse, error)
+	CreateStory(context.Context, *CreateStoryRequest) (*CreateStoryResponse, error)
+	UpdateStory(context.Context, *UpdateStoryRequest) (*UpdateStoryResponse, error)
+	ListStory(context.Context, *ListStoryRequest) (*ListStoryResponse, error)
+	CreateBanner(context.Context, *CreateBannerRequest) (*CreateBannerResponse, error)
+	UpdateBanner(context.Context, *UpdateBannerRequest) (*UpdateBannerResponse, error)
+	ListBanner(context.Context, *ListBannerRequest) (*ListBannerResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -368,6 +446,24 @@ func (UnimplementedOrganizationServiceServer) UpdateBonusLevel(context.Context, 
 }
 func (UnimplementedOrganizationServiceServer) ListBonusLevelsByOrganization(context.Context, *ListBonusLevelsByOrganizationRequest) (*ListBonusLevelsByOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListBonusLevelsByOrganization not implemented")
+}
+func (UnimplementedOrganizationServiceServer) CreateStory(context.Context, *CreateStoryRequest) (*CreateStoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateStory not implemented")
+}
+func (UnimplementedOrganizationServiceServer) UpdateStory(context.Context, *UpdateStoryRequest) (*UpdateStoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateStory not implemented")
+}
+func (UnimplementedOrganizationServiceServer) ListStory(context.Context, *ListStoryRequest) (*ListStoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListStory not implemented")
+}
+func (UnimplementedOrganizationServiceServer) CreateBanner(context.Context, *CreateBannerRequest) (*CreateBannerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBanner not implemented")
+}
+func (UnimplementedOrganizationServiceServer) UpdateBanner(context.Context, *UpdateBannerRequest) (*UpdateBannerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBanner not implemented")
+}
+func (UnimplementedOrganizationServiceServer) ListBanner(context.Context, *ListBannerRequest) (*ListBannerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListBanner not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -750,6 +846,114 @@ func _OrganizationService_ListBonusLevelsByOrganization_Handler(srv interface{},
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_CreateStory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateStoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).CreateStory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_CreateStory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).CreateStory(ctx, req.(*CreateStoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_UpdateStory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateStoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).UpdateStory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_UpdateStory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).UpdateStory(ctx, req.(*UpdateStoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_ListStory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListStoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).ListStory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_ListStory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).ListStory(ctx, req.(*ListStoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_CreateBanner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBannerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).CreateBanner(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_CreateBanner_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).CreateBanner(ctx, req.(*CreateBannerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_UpdateBanner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBannerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).UpdateBanner(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_UpdateBanner_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).UpdateBanner(ctx, req.(*UpdateBannerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_ListBanner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListBannerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).ListBanner(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_ListBanner_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).ListBanner(ctx, req.(*ListBannerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationService_ServiceDesc is the grpc.ServiceDesc for OrganizationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -836,6 +1040,30 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListBonusLevelsByOrganization",
 			Handler:    _OrganizationService_ListBonusLevelsByOrganization_Handler,
+		},
+		{
+			MethodName: "CreateStory",
+			Handler:    _OrganizationService_CreateStory_Handler,
+		},
+		{
+			MethodName: "UpdateStory",
+			Handler:    _OrganizationService_UpdateStory_Handler,
+		},
+		{
+			MethodName: "ListStory",
+			Handler:    _OrganizationService_ListStory_Handler,
+		},
+		{
+			MethodName: "CreateBanner",
+			Handler:    _OrganizationService_CreateBanner_Handler,
+		},
+		{
+			MethodName: "UpdateBanner",
+			Handler:    _OrganizationService_UpdateBanner_Handler,
+		},
+		{
+			MethodName: "ListBanner",
+			Handler:    _OrganizationService_ListBanner_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
