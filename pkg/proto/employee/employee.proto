@@ -8,6 +8,11 @@ service EmployeeService {
     rpc GetEmployee (GetEmployeeRequest) returns (GetEmployeeResponse);
     rpc CreateEmployee (CreateEmployeeRequest) returns (CreateEmployeeResponse);
     rpc UpdateEmployee (UpdateEmployeeRequest) returns (UpdateEmployeeResponse);
+
+    rpc CreateRole (CreateRoleRequest) returns (CreateRoleResponse);
+    rpc UpdateRole (UpdateRoleRequest) returns (UpdateRoleResponse);
+    rpc ListRole (ListRoleRequest) returns (ListRoleResponse);
+    rpc DeleteRole (DeleteRoleRequest) returns (DeleteRoleResponse);
 }
 
 message Employee {
@@ -50,4 +55,28 @@ message UpdateEmployeeRequest {
 
 message UpdateEmployeeResponse {
     Employee employee = 1;
+}
+message CreateRoleRequest {
+    Role role = 1;
+}
+message CreateRoleResponse {
+    Role role = 1;
+}
+message UpdateRoleRequest {
+    Role role = 1;
+}
+message UpdateRoleResponse {
+    Role role = 1;
+}
+message ListRoleRequest {
+    int64 id = 1;
+}
+message ListRoleResponse {
+    repeated Role roles = 1;
+}
+message DeleteRoleRequest {
+    int64 id = 1;
+}
+message DeleteRoleResponse {
+    Role role = 1;
 }

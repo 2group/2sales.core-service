@@ -173,15 +173,15 @@ func (s *APIServer) Run() error {
 					lRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
 					lRouter.Get("/organization/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
 				})
-				authRouter.Route("/story", func(lpRouter chi.Router) {
-					lpRouter.Post("/", organizationHandler.CreateStory)
-					lpRouter.Put("/{story_id}", organizationHandler.UpdateStory)
-					lpRouter.Get("/", organizationHandler.ListStories)
+				authRouter.Route("/story", func(sRouter chi.Router) {
+					sRouter.Post("/", organizationHandler.CreateStory)
+					sRouter.Put("/{story_id}", organizationHandler.UpdateStory)
+					// sRouter.Get("/", organizationHandler.ListStories)
 				})
-				authRouter.Route("/banner", func(lpRouter chi.Router) {
-					lpRouter.Post("/", organizationHandler.CreateBanner)
-					lpRouter.Put("/{banner_id}", organizationHandler.UpdateBanner)
-					lpRouter.Get("/", organizationHandler.ListBanners)
+				authRouter.Route("/banner", func(bRouter chi.Router) {
+					bRouter.Post("/", organizationHandler.CreateBanner)
+					bRouter.Put("/{banner_id}", organizationHandler.UpdateBanner)
+					// bRouter.Get("/", organizationHandler.ListBanners)
 				})
 
 				// authRouter.Get("/", organizationHandler.ListOrganizations)
@@ -342,12 +342,19 @@ func (s *APIServer) Run() error {
 				authRouter.Post("/", EmployeeHandler.CreateEmployee)
 				authRouter.Get("/{employee_id}", EmployeeHandler.GetEmployee)
 				authRouter.Put("/{employee_id}", EmployeeHandler.UpdateEmployee)
+
+				authRouter.Route("/Role", func(aRouter chi.Router) {
+					authRouter.Post("/", EmployeeHandler.CreateRole)
+					authRouter.Get("/{role_id}", EmployeeHandler.ListRole)
+					authRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
+					authRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
+				})
 			})
 		})
 
 		apiRouter.Route("/order", func(orderRouter chi.Router) {
 			orderRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
+				//authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
 				authRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
 				// authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
