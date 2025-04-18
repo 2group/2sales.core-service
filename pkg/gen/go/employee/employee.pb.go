@@ -631,7 +631,6 @@ func (x *UpdateRoleResponse) GetRole() *Role {
 
 type ListRoleRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -664,13 +663,6 @@ func (x *ListRoleRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ListRoleRequest.ProtoReflect.Descriptor instead.
 func (*ListRoleRequest) Descriptor() ([]byte, []int) {
 	return file_employee_employee_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *ListRoleRequest) GetId() int64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
 }
 
 type ListRoleResponse struct {
@@ -860,9 +852,8 @@ const file_employee_employee_proto_rawDesc = "" +
 	"\x11UpdateRoleRequest\x12\"\n" +
 	"\x04role\x18\x01 \x01(\v2\x0e.employee.RoleR\x04role\"8\n" +
 	"\x12UpdateRoleResponse\x12\"\n" +
-	"\x04role\x18\x01 \x01(\v2\x0e.employee.RoleR\x04role\"!\n" +
-	"\x0fListRoleRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\"8\n" +
+	"\x04role\x18\x01 \x01(\v2\x0e.employee.RoleR\x04role\"\x11\n" +
+	"\x0fListRoleRequest\"8\n" +
 	"\x10ListRoleResponse\x12$\n" +
 	"\x05roles\x18\x01 \x03(\v2\x0e.employee.RoleR\x05roles\"#\n" +
 	"\x11DeleteRoleRequest\x12\x0e\n" +

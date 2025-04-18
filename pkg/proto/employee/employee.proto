@@ -69,8 +69,8 @@ message UpdateRoleResponse {
     Role role = 1;
 }
 message ListRoleRequest {
-    int64 id = 1;
-}
+    
+} 
 message ListRoleResponse {
     repeated Role roles = 1;
 }
