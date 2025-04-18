@@ -239,11 +239,13 @@ message DeleteOrganizationResponse {
 }
 
 message ListOrganizationsRequest {
-
+    int32 limit = 1;
+    int32 offset = 2;
 }
 
 message ListOrganizationsResponse {
     repeated Organization organizations = 1;
+    int32 total = 2;
 }
 
 message CreateBranchRequest {
