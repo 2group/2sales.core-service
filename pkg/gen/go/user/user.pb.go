@@ -858,14 +858,15 @@ const file_user_user_proto_rawDesc = "" +
 	"\x10ListUserResponse\x12 \n" +
 	"\x05users\x18\x01 \x03(\v2\n" +
 	".user.UserR\x05users\x12\x14\n" +
-	"\x05total\x18\x02 \x01(\x05R\x05total2\xfc\x01\n" +
+	"\x05total\x18\x02 \x01(\x05R\x05total2\xb8\x02\n" +
 	"\vUserService\x120\n" +
 	"\x05Login\x12\x12.user.LoginRequest\x1a\x13.user.LoginResponse\x129\n" +
 	"\bRegister\x12\x15.user.RegisterRequest\x1a\x16.user.RegisterResponse\x12?\n" +
 	"\n" +
 	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12?\n" +
 	"\n" +
-	"UpdateUser\x12\x17.user.UpdateUserRequest\x1a\x18.user.UpdateUserResponse2\x8b\x01\n" +
+	"UpdateUser\x12\x17.user.UpdateUserRequest\x1a\x18.user.UpdateUserResponse\x12:\n" +
+	"\tListUsers\x12\x15.user.ListUserRequest\x1a\x16.user.ListUserResponse2\x8b\x01\n" +
 	"\n" +
 	"OtpService\x12?\n" +
 	"\n" +
@@ -920,16 +921,18 @@ var file_user_user_proto_depIdxs = []int32{
 	3,  // 12: user.UserService.Register:input_type -> user.RegisterRequest
 	5,  // 13: user.UserService.CreateUser:input_type -> user.CreateUserRequest
 	7,  // 14: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
-	9,  // 15: user.OtpService.RequestOtp:input_type -> user.RequestOtpRequest
-	11, // 16: user.OtpService.VerifyOtp:input_type -> user.VerifyOtpRequest
-	2,  // 17: user.UserService.Login:output_type -> user.LoginResponse
-	4,  // 18: user.UserService.Register:output_type -> user.RegisterResponse
-	6,  // 19: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	8,  // 20: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
-	10, // 21: user.OtpService.RequestOtp:output_type -> user.RequestOtpResponse
-	12, // 22: user.OtpService.VerifyOtp:output_type -> user.VerifyOtpResponse
-	17, // [17:23] is the sub-list for method output_type
-	11, // [11:17] is the sub-list for method input_type
+	13, // 15: user.UserService.ListUsers:input_type -> user.ListUserRequest
+	9,  // 16: user.OtpService.RequestOtp:input_type -> user.RequestOtpRequest
+	11, // 17: user.OtpService.VerifyOtp:input_type -> user.VerifyOtpRequest
+	2,  // 18: user.UserService.Login:output_type -> user.LoginResponse
+	4,  // 19: user.UserService.Register:output_type -> user.RegisterResponse
+	6,  // 20: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	8,  // 21: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
+	14, // 22: user.UserService.ListUsers:output_type -> user.ListUserResponse
+	10, // 23: user.OtpService.RequestOtp:output_type -> user.RequestOtpResponse
+	12, // 24: user.OtpService.VerifyOtp:output_type -> user.VerifyOtpResponse
+	18, // [18:25] is the sub-list for method output_type
+	11, // [11:18] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name
 	11, // [11:11] is the sub-list for extension extendee
 	0,  // [0:11] is the sub-list for field type_name
