@@ -11,7 +11,11 @@ service UserService {
     rpc Login (LoginRequest) returns (LoginResponse);
     rpc Register (RegisterRequest) returns (RegisterResponse);
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
-    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse); 
+    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+    // OTP
+    rpc RequestOtp(RequestOtpRequest) returns (RequestOtpResponse);
+    rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse);
+
 }
 
 message User {
