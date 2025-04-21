@@ -1,26 +1,35 @@
 package jwt
 
 import (
-	"time"
-
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var Secret = "yourSigningKey"
+type Claims struct {
+	UserID         *int64   `json:"user_id,omitempty"`
+	EmployeeID     *int64   `json:"employee_id,omitempty"`
+	CustomerID     *int64   `json:"customer_id,omitempty"`
+	OrganizationID *int64   `json:"organization_id,omitempty"`
+	RoleIDs        *[]int64 `json:"role_ids,omitempty"`
+	BranchIDs      *[]int64 `json:"branch_ids,omitempty"`
 
-func NewToken(user_id int64, organization_id int64, organization_type string) (string, error) {
-	token := jwt.New(jwt.SigningMethodHS256)
+	jwt.RegisteredClaims
+}
 
-	claims := token.Claims.(jwt.MapClaims)
-	claims["user_id"] = user_id
-	claims["organization_id"] = organization_id
-	claims["organization_type"] = organization_type
-	claims["exp"] = time.Now().Add(time.Hour * 24 * 365).Unix()
+var Secret = []byte("yourSigningKey")
 
-	tokenString, err := token.SignedString([]byte(Secret))
-	if err != nil {
-		return "", err
+func NewToken(
+	userID, employeeID, customerID, organizationID *int64,
+	roleIDs, branchIDs *[]int64,
+) (string, error) {
+	claims := Claims{
+		UserID:         userID,
+		EmployeeID:     employeeID,
+		CustomerID:     customerID,
+		OrganizationID: organizationID,
+		RoleIDs:        roleIDs,
+		BranchIDs:      branchIDs,
 	}
 
-	return tokenString, nil
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString(Secret)
 }

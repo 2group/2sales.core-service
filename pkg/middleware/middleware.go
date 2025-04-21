@@ -8,7 +8,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var secret = "yourSigningKey"
+var secret = "2group.kz"
 
 type contextKey string
 
