@@ -58,7 +58,9 @@ func (h *EmployeeHandler) GetEmployee(w http.ResponseWriter, r *http.Request) {
 	}
 
 	req := &employeev1.GetEmployeeRequest{
-		Id: employeeID,
+		Lookup: &employeev1.GetEmployeeRequest_Id{
+			Id: employeeID,
+		},
 	}
 
 	response, err := h.employee.Api.GetEmployee(r.Context(), req)
