@@ -59,3 +59,21 @@ message UpdateUserRequest {
 message UpdateUserResponse {
     User user = 1;
 }
+
+message RequestOtpRequest {
+    string phone_number = 1;
+}
+
+message RequestOtpResponse {
+    bool ok = 1;
+    string message = 2;
+}
+
+message VerifyOtpRequest {
+    string phone_number = 1;
+    string code         = 2;
+}
+
+message VerifyOtpResponse {
+    User user = 1;
+}
