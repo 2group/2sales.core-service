@@ -23,8 +23,6 @@ const (
 	UserService_Register_FullMethodName   = "/user.UserService/Register"
 	UserService_CreateUser_FullMethodName = "/user.UserService/CreateUser"
 	UserService_UpdateUser_FullMethodName = "/user.UserService/UpdateUser"
-	UserService_RequestOtp_FullMethodName = "/user.UserService/RequestOtp"
-	UserService_VerifyOtp_FullMethodName  = "/user.UserService/VerifyOtp"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -35,9 +33,6 @@ type UserServiceClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
-	// OTP
-	RequestOtp(ctx context.Context, in *RequestOtpRequest, opts ...grpc.CallOption) (*RequestOtpResponse, error)
-	VerifyOtp(ctx context.Context, in *VerifyOtpRequest, opts ...grpc.CallOption) (*VerifyOtpResponse, error)
 }
 
 type userServiceClient struct {
@@ -88,26 +83,6 @@ func (c *userServiceClient) UpdateUser(ctx context.Context, in *UpdateUserReques
 	return out, nil
 }
 
-func (c *userServiceClient) RequestOtp(ctx context.Context, in *RequestOtpRequest, opts ...grpc.CallOption) (*RequestOtpResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(RequestOtpResponse)
-	err := c.cc.Invoke(ctx, UserService_RequestOtp_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) VerifyOtp(ctx context.Context, in *VerifyOtpRequest, opts ...grpc.CallOption) (*VerifyOtpResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(VerifyOtpResponse)
-	err := c.cc.Invoke(ctx, UserService_VerifyOtp_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -116,9 +91,6 @@ type UserServiceServer interface {
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
-	// OTP
-	RequestOtp(context.Context, *RequestOtpRequest) (*RequestOtpResponse, error)
-	VerifyOtp(context.Context, *VerifyOtpRequest) (*VerifyOtpResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -140,12 +112,6 @@ func (UnimplementedUserServiceServer) CreateUser(context.Context, *CreateUserReq
 }
 func (UnimplementedUserServiceServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
-}
-func (UnimplementedUserServiceServer) RequestOtp(context.Context, *RequestOtpRequest) (*RequestOtpResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RequestOtp not implemented")
-}
-func (UnimplementedUserServiceServer) VerifyOtp(context.Context, *VerifyOtpRequest) (*VerifyOtpResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method VerifyOtp not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -240,42 +206,6 @@ func _UserService_UpdateUser_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_RequestOtp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RequestOtpRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).RequestOtp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_RequestOtp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).RequestOtp(ctx, req.(*RequestOtpRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_VerifyOtp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(VerifyOtpRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).VerifyOtp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_VerifyOtp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).VerifyOtp(ctx, req.(*VerifyOtpRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -299,13 +229,145 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "UpdateUser",
 			Handler:    _UserService_UpdateUser_Handler,
 		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "user/user.proto",
+}
+
+const (
+	OtpService_RequestOtp_FullMethodName = "/user.OtpService/RequestOtp"
+	OtpService_VerifyOtp_FullMethodName  = "/user.OtpService/VerifyOtp"
+)
+
+// OtpServiceClient is the client API for OtpService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type OtpServiceClient interface {
+	RequestOtp(ctx context.Context, in *RequestOtpRequest, opts ...grpc.CallOption) (*RequestOtpResponse, error)
+	VerifyOtp(ctx context.Context, in *VerifyOtpRequest, opts ...grpc.CallOption) (*VerifyOtpResponse, error)
+}
+
+type otpServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewOtpServiceClient(cc grpc.ClientConnInterface) OtpServiceClient {
+	return &otpServiceClient{cc}
+}
+
+func (c *otpServiceClient) RequestOtp(ctx context.Context, in *RequestOtpRequest, opts ...grpc.CallOption) (*RequestOtpResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RequestOtpResponse)
+	err := c.cc.Invoke(ctx, OtpService_RequestOtp_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *otpServiceClient) VerifyOtp(ctx context.Context, in *VerifyOtpRequest, opts ...grpc.CallOption) (*VerifyOtpResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(VerifyOtpResponse)
+	err := c.cc.Invoke(ctx, OtpService_VerifyOtp_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// OtpServiceServer is the server API for OtpService service.
+// All implementations must embed UnimplementedOtpServiceServer
+// for forward compatibility.
+type OtpServiceServer interface {
+	RequestOtp(context.Context, *RequestOtpRequest) (*RequestOtpResponse, error)
+	VerifyOtp(context.Context, *VerifyOtpRequest) (*VerifyOtpResponse, error)
+	mustEmbedUnimplementedOtpServiceServer()
+}
+
+// UnimplementedOtpServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedOtpServiceServer struct{}
+
+func (UnimplementedOtpServiceServer) RequestOtp(context.Context, *RequestOtpRequest) (*RequestOtpResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RequestOtp not implemented")
+}
+func (UnimplementedOtpServiceServer) VerifyOtp(context.Context, *VerifyOtpRequest) (*VerifyOtpResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyOtp not implemented")
+}
+func (UnimplementedOtpServiceServer) mustEmbedUnimplementedOtpServiceServer() {}
+func (UnimplementedOtpServiceServer) testEmbeddedByValue()                    {}
+
+// UnsafeOtpServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to OtpServiceServer will
+// result in compilation errors.
+type UnsafeOtpServiceServer interface {
+	mustEmbedUnimplementedOtpServiceServer()
+}
+
+func RegisterOtpServiceServer(s grpc.ServiceRegistrar, srv OtpServiceServer) {
+	// If the following call pancis, it indicates UnimplementedOtpServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&OtpService_ServiceDesc, srv)
+}
+
+func _OtpService_RequestOtp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RequestOtpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OtpServiceServer).RequestOtp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OtpService_RequestOtp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OtpServiceServer).RequestOtp(ctx, req.(*RequestOtpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OtpService_VerifyOtp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyOtpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OtpServiceServer).VerifyOtp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OtpService_VerifyOtp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OtpServiceServer).VerifyOtp(ctx, req.(*VerifyOtpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// OtpService_ServiceDesc is the grpc.ServiceDesc for OtpService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var OtpService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.OtpService",
+	HandlerType: (*OtpServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "RequestOtp",
-			Handler:    _UserService_RequestOtp_Handler,
+			Handler:    _OtpService_RequestOtp_Handler,
 		},
 		{
 			MethodName: "VerifyOtp",
-			Handler:    _UserService_VerifyOtp_Handler,
+			Handler:    _OtpService_VerifyOtp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

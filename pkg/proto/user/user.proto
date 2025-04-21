@@ -12,10 +12,13 @@ service UserService {
     rpc Register (RegisterRequest) returns (RegisterResponse);
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
     rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
-    // OTP
+
+
+}
+
+service OtpService {
     rpc RequestOtp(RequestOtpRequest) returns (RequestOtpResponse);
     rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse);
-
 }
 
 message User {

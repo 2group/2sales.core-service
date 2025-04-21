@@ -747,14 +747,16 @@ const file_user_user_proto_rawDesc = "" +
 	"\x04code\x18\x02 \x01(\tR\x04code\"3\n" +
 	"\x11VerifyOtpResponse\x12\x1e\n" +
 	"\x04user\x18\x01 \x01(\v2\n" +
-	".user.UserR\x04user2\xfb\x02\n" +
+	".user.UserR\x04user2\xfc\x01\n" +
 	"\vUserService\x120\n" +
 	"\x05Login\x12\x12.user.LoginRequest\x1a\x13.user.LoginResponse\x129\n" +
 	"\bRegister\x12\x15.user.RegisterRequest\x1a\x16.user.RegisterResponse\x12?\n" +
 	"\n" +
 	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12?\n" +
 	"\n" +
-	"UpdateUser\x12\x17.user.UpdateUserRequest\x1a\x18.user.UpdateUserResponse\x12?\n" +
+	"UpdateUser\x12\x17.user.UpdateUserRequest\x1a\x18.user.UpdateUserResponse2\x8b\x01\n" +
+	"\n" +
+	"OtpService\x12?\n" +
 	"\n" +
 	"RequestOtp\x12\x17.user.RequestOtpRequest\x1a\x18.user.RequestOtpResponse\x12<\n" +
 	"\tVerifyOtp\x12\x16.user.VerifyOtpRequest\x1a\x17.user.VerifyOtpResponseB>Z<github.com/2group/2sales.core-service/pkg/gen/go/user;userv1b\x06proto3"
@@ -804,14 +806,14 @@ var file_user_user_proto_depIdxs = []int32{
 	3,  // 11: user.UserService.Register:input_type -> user.RegisterRequest
 	5,  // 12: user.UserService.CreateUser:input_type -> user.CreateUserRequest
 	7,  // 13: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
-	9,  // 14: user.UserService.RequestOtp:input_type -> user.RequestOtpRequest
-	11, // 15: user.UserService.VerifyOtp:input_type -> user.VerifyOtpRequest
+	9,  // 14: user.OtpService.RequestOtp:input_type -> user.RequestOtpRequest
+	11, // 15: user.OtpService.VerifyOtp:input_type -> user.VerifyOtpRequest
 	2,  // 16: user.UserService.Login:output_type -> user.LoginResponse
 	4,  // 17: user.UserService.Register:output_type -> user.RegisterResponse
 	6,  // 18: user.UserService.CreateUser:output_type -> user.CreateUserResponse
 	8,  // 19: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
-	10, // 20: user.UserService.RequestOtp:output_type -> user.RequestOtpResponse
-	12, // 21: user.UserService.VerifyOtp:output_type -> user.VerifyOtpResponse
+	10, // 20: user.OtpService.RequestOtp:output_type -> user.RequestOtpResponse
+	12, // 21: user.OtpService.VerifyOtp:output_type -> user.VerifyOtpResponse
 	16, // [16:22] is the sub-list for method output_type
 	10, // [10:16] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name
@@ -833,7 +835,7 @@ func file_user_user_proto_init() {
 			NumEnums:      0,
 			NumMessages:   13,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   2,
 		},
 		GoTypes:           file_user_user_proto_goTypes,
 		DependencyIndexes: file_user_user_proto_depIdxs,
