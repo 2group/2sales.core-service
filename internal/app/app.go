@@ -42,6 +42,11 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
+	otpgrpc, err := grpc.NewOtpClient(context, s.cfg.GRPC.User, time.Hour, 2)
+	if err != nil {
+		panic(err)
+	}
+
 	// crmgrpc, err := grpc.NewCrmClient(context, s.cfg.GRPC.CRM, time.Hour, 2)
 	// if err != nil {
 	// 	panic(err)
@@ -80,6 +85,7 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
+	otpHandler := handler.NewOtpHandler(s.log, otpgrpc.Api)
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
@@ -360,6 +366,11 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
 				// authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
 			})
+		})
+
+		apiRouter.Route("/otp", func(otpRouter chi.Router) {
+			otpRouter.Post("/request", otpHandler.RequestOtp)
+			otpRouter.Post("/verify", otpHandler.VerifyOtp)
 		})
 	})
 
