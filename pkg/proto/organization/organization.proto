@@ -245,7 +245,7 @@ message ListOrganizationsRequest {
 
 message ListOrganizationsResponse {
     repeated Organization organizations = 1;
-    int32 total = 2;
+    int32 total_count = 2;
 }
 
 message CreateBranchRequest {

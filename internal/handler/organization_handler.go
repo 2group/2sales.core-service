@@ -163,6 +163,41 @@ func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
 
+func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to list organizations")
+
+	limitStr := chi.URLParam(r, "limit")
+	offsetStr := chi.URLParam(r, "offset")
+
+	limit, err := strconv.ParseInt(limitStr, 10, 32)
+	if err != nil {
+		h.log.Warn("invalid limit format", "limit", limitStr, "error", err)
+		limit = 20
+	}
+
+	offset, err := strconv.ParseInt(offsetStr, 10, 64)
+	if err != nil {
+		h.log.Warn("invalid offset format", "offset", offsetStr, "error", err)
+		offset = 0
+	}
+
+	req := &organizationv1.ListOrganizationsRequest{
+		Limit:  int32(limit),
+		Offset: int32(offset),
+	}
+
+	response, err := h.organization.Api.ListOrganizations(r.Context(), req)
+	if err != nil {
+		h.log.Error("Error listing organization", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+	h.log.Info("Organization listed successfully", "response", response)
+
+	json.WriteJSON(w, http.StatusOK, response)
+	h.log.Info("Response sent", "status", http.StatusOK)
+}
+
 func (h *OrganizationHandler) CreateBranch(w http.ResponseWriter, r *http.Request) {
 	req := &organizationv1.CreateBranchRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
