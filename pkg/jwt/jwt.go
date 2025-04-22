@@ -17,26 +17,26 @@ var Secret = "2group.kz"
 func NewToken(
 	userID int64,
 	employeeID, customerID *int64,
-	roleScopes []RoleScope,
+	roleScopes *[]RoleScope,
 ) (string, error) {
-	rawScopes := make([]map[string]interface{}, len(roleScopes))
-	for i, rs := range roleScopes {
-		entry := map[string]interface{}{
-			"role_id": rs.RoleID,
-		}
-		if rs.BranchID != nil {
-			entry["branch_id"] = *rs.BranchID
-		} else if rs.OrganizationID != nil {
-			entry["organization_id"] = *rs.OrganizationID
-		}
-		rawScopes[i] = entry
-	}
-
 	claims := jwt.MapClaims{
 		"user_id": userID,
-		"scopes":  rawScopes,
 		"iat":     time.Now().Unix(),
-		"exp":     time.Now().Add(time.Hour * 24 * 365).Unix(),
+		"exp":     time.Now().Add(24 * time.Hour).Unix(),
+	}
+
+	if roleScopes != nil {
+		rawScopes := make([]map[string]interface{}, len(*roleScopes))
+		for i, rs := range *roleScopes {
+			entry := map[string]interface{}{"role_id": rs.RoleID}
+			if rs.BranchID != nil {
+				entry["branch_id"] = *rs.BranchID
+			} else if rs.OrganizationID != nil {
+				entry["organization_id"] = *rs.OrganizationID
+			}
+			rawScopes[i] = entry
+		}
+		claims["scopes"] = rawScopes
 	}
 
 	if employeeID != nil {
