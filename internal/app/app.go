@@ -57,10 +57,10 @@ func (s *APIServer) Run() error {
 	// 	panic(err)
 	// }
 
-	ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
-	if err != nil {
-		panic(err)
-	}
+	// ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	customergrpc, err := grpc.NewCustomerClient(context, s.cfg.GRPC.Customer, time.Hour, 2)
 	fmt.Println(s.cfg.GRPC.Customer)
@@ -90,7 +90,7 @@ func (s *APIServer) Run() error {
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
-	orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
+	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
 	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
 	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log, B2CServiceOrderGrpc)
@@ -300,19 +300,19 @@ func (s *APIServer) Run() error {
 			orderRouter.Route("/sub-orders", func(suborderRouter chi.Router) {
 				suborderRouter.Group(func(authRouter chi.Router) {
 					authRouter.Use(auth.AuthMiddleware)
-					authRouter.Post("/", orderHandler.CreateSubOrder)
-					authRouter.Post("/order", orderHandler.CreateOrder)
-					authRouter.Get("/", orderHandler.ListSubOrder)
-					authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
-					authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
+					// authRouter.Post("/", orderHandler.CreateSubOrder)
+					// authRouter.Post("/order", orderHandler.CreateOrder)
+					// authRouter.Get("/", orderHandler.ListSubOrder)
+					// authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
+					// authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
 				})
 			})
 			orderRouter.Route("/carts", func(cartRouter chi.Router) {
 				cartRouter.Group(func(authRouter chi.Router) {
 					authRouter.Use(auth.AuthMiddleware)
-					authRouter.Get("/", orderHandler.GetCart)
-					authRouter.Post("/add", orderHandler.AddProductToCart)
-					authRouter.Post("/delete", orderHandler.DeleteProductFromCart)
+					// authRouter.Get("/", orderHandler.GetCart)
+					// authRouter.Post("/add", orderHandler.AddProductToCart)
+					// authRouter.Post("/delete", orderHandler.DeleteProductFromCart)
 				})
 			})
 		})

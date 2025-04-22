@@ -12,7 +12,7 @@ type RoleScope struct {
 	BranchID       *int64
 }
 
-var Secret = "2group.kz"
+var Secret = []byte("2group.kz")
 
 func NewToken(
 	userID int64,
