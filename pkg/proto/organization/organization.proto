@@ -24,10 +24,10 @@ service OrganizationService {
     rpc PartialUpdateBranch (PartialUpdateBranchRequest) returns (PartialUpdateBranchResponse);
     rpc DeleteBranch (DeleteBranchRequest) returns (DeleteBranchResponse);
 
-    rpc CreateBonusLevel (CreateBonusLevelRequest) returns (CreateBonusLevelResponse);
-    rpc GetBonusLevel (GetBonusLevelRequest) returns (GetBonusLevelResponse);
-    rpc UpdateBonusLevel (UpdateBonusLevelRequest) returns (UpdateBonusLevelResponse);
-    rpc ListBonusLevelsByOrganization (ListBonusLevelsByOrganizationRequest) returns (ListBonusLevelsByOrganizationResponse);
+    rpc CreateLoyaltyLevel (CreateLoyaltyLevelRequest) returns (CreateLoyaltyLevelResponse);
+    rpc GetLoyaltyLevel (GetLoyaltyLevelRequest) returns (GetLoyaltyLevelResponse);
+    rpc UpdateLoyaltyLevel (UpdateLoyaltyLevelRequest) returns (UpdateLoyaltyLevelResponse);
+    rpc ListBonusLevelsByOrganization (ListLoyaltyLevelsByOrganizationRequest) returns (ListLoyaltyLevelsByOrganizationResponse);
 
     rpc CreateStory (CreateStoryRequest) returns (CreateStoryResponse);
     rpc UpdateStory (UpdateStoryRequest) returns (UpdateStoryResponse);
@@ -96,7 +96,7 @@ message BranchDetail {
     optional string updated_at = 6;
 }
 
-message BonusLevel {
+message LoyaltyLevel {
     optional int64 id = 1;
     int64 organization_id = 2;
     string name = 3;
@@ -127,36 +127,36 @@ message Banner{
     optional string created_at = 8;
     optional string updated_at = 9;
 }
-message CreateBonusLevelRequest {
-    BonusLevel bonus_level = 1;
+message CreateLoyaltyLevelRequest {
+    LoyaltyLevel loyalty_level = 1;
 }
 
-message CreateBonusLevelResponse {
-    BonusLevel bonus_level = 1;
+message CreateLoyaltyLevelResponse {
+    LoyaltyLevel loyalty_level = 1;
 }
 
-message GetBonusLevelRequest {
+message GetLoyaltyLevelRequest {
     int64 id = 1;
 }
 
-message GetBonusLevelResponse {
-    BonusLevel bonus_level = 1;
+message GetLoyaltyLevelResponse {
+    LoyaltyLevel loyalty_level = 1;
 }
 
-message UpdateBonusLevelRequest {
-    BonusLevel bonus_level = 1;
+message UpdateLoyaltyLevelRequest {
+    LoyaltyLevel loyalty_level = 1;
 }
 
-message UpdateBonusLevelResponse {
-    BonusLevel bonus_level = 1;
+message UpdateLoyaltyLevelResponse {
+    LoyaltyLevel loyalty_level = 1;
 }
 
-message ListBonusLevelsByOrganizationRequest {
+message ListLoyaltyLevelsByOrganizationRequest {
     int64 organization_id = 1;
 }
 
-message ListBonusLevelsByOrganizationResponse {
-    repeated BonusLevel bonus_levels = 1;
+message ListLoyaltyLevelsByOrganizationResponse {
+    repeated LoyaltyLevel loyalty_levels = 1;
 }
 
 message CreateAddressRequest {
