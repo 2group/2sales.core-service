@@ -13,6 +13,7 @@ service EmployeeService {
     rpc UpdateRole (UpdateRoleRequest) returns (UpdateRoleResponse);
     rpc ListRole (ListRoleRequest) returns (ListRoleResponse);
     rpc DeleteRole (DeleteRoleRequest) returns (DeleteRoleResponse);
+    
 }
 
 message Employee {
@@ -24,7 +25,14 @@ message Employee {
     optional int64 branch_id = 6;
     optional string created_at = 7;
     optional string updated_at = 8;
-    repeated Role roles = 9;
+    repeated EmployeeRole employee_roles = 9;
+}
+
+message EmployeeRole {
+    Role role = 1;
+    optional int64 organization_id = 2;
+    optional int64 branch_id = 3;
+    optional string created_at = 4;
 }
 
 message Role {
