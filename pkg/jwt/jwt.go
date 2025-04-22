@@ -6,21 +6,45 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var Secret = "yourSigningKey"
+type RoleScope struct {
+	RoleID         int64
+	OrganizationID *int64
+	BranchID       *int64
+}
 
-func NewToken(user_id int64, organization_id int64, organization_type string) (string, error) {
-	token := jwt.New(jwt.SigningMethodHS256)
+var Secret = "2group.kz"
 
-	claims := token.Claims.(jwt.MapClaims)
-	claims["user_id"] = user_id
-	claims["organization_id"] = organization_id
-	claims["organization_type"] = organization_type
-	claims["exp"] = time.Now().Add(time.Hour * 24 * 365).Unix()
-
-	tokenString, err := token.SignedString([]byte(Secret))
-	if err != nil {
-		return "", err
+func NewToken(
+	userID int64,
+	employeeID, customerID *int64,
+	roleScopes []RoleScope,
+) (string, error) {
+	rawScopes := make([]map[string]interface{}, len(roleScopes))
+	for i, rs := range roleScopes {
+		entry := map[string]interface{}{
+			"role_id": rs.RoleID,
+		}
+		if rs.BranchID != nil {
+			entry["branch_id"] = *rs.BranchID
+		} else if rs.OrganizationID != nil {
+			entry["organization_id"] = *rs.OrganizationID
+		}
+		rawScopes[i] = entry
 	}
 
-	return tokenString, nil
+	claims := jwt.MapClaims{
+		"user_id": userID,
+		"scopes":  rawScopes,
+		"iat":     time.Now().Unix(),
+		"exp":     time.Now().Add(time.Hour * 24 * 365).Unix(),
+	}
+
+	if employeeID != nil {
+		claims["employee_id"] = *employeeID
+	} else if customerID != nil {
+		claims["customer_id"] = *customerID
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString(Secret)
 }

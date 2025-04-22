@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package customer;
 
-import "google/protobuf/empty.proto";
-
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1";
 
 service CustomerService {
@@ -13,7 +11,6 @@ service CustomerService {
   rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
   rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
   rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (google.protobuf.Empty);
-  rpc GetBonusBalance (GetBonusBalanceRequest) returns (GetBonusBalanceResponse);
 }
 
 message Customer {
@@ -28,6 +25,14 @@ message Customer {
     optional float total_spent = 9;
     optional int64 organization_id = 10;
     optional int64 loyalty_level_id = 11;
+}
+
+message CustomerBonusTransaction {
+
+}
+
+message CustomerDetail {
+
 }
 
 message GetCustomerRequest {
@@ -81,6 +86,10 @@ message CreateBonusTransactionRequest {
     int64 organization_id = 2;
     int64 order_id = 3;
     double bonus_change = 4;
+}
+
+message CreateBonusTransactionResponse {
+    CustomerBonusTransaction transaction = 1;
 }
 
 message GetBonusBalanceRequest {

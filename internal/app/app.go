@@ -176,10 +176,10 @@ func (s *APIServer) Run() error {
 					aRouter.Delete("/{address_id}", organizationHandler.DeleteAddress)
 				})
 				authRouter.Route("/loyalty-level", func(lRouter chi.Router) {
-					lRouter.Post("/", organizationHandler.CreateBonusLevel)
-					lRouter.Get("/{bonus_level_id}", organizationHandler.GetBonusLevel)
-					lRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
-					lRouter.Get("/organization/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
+					// lRouter.Post("/", organizationHandler.CreateBonusLevel)
+					// lRouter.Get("/{bonus_level_id}", organizationHandler.GetBonusLevel)
+					// lRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
+					// lRouter.Get("/organization/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
 				})
 				authRouter.Route("/story", func(sRouter chi.Router) {
 					sRouter.Post("/", organizationHandler.CreateStory)
@@ -325,7 +325,7 @@ func (s *APIServer) Run() error {
 		})
 		apiRouter.Route("/customer", func(customerRouter chi.Router) {
 			customerRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
+				// authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", customerHandler.CreateCustomer)
 				authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
 				authRouter.Delete("/{customer_id}", customerHandler.DeleteCustomer)

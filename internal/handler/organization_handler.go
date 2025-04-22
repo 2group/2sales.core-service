@@ -480,103 +480,103 @@ func (h *OrganizationHandler) UpdateAddress(w http.ResponseWriter, r *http.Reque
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
 
-func (h *OrganizationHandler) CreateBonusLevel(w http.ResponseWriter, r *http.Request) {
-	req := &organizationv1.CreateBonusLevelRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
+// func (h *OrganizationHandler) CreateBonusLevel(w http.ResponseWriter, r *http.Request) {
+// 	req := &organizationv1.CreateBonusLevelRequest{}
+// 	if err := json.ParseJSON(r, req); err != nil {
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
 
-	resp, err := h.organization.Api.CreateBonusLevel(r.Context(), req)
-	if err != nil {
-		h.log.Error("Failed to create bonus level", "error", err)
-		json.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
+// 	resp, err := h.organization.Api.CreateBonusLevel(r.Context(), req)
+// 	if err != nil {
+// 		h.log.Error("Failed to create bonus level", "error", err)
+// 		json.WriteError(w, http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	json.WriteJSON(w, http.StatusCreated, resp)
-}
+// 	json.WriteJSON(w, http.StatusCreated, resp)
+// }
 
-func (h *OrganizationHandler) GetBonusLevel(w http.ResponseWriter, r *http.Request) {
-	bonusIDStr := chi.URLParam(r, "bonus_level_id")
-	bonusID, err := strconv.ParseInt(bonusIDStr, 10, 64)
-	if err != nil {
-		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid bonus_level_id: %w", err))
-		return
-	}
+// func (h *OrganizationHandler) GetBonusLevel(w http.ResponseWriter, r *http.Request) {
+// 	bonusIDStr := chi.URLParam(r, "bonus_level_id")
+// 	bonusID, err := strconv.ParseInt(bonusIDStr, 10, 64)
+// 	if err != nil {
+// 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid bonus_level_id: %w", err))
+// 		return
+// 	}
 
-	req := &organizationv1.GetBonusLevelRequest{Id: bonusID}
-	resp, err := h.organization.Api.GetBonusLevel(r.Context(), req)
-	if err != nil {
-		h.log.Error("Failed to get bonus level", "error", err)
-		json.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
+// 	req := &organizationv1.GetBonusLevelRequest{Id: bonusID}
+// 	resp, err := h.organization.Api.GetBonusLevel(r.Context(), req)
+// 	if err != nil {
+// 		h.log.Error("Failed to get bonus level", "error", err)
+// 		json.WriteError(w, http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	json.WriteJSON(w, http.StatusOK, resp)
-}
+// 	json.WriteJSON(w, http.StatusOK, resp)
+// }
 
-func (h *OrganizationHandler) UpdateBonusLevel(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to update bonus level")
+// func (h *OrganizationHandler) UpdateBonusLevel(w http.ResponseWriter, r *http.Request) {
+// 	h.log.Info("Received request to update bonus level")
 
-	// Получаем ID из URL
-	bonusLevelIDStr := chi.URLParam(r, "bonus_level_id")
-	bonusLevelID, err := strconv.ParseInt(bonusLevelIDStr, 10, 64)
-	if err != nil {
-		h.log.Error("invalid bonus_level_id format", "bonus_level_id", bonusLevelIDStr, "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
+// 	// Получаем ID из URL
+// 	bonusLevelIDStr := chi.URLParam(r, "bonus_level_id")
+// 	bonusLevelID, err := strconv.ParseInt(bonusLevelIDStr, 10, 64)
+// 	if err != nil {
+// 		h.log.Error("invalid bonus_level_id format", "bonus_level_id", bonusLevelIDStr, "error", err)
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
 
-	// Парсим JSON
-	req := &organizationv1.UpdateBonusLevelRequest{
-		BonusLevel: &organizationv1.BonusLevel{
-			Id: &bonusLevelID,
-		},
-	}
-	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
+// 	// Парсим JSON
+// 	req := &organizationv1.UpdateBonusLevelRequest{
+// 		BonusLevel: &organizationv1.BonusLevel{
+// 			Id: &bonusLevelID,
+// 		},
+// 	}
+// 	if err := json.ParseJSON(r, req); err != nil {
+// 		h.log.Error("Failed to parse request JSON", "error", err)
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
 
-	h.log.Info("Parsed request JSON successfully", "request", req)
+// 	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	// Вызов gRPC
-	resp, err := h.organization.Api.UpdateBonusLevel(r.Context(), req)
-	if err != nil {
-		h.log.Error("Failed to update bonus level", "error", err)
-		json.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
+// 	// Вызов gRPC
+// 	resp, err := h.organization.Api.UpdateBonusLevel(r.Context(), req)
+// 	if err != nil {
+// 		h.log.Error("Failed to update bonus level", "error", err)
+// 		json.WriteError(w, http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	h.log.Info("Bonus level updated successfully", "response", resp)
-	json.WriteJSON(w, http.StatusOK, resp)
-}
+// 	h.log.Info("Bonus level updated successfully", "response", resp)
+// 	json.WriteJSON(w, http.StatusOK, resp)
+// }
 
-func (h *OrganizationHandler) ListBonusLevelsByOrganization(w http.ResponseWriter, r *http.Request) {
-	orgIDStr := chi.URLParam(r, "organization_id")
-	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
-	if err != nil {
-		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid organization_id: %w", err))
-		return
-	}
+// func (h *OrganizationHandler) ListBonusLevelsByOrganization(w http.ResponseWriter, r *http.Request) {
+// 	orgIDStr := chi.URLParam(r, "organization_id")
+// 	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
+// 	if err != nil {
+// 		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid organization_id: %w", err))
+// 		return
+// 	}
 
-	req := &organizationv1.ListBonusLevelsByOrganizationRequest{OrganizationId: orgID}
-	resp, err := h.organization.Api.ListBonusLevelsByOrganization(r.Context(), req)
-	if err != nil {
-		h.log.Error("Failed to list bonus levels", "error", err)
-		json.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
+// 	req := &organizationv1.ListBonusLevelsByOrganizationRequest{OrganizationId: orgID}
+// 	resp, err := h.organization.Api.ListBonusLevelsByOrganization(r.Context(), req)
+// 	if err != nil {
+// 		h.log.Error("Failed to list bonus levels", "error", err)
+// 		json.WriteError(w, http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	// Make sure we are passing the correct response type
-	if resp.BonusLevels == nil {
-		resp.BonusLevels = []*organizationv1.BonusLevel{}
-	}
+// 	// Make sure we are passing the correct response type
+// 	if resp.BonusLevels == nil {
+// 		resp.BonusLevels = []*organizationv1.BonusLevel{}
+// 	}
 
-	json.WriteJSON(w, http.StatusOK, resp)
-}
+// 	json.WriteJSON(w, http.StatusOK, resp)
+// }
 
 func (h *OrganizationHandler) CreateStory(w http.ResponseWriter, r *http.Request) {
 	req := &organizationv1.CreateStoryRequest{}
