@@ -106,7 +106,7 @@ func fillMissingFields(m protoreflect.Message, objMap map[string]interface{}) {
 		normalizedKey := toSnakeCase(fieldDesc.JSONName())
 		camelKey := fieldDesc.JSONName()
 
-		// If the normalized key is missing or nil, then check if the camelCase version exists.
+		// 1) Ensure the key exists at all, defaulting to nil
 		if existing, exists := objMap[normalizedKey]; !exists || existing == nil {
 			if val, existsCamel := objMap[camelKey]; existsCamel && val != nil {
 				objMap[normalizedKey] = val
@@ -114,26 +114,36 @@ func fillMissingFields(m protoreflect.Message, objMap map[string]interface{}) {
 				objMap[normalizedKey] = nil
 			}
 		}
-		// Remove the duplicate camelCase key if it is different.
+		// drop the duplicate camelCase key
 		if camelKey != normalizedKey {
 			delete(objMap, camelKey)
 		}
 
-		// For message fields, if set, process recursively.
+		// 2) Handle nested messages (singular and repeated)
 		if fieldDesc.Kind() == protoreflect.MessageKind {
 			if fieldDesc.IsList() {
-				// Пропускаем repeated messages — не обрабатываем как подсообщение
-				continue
-			}
-
-			if m.Has(fieldDesc) {
-				subMsg := m.Get(fieldDesc).Message()
-				if subMap, ok := objMap[normalizedKey].(map[string]interface{}); ok {
-					fillMissingFields(subMsg, subMap)
+				// For each element in the JSON array, recurse
+				listIface, ok := objMap[normalizedKey].([]interface{})
+				if !ok {
+					continue
+				}
+				pfList := m.Get(fieldDesc).List()
+				for idx := 0; idx < pfList.Len() && idx < len(listIface); idx++ {
+					subMap, ok := listIface[idx].(map[string]interface{})
+					if !ok {
+						continue
+					}
+					// pfList.Get(idx).Message() is the proto sub-message
+					fillMissingFields(pfList.Get(idx).Message(), subMap)
+				}
+			} else {
+				// Singular nested message: recurse into its map
+				subMap, ok := objMap[normalizedKey].(map[string]interface{})
+				if ok {
+					fillMissingFields(m.Get(fieldDesc).Message(), subMap)
 				}
 			}
 		}
-
 	}
 }
 

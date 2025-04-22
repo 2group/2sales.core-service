@@ -111,7 +111,7 @@ func (s *APIServer) Run() error {
 			userRouter.Post("/register", userHandler.Register)
 			userRouter.Put("/update", userHandler.UpdateUser)
 			userRouter.Post("/create", userHandler.CreateUser)
-			//userRouter.Get("/", userHandler.ListUser)
+			userRouter.Get("/", userHandler.ListUser)
 			// userRouter.Get("/phone", userHandler.GetUserByEmail)
 			// userRouter.Group(func(authRouter chi.Router) {
 			// 	authRouter.Use(auth.AuthMiddleware)
@@ -154,7 +154,7 @@ func (s *APIServer) Run() error {
 		})
 		apiRouter.Route("/organization", func(orgRouter chi.Router) {
 			orgRouter.Group(func(authRouter chi.Router) {
-				//authRouter.Use(auth.AuthMiddleware)
+				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", organizationHandler.CreateOrganization)
 				authRouter.Get("/", organizationHandler.ListOrganizations)
 				authRouter.Get("/{organization_id}", organizationHandler.GetOrganization)
@@ -300,19 +300,19 @@ func (s *APIServer) Run() error {
 			orderRouter.Route("/sub-orders", func(suborderRouter chi.Router) {
 				suborderRouter.Group(func(authRouter chi.Router) {
 					authRouter.Use(auth.AuthMiddleware)
-					authRouter.Post("/", orderHandler.CreateSubOrder)
-					authRouter.Post("/order", orderHandler.CreateOrder)
-					authRouter.Get("/", orderHandler.ListSubOrder)
-					authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
-					authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
+					// authRouter.Post("/", orderHandler.CreateSubOrder)
+					// authRouter.Post("/order", orderHandler.CreateOrder)
+					// authRouter.Get("/", orderHandler.ListSubOrder)
+					// authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
+					// authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
 				})
 			})
 			orderRouter.Route("/carts", func(cartRouter chi.Router) {
 				cartRouter.Group(func(authRouter chi.Router) {
 					authRouter.Use(auth.AuthMiddleware)
-					authRouter.Get("/", orderHandler.GetCart)
-					authRouter.Post("/add", orderHandler.AddProductToCart)
-					authRouter.Post("/delete", orderHandler.DeleteProductFromCart)
+					// authRouter.Get("/", orderHandler.GetCart)
+					// authRouter.Post("/add", orderHandler.AddProductToCart)
+					// authRouter.Post("/delete", orderHandler.DeleteProductFromCart)
 				})
 			})
 		})
@@ -346,14 +346,13 @@ func (s *APIServer) Run() error {
 		})
 		apiRouter.Route("/employee", func(employeeRouter chi.Router) {
 			employeeRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", EmployeeHandler.CreateEmployee)
 				authRouter.Get("/{employee_id}", EmployeeHandler.GetEmployee)
 				authRouter.Put("/{employee_id}", EmployeeHandler.UpdateEmployee)
 
 				authRouter.Route("/role", func(roleRouter chi.Router) {
 					roleRouter.Post("/", EmployeeHandler.CreateRole)
-					// roleRouter.Get("/", EmployeeHandler.ListRole)
+					roleRouter.Get("/", EmployeeHandler.ListRole)
 					roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
 					roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
 				})
