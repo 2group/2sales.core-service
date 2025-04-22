@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
-	organizationv1 "github.com/2group/2sales.core-service/pkg/gen/go/organization"
 	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
 	"github.com/2group/2sales.core-service/pkg/json"
 	"github.com/go-chi/chi/v5"
@@ -129,12 +128,12 @@ func (h *UserHandler) ListUser(w http.ResponseWriter, r *http.Request) {
 		offset = 0
 	}
 
-	req := &organizationv1.ListOrganizationsRequest{
+	req := &userv1.ListUserRequest{
 		Limit:  int32(limit),
 		Offset: int32(offset),
 	}
 
-	response, err := h.user.Api.ListUser(r.Context(), req)
+	response, err := h.user.Api.ListUsers(r.Context(), req)
 	if err != nil {
 		h.log.Error("Error listing user", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
