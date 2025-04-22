@@ -19,32 +19,32 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrganizationService_CreateAddress_FullMethodName                 = "/organization.OrganizationService/CreateAddress"
-	OrganizationService_GetAddress_FullMethodName                    = "/organization.OrganizationService/GetAddress"
-	OrganizationService_UpdateAddress_FullMethodName                 = "/organization.OrganizationService/UpdateAddress"
-	OrganizationService_PartialUpdateAddress_FullMethodName          = "/organization.OrganizationService/PartialUpdateAddress"
-	OrganizationService_DeleteAddress_FullMethodName                 = "/organization.OrganizationService/DeleteAddress"
-	OrganizationService_CreateOrganization_FullMethodName            = "/organization.OrganizationService/CreateOrganization"
-	OrganizationService_GetOrganization_FullMethodName               = "/organization.OrganizationService/GetOrganization"
-	OrganizationService_UpdateOrganization_FullMethodName            = "/organization.OrganizationService/UpdateOrganization"
-	OrganizationService_PartialUpdateOrganization_FullMethodName     = "/organization.OrganizationService/PartialUpdateOrganization"
-	OrganizationService_DeleteOrganization_FullMethodName            = "/organization.OrganizationService/DeleteOrganization"
-	OrganizationService_ListOrganizations_FullMethodName             = "/organization.OrganizationService/ListOrganizations"
-	OrganizationService_CreateBranch_FullMethodName                  = "/organization.OrganizationService/CreateBranch"
-	OrganizationService_GetBranch_FullMethodName                     = "/organization.OrganizationService/GetBranch"
-	OrganizationService_UpdateBranch_FullMethodName                  = "/organization.OrganizationService/UpdateBranch"
-	OrganizationService_PartialUpdateBranch_FullMethodName           = "/organization.OrganizationService/PartialUpdateBranch"
-	OrganizationService_DeleteBranch_FullMethodName                  = "/organization.OrganizationService/DeleteBranch"
-	OrganizationService_CreateLoyaltyLevel_FullMethodName            = "/organization.OrganizationService/CreateLoyaltyLevel"
-	OrganizationService_GetLoyaltyLevel_FullMethodName               = "/organization.OrganizationService/GetLoyaltyLevel"
-	OrganizationService_UpdateLoyaltyLevel_FullMethodName            = "/organization.OrganizationService/UpdateLoyaltyLevel"
-	OrganizationService_ListBonusLevelsByOrganization_FullMethodName = "/organization.OrganizationService/ListBonusLevelsByOrganization"
-	OrganizationService_CreateStory_FullMethodName                   = "/organization.OrganizationService/CreateStory"
-	OrganizationService_UpdateStory_FullMethodName                   = "/organization.OrganizationService/UpdateStory"
-	OrganizationService_ListStory_FullMethodName                     = "/organization.OrganizationService/ListStory"
-	OrganizationService_CreateBanner_FullMethodName                  = "/organization.OrganizationService/CreateBanner"
-	OrganizationService_UpdateBanner_FullMethodName                  = "/organization.OrganizationService/UpdateBanner"
-	OrganizationService_ListBanner_FullMethodName                    = "/organization.OrganizationService/ListBanner"
+	OrganizationService_CreateAddress_FullMethodName                   = "/organization.OrganizationService/CreateAddress"
+	OrganizationService_GetAddress_FullMethodName                      = "/organization.OrganizationService/GetAddress"
+	OrganizationService_UpdateAddress_FullMethodName                   = "/organization.OrganizationService/UpdateAddress"
+	OrganizationService_PartialUpdateAddress_FullMethodName            = "/organization.OrganizationService/PartialUpdateAddress"
+	OrganizationService_DeleteAddress_FullMethodName                   = "/organization.OrganizationService/DeleteAddress"
+	OrganizationService_CreateOrganization_FullMethodName              = "/organization.OrganizationService/CreateOrganization"
+	OrganizationService_GetOrganization_FullMethodName                 = "/organization.OrganizationService/GetOrganization"
+	OrganizationService_UpdateOrganization_FullMethodName              = "/organization.OrganizationService/UpdateOrganization"
+	OrganizationService_PartialUpdateOrganization_FullMethodName       = "/organization.OrganizationService/PartialUpdateOrganization"
+	OrganizationService_DeleteOrganization_FullMethodName              = "/organization.OrganizationService/DeleteOrganization"
+	OrganizationService_ListOrganizations_FullMethodName               = "/organization.OrganizationService/ListOrganizations"
+	OrganizationService_CreateBranch_FullMethodName                    = "/organization.OrganizationService/CreateBranch"
+	OrganizationService_GetBranch_FullMethodName                       = "/organization.OrganizationService/GetBranch"
+	OrganizationService_UpdateBranch_FullMethodName                    = "/organization.OrganizationService/UpdateBranch"
+	OrganizationService_PartialUpdateBranch_FullMethodName             = "/organization.OrganizationService/PartialUpdateBranch"
+	OrganizationService_DeleteBranch_FullMethodName                    = "/organization.OrganizationService/DeleteBranch"
+	OrganizationService_CreateLoyaltyLevel_FullMethodName              = "/organization.OrganizationService/CreateLoyaltyLevel"
+	OrganizationService_GetLoyaltyLevel_FullMethodName                 = "/organization.OrganizationService/GetLoyaltyLevel"
+	OrganizationService_UpdateLoyaltyLevel_FullMethodName              = "/organization.OrganizationService/UpdateLoyaltyLevel"
+	OrganizationService_ListLoyaltyLevelsByOrganization_FullMethodName = "/organization.OrganizationService/ListLoyaltyLevelsByOrganization"
+	OrganizationService_CreateStory_FullMethodName                     = "/organization.OrganizationService/CreateStory"
+	OrganizationService_UpdateStory_FullMethodName                     = "/organization.OrganizationService/UpdateStory"
+	OrganizationService_ListStory_FullMethodName                       = "/organization.OrganizationService/ListStory"
+	OrganizationService_CreateBanner_FullMethodName                    = "/organization.OrganizationService/CreateBanner"
+	OrganizationService_UpdateBanner_FullMethodName                    = "/organization.OrganizationService/UpdateBanner"
+	OrganizationService_ListBanner_FullMethodName                      = "/organization.OrganizationService/ListBanner"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -70,7 +70,7 @@ type OrganizationServiceClient interface {
 	CreateLoyaltyLevel(ctx context.Context, in *CreateLoyaltyLevelRequest, opts ...grpc.CallOption) (*CreateLoyaltyLevelResponse, error)
 	GetLoyaltyLevel(ctx context.Context, in *GetLoyaltyLevelRequest, opts ...grpc.CallOption) (*GetLoyaltyLevelResponse, error)
 	UpdateLoyaltyLevel(ctx context.Context, in *UpdateLoyaltyLevelRequest, opts ...grpc.CallOption) (*UpdateLoyaltyLevelResponse, error)
-	ListBonusLevelsByOrganization(ctx context.Context, in *ListLoyaltyLevelsByOrganizationRequest, opts ...grpc.CallOption) (*ListLoyaltyLevelsByOrganizationResponse, error)
+	ListLoyaltyLevelsByOrganization(ctx context.Context, in *ListLoyaltyLevelsByOrganizationRequest, opts ...grpc.CallOption) (*ListLoyaltyLevelsByOrganizationResponse, error)
 	CreateStory(ctx context.Context, in *CreateStoryRequest, opts ...grpc.CallOption) (*CreateStoryResponse, error)
 	UpdateStory(ctx context.Context, in *UpdateStoryRequest, opts ...grpc.CallOption) (*UpdateStoryResponse, error)
 	ListStory(ctx context.Context, in *ListStoryRequest, opts ...grpc.CallOption) (*ListStoryResponse, error)
@@ -277,10 +277,10 @@ func (c *organizationServiceClient) UpdateLoyaltyLevel(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *organizationServiceClient) ListBonusLevelsByOrganization(ctx context.Context, in *ListLoyaltyLevelsByOrganizationRequest, opts ...grpc.CallOption) (*ListLoyaltyLevelsByOrganizationResponse, error) {
+func (c *organizationServiceClient) ListLoyaltyLevelsByOrganization(ctx context.Context, in *ListLoyaltyLevelsByOrganizationRequest, opts ...grpc.CallOption) (*ListLoyaltyLevelsByOrganizationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ListLoyaltyLevelsByOrganizationResponse)
-	err := c.cc.Invoke(ctx, OrganizationService_ListBonusLevelsByOrganization_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, OrganizationService_ListLoyaltyLevelsByOrganization_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +370,7 @@ type OrganizationServiceServer interface {
 	CreateLoyaltyLevel(context.Context, *CreateLoyaltyLevelRequest) (*CreateLoyaltyLevelResponse, error)
 	GetLoyaltyLevel(context.Context, *GetLoyaltyLevelRequest) (*GetLoyaltyLevelResponse, error)
 	UpdateLoyaltyLevel(context.Context, *UpdateLoyaltyLevelRequest) (*UpdateLoyaltyLevelResponse, error)
-	ListBonusLevelsByOrganization(context.Context, *ListLoyaltyLevelsByOrganizationRequest) (*ListLoyaltyLevelsByOrganizationResponse, error)
+	ListLoyaltyLevelsByOrganization(context.Context, *ListLoyaltyLevelsByOrganizationRequest) (*ListLoyaltyLevelsByOrganizationResponse, error)
 	CreateStory(context.Context, *CreateStoryRequest) (*CreateStoryResponse, error)
 	UpdateStory(context.Context, *UpdateStoryRequest) (*UpdateStoryResponse, error)
 	ListStory(context.Context, *ListStoryRequest) (*ListStoryResponse, error)
@@ -444,8 +444,8 @@ func (UnimplementedOrganizationServiceServer) GetLoyaltyLevel(context.Context, *
 func (UnimplementedOrganizationServiceServer) UpdateLoyaltyLevel(context.Context, *UpdateLoyaltyLevelRequest) (*UpdateLoyaltyLevelResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateLoyaltyLevel not implemented")
 }
-func (UnimplementedOrganizationServiceServer) ListBonusLevelsByOrganization(context.Context, *ListLoyaltyLevelsByOrganizationRequest) (*ListLoyaltyLevelsByOrganizationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListBonusLevelsByOrganization not implemented")
+func (UnimplementedOrganizationServiceServer) ListLoyaltyLevelsByOrganization(context.Context, *ListLoyaltyLevelsByOrganizationRequest) (*ListLoyaltyLevelsByOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListLoyaltyLevelsByOrganization not implemented")
 }
 func (UnimplementedOrganizationServiceServer) CreateStory(context.Context, *CreateStoryRequest) (*CreateStoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateStory not implemented")
@@ -828,20 +828,20 @@ func _OrganizationService_UpdateLoyaltyLevel_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrganizationService_ListBonusLevelsByOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OrganizationService_ListLoyaltyLevelsByOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListLoyaltyLevelsByOrganizationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrganizationServiceServer).ListBonusLevelsByOrganization(ctx, in)
+		return srv.(OrganizationServiceServer).ListLoyaltyLevelsByOrganization(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrganizationService_ListBonusLevelsByOrganization_FullMethodName,
+		FullMethod: OrganizationService_ListLoyaltyLevelsByOrganization_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationServiceServer).ListBonusLevelsByOrganization(ctx, req.(*ListLoyaltyLevelsByOrganizationRequest))
+		return srv.(OrganizationServiceServer).ListLoyaltyLevelsByOrganization(ctx, req.(*ListLoyaltyLevelsByOrganizationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1038,8 +1038,8 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrganizationService_UpdateLoyaltyLevel_Handler,
 		},
 		{
-			MethodName: "ListBonusLevelsByOrganization",
-			Handler:    _OrganizationService_ListBonusLevelsByOrganization_Handler,
+			MethodName: "ListLoyaltyLevelsByOrganization",
+			Handler:    _OrganizationService_ListLoyaltyLevelsByOrganization_Handler,
 		},
 		{
 			MethodName: "CreateStory",

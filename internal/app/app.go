@@ -111,7 +111,7 @@ func (s *APIServer) Run() error {
 			userRouter.Post("/register", userHandler.Register)
 			userRouter.Put("/update", userHandler.UpdateUser)
 			userRouter.Post("/create", userHandler.CreateUser)
-			userRouter.Get("/", userHandler.ListUser)
+			//userRouter.Get("/", userHandler.ListUser)
 			// userRouter.Get("/phone", userHandler.GetUserByEmail)
 			// userRouter.Group(func(authRouter chi.Router) {
 			// 	authRouter.Use(auth.AuthMiddleware)
@@ -154,7 +154,7 @@ func (s *APIServer) Run() error {
 		})
 		apiRouter.Route("/organization", func(orgRouter chi.Router) {
 			orgRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
+				//authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", organizationHandler.CreateOrganization)
 				authRouter.Get("/", organizationHandler.ListOrganizations)
 				authRouter.Get("/{organization_id}", organizationHandler.GetOrganization)
@@ -176,10 +176,10 @@ func (s *APIServer) Run() error {
 					aRouter.Delete("/{address_id}", organizationHandler.DeleteAddress)
 				})
 				authRouter.Route("/loyalty-level", func(lRouter chi.Router) {
-					lRouter.Post("/", organizationHandler.CreateBonusLevel)
-					lRouter.Get("/{bonus_level_id}", organizationHandler.GetBonusLevel)
-					lRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
-					lRouter.Get("/organization/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
+					lRouter.Post("/", organizationHandler.CreateLoyaltyLevel)
+					lRouter.Get("/{loyalty_level_id}", organizationHandler.GetLoyaltyLevel)
+					lRouter.Put("/{loyalty_level_id}", organizationHandler.UpdateLoyaltyLevel)
+					lRouter.Get("/organization/{organization_id}", organizationHandler.ListLoyaltyLevelsByOrganization)
 				})
 				authRouter.Route("/story", func(sRouter chi.Router) {
 					sRouter.Post("/", organizationHandler.CreateStory)

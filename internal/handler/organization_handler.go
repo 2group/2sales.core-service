@@ -480,16 +480,16 @@ func (h *OrganizationHandler) UpdateAddress(w http.ResponseWriter, r *http.Reque
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
 
-func (h *OrganizationHandler) CreateBonusLevel(w http.ResponseWriter, r *http.Request) {
-	req := &organizationv1.CreateBonusLevelRequest{}
+func (h *OrganizationHandler) CreateLoyaltyLevel(w http.ResponseWriter, r *http.Request) {
+	req := &organizationv1.CreateLoyaltyLevelRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	resp, err := h.organization.Api.CreateBonusLevel(r.Context(), req)
+	resp, err := h.organization.Api.CreateLoyaltyLevel(r.Context(), req)
 	if err != nil {
-		h.log.Error("Failed to create bonus level", "error", err)
+		h.log.Error("Failed to create loyalty level", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
@@ -497,18 +497,18 @@ func (h *OrganizationHandler) CreateBonusLevel(w http.ResponseWriter, r *http.Re
 	json.WriteJSON(w, http.StatusCreated, resp)
 }
 
-func (h *OrganizationHandler) GetBonusLevel(w http.ResponseWriter, r *http.Request) {
-	bonusIDStr := chi.URLParam(r, "bonus_level_id")
-	bonusID, err := strconv.ParseInt(bonusIDStr, 10, 64)
+func (h *OrganizationHandler) GetLoyaltyLevel(w http.ResponseWriter, r *http.Request) {
+	loyaltyIDStr := chi.URLParam(r, "loyalty_level_id")
+	loyaltyID, err := strconv.ParseInt(loyaltyIDStr, 10, 64)
 	if err != nil {
-		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid bonus_level_id: %w", err))
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("invalid loyalty_level_id: %w", err))
 		return
 	}
 
-	req := &organizationv1.GetBonusLevelRequest{Id: bonusID}
-	resp, err := h.organization.Api.GetBonusLevel(r.Context(), req)
+	req := &organizationv1.GetLoyaltyLevelRequest{Id: loyaltyID}
+	resp, err := h.organization.Api.GetLoyaltyLevel(r.Context(), req)
 	if err != nil {
-		h.log.Error("Failed to get bonus level", "error", err)
+		h.log.Error("Failed to get loyalty level", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
@@ -516,22 +516,22 @@ func (h *OrganizationHandler) GetBonusLevel(w http.ResponseWriter, r *http.Reque
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
-func (h *OrganizationHandler) UpdateBonusLevel(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to update bonus level")
+func (h *OrganizationHandler) UpdateLoyaltyLevel(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to update loyalty level")
 
 	// Получаем ID из URL
-	bonusLevelIDStr := chi.URLParam(r, "bonus_level_id")
-	bonusLevelID, err := strconv.ParseInt(bonusLevelIDStr, 10, 64)
+	loyaltyLevelIDStr := chi.URLParam(r, "loyalty_level_id")
+	loyaltyLevelID, err := strconv.ParseInt(loyaltyLevelIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid bonus_level_id format", "bonus_level_id", bonusLevelIDStr, "error", err)
+		h.log.Error("invalid loyalty_level_id format", "loyalty_level_id", loyaltyLevelIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	// Парсим JSON
-	req := &organizationv1.UpdateBonusLevelRequest{
-		BonusLevel: &organizationv1.BonusLevel{
-			Id: &bonusLevelID,
+	req := &organizationv1.UpdateLoyaltyLevelRequest{
+		LoyaltyLevel: &organizationv1.LoyaltyLevel{
+			Id: &loyaltyLevelID,
 		},
 	}
 	if err := json.ParseJSON(r, req); err != nil {
@@ -543,18 +543,18 @@ func (h *OrganizationHandler) UpdateBonusLevel(w http.ResponseWriter, r *http.Re
 	h.log.Info("Parsed request JSON successfully", "request", req)
 
 	// Вызов gRPC
-	resp, err := h.organization.Api.UpdateBonusLevel(r.Context(), req)
+	resp, err := h.organization.Api.UpdateLoyaltyLevel(r.Context(), req)
 	if err != nil {
-		h.log.Error("Failed to update bonus level", "error", err)
+		h.log.Error("Failed to update loyalty level", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	h.log.Info("Bonus level updated successfully", "response", resp)
+	h.log.Info("Loyalty level updated successfully", "response", resp)
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
-func (h *OrganizationHandler) ListBonusLevelsByOrganization(w http.ResponseWriter, r *http.Request) {
+func (h *OrganizationHandler) ListLoyaltyLevelsByOrganization(w http.ResponseWriter, r *http.Request) {
 	orgIDStr := chi.URLParam(r, "organization_id")
 	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
 	if err != nil {
@@ -562,17 +562,17 @@ func (h *OrganizationHandler) ListBonusLevelsByOrganization(w http.ResponseWrite
 		return
 	}
 
-	req := &organizationv1.ListBonusLevelsByOrganizationRequest{OrganizationId: orgID}
-	resp, err := h.organization.Api.ListBonusLevelsByOrganization(r.Context(), req)
+	req := &organizationv1.ListLoyaltyLevelsByOrganizationRequest{OrganizationId: orgID}
+	resp, err := h.organization.Api.ListLoyaltyLevelsByOrganization(r.Context(), req)
 	if err != nil {
-		h.log.Error("Failed to list bonus levels", "error", err)
+		h.log.Error("Failed to list loyalty levels", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
 	// Make sure we are passing the correct response type
-	if resp.BonusLevels == nil {
-		resp.BonusLevels = []*organizationv1.BonusLevel{}
+	if resp.LoyaltyLevels == nil {
+		resp.LoyaltyLevels = []*organizationv1.LoyaltyLevel{}
 	}
 
 	json.WriteJSON(w, http.StatusOK, resp)

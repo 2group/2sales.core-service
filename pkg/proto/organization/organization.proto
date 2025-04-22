@@ -27,7 +27,7 @@ service OrganizationService {
     rpc CreateLoyaltyLevel (CreateLoyaltyLevelRequest) returns (CreateLoyaltyLevelResponse);
     rpc GetLoyaltyLevel (GetLoyaltyLevelRequest) returns (GetLoyaltyLevelResponse);
     rpc UpdateLoyaltyLevel (UpdateLoyaltyLevelRequest) returns (UpdateLoyaltyLevelResponse);
-    rpc ListBonusLevelsByOrganization (ListLoyaltyLevelsByOrganizationRequest) returns (ListLoyaltyLevelsByOrganizationResponse);
+    rpc ListLoyaltyLevelsByOrganization (ListLoyaltyLevelsByOrganizationRequest) returns (ListLoyaltyLevelsByOrganizationResponse);
 
     rpc CreateStory (CreateStoryRequest) returns (CreateStoryResponse);
     rpc UpdateStory (UpdateStoryRequest) returns (UpdateStoryResponse);
