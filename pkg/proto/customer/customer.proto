@@ -10,7 +10,7 @@ service CustomerService {
   rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
   rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
   rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
-  rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (google.protobuf.Empty);
+  rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (CreateBonusTransactionResponse);
 }
 
 message Customer {
@@ -89,7 +89,6 @@ message CreateBonusTransactionRequest {
 }
 
 message CreateBonusTransactionResponse {
-    CustomerBonusTransaction transaction = 1;
 }
 
 message GetBonusBalanceRequest {

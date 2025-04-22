@@ -352,7 +352,7 @@ func (s *APIServer) Run() error {
 
 				authRouter.Route("/role", func(roleRouter chi.Router) {
 					roleRouter.Post("/", EmployeeHandler.CreateRole)
-					// roleRouter.Get("/", EmployeeHandler.ListRole)
+					roleRouter.Get("/", EmployeeHandler.ListRole)
 					roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
 					roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
 				})
