@@ -135,28 +135,6 @@ func (h *EmployeeHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Response sent", "status", http.StatusCreated)
 }
 
-func (h *EmployeeHandler) ListRole(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to list Role")
-	req := &employeev1.ListRoleRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
-
-	response, err := h.employee.Api.ListRole(r.Context(), req)
-	if err != nil {
-		h.log.Error("Error listing role", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-	h.log.Info("Role listed successfully", "response", response)
-
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
-}
-
 func (h *EmployeeHandler) UpdateRole(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to update Role")
 
@@ -228,4 +206,34 @@ func (h *EmployeeHandler) DeleteRole(w http.ResponseWriter, r *http.Request) {
 
 	json.WriteJSON(w, http.StatusOK, response)
 	h.log.Info("Response sent", "status", http.StatusOK)
+}
+
+func (h *EmployeeHandler) ListRoles(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to list roles")
+
+	limitStr := r.URL.Query().Get("limit")
+	offsetStr := r.URL.Query().Get("offset")
+
+	limit, err := strconv.Atoi(limitStr)
+	if err != nil || limit <= 0 {
+		limit = 20
+	}
+	offset, err := strconv.Atoi(offsetStr)
+	if err != nil || offset < 0 {
+		offset = 0
+	}
+
+	req := &employeev1.ListRolesRequest{
+		Limit:  int32(limit),
+		Offset: int32(offset),
+	}
+
+	resp, err := h.employee.Api.ListRoles(r.Context(), req)
+	if err != nil {
+		h.log.Error("Error listing roles", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, resp)
 }

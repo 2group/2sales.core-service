@@ -3,12 +3,10 @@ package handler
 import (
 	"log/slog"
 	"net/http"
-	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
 	"github.com/2group/2sales.core-service/pkg/json"
-	"github.com/go-chi/chi/v5"
 )
 
 type UserHandler struct {
@@ -110,37 +108,36 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 // 	return
 // }
 
-func (h *UserHandler) ListUser(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to list user")
+// func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
+// 	h.log.Info("Received request to list users")
 
-	limitStr := chi.URLParam(r, "limit")
-	offsetStr := chi.URLParam(r, "offset")
+// 	limitStr := chi.URLParam(r, "limit")
+// 	offsetStr := chi.URLParam(r, "offset")
 
-	limit, err := strconv.ParseInt(limitStr, 10, 32)
-	if err != nil {
-		h.log.Warn("invalid limit format", "limit", limitStr, "error", err)
-		limit = 20
-	}
+// 	limit, err := strconv.ParseInt(limitStr, 10, 32)
+// 	if err != nil {
+// 		h.log.Warn("invalid limit format", "limit", limitStr, "error", err)
+// 		limit = 20
+// 	}
+// 	offset, err := strconv.ParseInt(offsetStr, 10, 32)
+// 	if err != nil {
+// 		h.log.Warn("invalid offset format", "offset", offsetStr, "error", err)
+// 		offset = 0
+// 	}
 
-	offset, err := strconv.ParseInt(offsetStr, 10, 64)
-	if err != nil {
-		h.log.Warn("invalid offset format", "offset", offsetStr, "error", err)
-		offset = 0
-	}
+// 	req := &userv1.ListUsersRequest{
+// 		Limit:  int32(limit),
+// 		Offset: int32(offset),
+// 	}
 
-	req := &userv1.ListUserRequest{
-		Limit:  int32(limit),
-		Offset: int32(offset),
-	}
+// 	resp, err := h.user.ListUsers(r.Context(), req)
+// 	if err != nil {
+// 		h.log.Error("Error listing users", "error", err)
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
 
-	response, err := h.user.Api.ListUsers(r.Context(), req)
-	if err != nil {
-		h.log.Error("Error listing user", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-	h.log.Info("user listed successfully", "response", response)
-
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
-}
+// 	h.log.Info("Users listed successfully", "response", resp)
+// 	json.WriteJSON(w, http.StatusOK, resp)
+// 	h.log.Info("Response sent", "status", http.StatusOK)
+// }
