@@ -3,10 +3,13 @@ package handler
 import (
 	"log/slog"
 	"net/http"
+	"os"
+	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
 	"github.com/2group/2sales.core-service/pkg/json"
+	"github.com/go-chi/chi/v5"
 )
 
 type UserHandler struct {
@@ -15,7 +18,11 @@ type UserHandler struct {
 }
 
 func NewUserHandler(user *grpc.UserClient) *UserHandler {
-	return &UserHandler{user: user}
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	return &UserHandler{
+		log:  logger,
+		user: user,
+	}
 }
 
 func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
@@ -108,36 +115,37 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 // 	return
 // }
 
-// func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
-// 	h.log.Info("Received request to list users")
+func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
+	h.log.Info("Received request to list users")
 
-// 	limitStr := chi.URLParam(r, "limit")
-// 	offsetStr := chi.URLParam(r, "offset")
+	limitStr := chi.URLParam(r, "limit")
+	offsetStr := chi.URLParam(r, "offset")
 
-// 	limit, err := strconv.ParseInt(limitStr, 10, 32)
-// 	if err != nil {
-// 		h.log.Warn("invalid limit format", "limit", limitStr, "error", err)
-// 		limit = 20
-// 	}
-// 	offset, err := strconv.ParseInt(offsetStr, 10, 32)
-// 	if err != nil {
-// 		h.log.Warn("invalid offset format", "offset", offsetStr, "error", err)
-// 		offset = 0
-// 	}
+	limit, err := strconv.ParseInt(limitStr, 10, 32)
+	if err != nil {
+		h.log.Warn("invalid limit format", "limit", limitStr, "error", err)
+		limit = 20
+	}
 
-// 	req := &userv1.ListUsersRequest{
-// 		Limit:  int32(limit),
-// 		Offset: int32(offset),
-// 	}
+	offset, err := strconv.ParseInt(offsetStr, 10, 64)
+	if err != nil {
+		h.log.Warn("invalid offset format", "offset", offsetStr, "error", err)
+		offset = 0
+	}
 
-// 	resp, err := h.user.ListUsers(r.Context(), req)
-// 	if err != nil {
-// 		h.log.Error("Error listing users", "error", err)
-// 		json.WriteError(w, http.StatusBadRequest, err)
-// 		return
-// 	}
+	req := &userv1.ListUsersRequest{
+		Limit:  int32(limit),
+		Offset: int32(offset),
+	}
 
-// 	h.log.Info("Users listed successfully", "response", resp)
-// 	json.WriteJSON(w, http.StatusOK, resp)
-// 	h.log.Info("Response sent", "status", http.StatusOK)
-// }
+	response, err := h.user.Api.ListUsers(r.Context(), req)
+	if err != nil {
+		h.log.Error("Error listing users", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	h.log.Info("Users listed successfully", "response", response)
+	json.WriteJSON(w, http.StatusOK, response)
+	h.log.Info("Response sent", "status", http.StatusOK)
+}

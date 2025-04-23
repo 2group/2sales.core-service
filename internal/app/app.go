@@ -108,9 +108,10 @@ func (s *APIServer) Run() error {
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
 			userRouter.Post("/login", userHandler.Login)
-			userRouter.Post("/register", userHandler.Register)
-			userRouter.Put("/update", userHandler.UpdateUser)
-			userRouter.Post("/create", userHandler.CreateUser)
+			// userRouter.Post("/register", userHandler.Register)
+			userRouter.Put("/", userHandler.UpdateUser)
+			userRouter.Post("/", userHandler.CreateUser)
+			userRouter.Get("/", userHandler.ListUsers)
 			// userRouter.Get("/", userHandler.ListUser)
 			// userRouter.Get("/phone", userHandler.GetUserByEmail)
 			// userRouter.Group(func(authRouter chi.Router) {
@@ -154,7 +155,7 @@ func (s *APIServer) Run() error {
 		})
 		apiRouter.Route("/organization", func(orgRouter chi.Router) {
 			orgRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
+				// authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", organizationHandler.CreateOrganization)
 				authRouter.Get("/", organizationHandler.ListOrganizations)
 				authRouter.Get("/{organization_id}", organizationHandler.GetOrganization)
@@ -342,6 +343,7 @@ func (s *APIServer) Run() error {
 				authRouter.Patch("/{id}", serviceHandler.PartialUpdateService)
 				authRouter.Put("/{id}", serviceHandler.UpdateService)
 				authRouter.Post("/presigned-urls", serviceHandler.GeneratePresignedURLs)
+				authRouter.Get("/", serviceHandler.ListServices)
 			})
 		})
 		apiRouter.Route("/employee", func(employeeRouter chi.Router) {

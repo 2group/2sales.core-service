@@ -25,6 +25,7 @@ const (
 	ServiceService_PartialUpdateService_FullMethodName  = "/service.ServiceService/PartialUpdateService"
 	ServiceService_UpdateService_FullMethodName         = "/service.ServiceService/UpdateService"
 	ServiceService_GeneratePresignedURLs_FullMethodName = "/service.ServiceService/GeneratePresignedURLs"
+	ServiceService_ListServices_FullMethodName          = "/service.ServiceService/ListServices"
 )
 
 // ServiceServiceClient is the client API for ServiceService service.
@@ -37,6 +38,7 @@ type ServiceServiceClient interface {
 	PartialUpdateService(ctx context.Context, in *PartialUpdateServiceRequest, opts ...grpc.CallOption) (*PartialUpdateServiceResponse, error)
 	UpdateService(ctx context.Context, in *UpdateServiceRequest, opts ...grpc.CallOption) (*UpdateServiceResponse, error)
 	GeneratePresignedURLs(ctx context.Context, in *GeneratePresignedURLsRequest, opts ...grpc.CallOption) (*GeneratePresignedURLsResponse, error)
+	ListServices(ctx context.Context, in *ListServicesRequest, opts ...grpc.CallOption) (*ListServicesResponce, error)
 }
 
 type serviceServiceClient struct {
@@ -107,6 +109,16 @@ func (c *serviceServiceClient) GeneratePresignedURLs(ctx context.Context, in *Ge
 	return out, nil
 }
 
+func (c *serviceServiceClient) ListServices(ctx context.Context, in *ListServicesRequest, opts ...grpc.CallOption) (*ListServicesResponce, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListServicesResponce)
+	err := c.cc.Invoke(ctx, ServiceService_ListServices_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceServiceServer is the server API for ServiceService service.
 // All implementations must embed UnimplementedServiceServiceServer
 // for forward compatibility.
@@ -117,6 +129,7 @@ type ServiceServiceServer interface {
 	PartialUpdateService(context.Context, *PartialUpdateServiceRequest) (*PartialUpdateServiceResponse, error)
 	UpdateService(context.Context, *UpdateServiceRequest) (*UpdateServiceResponse, error)
 	GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error)
+	ListServices(context.Context, *ListServicesRequest) (*ListServicesResponce, error)
 	mustEmbedUnimplementedServiceServiceServer()
 }
 
@@ -144,6 +157,9 @@ func (UnimplementedServiceServiceServer) UpdateService(context.Context, *UpdateS
 }
 func (UnimplementedServiceServiceServer) GeneratePresignedURLs(context.Context, *GeneratePresignedURLsRequest) (*GeneratePresignedURLsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GeneratePresignedURLs not implemented")
+}
+func (UnimplementedServiceServiceServer) ListServices(context.Context, *ListServicesRequest) (*ListServicesResponce, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListServices not implemented")
 }
 func (UnimplementedServiceServiceServer) mustEmbedUnimplementedServiceServiceServer() {}
 func (UnimplementedServiceServiceServer) testEmbeddedByValue()                        {}
@@ -274,6 +290,24 @@ func _ServiceService_GeneratePresignedURLs_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceService_ListServices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListServicesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServiceServer).ListServices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceService_ListServices_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServiceServer).ListServices(ctx, req.(*ListServicesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceService_ServiceDesc is the grpc.ServiceDesc for ServiceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +338,10 @@ var ServiceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GeneratePresignedURLs",
 			Handler:    _ServiceService_GeneratePresignedURLs_Handler,
+		},
+		{
+			MethodName: "ListServices",
+			Handler:    _ServiceService_ListServices_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

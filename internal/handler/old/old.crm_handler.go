@@ -29,7 +29,7 @@ func NewCrmHandler(log *slog.Logger, crm *grpc.CrmClient) *CrmHandler {
 func (h *CrmHandler) CreateLead(w http.ResponseWriter, r *http.Request) {
 	ci, _ := middleware.GetCorrelationID(r.Context())
 	log := h.log.With("method", "CreateLead", "correlation_id", ci)
-	
+
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
@@ -52,7 +52,7 @@ func (h *CrmHandler) CreateLead(w http.ResponseWriter, r *http.Request) {
 
 	req.Lead.CreatedByOrganizationId = &organizationID
 	req.Lead.CreatedByUser.Id = &userID
-	
+
 	log.Info("Creating lead", "request", req)
 	response, err := h.crm.Api.CreateLead(r.Context(), req)
 	if err != nil {
@@ -77,10 +77,10 @@ func (h *CrmHandler) GetLead(w http.ResponseWriter, r *http.Request) {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	
+
 	req := &crmv1.GetLeadRequest{LeadId: leadID}
 	log.Info("Getting lead", "request", req)
-	
+
 	response, err := h.crm.Api.GetLead(r.Context(), req)
 	if err != nil {
 		log.Error("Failed to get lead", "error", err)
@@ -178,7 +178,7 @@ func (h *CrmHandler) DeleteLead(w http.ResponseWriter, r *http.Request) {
 
 	req := &crmv1.DeleteLeadRequest{LeadId: leadID}
 	log.Info("Deleting lead", "request", req)
-	
+
 	response, err := h.crm.Api.DeleteLead(r.Context(), req)
 	if err != nil {
 		log.Error("Failed to delete the lead", "error", err)
@@ -194,7 +194,7 @@ func (h *CrmHandler) DeleteLead(w http.ResponseWriter, r *http.Request) {
 func (h *CrmHandler) ListLeads(w http.ResponseWriter, r *http.Request) {
 	ci, _ := middleware.GetCorrelationID(r.Context())
 	log := h.log.With("method", "ListLeads", "correlation_id", ci)
-	
+
 	organizationID, ok := middleware.GetOrganizationID(r)
 	if !ok {
 		json.WriteError(w, http.StatusUnauthorized, fmt.Errorf("unauthorized"))
