@@ -605,7 +605,7 @@ func (x *VerifySmsOtpResponse) GetToken() string {
 
 type RequestMailOtpRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	PhoneNumber   string                 `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -640,9 +640,9 @@ func (*RequestMailOtpRequest) Descriptor() ([]byte, []int) {
 	return file_user_user_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *RequestMailOtpRequest) GetPhoneNumber() string {
+func (x *RequestMailOtpRequest) GetEmail() string {
 	if x != nil {
-		return x.PhoneNumber
+		return x.Email
 	}
 	return ""
 }
@@ -693,7 +693,7 @@ func (x *RequestMailOtpResponse) GetOk() bool {
 
 type VerifyMailOtpRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	PhoneNumber   string                 `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -729,9 +729,9 @@ func (*VerifyMailOtpRequest) Descriptor() ([]byte, []int) {
 	return file_user_user_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *VerifyMailOtpRequest) GetPhoneNumber() string {
+func (x *VerifyMailOtpRequest) GetEmail() string {
 	if x != nil {
-		return x.PhoneNumber
+		return x.Email
 	}
 	return ""
 }
@@ -855,13 +855,13 @@ const file_user_user_proto_rawDesc = "" +
 	".user.UserH\x00R\x04user\x88\x01\x01\x12\x19\n" +
 	"\x05token\x18\x03 \x01(\tH\x01R\x05token\x88\x01\x01B\a\n" +
 	"\x05_userB\b\n" +
-	"\x06_token\":\n" +
-	"\x15RequestMailOtpRequest\x12!\n" +
-	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\"(\n" +
+	"\x06_token\"-\n" +
+	"\x15RequestMailOtpRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"(\n" +
 	"\x16RequestMailOtpResponse\x12\x0e\n" +
-	"\x02ok\x18\x01 \x01(\bR\x02ok\"M\n" +
-	"\x14VerifyMailOtpRequest\x12!\n" +
-	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\x12\x12\n" +
+	"\x02ok\x18\x01 \x01(\bR\x02ok\"@\n" +
+	"\x14VerifyMailOtpRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\tR\x04code\"z\n" +
 	"\x15VerifyMailOtpResponse\x12\x0e\n" +
 	"\x02ok\x18\x01 \x01(\bR\x02ok\x12#\n" +

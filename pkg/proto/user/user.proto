@@ -77,7 +77,7 @@ message VerifySmsOtpResponse {
 }
 
 message RequestMailOtpRequest {
-    string phone_number = 1;
+    string email = 1;
 }
 
 message RequestMailOtpResponse {
@@ -85,7 +85,7 @@ message RequestMailOtpResponse {
 }
 
 message VerifyMailOtpRequest {
-    string phone_number = 1;
+    string email = 1;
     string code = 2;
 }
 
