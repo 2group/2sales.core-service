@@ -336,7 +336,7 @@ func (s *APIServer) Run() error {
 		})
 		apiRouter.Route("/service", func(serviceRouter chi.Router) {
 			serviceRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
+				// authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", serviceHandler.CreateService)
 				authRouter.Get("/{id}", serviceHandler.GetService)
 				authRouter.Delete("/{id}", serviceHandler.DeleteService)

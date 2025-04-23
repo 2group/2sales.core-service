@@ -221,7 +221,7 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 		Offset: int32(offset),
 	}
 
-	response, err := h.serviceApi.ListServices(r.Context(), req)
+	response, err := h.service.Api.ListServices(r.Context(), req)
 	if err != nil {
 		h.log.Error("Error listing services", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
@@ -230,4 +230,5 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 
 	h.log.Info("Services listed successfully", "response", response)
 	json.WriteJSON(w, http.StatusOK, response)
+
 }
