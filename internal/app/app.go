@@ -42,10 +42,10 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
-	otpgrpc, err := grpc.NewOtpClient(context, s.cfg.GRPC.User, time.Hour, 2)
-	if err != nil {
-		panic(err)
-	}
+	// otpgrpc, err := grpc.NewOtpClient(context, s.cfg.GRPC.User, time.Hour, 2)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	// crmgrpc, err := grpc.NewCrmClient(context, s.cfg.GRPC.CRM, time.Hour, 2)
 	// if err != nil {
@@ -85,7 +85,7 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
-	otpHandler := handler.NewOtpHandler(s.log, otpgrpc.Api)
+	// otpHandler := handler.NewOtpHandler(s.log, otpgrpc.Api)
 	userHandler := handler.NewUserHandler(usergrpc)
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
@@ -108,8 +108,9 @@ func (s *APIServer) Run() error {
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
 			userRouter.Post("/login", userHandler.Login)
-			userRouter.Put("/update", userHandler.UpdateUser)
-			userRouter.Post("/create", userHandler.CreateUser)
+			// userRouter.Post("/register", userHandler.Register)
+			userRouter.Put("/", userHandler.UpdateUser)
+			userRouter.Post("/", userHandler.CreateUser)
 			//userRouter.Get("/", userHandler.ListUser)
 			// userRouter.Get("/phone", userHandler.GetUserByEmail)
 			// userRouter.Group(func(authRouter chi.Router) {
