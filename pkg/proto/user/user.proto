@@ -16,6 +16,8 @@ service UserService {
 service OtpService {
     rpc RequestSmsOtp(RequestSmsOtpRequest) returns (RequestSmsOtpResponse);
     rpc VerifySmsOtp(VerifySmsOtpRequest) returns (VerifySmsOtpResponse);
+    rpc RequestMailOtp(RequestMailOtpRequest) returns (RequestMailOtpResponse);
+    rpc VerifyMailOtp(VerifyMailOtpRequest) returns (VerifyMailOtpResponse);
 }
 
 message User {
