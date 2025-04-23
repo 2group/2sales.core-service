@@ -1,14 +1,11 @@
 package handler
 
 import (
-	"log/slog"
-	"net/http"
-	"strconv"
-
 	"github.com/2group/2sales.core-service/internal/grpc"
 	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
 	"github.com/2group/2sales.core-service/pkg/json"
-	"github.com/go-chi/chi/v5"
+	"log/slog"
+	"net/http"
 )
 
 type UserHandler struct {
@@ -31,24 +28,6 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	response, err := h.user.Api.Login(r.Context(), req)
 	if err != nil {
 		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-
-	json.WriteJSON(w, http.StatusOK, response)
-	return
-}
-
-func (h *UserHandler) Register(w http.ResponseWriter, r *http.Request) {
-	req := &userv1.RegisterRequest{}
-	err := json.ParseJSON(r, &req)
-	if err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-
-	response, err := h.user.Api.Register(r.Context(), req)
-	if err != nil {
-		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 

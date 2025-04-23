@@ -30,7 +30,7 @@ func (h *OtpHandler) RequestOtp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := h.otpService.RequestOtp(r.Context(), &userv1.RequestOtpRequest{
+	_, err := h.otpService.RequestSmsOtp(r.Context(), &userv1.RequestSmsOtpRequest{
 		PhoneNumber: req.PhoneNumber,
 	})
 	if err != nil {
@@ -56,12 +56,48 @@ func (h *OtpHandler) VerifyOtp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.otpService.VerifyOtp(r.Context(), &userv1.VerifyOtpRequest{
+	resp, err := h.otpService.VerifySmsOtp(r.Context(), &userv1.VerifySmsOtpRequest{
 		PhoneNumber: req.PhoneNumber,
 		Code:        req.Code,
 	})
 	if err != nil {
 		h.log.Error("failed to verify OTP", "err", err)
+		json.WriteError(w, http.StatusUnauthorized, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *OtpHandler) RequestMailOtp(w http.ResponseWriter, r *http.Request) {
+	var req userv1.RequestMailOtpRequest
+	if err := json.ParseProtoJSON(r.Body, &req); err != nil {
+		h.log.Error("failed to parse request JSON", "err", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	resp, err := h.otpService.RequestMailOtp(r.Context(), &req)
+	if err != nil {
+		h.log.Error("failed to request mail OTP", "err", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *OtpHandler) VerifyMailOtp(w http.ResponseWriter, r *http.Request) {
+	var req userv1.VerifyMailOtpRequest
+	if err := json.ParseProtoJSON(r.Body, &req); err != nil {
+		h.log.Error("failed to parse request JSON", "err", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	resp, err := h.otpService.VerifyMailOtp(r.Context(), &req)
+	if err != nil {
+		h.log.Error("failed to verify mail OTP", "err", err)
 		json.WriteError(w, http.StatusUnauthorized, err)
 		return
 	}

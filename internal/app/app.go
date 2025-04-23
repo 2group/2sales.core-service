@@ -108,7 +108,6 @@ func (s *APIServer) Run() error {
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
 			userRouter.Post("/login", userHandler.Login)
-			userRouter.Post("/register", userHandler.Register)
 			userRouter.Put("/update", userHandler.UpdateUser)
 			userRouter.Post("/create", userHandler.CreateUser)
 			//userRouter.Get("/", userHandler.ListUser)
@@ -369,8 +368,11 @@ func (s *APIServer) Run() error {
 		})
 
 		apiRouter.Route("/otp", func(otpRouter chi.Router) {
-			otpRouter.Post("/request", otpHandler.RequestOtp)
-			otpRouter.Post("/verify", otpHandler.VerifyOtp)
+			otpRouter.Post("/request-sms", otpHandler.RequestOtp)
+			otpRouter.Post("/verify-sms", otpHandler.VerifyOtp)
+			otpRouter.Post("/request-mail", otpHandler.RequestMailOtp)
+			otpRouter.Post("/verify-mail", otpHandler.VerifyMailOtp)
+
 		})
 	})
 
