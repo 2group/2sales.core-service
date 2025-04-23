@@ -3,7 +3,9 @@ package json
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 	"unicode"
@@ -12,6 +14,22 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
+
+func ParseProtoJSON(r io.Reader, m proto.Message) error {
+	bodyBytes, err := io.ReadAll(r)
+	if err != nil {
+		return fmt.Errorf("cannot read request body: %w", err)
+	}
+
+	unmarshalOpts := protojson.UnmarshalOptions{
+		DiscardUnknown: false,
+	}
+
+	if err := unmarshalOpts.Unmarshal(bodyBytes, m); err != nil {
+		return errors.New("invalid JSON format or data")
+	}
+	return nil
+}
 
 // ParseJSON decodes the request body into the provided model.
 func ParseJSON(r *http.Request, model any) error {

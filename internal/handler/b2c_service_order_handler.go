@@ -2,7 +2,6 @@ package handler
 
 import (
 	"errors"
-	"io"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -13,8 +12,6 @@ import (
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/proto"
 )
 
 type B2CServiceOrderHandler struct {
@@ -29,45 +26,28 @@ func NewB2CServiceOrderHandler(log *slog.Logger, b2c_service_order *grpc.B2CServ
 	}
 }
 
-func parseProtoJSON(r *http.Request, m proto.Message) error {
-	bodyBytes, err := io.ReadAll(r.Body)
-	if err != nil {
-		return errors.New("cannot read request body")
-	}
-	defer r.Body.Close()
-
-	unmarshalOpts := protojson.UnmarshalOptions{
-		DiscardUnknown: false,
-	}
-
-	if err := unmarshalOpts.Unmarshal(bodyBytes, m); err != nil {
-		return errors.New("invalid JSON format or data")
-	}
-	return nil
-}
-
 func (h *B2CServiceOrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 	req := &orderv1.CreateOrderRequest{}
 
-	if err := parseProtoJSON(r, req); err != nil {
+	if err := json.ParseProtoJSON(r.Body, req); err != nil {
+		h.log.Error("Failed to parse request JSON", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	if req.GetOrder() == nil {
+	if req.Order == nil {
 		h.log.Error("Parsed request has nil order field")
 		json.WriteError(w, http.StatusBadRequest, errors.New("order data is missing in request"))
 		return
 	}
 
-	receivedCustomerID := req.GetOrder().GetCustomerId()
-	h.log.Info("Customer ID after protojson parsing in handler", "customer_id", receivedCustomerID)
-
-	if receivedCustomerID == 0 {
-		h.log.Error("Customer ID is 0 after parsing")
+	if req.Order.CustomerId == nil || *req.Order.CustomerId == 0 {
+		h.log.Error("Customer ID is nil or 0 after parsing")
 		json.WriteError(w, http.StatusBadRequest, errors.New("customerId cannot be 0"))
 		return
 	}
+
+	h.log.Info("Customer ID after protojson parsing in handler", "customer_id", *req.Order.CustomerId)
 
 	response, err := h.b2c_service_order.Api.CreateOrder(r.Context(), req)
 	if err != nil {
@@ -77,23 +57,8 @@ func (h *B2CServiceOrderHandler) CreateOrder(w http.ResponseWriter, r *http.Requ
 	}
 
 	json.WriteJSON(w, http.StatusCreated, response)
+	h.log.Info("CreateOrder response sent", "status", http.StatusCreated)
 }
-
-// func (h *B2CServiceOrderHandler) UpdateOrder(w http.ResponseWriter, r *http.Request) {
-// 	req := &orderv1.UpdateOrderRequest{}
-// 	if err := parseProtoJSON(r, req); err != nil {
-// 		json.WriteError(w, http.StatusBadRequest, err)
-// 		return
-// 	}
-
-// 	response, err := h.b2c_service_order.Api.UpdateOrder(r.Context(), req)
-// 	if err != nil {
-// 		h.log.Error("gRPC call to UpdateOrder failed", "error", err)
-// 		json.WriteError(w, http.StatusInternalServerError, errors.New("internal server error during order update"))
-// 		return
-// 	}
-// 	json.WriteJSON(w, http.StatusOK, response)
-// }
 
 func (h *B2CServiceOrderHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
 	orderIDStr := chi.URLParam(r, "order_id")
@@ -135,4 +100,5 @@ func (h *B2CServiceOrderHandler) GetOrder(w http.ResponseWriter, r *http.Request
 	}
 
 	json.WriteJSON(w, http.StatusOK, response)
+	h.log.Info("GetOrder response sent", "status", http.StatusOK)
 }
