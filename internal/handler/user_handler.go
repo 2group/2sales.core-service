@@ -7,7 +7,6 @@ import (
 	"github.com/2group/2sales.core-service/internal/grpc"
 	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
 	"github.com/2group/2sales.core-service/pkg/json"
-
 )
 
 type UserHandler struct {
@@ -32,10 +31,6 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-
-	json.WriteJSON(w, http.StatusOK, response)
-	return
-}
 
 	json.WriteJSON(w, http.StatusOK, response)
 	return
