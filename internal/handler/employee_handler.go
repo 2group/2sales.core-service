@@ -135,27 +135,27 @@ func (h *EmployeeHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Response sent", "status", http.StatusCreated)
 }
 
-func (h *EmployeeHandler) ListRole(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to list Role")
-	req := &employeev1.ListRoleRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
+// func (h *EmployeeHandler) ListRole(w http.ResponseWriter, r *http.Request) {
+// 	h.log.Info("Received request to list Role")
+// 	req := &employeev1.ListRoleRequest{}
+// 	if err := json.ParseJSON(r, req); err != nil {
+// 		h.log.Error("Failed to parse request JSON", "error", err)
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
+// 	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.employee.Api.ListRole(r.Context(), req)
-	if err != nil {
-		h.log.Error("Error listing role", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-	h.log.Info("Role listed successfully", "response", response)
+// 	response, err := h.employee.Api.ListRole(r.Context(), req)
+// 	if err != nil {
+// 		h.log.Error("Error listing role", "error", err)
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
+// 	h.log.Info("Role listed successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
-}
+// 	json.WriteJSON(w, http.StatusOK, response)
+// 	h.log.Info("Response sent", "status", http.StatusOK)
+// }
 
 func (h *EmployeeHandler) UpdateRole(w http.ResponseWriter, r *http.Request) {
 	h.log.Info("Received request to update Role")
