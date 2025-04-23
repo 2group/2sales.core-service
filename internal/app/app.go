@@ -57,10 +57,10 @@ func (s *APIServer) Run() error {
 	// 	panic(err)
 	// }
 
-	//ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
-	//if err != nil {
-	//	panic(err)
-	//}
+	// ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	customergrpc, err := grpc.NewCustomerClient(context, s.cfg.GRPC.Customer, time.Hour, 2)
 	fmt.Println(s.cfg.GRPC.Customer)
@@ -108,10 +108,10 @@ func (s *APIServer) Run() error {
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
 			userRouter.Post("/login", userHandler.Login)
-			// userRouter.Post("/register", userHandler.Register)
-			userRouter.Put("/", userHandler.UpdateUser)
-			userRouter.Post("/", userHandler.CreateUser)
-			//userRouter.Get("/", userHandler.ListUser)
+			userRouter.Post("/register", userHandler.Register)
+			userRouter.Put("/update", userHandler.UpdateUser)
+			userRouter.Post("/create", userHandler.CreateUser)
+			// userRouter.Get("/", userHandler.ListUser)
 			// userRouter.Get("/phone", userHandler.GetUserByEmail)
 			// userRouter.Group(func(authRouter chi.Router) {
 			// 	authRouter.Use(auth.AuthMiddleware)
@@ -301,7 +301,7 @@ func (s *APIServer) Run() error {
 				suborderRouter.Group(func(authRouter chi.Router) {
 					authRouter.Use(auth.AuthMiddleware)
 					// authRouter.Post("/", orderHandler.CreateSubOrder)
-					//authRouter.Post("/order", orderHandler.CreateOrder)
+					// authRouter.Post("/order", orderHandler.CreateOrder)
 					// authRouter.Get("/", orderHandler.ListSubOrder)
 					// authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
 					// authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
@@ -361,7 +361,7 @@ func (s *APIServer) Run() error {
 
 		apiRouter.Route("/order", func(orderRouter chi.Router) {
 			orderRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
+				//authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
 				authRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
 				// authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
@@ -369,11 +369,8 @@ func (s *APIServer) Run() error {
 		})
 
 		apiRouter.Route("/otp", func(otpRouter chi.Router) {
-			otpRouter.Post("/request-sms", otpHandler.RequestOtp)
-			otpRouter.Post("/verify-sms", otpHandler.VerifyOtp)
-			otpRouter.Post("/request-mail", otpHandler.RequestMailOtp)
-			otpRouter.Post("/verify-mail", otpHandler.VerifyMailOtp)
-
+			otpRouter.Post("/request", otpHandler.RequestOtp)
+			otpRouter.Post("/verify", otpHandler.VerifyOtp)
 		})
 	})
 
