@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 
@@ -9,7 +10,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var secret = "2group.kz"
+var secret = []byte("2group.kz")
 
 type contextKey string
 
@@ -20,108 +21,119 @@ const (
 	ContextScopesKey     contextKey = "scopes"
 )
 
+// extractToken pulls the Bearer token out of the Authorization header.
+func extractToken(authHeader string) (string, error) {
+	if authHeader == "" {
+		return "", errors.New("authorization header is missing")
+	}
+	parts := strings.SplitN(authHeader, " ", 2)
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		return "", errors.New("invalid authorization header format")
+	}
+	return parts[1], nil
+}
+
+// validateToken parses and validates the JWT, returning its claims.
+func validateToken(tokenString string) (jwt.MapClaims, error) {
+	token, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
+		return secret, nil
+	})
+	if err != nil || !token.Valid {
+		return nil, errors.New("invalid or expired token")
+	}
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return nil, errors.New("invalid token claims")
+	}
+	return claims, nil
+}
+
 // AuthMiddleware validates the JWT and injects user/context fields.
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		authHeader := r.Header.Get("Authorization")
-		if authHeader == "" {
-			http.Error(w, "Authorization header is missing", http.StatusUnauthorized)
-			return
-		}
-		parts := strings.SplitN(authHeader, " ", 2)
-		if len(parts) != 2 || parts[0] != "Bearer" {
-			http.Error(w, "Invalid Authorization header format", http.StatusUnauthorized)
-			return
-		}
-		tokenString := parts[1]
-
-		// Parse and validate
-		token, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
-			return []byte(secret), nil
-		})
-		if err != nil || !token.Valid {
-			http.Error(w, "Invalid or expired token", http.StatusUnauthorized)
-			return
-		}
-		claims, ok := token.Claims.(jwt.MapClaims)
-		if !ok {
-			http.Error(w, "Invalid token claims", http.StatusUnauthorized)
+		// 1) extract the raw token
+		tokenString, err := extractToken(r.Header.Get("Authorization"))
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusUnauthorized)
 			return
 		}
 
-		// 1) user_id
+		// 2) validate & get claims
+		claims, err := validateToken(tokenString)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusUnauthorized)
+			return
+		}
+
+		// 3) user_id
 		rawUser, ok := claims["user_id"].(float64)
 		if !ok {
-			http.Error(w, "Invalid or missing user_id", http.StatusUnauthorized)
+			http.Error(w, "invalid or missing user_id", http.StatusUnauthorized)
 			return
 		}
 		userID := int64(rawUser)
 
-		// 2) employee_id or customer_id
+		// 4) employee_id or customer_id
 		var employeeID *int64
 		if raw, exists := claims["employee_id"]; exists && raw != nil {
 			if f, ok := raw.(float64); ok {
-				id := int64(f)
-				employeeID = &id
+				v := int64(f)
+				employeeID = &v
 			} else {
-				http.Error(w, "Invalid employee_id", http.StatusUnauthorized)
+				http.Error(w, "invalid employee_id", http.StatusUnauthorized)
 				return
 			}
 		}
 		var customerID *int64
 		if raw, exists := claims["customer_id"]; exists && raw != nil {
 			if f, ok := raw.(float64); ok {
-				id := int64(f)
-				customerID = &id
+				v := int64(f)
+				customerID = &v
 			} else {
-				http.Error(w, "Invalid customer_id", http.StatusUnauthorized)
+				http.Error(w, "invalid customer_id", http.StatusUnauthorized)
 				return
 			}
 		}
 		if employeeID == nil && customerID == nil {
-			http.Error(w, "Neither employee_id nor customer_id present", http.StatusUnauthorized)
+			http.Error(w, "neither employee_id nor customer_id present", http.StatusUnauthorized)
 			return
 		}
 
-		// 3) scopes array
+		// 5) scopes
 		var scopes []jwtv1.RoleScope
 		if rawScopes, exists := claims["scopes"]; exists && rawScopes != nil {
-			// rawScopes is []interface{}
 			items, ok := rawScopes.([]interface{})
 			if !ok {
-				http.Error(w, "Invalid scopes format", http.StatusUnauthorized)
+				http.Error(w, "invalid scopes format", http.StatusUnauthorized)
 				return
 			}
 			for _, item := range items {
 				m, ok := item.(map[string]interface{})
 				if !ok {
-					http.Error(w, "Invalid scope entry", http.StatusUnauthorized)
+					http.Error(w, "invalid scope entry", http.StatusUnauthorized)
 					return
 				}
-				// parse role_id
 				f, ok := m["role_id"].(float64)
 				if !ok {
-					http.Error(w, "Invalid role_id in scope", http.StatusUnauthorized)
+					http.Error(w, "invalid role_id in scope", http.StatusUnauthorized)
 					return
 				}
 				rs := jwtv1.RoleScope{RoleID: int64(f)}
-				// optional organization_id
-				if rawOrg, exists := m["organization_id"]; exists && rawOrg != nil {
+				if rawOrg, ok := m["organization_id"]; ok && rawOrg != nil {
 					if of, ok := rawOrg.(float64); ok {
-						o := int64(of)
-						rs.OrganizationID = &o
+						v := int64(of)
+						rs.OrganizationID = &v
 					} else {
-						http.Error(w, "Invalid organization_id in scope", http.StatusUnauthorized)
+						http.Error(w, "invalid organization_id in scope", http.StatusUnauthorized)
 						return
 					}
 				}
-				// optional branch_id
-				if rawBr, exists := m["branch_id"]; exists && rawBr != nil {
+				if rawBr, ok := m["branch_id"]; ok && rawBr != nil {
 					if bf, ok := rawBr.(float64); ok {
-						b := int64(bf)
-						rs.BranchID = &b
+						v := int64(bf)
+						rs.BranchID = &v
 					} else {
-						http.Error(w, "Invalid branch_id in scope", http.StatusUnauthorized)
+						http.Error(w, "invalid branch_id in scope", http.StatusUnauthorized)
 						return
 					}
 				}
@@ -129,7 +141,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			}
 		}
 
-		// 4) Inject into context
+		// 6) inject into context
 		ctx := r.Context()
 		ctx = context.WithValue(ctx, ContextUserIDKey, userID)
 		if employeeID != nil {
@@ -140,7 +152,29 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		}
 		ctx = context.WithValue(ctx, ContextScopesKey, scopes)
 
-		// Call next with enriched context
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
+}
+
+func GetUserID(r *http.Request) (int64, bool) {
+	uid, ok := r.Context().Value(ContextUserIDKey).(int64)
+	return uid, ok
+}
+
+// GetEmployeeID returns the employee_id from context, if present.
+func GetEmployeeID(r *http.Request) (int64, bool) {
+	eid, ok := r.Context().Value(ContextEmployeeIDKey).(int64)
+	return eid, ok
+}
+
+// GetCustomerID returns the customer_id from context, if present.
+func GetCustomerID(r *http.Request) (int64, bool) {
+	cid, ok := r.Context().Value(ContextCustomerIDKey).(int64)
+	return cid, ok
+}
+
+// GetScopes returns the parsed RoleScope slice from context, if present.
+func GetScopes(r *http.Request) ([]jwtv1.RoleScope, bool) {
+	scopes, ok := r.Context().Value(ContextScopesKey).([]jwtv1.RoleScope)
+	return scopes, ok
 }
