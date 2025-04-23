@@ -79,7 +79,7 @@ func (s *APIServer) Run() error {
 	if err != nil {
 		panic(err)
 	}
-	//Employeegrpc, err := grpc.NewEmployeeClient(context, s.cfg.GRPC.Employee, time.Hour, 2)
+	Employeegrpc, err := grpc.NewEmployeeClient(context, s.cfg.GRPC.Employee, time.Hour, 2)
 	fmt.Println(s.cfg.GRPC.Employee)
 	if err != nil {
 		panic(err)
@@ -90,11 +90,11 @@ func (s *APIServer) Run() error {
 	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
-	//orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
+	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
 	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
 	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log, B2CServiceOrderGrpc)
-	//EmployeeHandler := handler.NewEmployeeHandler(s.log, Employeegrpc)
+	EmployeeHandler := handler.NewEmployeeHandler(s.log, Employeegrpc)
 	// adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
 	router.Route("/admin/api", func(adminRouter chi.Router) {
@@ -325,7 +325,7 @@ func (s *APIServer) Run() error {
 		})
 		apiRouter.Route("/customer", func(customerRouter chi.Router) {
 			customerRouter.Group(func(authRouter chi.Router) {
-				//authRouter.Use(auth.AuthMiddleware)
+				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", customerHandler.CreateCustomer)
 				authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
 				authRouter.Delete("/{customer_id}", customerHandler.DeleteCustomer)
@@ -345,18 +345,18 @@ func (s *APIServer) Run() error {
 			})
 		})
 		apiRouter.Route("/employee", func(employeeRouter chi.Router) {
-			//employeeRouter.Group(func(authRouter chi.Router) {
-			//	authRouter.Post("/", EmployeeHandler.CreateEmployee)
-			//	authRouter.Get("/{employee_id}", EmployeeHandler.GetEmployee)
-			//	authRouter.Put("/{employee_id}", EmployeeHandler.UpdateEmployee)
-			//
-			//	authRouter.Route("/role", func(roleRouter chi.Router) {
-			//		roleRouter.Post("/", EmployeeHandler.CreateRole)
-			//		roleRouter.Get("/", EmployeeHandler.ListRole)
-			//		roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
-			//		roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
-			//	})
-			//})
+			employeeRouter.Group(func(authRouter chi.Router) {
+				authRouter.Post("/", EmployeeHandler.CreateEmployee)
+				authRouter.Get("/{employee_id}", EmployeeHandler.GetEmployee)
+				authRouter.Put("/{employee_id}", EmployeeHandler.UpdateEmployee)
+
+				authRouter.Route("/role", func(roleRouter chi.Router) {
+					roleRouter.Post("/", EmployeeHandler.CreateRole)
+					roleRouter.Get("/", EmployeeHandler.ListRoles)
+					roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
+					roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
+				})
+			})
 		})
 
 		apiRouter.Route("/order", func(orderRouter chi.Router) {
