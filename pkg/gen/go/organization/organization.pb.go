@@ -3387,7 +3387,7 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\x12ListBannerResponse\x12.\n" +
 	"\abanners\x18\x01 \x03(\v2\x14.organization.BannerR\abanners\"<\n" +
 	"\x11ListBannerRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId2\xd7\x13\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId2\xd9\x13\n" +
 	"\x13OrganizationService\x12X\n" +
 	"\rCreateAddress\x12\".organization.CreateAddressRequest\x1a#.organization.CreateAddressResponse\x12O\n" +
 	"\n" +
@@ -3408,8 +3408,8 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\fDeleteBranch\x12!.organization.DeleteBranchRequest\x1a\".organization.DeleteBranchResponse\x12g\n" +
 	"\x12CreateLoyaltyLevel\x12'.organization.CreateLoyaltyLevelRequest\x1a(.organization.CreateLoyaltyLevelResponse\x12^\n" +
 	"\x0fGetLoyaltyLevel\x12$.organization.GetLoyaltyLevelRequest\x1a%.organization.GetLoyaltyLevelResponse\x12g\n" +
-	"\x12UpdateLoyaltyLevel\x12'.organization.UpdateLoyaltyLevelRequest\x1a(.organization.UpdateLoyaltyLevelResponse\x12\x8c\x01\n" +
-	"\x1dListBonusLevelsByOrganization\x124.organization.ListLoyaltyLevelsByOrganizationRequest\x1a5.organization.ListLoyaltyLevelsByOrganizationResponse\x12R\n" +
+	"\x12UpdateLoyaltyLevel\x12'.organization.UpdateLoyaltyLevelRequest\x1a(.organization.UpdateLoyaltyLevelResponse\x12\x8e\x01\n" +
+	"\x1fListLoyaltyLevelsByOrganization\x124.organization.ListLoyaltyLevelsByOrganizationRequest\x1a5.organization.ListLoyaltyLevelsByOrganizationResponse\x12R\n" +
 	"\vCreateStory\x12 .organization.CreateStoryRequest\x1a!.organization.CreateStoryResponse\x12R\n" +
 	"\vUpdateStory\x12 .organization.UpdateStoryRequest\x1a!.organization.UpdateStoryResponse\x12L\n" +
 	"\tListStory\x12\x1e.organization.ListStoryRequest\x1a\x1f.organization.ListStoryResponse\x12U\n" +
@@ -3553,7 +3553,7 @@ var file_organization_organization_proto_depIdxs = []int32{
 	8,  // 56: organization.OrganizationService.CreateLoyaltyLevel:input_type -> organization.CreateLoyaltyLevelRequest
 	10, // 57: organization.OrganizationService.GetLoyaltyLevel:input_type -> organization.GetLoyaltyLevelRequest
 	12, // 58: organization.OrganizationService.UpdateLoyaltyLevel:input_type -> organization.UpdateLoyaltyLevelRequest
-	14, // 59: organization.OrganizationService.ListBonusLevelsByOrganization:input_type -> organization.ListLoyaltyLevelsByOrganizationRequest
+	14, // 59: organization.OrganizationService.ListLoyaltyLevelsByOrganization:input_type -> organization.ListLoyaltyLevelsByOrganizationRequest
 	49, // 60: organization.OrganizationService.CreateStory:input_type -> organization.CreateStoryRequest
 	51, // 61: organization.OrganizationService.UpdateStory:input_type -> organization.UpdateStoryRequest
 	53, // 62: organization.OrganizationService.ListStory:input_type -> organization.ListStoryRequest
@@ -3579,7 +3579,7 @@ var file_organization_organization_proto_depIdxs = []int32{
 	9,  // 82: organization.OrganizationService.CreateLoyaltyLevel:output_type -> organization.CreateLoyaltyLevelResponse
 	11, // 83: organization.OrganizationService.GetLoyaltyLevel:output_type -> organization.GetLoyaltyLevelResponse
 	13, // 84: organization.OrganizationService.UpdateLoyaltyLevel:output_type -> organization.UpdateLoyaltyLevelResponse
-	15, // 85: organization.OrganizationService.ListBonusLevelsByOrganization:output_type -> organization.ListLoyaltyLevelsByOrganizationResponse
+	15, // 85: organization.OrganizationService.ListLoyaltyLevelsByOrganization:output_type -> organization.ListLoyaltyLevelsByOrganizationResponse
 	48, // 86: organization.OrganizationService.CreateStory:output_type -> organization.CreateStoryResponse
 	50, // 87: organization.OrganizationService.UpdateStory:output_type -> organization.UpdateStoryResponse
 	52, // 88: organization.OrganizationService.ListStory:output_type -> organization.ListStoryResponse

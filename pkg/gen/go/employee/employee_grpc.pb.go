@@ -24,7 +24,7 @@ const (
 	EmployeeService_UpdateEmployee_FullMethodName = "/employee.EmployeeService/UpdateEmployee"
 	EmployeeService_CreateRole_FullMethodName     = "/employee.EmployeeService/CreateRole"
 	EmployeeService_UpdateRole_FullMethodName     = "/employee.EmployeeService/UpdateRole"
-	EmployeeService_ListRole_FullMethodName       = "/employee.EmployeeService/ListRole"
+	EmployeeService_ListRoles_FullMethodName      = "/employee.EmployeeService/ListRoles"
 	EmployeeService_DeleteRole_FullMethodName     = "/employee.EmployeeService/DeleteRole"
 )
 
@@ -37,7 +37,7 @@ type EmployeeServiceClient interface {
 	UpdateEmployee(ctx context.Context, in *UpdateEmployeeRequest, opts ...grpc.CallOption) (*UpdateEmployeeResponse, error)
 	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
 	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
-	ListRole(ctx context.Context, in *ListRoleRequest, opts ...grpc.CallOption) (*ListRoleResponse, error)
+	ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error)
 	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
 }
 
@@ -99,10 +99,10 @@ func (c *employeeServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleRe
 	return out, nil
 }
 
-func (c *employeeServiceClient) ListRole(ctx context.Context, in *ListRoleRequest, opts ...grpc.CallOption) (*ListRoleResponse, error) {
+func (c *employeeServiceClient) ListRoles(ctx context.Context, in *ListRolesRequest, opts ...grpc.CallOption) (*ListRolesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListRoleResponse)
-	err := c.cc.Invoke(ctx, EmployeeService_ListRole_FullMethodName, in, out, cOpts...)
+	out := new(ListRolesResponse)
+	err := c.cc.Invoke(ctx, EmployeeService_ListRoles_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ type EmployeeServiceServer interface {
 	UpdateEmployee(context.Context, *UpdateEmployeeRequest) (*UpdateEmployeeResponse, error)
 	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
 	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
-	ListRole(context.Context, *ListRoleRequest) (*ListRoleResponse, error)
+	ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error)
 	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
 	mustEmbedUnimplementedEmployeeServiceServer()
 }
@@ -155,8 +155,8 @@ func (UnimplementedEmployeeServiceServer) CreateRole(context.Context, *CreateRol
 func (UnimplementedEmployeeServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
 }
-func (UnimplementedEmployeeServiceServer) ListRole(context.Context, *ListRoleRequest) (*ListRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListRole not implemented")
+func (UnimplementedEmployeeServiceServer) ListRoles(context.Context, *ListRolesRequest) (*ListRolesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
 }
 func (UnimplementedEmployeeServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
@@ -272,20 +272,20 @@ func _EmployeeService_UpdateRole_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EmployeeService_ListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRoleRequest)
+func _EmployeeService_ListRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRolesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EmployeeServiceServer).ListRole(ctx, in)
+		return srv.(EmployeeServiceServer).ListRoles(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: EmployeeService_ListRole_FullMethodName,
+		FullMethod: EmployeeService_ListRoles_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EmployeeServiceServer).ListRole(ctx, req.(*ListRoleRequest))
+		return srv.(EmployeeServiceServer).ListRoles(ctx, req.(*ListRolesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -336,8 +336,8 @@ var EmployeeService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _EmployeeService_UpdateRole_Handler,
 		},
 		{
-			MethodName: "ListRole",
-			Handler:    _EmployeeService_ListRole_Handler,
+			MethodName: "ListRoles",
+			Handler:    _EmployeeService_ListRoles_Handler,
 		},
 		{
 			MethodName: "DeleteRole",

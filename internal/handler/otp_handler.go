@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"encoding/json"
 	"log/slog"
 	"net/http"
 
 	userv1 "github.com/2group/2sales.core-service/pkg/gen/go/user"
+	"github.com/2group/2sales.core-service/pkg/json"
 )
 
 type OtpHandler struct {
@@ -25,8 +25,8 @@ func (h *OtpHandler) RequestOtp(w http.ResponseWriter, r *http.Request) {
 		PhoneNumber string `json:"phone_number"`
 	}
 
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid request", http.StatusBadRequest)
+	if err := json.ParseJSON(r, &req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
@@ -35,11 +35,11 @@ func (h *OtpHandler) RequestOtp(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		h.log.Error("failed to request OTP", "err", err)
-		http.Error(w, "не удалось отправить код", http.StatusInternalServerError)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]any{
+	json.WriteJSON(w, http.StatusOK, map[string]any{
 		"ok":      true,
 		"message": "Код отправлен",
 	})
@@ -51,8 +51,8 @@ func (h *OtpHandler) VerifyOtp(w http.ResponseWriter, r *http.Request) {
 		Code        string `json:"code"`
 	}
 
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid request", http.StatusBadRequest)
+	if err := json.ParseJSON(r, &req); err != nil {
+		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
@@ -62,9 +62,9 @@ func (h *OtpHandler) VerifyOtp(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		h.log.Error("failed to verify OTP", "err", err)
-		http.Error(w, "неверный или просроченный код", http.StatusUnauthorized)
+		json.WriteError(w, http.StatusUnauthorized, err)
 		return
 	}
 
-	json.NewEncoder(w).Encode(resp)
+	json.WriteJSON(w, http.StatusOK, resp)
 }

@@ -57,10 +57,10 @@ func (s *APIServer) Run() error {
 	// 	panic(err)
 	// }
 
-	// ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
-	// if err != nil {
-	// 	panic(err)
-	// }
+	//ordergrpc, err := grpc.NewOrderClient(context, s.cfg.GRPC.Order, time.Hour, 2)
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	customergrpc, err := grpc.NewCustomerClient(context, s.cfg.GRPC.Customer, time.Hour, 2)
 	fmt.Println(s.cfg.GRPC.Customer)
@@ -111,7 +111,7 @@ func (s *APIServer) Run() error {
 			userRouter.Post("/register", userHandler.Register)
 			userRouter.Put("/update", userHandler.UpdateUser)
 			userRouter.Post("/create", userHandler.CreateUser)
-			userRouter.Get("/", userHandler.ListUser)
+			//userRouter.Get("/", userHandler.ListUser)
 			// userRouter.Get("/phone", userHandler.GetUserByEmail)
 			// userRouter.Group(func(authRouter chi.Router) {
 			// 	authRouter.Use(auth.AuthMiddleware)
@@ -176,10 +176,10 @@ func (s *APIServer) Run() error {
 					aRouter.Delete("/{address_id}", organizationHandler.DeleteAddress)
 				})
 				authRouter.Route("/loyalty-level", func(lRouter chi.Router) {
-					// lRouter.Post("/", organizationHandler.CreateBonusLevel)
-					// lRouter.Get("/{bonus_level_id}", organizationHandler.GetBonusLevel)
-					// lRouter.Put("/{bonus_level_id}", organizationHandler.UpdateBonusLevel)
-					// lRouter.Get("/organization/{organization_id}", organizationHandler.ListBonusLevelsByOrganization)
+					lRouter.Post("/", organizationHandler.CreateLoyaltyLevel)
+					lRouter.Get("/{loyalty_level_id}", organizationHandler.GetLoyaltyLevel)
+					lRouter.Put("/{loyalty_level_id}", organizationHandler.UpdateLoyaltyLevel)
+					lRouter.Get("/organization/{organization_id}", organizationHandler.ListLoyaltyLevelsByOrganization)
 				})
 				authRouter.Route("/story", func(sRouter chi.Router) {
 					sRouter.Post("/", organizationHandler.CreateStory)
@@ -301,7 +301,7 @@ func (s *APIServer) Run() error {
 				suborderRouter.Group(func(authRouter chi.Router) {
 					authRouter.Use(auth.AuthMiddleware)
 					// authRouter.Post("/", orderHandler.CreateSubOrder)
-					// authRouter.Post("/order", orderHandler.CreateOrder)
+					//authRouter.Post("/order", orderHandler.CreateOrder)
 					// authRouter.Get("/", orderHandler.ListSubOrder)
 					// authRouter.Get("/{suborder_id}", orderHandler.GetSubOrder)
 					// authRouter.Put("/{suborder_id}", orderHandler.UpdateSubOrder)
@@ -352,7 +352,7 @@ func (s *APIServer) Run() error {
 
 				authRouter.Route("/role", func(roleRouter chi.Router) {
 					roleRouter.Post("/", EmployeeHandler.CreateRole)
-					// roleRouter.Get("/", EmployeeHandler.ListRole)
+					roleRouter.Get("/", EmployeeHandler.ListRoles)
 					roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
 					roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
 				})
