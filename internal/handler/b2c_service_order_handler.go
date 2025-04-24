@@ -27,61 +27,59 @@ func NewB2CServiceOrderHandler(log *slog.Logger, b2c_service_order *grpc.B2CServ
 }
 
 func (h *B2CServiceOrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
-	req := &orderv1.CreateOrderRequest{}
+	log := h.log.With("method", "CreateOrder")
+	log.Info("request_received")
 
+	req := &orderv1.CreateOrderRequest{}
 	if err := json.ParseProtoJSON(r.Body, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	if req.Order == nil {
-		h.log.Error("Parsed request has nil order field")
+		log.Error("missing_order_field")
 		json.WriteError(w, http.StatusBadRequest, errors.New("order data is missing in request"))
 		return
 	}
 
 	if req.Order.CustomerId == nil || *req.Order.CustomerId == 0 {
-		h.log.Error("Customer ID is nil or 0 after parsing")
+		log.Error("invalid_customer_id", "customer_id", req.Order.CustomerId)
 		json.WriteError(w, http.StatusBadRequest, errors.New("customerId cannot be 0"))
 		return
 	}
 
-	h.log.Info("Customer ID after protojson parsing in handler", "customer_id", *req.Order.CustomerId)
+	log.Info("calling_b2c_service_order_microservice", "customer_id", *req.Order.CustomerId)
 
-	response, err := h.b2c_service_order.Api.CreateOrder(r.Context(), req)
+	resp, err := h.b2c_service_order.Api.CreateOrder(r.Context(), req)
 	if err != nil {
-		h.log.Error("gRPC call to CreateOrder failed", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, errors.New("internal server error during order creation"))
 		return
 	}
 
-	json.WriteJSON(w, http.StatusCreated, response)
-	h.log.Info("CreateOrder response sent", "status", http.StatusCreated)
+	log.Info("succeeded", "order_id", resp.GetOrderDetail().GetId())
+	json.WriteJSON(w, http.StatusCreated, resp)
 }
 
 func (h *B2CServiceOrderHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
-	orderIDStr := chi.URLParam(r, "order_id")
-	if orderIDStr == "" {
-		json.WriteError(w, http.StatusBadRequest, errors.New("missing order_id in URL path"))
-		return
-	}
+	log := h.log.With("method", "GetOrder")
+	log.Info("request_received")
 
+	orderIDStr := chi.URLParam(r, "order_id")
 	orderID, err := strconv.ParseInt(orderIDStr, 10, 64)
 	if err != nil || orderID <= 0 {
-		json.WriteError(w, http.StatusBadRequest, errors.New("invalid order_id format in URL path"))
+		log.Error("invalid_order_id", "order_id", orderIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid order_id"))
 		return
 	}
 
-	req := &orderv1.GetOrderRequest{
-		Id: orderID,
-	}
+	log.Info("calling_b2c_service_order_microservice", "order_id", orderID)
 
-	h.log.Info("Calling GetOrder gRPC method", "order_id", orderID)
-
-	response, err := h.b2c_service_order.Api.GetOrder(r.Context(), req)
+	req := &orderv1.GetOrderRequest{Id: orderID}
+	resp, err := h.b2c_service_order.Api.GetOrder(r.Context(), req)
 	if err != nil {
-		h.log.Error("gRPC call to GetOrder failed", "error", err, "order_id", orderID)
+		log.Error("gRPC_call_failed", "error", err, "order_id", orderID)
 
 		st, ok := status.FromError(err)
 		if ok {
@@ -91,21 +89,23 @@ func (h *B2CServiceOrderHandler) GetOrder(w http.ResponseWriter, r *http.Request
 			case codes.InvalidArgument:
 				json.WriteError(w, http.StatusBadRequest, errors.New(st.Message()))
 			default:
-				json.WriteError(w, http.StatusInternalServerError, errors.New("internal server error retrieving order"))
+				json.WriteError(w, http.StatusInternalServerError, errors.New("internal error"))
 			}
 		} else {
-			json.WriteError(w, http.StatusInternalServerError, errors.New("internal server error retrieving order"))
+			json.WriteError(w, http.StatusInternalServerError, errors.New("internal error"))
 		}
 		return
 	}
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("GetOrder response sent", "status", http.StatusOK)
+	log.Info("succeeded", "order_id", resp.GetOrderDetail().GetId())
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query()
+	log := h.log.With("method", "ListOrders")
+	log.Info("request_received")
 
+	query := r.URL.Query()
 	orgIDStr := query.Get("organization_id")
 	limitStr := query.Get("limit")
 	offsetStr := query.Get("offset")
@@ -120,6 +120,7 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 	if orgIDStr != "" {
 		orgID, err = strconv.ParseInt(orgIDStr, 10, 64)
 		if err != nil || orgID < 0 {
+			log.Error("invalid_organization_id", "organization_id", orgIDStr, "error", err)
 			json.WriteError(w, http.StatusBadRequest, errors.New("invalid organization_id"))
 			return
 		}
@@ -128,6 +129,7 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 	if limitStr != "" {
 		limit, err = strconv.ParseInt(limitStr, 10, 64)
 		if err != nil || limit < 0 {
+			log.Error("invalid_limit", "limit", limitStr, "error", err)
 			json.WriteError(w, http.StatusBadRequest, errors.New("invalid limit"))
 			return
 		}
@@ -136,12 +138,13 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 	if offsetStr != "" {
 		offset, err = strconv.ParseInt(offsetStr, 10, 64)
 		if err != nil || offset < 0 {
+			log.Error("invalid_offset", "offset", offsetStr, "error", err)
 			json.WriteError(w, http.StatusBadRequest, errors.New("invalid offset"))
 			return
 		}
 	}
 
-	h.log.Info("Calling ListOrders gRPC", "orgID", orgID, "limit", limit, "offset", offset)
+	log.Info("calling_b2c_service_order_microservice", "organization_id", orgID, "limit", limit, "offset", offset)
 
 	req := &orderv1.ListB2CServiceOrdersRequest{
 		OrganizationId: orgID,
@@ -151,11 +154,11 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 
 	resp, err := h.b2c_service_order.Api.ListOrders(r.Context(), req)
 	if err != nil {
-		h.log.Error("gRPC ListOrders failed", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, errors.New("failed to fetch orders"))
 		return
 	}
 
+	log.Info("succeeded", "orders_count", len(resp.Orders))
 	json.WriteJSON(w, http.StatusOK, resp)
-	h.log.Info("ListOrders response sent", "orders_count", len(resp.Orders))
 }

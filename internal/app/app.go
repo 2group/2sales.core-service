@@ -90,7 +90,7 @@ func (s *APIServer) Run() error {
 	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
 	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
 	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
-	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log, B2CServiceOrderGrpc)
+	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log.With("component", "b2c_service_order_handler"), B2CServiceOrderGrpc)
 	EmployeeHandler := handler.NewEmployeeHandler(s.log, Employeegrpc)
 	// adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
