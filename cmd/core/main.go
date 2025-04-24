@@ -18,12 +18,17 @@ const (
 
 func main() {
 	cfg := config.MustLoad()
-	kafkaPublisher, err := kafka.NewKafkaPublisher(cfg.KafkaBroker)
+	var kafkaPublisher *kafka.KafkaPublisher
+	var err error
+	if cfg.Env != "local" {
+		kafkaPublisher, err = kafka.NewKafkaPublisher(cfg.KafkaBroker)
+		defer kafkaPublisher.Close()
+	}
 	if err != nil {
 		slog.Error("failed to create Kafka publisher", slog.String("error", err.Error()))
 		os.Exit(1)
 	}
-	defer kafkaPublisher.Close()
+
 	log := logging.SetupLogger(kafkaPublisher, "core_service_logs", cfg.Env)
 
 	log.Info("starting_application", "port", cfg.REST.Port)

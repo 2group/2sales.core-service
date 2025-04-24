@@ -66,7 +66,8 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 	}
 
 	rc := middleware.NewRoleChecker(r)
-	if !rc.HasSuperAdmin() && !rc.HasOrgAdmin(orgID) {
+	fmt.Println("Is super admin:", rc.HasSuperAdmin())
+	if !(rc.HasSuperAdmin() || rc.HasOrgAdmin(orgID)) {
 		log.Error("forbidden")
 		json.WriteError(w, http.StatusForbidden, errors.New("No permission"))
 		return
@@ -83,6 +84,7 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 	}
 	log.Info("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
+
 }
 
 func (h *OrganizationHandler) DeleteOrganization(w http.ResponseWriter, r *http.Request) {
