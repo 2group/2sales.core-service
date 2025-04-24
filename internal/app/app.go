@@ -326,7 +326,7 @@ func (s *APIServer) Run() error {
 		})
 		apiRouter.Route("/customer", func(customerRouter chi.Router) {
 			customerRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
+				//authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", customerHandler.CreateCustomer)
 				authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
 				authRouter.Delete("/{customer_id}", customerHandler.DeleteCustomer)
@@ -363,16 +363,17 @@ func (s *APIServer) Run() error {
 
 		apiRouter.Route("/order", func(orderRouter chi.Router) {
 			orderRouter.Group(func(authRouter chi.Router) {
-				authRouter.Use(auth.AuthMiddleware)
+				//authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
 				authRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
+				authRouter.Get("/", B2CServiceOrderHandler.ListOrders)
 				// authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
 			})
 		})
 
 		apiRouter.Route("/otp", func(otpRouter chi.Router) {
-			otpRouter.Post("/request-sms", otpHandler.RequestOtp)
-			otpRouter.Post("/verify-sms", otpHandler.VerifyOtp)
+			otpRouter.Post("/request-sms", otpHandler.RequestSmsOtp)
+			otpRouter.Post("/verify-sms", otpHandler.VerifySmsOtp)
 			otpRouter.Post("/request-mail", otpHandler.RequestMailOtp)
 			otpRouter.Post("/verify-mail", otpHandler.VerifyMailOtp)
 
