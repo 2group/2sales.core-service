@@ -112,7 +112,7 @@ func (s *APIServer) Run() error {
 			userRouter.Put("/", userHandler.UpdateUser)
 			userRouter.Post("/", userHandler.CreateUser)
 			userRouter.Get("/", userHandler.ListUsers)
-
+			// userRouter.Get("/", userHandler.ListUser)
 			// userRouter.Get("/phone", userHandler.GetUserByEmail)
 			// userRouter.Group(func(authRouter chi.Router) {
 			// 	authRouter.Use(auth.AuthMiddleware)
