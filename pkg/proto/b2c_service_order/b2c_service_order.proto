@@ -11,6 +11,7 @@ import "customer/customer.proto";
 service B2CServiceOrderService {
     rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
     rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
+    rpc ListOrders (ListB2CServiceOrdersRequest) returns (ListB2CServiceOrdersResponse);
 //    rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
 }  
 
@@ -87,7 +88,7 @@ message ListB2CServiceOrdersRequest {
    int64 offset = 3;
  }
 
-// message ListB2CServiceOrdersResponse {
-//   repeated B2CServiceOrder orders = 1;
-//   int64 total_count = 2;
-// }
+message ListB2CServiceOrdersResponse {
+  repeated OrderDetail orders = 1;
+  int64 total_count = 2;
+}

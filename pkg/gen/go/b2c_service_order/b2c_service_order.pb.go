@@ -709,6 +709,58 @@ func (x *ListB2CServiceOrdersRequest) GetOffset() int64 {
 	return 0
 }
 
+type ListB2CServiceOrdersResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Orders        []*OrderDetail         `protobuf:"bytes,1,rep,name=orders,proto3" json:"orders,omitempty"`
+	TotalCount    int64                  `protobuf:"varint,2,opt,name=total_count,json=totalCount,proto3" json:"total_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListB2CServiceOrdersResponse) Reset() {
+	*x = ListB2CServiceOrdersResponse{}
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListB2CServiceOrdersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListB2CServiceOrdersResponse) ProtoMessage() {}
+
+func (x *ListB2CServiceOrdersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListB2CServiceOrdersResponse.ProtoReflect.Descriptor instead.
+func (*ListB2CServiceOrdersResponse) Descriptor() ([]byte, []int) {
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *ListB2CServiceOrdersResponse) GetOrders() []*OrderDetail {
+	if x != nil {
+		return x.Orders
+	}
+	return nil
+}
+
+func (x *ListB2CServiceOrdersResponse) GetTotalCount() int64 {
+	if x != nil {
+		return x.TotalCount
+	}
+	return 0
+}
+
 var File_b2c_service_order_b2c_service_order_proto protoreflect.FileDescriptor
 
 const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
@@ -779,10 +831,16 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x1bListB2CServiceOrdersRequest\x12'\n" +
 	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\x12\x14\n" +
 	"\x05limit\x18\x02 \x01(\x03R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x03 \x01(\x03R\x06offset2\xcb\x01\n" +
+	"\x06offset\x18\x03 \x01(\x03R\x06offset\"w\n" +
+	"\x1cListB2CServiceOrdersResponse\x126\n" +
+	"\x06orders\x18\x01 \x03(\v2\x1e.b2c_service_order.OrderDetailR\x06orders\x12\x1f\n" +
+	"\vtotal_count\x18\x02 \x01(\x03R\n" +
+	"totalCount2\xba\x02\n" +
 	"\x16B2CServiceOrderService\x12\\\n" +
 	"\vCreateOrder\x12%.b2c_service_order.CreateOrderRequest\x1a&.b2c_service_order.CreateOrderResponse\x12S\n" +
-	"\bGetOrder\x12\".b2c_service_order.GetOrderRequest\x1a#.b2c_service_order.GetOrderResponseBXZVgithub.com/2group/2sales.core-service/pkg/gen/go/b2c_service_order;b2c_service_orderv1b\x06proto3"
+	"\bGetOrder\x12\".b2c_service_order.GetOrderRequest\x1a#.b2c_service_order.GetOrderResponse\x12m\n" +
+	"\n" +
+	"ListOrders\x12..b2c_service_order.ListB2CServiceOrdersRequest\x1a/.b2c_service_order.ListB2CServiceOrdersResponseBXZVgithub.com/2group/2sales.core-service/pkg/gen/go/b2c_service_order;b2c_service_orderv1b\x06proto3"
 
 var (
 	file_b2c_service_order_b2c_service_order_proto_rawDescOnce sync.Once
@@ -796,43 +854,47 @@ func file_b2c_service_order_b2c_service_order_proto_rawDescGZIP() []byte {
 	return file_b2c_service_order_b2c_service_order_proto_rawDescData
 }
 
-var file_b2c_service_order_b2c_service_order_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_b2c_service_order_b2c_service_order_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_b2c_service_order_b2c_service_order_proto_goTypes = []any{
-	(*OrderDetail)(nil),                 // 0: b2c_service_order.OrderDetail
-	(*Order)(nil),                       // 1: b2c_service_order.Order
-	(*OrderItem)(nil),                   // 2: b2c_service_order.OrderItem
-	(*OrderItemDetail)(nil),             // 3: b2c_service_order.OrderItemDetail
-	(*CreateOrderRequest)(nil),          // 4: b2c_service_order.CreateOrderRequest
-	(*CreateOrderResponse)(nil),         // 5: b2c_service_order.CreateOrderResponse
-	(*UpdateOrderRequest)(nil),          // 6: b2c_service_order.UpdateOrderRequest
-	(*UpdateOrderResponse)(nil),         // 7: b2c_service_order.UpdateOrderResponse
-	(*GetOrderRequest)(nil),             // 8: b2c_service_order.GetOrderRequest
-	(*GetOrderResponse)(nil),            // 9: b2c_service_order.GetOrderResponse
-	(*ListB2CServiceOrdersRequest)(nil), // 10: b2c_service_order.ListB2CServiceOrdersRequest
-	(*customer.Customer)(nil),           // 11: customer.Customer
-	(*service.Service)(nil),             // 12: service.Service
+	(*OrderDetail)(nil),                  // 0: b2c_service_order.OrderDetail
+	(*Order)(nil),                        // 1: b2c_service_order.Order
+	(*OrderItem)(nil),                    // 2: b2c_service_order.OrderItem
+	(*OrderItemDetail)(nil),              // 3: b2c_service_order.OrderItemDetail
+	(*CreateOrderRequest)(nil),           // 4: b2c_service_order.CreateOrderRequest
+	(*CreateOrderResponse)(nil),          // 5: b2c_service_order.CreateOrderResponse
+	(*UpdateOrderRequest)(nil),           // 6: b2c_service_order.UpdateOrderRequest
+	(*UpdateOrderResponse)(nil),          // 7: b2c_service_order.UpdateOrderResponse
+	(*GetOrderRequest)(nil),              // 8: b2c_service_order.GetOrderRequest
+	(*GetOrderResponse)(nil),             // 9: b2c_service_order.GetOrderResponse
+	(*ListB2CServiceOrdersRequest)(nil),  // 10: b2c_service_order.ListB2CServiceOrdersRequest
+	(*ListB2CServiceOrdersResponse)(nil), // 11: b2c_service_order.ListB2CServiceOrdersResponse
+	(*customer.Customer)(nil),            // 12: customer.Customer
+	(*service.Service)(nil),              // 13: service.Service
 }
 var file_b2c_service_order_b2c_service_order_proto_depIdxs = []int32{
-	11, // 0: b2c_service_order.OrderDetail.customer:type_name -> customer.Customer
+	12, // 0: b2c_service_order.OrderDetail.customer:type_name -> customer.Customer
 	3,  // 1: b2c_service_order.OrderDetail.order_items:type_name -> b2c_service_order.OrderItemDetail
 	2,  // 2: b2c_service_order.Order.order_items:type_name -> b2c_service_order.OrderItem
-	11, // 3: b2c_service_order.Order.customer:type_name -> customer.Customer
-	12, // 4: b2c_service_order.OrderItem.service:type_name -> service.Service
-	12, // 5: b2c_service_order.OrderItemDetail.service:type_name -> service.Service
+	12, // 3: b2c_service_order.Order.customer:type_name -> customer.Customer
+	13, // 4: b2c_service_order.OrderItem.service:type_name -> service.Service
+	13, // 5: b2c_service_order.OrderItemDetail.service:type_name -> service.Service
 	1,  // 6: b2c_service_order.CreateOrderRequest.order:type_name -> b2c_service_order.Order
 	0,  // 7: b2c_service_order.CreateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
 	1,  // 8: b2c_service_order.UpdateOrderRequest.order:type_name -> b2c_service_order.Order
 	0,  // 9: b2c_service_order.UpdateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
 	0,  // 10: b2c_service_order.GetOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
-	4,  // 11: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
-	8,  // 12: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
-	5,  // 13: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
-	9,  // 14: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
-	13, // [13:15] is the sub-list for method output_type
-	11, // [11:13] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	0,  // 11: b2c_service_order.ListB2CServiceOrdersResponse.orders:type_name -> b2c_service_order.OrderDetail
+	4,  // 12: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
+	8,  // 13: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
+	10, // 14: b2c_service_order.B2CServiceOrderService.ListOrders:input_type -> b2c_service_order.ListB2CServiceOrdersRequest
+	5,  // 15: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
+	9,  // 16: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
+	11, // 17: b2c_service_order.B2CServiceOrderService.ListOrders:output_type -> b2c_service_order.ListB2CServiceOrdersResponse
+	15, // [15:18] is the sub-list for method output_type
+	12, // [12:15] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_b2c_service_order_b2c_service_order_proto_init() }
@@ -847,7 +909,7 @@ func file_b2c_service_order_b2c_service_order_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_b2c_service_order_b2c_service_order_proto_rawDesc), len(file_b2c_service_order_b2c_service_order_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

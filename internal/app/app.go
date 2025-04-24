@@ -369,8 +369,8 @@ func (s *APIServer) Run() error {
 		})
 
 		apiRouter.Route("/otp", func(otpRouter chi.Router) {
-			otpRouter.Post("/request-sms", otpHandler.RequestOtp)
-			otpRouter.Post("/verify-sms", otpHandler.VerifyOtp)
+			otpRouter.Post("/request-sms", otpHandler.RequestSmsOtp)
+			otpRouter.Post("/verify-sms", otpHandler.VerifySmsOtp)
 			otpRouter.Post("/request-mail", otpHandler.RequestMailOtp)
 			otpRouter.Post("/verify-mail", otpHandler.VerifyMailOtp)
 
