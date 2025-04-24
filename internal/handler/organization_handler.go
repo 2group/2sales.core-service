@@ -66,7 +66,6 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 	}
 
 	rc := middleware.NewRoleChecker(r)
-	fmt.Println("Is super admin:", rc.HasSuperAdmin())
 	if !(rc.HasSuperAdmin() || rc.HasOrgAdmin(orgID)) {
 		log.Error("forbidden")
 		json.WriteError(w, http.StatusForbidden, errors.New("No permission"))
