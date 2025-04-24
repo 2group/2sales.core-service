@@ -9,22 +9,23 @@ import (
 const (
 	RoleOrgAdmin    int64 = 34
 	RoleBranchAdmin int64 = 35
+	RoleSuperAdmin  int64 = 36
 )
 
 // ScopeChecker holds the role→scope data for the current request.
-type ScopeChecker struct {
-	Scopes []jwtv1.RoleScope
+type RoleChecker struct {
+	Roles []jwtv1.RoleScope
 }
 
 // NewScopeChecker extracts RoleScope slice from request context.
-func NewScopeChecker(r *http.Request) *ScopeChecker {
+func NewRoleChecker(r *http.Request) *RoleChecker {
 	scopes, _ := GetScopes(r)
-	return &ScopeChecker{Scopes: scopes}
+	return &RoleChecker{Roles: scopes}
 }
 
 // HasOrgAdmin returns true if user has ORG_ADMIN on given organization.
-func (c *ScopeChecker) HasOrgAdmin(orgID int64) bool {
-	for _, s := range c.Scopes {
+func (c *RoleChecker) HasOrgAdmin(orgID int64) bool {
+	for _, s := range c.Roles {
 		if s.RoleID == RoleOrgAdmin && s.OrganizationID != nil && *s.OrganizationID == orgID {
 			return true
 		}
@@ -32,10 +33,18 @@ func (c *ScopeChecker) HasOrgAdmin(orgID int64) bool {
 	return false
 }
 
-// HasBranchAdmin returns true if user has BRANCH_ADMIN on given branch.
-func (c *ScopeChecker) HasBranchAdmin(branchID int64) bool {
-	for _, s := range c.Scopes {
+func (c *RoleChecker) HasBranchAdmin(branchID int64) bool {
+	for _, s := range c.Roles {
 		if s.RoleID == RoleBranchAdmin && s.BranchID != nil && *s.BranchID == branchID {
+			return true
+		}
+	}
+	return false
+}
+
+func (c *RoleChecker) HasSuperAdmin() bool {
+	for _, s := range c.Roles {
+		if s.RoleID == RoleSuperAdmin {
 			return true
 		}
 	}

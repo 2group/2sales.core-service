@@ -25,6 +25,7 @@ func NewAPIServer(cfg *config.Config, log *slog.Logger) *APIServer {
 }
 
 func (s *APIServer) Run() error {
+	s.log.Info("application_started")
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 	router.Use(middleware.URLFormat)
@@ -63,31 +64,27 @@ func (s *APIServer) Run() error {
 	// }
 
 	customergrpc, err := grpc.NewCustomerClient(context, s.cfg.GRPC.Customer, time.Hour, 2)
-	fmt.Println(s.cfg.GRPC.Customer)
 	if err != nil {
 		panic(err)
 	}
 
 	servicegrpc, err := grpc.NewServiceClient(context, s.cfg.GRPC.Service, time.Hour, 2)
-	fmt.Println(s.cfg.GRPC.Service)
 	if err != nil {
 		panic(err)
 	}
 
 	B2CServiceOrderGrpc, err := grpc.NewB2CServiceOrderClient(context, s.cfg.GRPC.B2CServiceOrder, time.Hour, 2)
-	fmt.Println(s.cfg.GRPC.B2CServiceOrder)
 	if err != nil {
 		panic(err)
 	}
 	Employeegrpc, err := grpc.NewEmployeeClient(context, s.cfg.GRPC.Employee, time.Hour, 2)
-	fmt.Println(s.cfg.GRPC.Employee)
 	if err != nil {
 		panic(err)
 	}
 
 	otpHandler := handler.NewOtpHandler(s.log, otpgrpc.Api)
 	userHandler := handler.NewUserHandler(usergrpc)
-	organizationHandler := handler.NewOrganizationHandler(s.log, organizationgrpc)
+	organizationHandler := handler.NewOrganizationHandler(s.log.With("component", "organization_handler"), organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
@@ -108,7 +105,7 @@ func (s *APIServer) Run() error {
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
 			userRouter.Post("/login", userHandler.Login)
-			userRouter.Post("/register", userHandler.Register)
+			// userRouter.Post("/register", userHandler.Register)
 			userRouter.Put("/update", userHandler.UpdateUser)
 			userRouter.Post("/create", userHandler.CreateUser)
 			// userRouter.Get("/", userHandler.ListUser)

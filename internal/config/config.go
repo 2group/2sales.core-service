@@ -10,10 +10,11 @@ import (
 )
 
 type Config struct {
-	Env  string     `yaml:"env" env-default:"local"`
-	REST RestConfig `yaml:"rest"`
-	GRPC GrpcConfig `yaml:"grpc"`
-	Psql PsqlConfig `yaml:"postgres"`
+	Env         string     `yaml:"env" env-default:"local"`
+	REST        RestConfig `yaml:"rest"`
+	GRPC        GrpcConfig `yaml:"grpc"`
+	Psql        PsqlConfig `yaml:"postgres"`
+	KafkaBroker string     `yaml:"kafka_broker"`
 }
 
 type PsqlConfig struct {
@@ -33,10 +34,10 @@ type GrpcConfig struct {
 	Warehouse       string `yaml:"warehouse"`
 	Order           string `yaml:"order"`
 	Advertisement   string `yaml:"advertisement"`
-	Customer        string `yaml:"customer" env-default:"localhost:50058"`
-	Service         string `yaml:"service" env-default:"localhost:50059"`
-	B2CServiceOrder string `yaml:"b2c_service_order" env-default:"localhost:50060"`
-	Employee        string `yaml:"employee" env-default:"localhost:50061"`
+	Customer        string `yaml:"customer"`
+	Service         string `yaml:"service"`
+	B2CServiceOrder string `yaml:"b2c_service_order"`
+	Employee        string `yaml:"employee"`
 }
 
 func MustLoad() *Config {

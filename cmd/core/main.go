@@ -6,6 +6,8 @@ import (
 
 	"github.com/2group/2sales.core-service/internal/app"
 	"github.com/2group/2sales.core-service/internal/config"
+	"github.com/2group/2sales.core-service/pkg/kafka"
+	"github.com/2group/2sales.core-service/pkg/logging"
 )
 
 const (
@@ -16,13 +18,17 @@ const (
 
 func main() {
 	cfg := config.MustLoad()
-	log := setupLogger(cfg.Env)
+	kafkaPublisher, err := kafka.NewKafkaPublisher(cfg.KafkaBroker)
+	if err != nil {
+		slog.Error("failed to create Kafka publisher", slog.String("error", err.Error()))
+		os.Exit(1)
+	}
+	defer kafkaPublisher.Close()
+	log := logging.SetupLogger(kafkaPublisher, "core_service_logs", cfg.Env)
 
-	log.Info("starting application")
+	log.Info("starting_application", "port", cfg.REST.Port)
 
 	application := app.NewAPIServer(cfg, log)
-
-	log.Info("SDA")
 
 	if err := application.Run(); err != nil {
 		panic(err)

@@ -1,32 +1,32 @@
 package handler
 
-import (
-	"log/slog"
-	"net/http"
+// import (
+// 	"log/slog"
+// 	"net/http"
 
-	"github.com/2group/2sales.core-service/internal/grpc"
-	"github.com/2group/2sales.core-service/pkg/middleware"
-)
+// 	"github.com/2group/2sales.core-service/internal/grpc"
+// 	"github.com/2group/2sales.core-service/pkg/middleware"
+// )
 
-// OrderHandler handles order-related requests.
-type OrderHandler struct {
-	log   *slog.Logger
-	order *grpc.OrderClient
-}
+// // OrderHandler handles order-related requests.
+// type OrderHandler struct {
+// 	log   *slog.Logger
+// 	order *grpc.OrderClient
+// }
 
-// NewOrderHandler creates a new OrderHandler and enriches the logger with the "component" field.
-func NewOrderHandler(log *slog.Logger, order *grpc.OrderClient) *OrderHandler {
-	return &OrderHandler{
-		log:   log.With("component", "order_handler"),
-		order: order,
-	}
-}
+// // NewOrderHandler creates a new OrderHandler and enriches the logger with the "component" field.
+// func NewOrderHandler(log *slog.Logger, order *grpc.OrderClient) *OrderHandler {
+// 	return &OrderHandler{
+// 		log:   log.With("component", "order_handler"),
+// 		order: order,
+// 	}
+// }
 
-// loggerFor returns a sub-logger enriched with the method name and correlation ID.
-func (h *OrderHandler) loggerFor(r *http.Request, method string) *slog.Logger {
-	cid, _ := middleware.GetCorrelationID(r.Context())
-	return h.log.With("method", method, "correlation_id", cid)
-}
+// // loggerFor returns a sub-logger enriched with the method name and correlation ID.
+// func (h *OrderHandler) loggerFor(r *http.Request, method string) *slog.Logger {
+// 	cid, _ := middleware.GetCorrelationID(r.Context())
+// 	return h.log.With("method", method, "correlation_id", cid)
+// }
 
 // // CreateSubOrder creates a new sub-order.
 // func (h *OrderHandler) CreateSubOrder(w http.ResponseWriter, r *http.Request) {
