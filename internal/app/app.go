@@ -83,7 +83,8 @@ func (s *APIServer) Run() error {
 	}
 
 	otpHandler := handler.NewOtpHandler(s.log, otpgrpc.Api)
-	userHandler := handler.NewUserHandler(usergrpc)
+	userHandler := handler.NewUserHandler(s.log.With("component", "user_handler"), usergrpc)
+
 	organizationHandler := handler.NewOrganizationHandler(s.log.With("component", "organization_handler"), organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)

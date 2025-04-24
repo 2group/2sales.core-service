@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"log/slog"
 	"net/http"
 
@@ -15,17 +16,21 @@ type OtpHandler struct {
 
 func NewOtpHandler(log *slog.Logger, otpClient userv1.OtpServiceClient) *OtpHandler {
 	return &OtpHandler{
-		log:        log,
+		log:        log.With("component", "otp_handler"),
 		otpService: otpClient,
 	}
 }
 
 func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
+	log := h.log.With("method", "RequestSmsOtp")
+	log.Info("request_received")
+
 	var req struct {
 		PhoneNumber string `json:"phone_number"`
 	}
 
 	if err := json.ParseJSON(r, &req); err != nil {
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
@@ -34,11 +39,12 @@ func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
 		PhoneNumber: req.PhoneNumber,
 	})
 	if err != nil {
-		h.log.Error("failed to request OTP", "err", err)
-		json.WriteError(w, http.StatusInternalServerError, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, errors.New("failed to request OTP"))
 		return
 	}
 
+	log.Info("succeeded", "phone_number", req.PhoneNumber)
 	json.WriteJSON(w, http.StatusOK, map[string]any{
 		"ok":      true,
 		"message": "Код отправлен",
@@ -46,12 +52,16 @@ func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *OtpHandler) VerifySmsOtp(w http.ResponseWriter, r *http.Request) {
+	log := h.log.With("method", "VerifySmsOtp")
+	log.Info("request_received")
+
 	var req struct {
 		PhoneNumber string `json:"phone_number"`
 		Code        string `json:"code"`
 	}
 
 	if err := json.ParseJSON(r, &req); err != nil {
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
@@ -61,46 +71,55 @@ func (h *OtpHandler) VerifySmsOtp(w http.ResponseWriter, r *http.Request) {
 		Code:        req.Code,
 	})
 	if err != nil {
-		h.log.Error("failed to verify OTP", "err", err)
-		json.WriteError(w, http.StatusUnauthorized, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusUnauthorized, errors.New("verification failed"))
 		return
 	}
 
+	log.Info("succeeded", "user_id", resp.GetUser().GetId())
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *OtpHandler) RequestMailOtp(w http.ResponseWriter, r *http.Request) {
+	log := h.log.With("method", "RequestMailOtp")
+	log.Info("request_received")
+
 	var req userv1.RequestMailOtpRequest
 	if err := json.ParseProtoJSON(r.Body, &req); err != nil {
-		h.log.Error("failed to parse request JSON", "err", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	resp, err := h.otpService.RequestMailOtp(r.Context(), &req)
 	if err != nil {
-		h.log.Error("failed to request mail OTP", "err", err)
-		json.WriteError(w, http.StatusInternalServerError, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, errors.New("failed to request mail OTP"))
 		return
 	}
 
+	log.Info("succeeded", "email", req.Email)
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *OtpHandler) VerifyMailOtp(w http.ResponseWriter, r *http.Request) {
+	log := h.log.With("method", "VerifyMailOtp")
+	log.Info("request_received")
+
 	var req userv1.VerifyMailOtpRequest
 	if err := json.ParseProtoJSON(r.Body, &req); err != nil {
-		h.log.Error("failed to parse request JSON", "err", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	resp, err := h.otpService.VerifyMailOtp(r.Context(), &req)
 	if err != nil {
-		h.log.Error("failed to verify mail OTP", "err", err)
-		json.WriteError(w, http.StatusUnauthorized, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusUnauthorized, errors.New("verification failed"))
 		return
 	}
 
+	log.Info("succeeded", "user_id", resp.GetUser().GetId())
 	json.WriteJSON(w, http.StatusOK, resp)
 }

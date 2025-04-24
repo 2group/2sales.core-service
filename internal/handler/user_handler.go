@@ -3,7 +3,6 @@ package handler
 import (
 	"log/slog"
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
@@ -17,84 +16,80 @@ type UserHandler struct {
 	user *grpc.UserClient
 }
 
-func NewUserHandler(user *grpc.UserClient) *UserHandler {
-	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+func NewUserHandler(log *slog.Logger, user *grpc.UserClient) *UserHandler {
 	return &UserHandler{
-		log:  logger,
+		log:  log.With("component", "user_handler"),
 		user: user,
 	}
 }
 
 func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
+	log := h.log.With("method", "Login")
+	log.Info("request_received")
+
 	req := &userv1.LoginRequest{}
-	err := json.ParseJSON(r, &req)
-	if err != nil {
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	response, err := h.user.Api.Login(r.Context(), req)
+	log.Debug("calling_user_service", "request", req)
+	resp, err := h.user.Api.Login(r.Context(), req)
 	if err != nil {
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	json.WriteJSON(w, http.StatusOK, response)
-	return
+	log.Info("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
-// func (h *UserHandler) Register(w http.ResponseWriter, r *http.Request) {
-// 	req := &userv1.RegisterRequest{}
-// 	err := json.ParseJSON(r, &req)
-// 	if err != nil {
-// 		json.WriteError(w, http.StatusBadRequest, err)
-// 		return
-// 	}
-
-// 	response, err := h.user.Api.Register(r.Context(), req)
-// 	if err != nil {
-// 		json.WriteError(w, http.StatusInternalServerError, err)
-// 		return
-// 	}
-
-// 	json.WriteJSON(w, http.StatusOK, response)
-// 	return
-// }
-
 func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
+	log := h.log.With("method", "UpdateUser")
+	log.Info("request_received")
+
 	req := &userv1.UpdateUserRequest{}
-	err := json.ParseJSON(r, &req)
-	if err != nil {
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	response, err := h.user.Api.UpdateUser(r.Context(), req)
+	log.Debug("calling_user_service", "request", req)
+	resp, err := h.user.Api.UpdateUser(r.Context(), req)
 	if err != nil {
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	json.WriteJSON(w, http.StatusOK, response)
-	return
+	log.Info("succeeded", "user_id", resp.GetUser().GetId())
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
+	log := h.log.With("method", "CreateUser")
+	log.Info("request_received")
+
 	req := &userv1.CreateUserRequest{}
-	err := json.ParseJSON(r, &req)
-	if err != nil {
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	response, err := h.user.Api.CreateUser(r.Context(), req)
+	log.Debug("calling_user_service", "request", req)
+	resp, err := h.user.Api.CreateUser(r.Context(), req)
 	if err != nil {
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	json.WriteJSON(w, http.StatusOK, response)
-	return
+	log.Info("succeeded", "user_id", resp.GetUser().GetId())
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 // func (h *UserHandler) GetUserByEmail(w http.ResponseWriter, r *http.Request) {
@@ -116,20 +111,20 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 // }
 
 func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to list users")
+	log := h.log.With("method", "ListUsers")
+	log.Info("request_received")
 
 	limitStr := chi.URLParam(r, "limit")
 	offsetStr := chi.URLParam(r, "offset")
 
 	limit, err := strconv.ParseInt(limitStr, 10, 32)
 	if err != nil {
-		h.log.Warn("invalid limit format", "limit", limitStr, "error", err)
+		log.Warn("invalid_limit", "limit", limitStr, "error", err)
 		limit = 20
 	}
-
 	offset, err := strconv.ParseInt(offsetStr, 10, 64)
 	if err != nil {
-		h.log.Warn("invalid offset format", "offset", offsetStr, "error", err)
+		log.Warn("invalid_offset", "offset", offsetStr, "error", err)
 		offset = 0
 	}
 
@@ -138,14 +133,14 @@ func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
 		Offset: int32(offset),
 	}
 
-	response, err := h.user.Api.ListUsers(r.Context(), req)
+	log.Debug("calling_user_service", "request", req)
+	resp, err := h.user.Api.ListUsers(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error listing users", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	h.log.Info("Users listed successfully", "response", response)
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded", "users_count", len(resp.Users))
+	json.WriteJSON(w, http.StatusOK, resp)
 }
