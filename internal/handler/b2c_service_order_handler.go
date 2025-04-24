@@ -102,3 +102,60 @@ func (h *B2CServiceOrderHandler) GetOrder(w http.ResponseWriter, r *http.Request
 	json.WriteJSON(w, http.StatusOK, response)
 	h.log.Info("GetOrder response sent", "status", http.StatusOK)
 }
+
+func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Request) {
+	query := r.URL.Query()
+
+	orgIDStr := query.Get("organization_id")
+	limitStr := query.Get("limit")
+	offsetStr := query.Get("offset")
+
+	var (
+		orgID  int64 = 0
+		limit  int64 = 50
+		offset int64 = 0
+		err    error
+	)
+
+	if orgIDStr != "" {
+		orgID, err = strconv.ParseInt(orgIDStr, 10, 64)
+		if err != nil || orgID < 0 {
+			json.WriteError(w, http.StatusBadRequest, errors.New("invalid organization_id"))
+			return
+		}
+	}
+
+	if limitStr != "" {
+		limit, err = strconv.ParseInt(limitStr, 10, 64)
+		if err != nil || limit < 0 {
+			json.WriteError(w, http.StatusBadRequest, errors.New("invalid limit"))
+			return
+		}
+	}
+
+	if offsetStr != "" {
+		offset, err = strconv.ParseInt(offsetStr, 10, 64)
+		if err != nil || offset < 0 {
+			json.WriteError(w, http.StatusBadRequest, errors.New("invalid offset"))
+			return
+		}
+	}
+
+	h.log.Info("Calling ListOrders gRPC", "orgID", orgID, "limit", limit, "offset", offset)
+
+	req := &orderv1.ListB2CServiceOrdersRequest{
+		OrganizationId: orgID,
+		Limit:          limit,
+		Offset:         offset,
+	}
+
+	resp, err := h.b2c_service_order.Api.ListOrders(r.Context(), req)
+	if err != nil {
+		h.log.Error("gRPC ListOrders failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, errors.New("failed to fetch orders"))
+		return
+	}
+
+	json.WriteJSON(w, http.StatusOK, resp)
+	h.log.Info("ListOrders response sent", "orders_count", len(resp.Orders))
+}

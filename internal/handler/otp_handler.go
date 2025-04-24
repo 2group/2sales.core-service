@@ -20,7 +20,7 @@ func NewOtpHandler(log *slog.Logger, otpClient userv1.OtpServiceClient) *OtpHand
 	}
 }
 
-func (h *OtpHandler) RequestOtp(w http.ResponseWriter, r *http.Request) {
+func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
 	var req struct {
 		PhoneNumber string `json:"phone_number"`
 	}
@@ -45,7 +45,7 @@ func (h *OtpHandler) RequestOtp(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func (h *OtpHandler) VerifyOtp(w http.ResponseWriter, r *http.Request) {
+func (h *OtpHandler) VerifySmsOtp(w http.ResponseWriter, r *http.Request) {
 	var req struct {
 		PhoneNumber string `json:"phone_number"`
 		Code        string `json:"code"`
