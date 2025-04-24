@@ -111,7 +111,8 @@ func (s *APIServer) Run() error {
 			// userRouter.Post("/register", userHandler.Register)
 			userRouter.Put("/", userHandler.UpdateUser)
 			userRouter.Post("/", userHandler.CreateUser)
-			//userRouter.Get("/", userHandler.ListUser)
+			userRouter.Get("/", userHandler.ListUsers)
+
 			// userRouter.Get("/phone", userHandler.GetUserByEmail)
 			// userRouter.Group(func(authRouter chi.Router) {
 			// 	authRouter.Use(auth.AuthMiddleware)
@@ -342,6 +343,7 @@ func (s *APIServer) Run() error {
 				authRouter.Patch("/{id}", serviceHandler.PartialUpdateService)
 				authRouter.Put("/{id}", serviceHandler.UpdateService)
 				authRouter.Post("/presigned-urls", serviceHandler.GeneratePresignedURLs)
+				authRouter.Get("/", serviceHandler.ListServices)
 			})
 		})
 		apiRouter.Route("/employee", func(employeeRouter chi.Router) {
@@ -369,8 +371,8 @@ func (s *APIServer) Run() error {
 		})
 
 		apiRouter.Route("/otp", func(otpRouter chi.Router) {
-			otpRouter.Post("/request-sms", otpHandler.RequestSmsOtp)
-			otpRouter.Post("/verify-sms", otpHandler.VerifySmsOtp)
+			otpRouter.Post("/request-sms", otpHandler.RequestOtp)
+			otpRouter.Post("/verify-sms", otpHandler.VerifyOtp)
 			otpRouter.Post("/request-mail", otpHandler.RequestMailOtp)
 			otpRouter.Post("/verify-mail", otpHandler.VerifyMailOtp)
 
