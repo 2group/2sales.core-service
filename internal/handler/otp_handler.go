@@ -16,7 +16,7 @@ type OtpHandler struct {
 
 func NewOtpHandler(log *slog.Logger, otpClient userv1.OtpServiceClient) *OtpHandler {
 	return &OtpHandler{
-		log:        log.With("component", "otp_handler"),
+		log:        log,
 		otpService: otpClient,
 	}
 }

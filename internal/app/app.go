@@ -82,17 +82,17 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
-	otpHandler := handler.NewOtpHandler(s.log, otpgrpc.Api)
+	otpHandler := handler.NewOtpHandler(s.log.With("component", "otp_handler"), otpgrpc.Api)
 	userHandler := handler.NewUserHandler(s.log.With("component", "user_handler"), usergrpc)
 
 	organizationHandler := handler.NewOrganizationHandler(s.log.With("component", "organization_handler"), organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
-	customerHandler := handler.NewCustomerHandler(s.log, customergrpc)
-	serviceHandler := handler.NewServiceHandler(s.log, servicegrpc)
+	customerHandler := handler.NewCustomerHandler(s.log.With("component", "customer_handler"), customergrpc)
+	serviceHandler := handler.NewServiceHandler(s.log.With("component", "service_handler"), servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log.With("component", "b2c_service_order_handler"), B2CServiceOrderGrpc)
-	EmployeeHandler := handler.NewEmployeeHandler(s.log, Employeegrpc)
+	EmployeeHandler := handler.NewEmployeeHandler(s.log.With("component", "employee_handler"), Employeegrpc)
 	// adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
 	router.Route("/admin/api", func(adminRouter chi.Router) {

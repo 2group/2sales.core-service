@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -25,194 +26,182 @@ func NewServiceHandler(log *slog.Logger, service *grpc.ServiceClient) *ServiceHa
 }
 
 func (h *ServiceHandler) CreateService(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to create service")
+	log := h.log.With("method", "CreateService")
+	log.Info("request_received")
 
 	req := &servicev1.CreateServiceRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("invalid_payload", "error", err)
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid payload"))
 		return
 	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.service.Api.CreateService(r.Context(), req)
+	log.Info("calling_service_microservice", "request", req)
+	resp, err := h.service.Api.CreateService(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error creating service", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	h.log.Info("Service created successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusCreated, response)
-	h.log.Info("Response sent", "status", http.StatusCreated)
+	log.Info("succeeded", "service_id", resp.GetService().GetId())
+	json.WriteJSON(w, http.StatusCreated, resp)
 }
 
 func (h *ServiceHandler) GetService(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to get service")
+	log := h.log.With("method", "GetService")
+	log.Info("request_received")
 
 	idStr := chi.URLParam(r, "id")
-
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid id format", "id", idStr, "error", err)
+		log.Error("invalid_id", "id", idStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	req := &servicev1.GetServiceRequest{
-		Id: id,
-	}
-
-	response, err := h.service.Api.GetService(r.Context(), req)
+	log.Info("calling_service_microservice", "id", id)
+	req := &servicev1.GetServiceRequest{Id: id}
+	resp, err := h.service.Api.GetService(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error getting service", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusNotFound, err)
 		return
 	}
-	h.log.Info("Service retrieved successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *ServiceHandler) DeleteService(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to delete service")
+	log := h.log.With("method", "DeleteService")
+	log.Info("request_received")
 
 	idStr := chi.URLParam(r, "id")
-
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid id format", "id", idStr, "error", err)
+		log.Error("invalid_id", "id", idStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	req := &servicev1.DeleteServiceRequest{
-		Id: id,
-	}
-
-	response, err := h.service.Api.DeleteService(r.Context(), req)
+	log.Info("calling_service_microservice", "id", id)
+	req := &servicev1.DeleteServiceRequest{Id: id}
+	resp, err := h.service.Api.DeleteService(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error deleting service", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
 	}
-	h.log.Info("Service deleted successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *ServiceHandler) PartialUpdateService(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to partial update service")
+	log := h.log.With("method", "PartialUpdateService")
+	log.Info("request_received")
 
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid id format", "id", idStr, "error", err)
+		log.Error("invalid_id", "id", idStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	req := &servicev1.PartialUpdateServiceRequest{
-		Service: &servicev1.Service{
-			Id: proto.Int64(id),
-		},
+		Service: &servicev1.Service{Id: proto.Int64(id)},
 	}
-
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.service.Api.PartialUpdateService(r.Context(), req)
+	log.Info("calling_service_microservice", "request", req)
+	resp, err := h.service.Api.PartialUpdateService(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error patching service", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	h.log.Info("Service patched successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *ServiceHandler) UpdateService(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to update service")
+	log := h.log.With("method", "UpdateService")
+	log.Info("request_received")
 
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid id format", "id", idStr, "error", err)
+		log.Error("invalid_id", "id", idStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	req := &servicev1.UpdateServiceRequest{}
+	req := &servicev1.UpdateServiceRequest{
+		Service: &servicev1.Service{Id: proto.Int64(id)},
+	}
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	if req.Service == nil {
-		req.Service = &servicev1.Service{}
-	}
-	req.Service.Id = proto.Int64(id)
-
-	h.log.Info("Parsed request JSON successfully", "request", req)
-
-	response, err := h.service.Api.UpdateService(r.Context(), req)
+	log.Info("calling_service_microservice", "request", req)
+	resp, err := h.service.Api.UpdateService(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error updating service", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	h.log.Info("Service updated successfully", "response", response)
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *ServiceHandler) GeneratePresignedURLs(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to generate presigned URLs")
+	log := h.log.With("method", "GeneratePresignedURLs")
+	log.Info("request_received")
 
 	req := &servicev1.GeneratePresignedURLsRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.service.Api.GeneratePresignedURLs(r.Context(), req)
+	log.Info("calling_service_microservice", "request", req)
+	resp, err := h.service.Api.GeneratePresignedURLs(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error generating presigned URLs", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	h.log.Info("Presigned URLs generated successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to list services")
+	log := h.log.With("method", "ListServices")
+	log.Info("request_received")
 
 	limitStr := chi.URLParam(r, "limit")
 	offsetStr := chi.URLParam(r, "offset")
 
 	limit, err := strconv.ParseInt(limitStr, 10, 32)
 	if err != nil {
-		h.log.Warn("invalid limit format", "limit", limitStr, "error", err)
+		log.Warn("invalid_limit", "limit", limitStr, "error", err)
 		limit = 20
 	}
-
 	offset, err := strconv.ParseInt(offsetStr, 10, 64)
 	if err != nil {
-		h.log.Warn("invalid offset format", "offset", offsetStr, "error", err)
+		log.Warn("invalid_offset", "offset", offsetStr, "error", err)
 		offset = 0
 	}
 
@@ -221,14 +210,14 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 		Offset: int32(offset),
 	}
 
-	response, err := h.service.Api.ListServices(r.Context(), req)
+	log.Info("calling_service_microservice", "limit", limit, "offset", offset)
+	resp, err := h.service.Api.ListServices(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error listing services", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	h.log.Info("Services listed successfully", "response", response)
-	json.WriteJSON(w, http.StatusOK, response)
-
+	log.Info("succeeded", "services_count", len(resp.Services))
+	json.WriteJSON(w, http.StatusOK, resp)
 }

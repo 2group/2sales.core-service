@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -24,157 +25,144 @@ func NewCustomerHandler(log *slog.Logger, customer *grpc.CustomerClient) *Custom
 }
 
 func (h *CustomerHandler) CreateCustomer(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to create customer")
+	log := h.log.With("method", "CreateCustomer")
+	log.Info("request_received")
 
 	req := &customerv1.CreateCustomerRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.customer.Api.CreateCustomer(r.Context(), req)
+	log.Debug("calling_customer_service", "request", req)
+	resp, err := h.customer.Api.CreateCustomer(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error creating customer", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Customer created successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusCreated, response)
-	h.log.Info("Response sent", "status", http.StatusCreated)
+	log.Info("succeeded", "customer_id", resp.Customer.GetId())
+	json.WriteJSON(w, http.StatusCreated, resp)
 }
 
 func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to get customer")
+	log := h.log.With("method", "GetCustomer")
+	log.Info("request_received")
 
 	customerIDStr := chi.URLParam(r, "customer_id")
-
 	customerID, err := strconv.ParseInt(customerIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid customer_id format", "customer_id", customerIDStr, "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("invalid_customer_id", "customer_id", customerIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid customer_id"))
 		return
 	}
 
 	req := &customerv1.GetCustomerRequest{
-		Lookup: &customerv1.GetCustomerRequest_Id{
-			Id: customerID,
-		},
+		Lookup: &customerv1.GetCustomerRequest_Id{Id: customerID},
 	}
+	log.Debug("calling_customer_service", "customer_id", customerID)
 
-	response, err := h.customer.Api.GetCustomer(r.Context(), req)
+	resp, err := h.customer.Api.GetCustomer(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error getting customer", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusNotFound, err)
 		return
 	}
-	h.log.Info("Customer retrieved successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded", "customer_id", resp.Customer.GetId())
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to delete customer")
+	log := h.log.With("method", "DeleteCustomer")
+	log.Info("request_received")
 
 	customerIDStr := chi.URLParam(r, "customer_id")
-
 	customerID, err := strconv.ParseInt(customerIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid customer_id format", "customer_id", customerIDStr, "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("invalid_customer_id", "customer_id", customerIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid customer_id"))
 		return
 	}
 
-	req := &customerv1.DeleteCustomerRequest{
-		Id: customerID,
-	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
+	req := &customerv1.DeleteCustomerRequest{Id: customerID}
+	log.Debug("calling_customer_service", "customer_id", customerID)
 
-	response, err := h.customer.Api.DeleteCustomer(r.Context(), req)
+	resp, err := h.customer.Api.DeleteCustomer(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error deleting customer", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Customer deleted successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded", "customer_id", customerID)
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *CustomerHandler) PartialUpdateCustomer(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to patch customer")
-	customerIDStr := chi.URLParam(r, "customer_id")
+	log := h.log.With("method", "PartialUpdateCustomer")
+	log.Info("request_received")
 
+	customerIDStr := chi.URLParam(r, "customer_id")
 	customerID, err := strconv.ParseInt(customerIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid customer_id format", "customer_id", customerIDStr, "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("invalid_customer_id", "customer_id", customerIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid customer_id"))
 		return
 	}
 
 	req := &customerv1.PartialUpdateCustomerRequest{
-		Customer: &customerv1.Customer{
-			Id: &customerID,
-		},
+		Customer: &customerv1.Customer{Id: &customerID},
 	}
-
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.customer.Api.PartialUpdateCustomer(r.Context(), req)
+	log.Debug("calling_customer_service", "customer_id", customerID)
+	resp, err := h.customer.Api.PartialUpdateCustomer(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error patching customer", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Customer patched successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded", "customer_id", resp.Customer.GetId())
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *CustomerHandler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to update customer")
+	log := h.log.With("method", "UpdateCustomer")
+	log.Info("request_received")
 
 	customerIDStr := chi.URLParam(r, "customer_id")
-
 	customerID, err := strconv.ParseInt(customerIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid customer_id format", "customer_id", customerIDStr, "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("invalid_customer_id", "customer_id", customerIDStr, "error", err)
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid customer_id"))
 		return
 	}
 
 	req := &customerv1.UpdateCustomerRequest{
-		Customer: &customerv1.Customer{
-			Id: &customerID,
-		},
+		Customer: &customerv1.Customer{Id: &customerID},
 	}
-
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	h.log.Info("Parsed request JSON successfully", "request", req)
-
-	response, err := h.customer.Api.UpdateCustomer(r.Context(), req)
+	log.Debug("calling_customer_service", "customer_id", customerID)
+	resp, err := h.customer.Api.UpdateCustomer(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error updating customer", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-	h.log.Info("Customer updated successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded", "customer_id", resp.Customer.GetId())
+	json.WriteJSON(w, http.StatusOK, resp)
 }

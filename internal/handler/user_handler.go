@@ -18,7 +18,7 @@ type UserHandler struct {
 
 func NewUserHandler(log *slog.Logger, user *grpc.UserClient) *UserHandler {
 	return &UserHandler{
-		log:  log.With("component", "user_handler"),
+		log:  log,
 		user: user,
 	}
 }

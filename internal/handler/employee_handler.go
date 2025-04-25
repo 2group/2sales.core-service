@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -24,115 +25,87 @@ func NewEmployeeHandler(log *slog.Logger, employee *grpc.EmployeeClient) *Employ
 }
 
 func (h *EmployeeHandler) CreateEmployee(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to create Employee")
+	log := h.log.With("method", "CreateEmployee")
+	log.Info("request_received")
 
 	req := &employeev1.CreateEmployeeRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("invalid_payload", "error", err)
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid payload"))
 		return
 	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
 
-	response, err := h.employee.Api.CreateEmployee(r.Context(), req)
+	log.Info("calling_employee_microservice", "request", req)
+	resp, err := h.employee.Api.CreateEmployee(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error creating employee", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	h.log.Info("employee created successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusCreated, response)
-	h.log.Info("Response sent", "status", http.StatusCreated)
+	log.Info("succeeded", "employee_id", resp.GetEmployee().GetId())
+	json.WriteJSON(w, http.StatusCreated, resp)
 }
+
 func (h *EmployeeHandler) GetEmployee(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to get Employee")
+	log := h.log.With("method", "GetEmployee")
+	log.Info("request_received")
 
 	employeeIDStr := chi.URLParam(r, "employee_id")
-
 	employeeID, err := strconv.ParseInt(employeeIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid employee_id format", "employee_id", employeeIDStr, "error", err)
+		log.Error("invalid_id", "employee_id", employeeIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
+
+	log.Info("calling_employee_microservice", "employee_id", employeeID)
 
 	req := &employeev1.GetEmployeeRequest{
-		Lookup: &employeev1.GetEmployeeRequest_Id{
-			Id: employeeID,
-		},
+		Lookup: &employeev1.GetEmployeeRequest_Id{Id: employeeID},
 	}
-
-	response, err := h.employee.Api.GetEmployee(r.Context(), req)
+	resp, err := h.employee.Api.GetEmployee(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error getting employee", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	h.log.Info("employee retrieved successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
 }
+
 func (h *EmployeeHandler) UpdateEmployee(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to update Employee")
+	log := h.log.With("method", "UpdateEmployee")
+	log.Info("request_received")
 
 	employeeIDStr := chi.URLParam(r, "employee_id")
-
 	employeeID, err := strconv.ParseInt(employeeIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid employee_id format", "employee_id", employeeIDStr, "error", err)
+		log.Error("invalid_id", "employee_id", employeeIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	req := &employeev1.UpdateEmployeeRequest{
-		Employee: &employeev1.Employee{
-			Id: &employeeID,
-		},
+		Employee: &employeev1.Employee{Id: &employeeID},
 	}
-
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	h.log.Info("Parsed request JSON successfully", "request", req)
-
-	response, err := h.employee.Api.UpdateEmployee(r.Context(), req)
+	log.Info("calling_employee_microservice", "request", req)
+	resp, err := h.employee.Api.UpdateEmployee(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error updating Employee", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	h.log.Info("employee updated successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
-}
-
-func (h *EmployeeHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to create Role")
-
-	req := &employeev1.CreateRoleRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-	h.log.Info("Parsed request JSON successfully", "request", req)
-
-	response, err := h.employee.Api.CreateRole(r.Context(), req)
-	if err != nil {
-		h.log.Error("Error creating role", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-	h.log.Info("role created successfully", "response", response)
-
-	json.WriteJSON(w, http.StatusCreated, response)
-	h.log.Info("Response sent", "status", http.StatusCreated)
+	log.Info("succeeded", "employee_id", employeeID)
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 //func (h *EmployeeHandler) ListRole(w http.ResponseWriter, r *http.Request) {
@@ -157,81 +130,91 @@ func (h *EmployeeHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
 //	h.log.Info("Response sent", "status", http.StatusOK)
 //}
 
+func (h *EmployeeHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
+	log := h.log.With("method", "CreateRole")
+	log.Info("request_received")
+
+	req := &employeev1.CreateRoleRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error("invalid_payload", "error", err)
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	log.Info("calling_employee_microservice", "request", req)
+	resp, err := h.employee.Api.CreateRole(r.Context(), req)
+	if err != nil {
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info("succeeded", "role_id", resp.GetRole().GetId())
+	json.WriteJSON(w, http.StatusCreated, resp)
+}
+
 func (h *EmployeeHandler) UpdateRole(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to update Role")
+	log := h.log.With("method", "UpdateRole")
+	log.Info("request_received")
 
 	roleIDStr := chi.URLParam(r, "role_id")
-
 	roleID, err := strconv.ParseInt(roleIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid role_id format", "role_id", roleIDStr, "error", err)
+		log.Error("invalid_id", "role_id", roleIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	req := &employeev1.UpdateRoleRequest{
-		Role: &employeev1.Role{
-			Id: &roleID,
-		},
+		Role: &employeev1.Role{Id: &roleID},
 	}
-
 	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
+		log.Error("invalid_payload", "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	h.log.Info("Parsed request JSON successfully", "request", req)
-
-	response, err := h.employee.Api.UpdateRole(r.Context(), req)
+	log.Info("calling_employee_microservice", "request", req)
+	resp, err := h.employee.Api.UpdateRole(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error updating Role", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	h.log.Info("role updated successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded", "role_id", roleID)
+	json.WriteJSON(w, http.StatusOK, resp)
 }
+
 func (h *EmployeeHandler) DeleteRole(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to delete Role")
+	log := h.log.With("method", "DeleteRole")
+	log.Info("request_received")
 
 	roleIDStr := chi.URLParam(r, "role_id")
-
 	roleID, err := strconv.ParseInt(roleIDStr, 10, 64)
 	if err != nil {
-		h.log.Error("invalid role_id format", "role_id", roleIDStr, "error", err)
+		log.Error("invalid_id", "role_id", roleIDStr, "error", err)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	req := &employeev1.DeleteRoleRequest{
-		Id: roleID,
-	}
+	req := &employeev1.DeleteRoleRequest{Id: roleID}
+	log.Info("calling_employee_microservice", "role_id", roleID)
 
-	if err := json.ParseJSON(r, req); err != nil {
-		h.log.Error("Failed to parse request JSON", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-
-	h.log.Info("Parsed request JSON successfully", "request", req)
-
-	response, err := h.employee.Api.DeleteRole(r.Context(), req)
+	resp, err := h.employee.Api.DeleteRole(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error deleting Role", "error", err)
-		json.WriteError(w, http.StatusBadRequest, err)
+		log.Error("gRPC_call_failed", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	h.log.Info("role deleted successfully", "response", response)
 
-	json.WriteJSON(w, http.StatusOK, response)
-	h.log.Info("Response sent", "status", http.StatusOK)
+	log.Info("succeeded", "role_id", roleID)
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *EmployeeHandler) ListRoles(w http.ResponseWriter, r *http.Request) {
-	h.log.Info("Received request to list roles")
+	log := h.log.With("method", "ListRoles")
+	log.Info("request_received")
 
 	limitStr := r.URL.Query().Get("limit")
 	offsetStr := r.URL.Query().Get("offset")
@@ -250,12 +233,14 @@ func (h *EmployeeHandler) ListRoles(w http.ResponseWriter, r *http.Request) {
 		Offset: int32(offset),
 	}
 
+	log.Info("calling_employee_microservice", "limit", limit, "offset", offset)
 	resp, err := h.employee.Api.ListRoles(r.Context(), req)
 	if err != nil {
-		h.log.Error("Error listing roles", "error", err)
+		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
+	log.Info("succeeded", "roles_count", len(resp.Roles))
 	json.WriteJSON(w, http.StatusOK, resp)
 }
