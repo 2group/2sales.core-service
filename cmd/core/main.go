@@ -29,7 +29,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	log := logging.SetupLogger(kafkaPublisher, "core_service_logs", cfg.Env)
+	log := logging.SetupLogger(kafkaPublisher, "logs.core-service", cfg.Env)
 
 	log.Info("starting_application", "port", cfg.REST.Port)
 
