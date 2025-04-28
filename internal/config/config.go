@@ -10,7 +10,7 @@ import (
 )
 
 type Config struct {
-	Env         string     `yaml:"env" env-default:"local"`
+	Env         string     `yaml:"env"`
 	REST        RestConfig `yaml:"rest"`
 	GRPC        GrpcConfig `yaml:"grpc"`
 	Psql        PsqlConfig `yaml:"postgres"`

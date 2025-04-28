@@ -29,5 +29,5 @@ func SetupLogger(publisher *kafka.KafkaPublisher, topic, env string) *slog.Logge
 	// For non-local environments, use our Kafka JSON handler.
 	opts := &slog.HandlerOptions{Level: level}
 	kafkaJSONHandler := NewKafkaJSONHandler(publisher, topic, opts)
-	return slog.New(kafkaJSONHandler).With("service", "product_service")
+	return slog.New(kafkaJSONHandler)
 }
