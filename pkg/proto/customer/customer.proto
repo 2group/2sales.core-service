@@ -25,7 +25,6 @@ message Customer {
     optional float total_spent = 9;
     optional int64 organization_id = 10;
     optional int64 loyalty_level_id = 11;
-    optional int64 branch_id = 12;
 }
 
 message CustomerBonusTransaction {
