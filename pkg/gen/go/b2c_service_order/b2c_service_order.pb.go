@@ -652,8 +652,9 @@ func (x *GetOrderResponse) GetOrderDetail() *OrderDetail {
 type ListB2CServiceOrdersRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	OrganizationId int64                  `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
-	Limit          int64                  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset         int64                  `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
+	BranchId       int64                  `protobuf:"varint,2,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	Limit          int64                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset         int64                  `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -691,6 +692,13 @@ func (*ListB2CServiceOrdersRequest) Descriptor() ([]byte, []int) {
 func (x *ListB2CServiceOrdersRequest) GetOrganizationId() int64 {
 	if x != nil {
 		return x.OrganizationId
+	}
+	return 0
+}
+
+func (x *ListB2CServiceOrdersRequest) GetBranchId() int64 {
+	if x != nil {
+		return x.BranchId
 	}
 	return 0
 }
@@ -827,11 +835,12 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x0fGetOrderRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"U\n" +
 	"\x10GetOrderResponse\x12A\n" +
-	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"t\n" +
+	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"\x91\x01\n" +
 	"\x1bListB2CServiceOrdersRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\x12\x14\n" +
-	"\x05limit\x18\x02 \x01(\x03R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x03 \x01(\x03R\x06offset\"w\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\x12\x1b\n" +
+	"\tbranch_id\x18\x02 \x01(\x03R\bbranchId\x12\x14\n" +
+	"\x05limit\x18\x03 \x01(\x03R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x04 \x01(\x03R\x06offset\"w\n" +
 	"\x1cListB2CServiceOrdersResponse\x126\n" +
 	"\x06orders\x18\x01 \x03(\v2\x1e.b2c_service_order.OrderDetailR\x06orders\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x03R\n" +
