@@ -36,6 +36,7 @@ message Order {
   optional string updated_at = 8;
   optional customer.Customer customer = 9;
   optional float bonus_used = 10;
+  optional int64 branch_id = 11;
 }
 
 message OrderItem {

@@ -119,6 +119,7 @@ type Order struct {
 	UpdatedAt          *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
 	Customer           *customer.Customer     `protobuf:"bytes,9,opt,name=customer,proto3,oneof" json:"customer,omitempty"`
 	BonusUsed          *float32               `protobuf:"fixed32,10,opt,name=bonus_used,json=bonusUsed,proto3,oneof" json:"bonus_used,omitempty"`
+	BranchId           *int64                 `protobuf:"varint,11,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -219,6 +220,13 @@ func (x *Order) GetCustomer() *customer.Customer {
 func (x *Order) GetBonusUsed() float32 {
 	if x != nil && x.BonusUsed != nil {
 		return *x.BonusUsed
+	}
+	return 0
+}
+
+func (x *Order) GetBranchId() int64 {
+	if x != nil && x.BranchId != nil {
+		return *x.BranchId
 	}
 	return 0
 }
@@ -781,7 +789,7 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x14original_total_price\x18\x04 \x01(\x02R\x12originalTotalPrice\x12*\n" +
 	"\x11final_total_price\x18\x05 \x01(\x02R\x0ffinalTotalPrice\x12C\n" +
 	"\vorder_items\x18\x06 \x03(\v2\".b2c_service_order.OrderItemDetailR\n" +
-	"orderItems\"\xb2\x04\n" +
+	"orderItems\"\xe2\x04\n" +
 	"\x05Order\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03H\x01R\n" +
@@ -798,7 +806,8 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\bcustomer\x18\t \x01(\v2\x12.customer.CustomerH\aR\bcustomer\x88\x01\x01\x12\"\n" +
 	"\n" +
 	"bonus_used\x18\n" +
-	" \x01(\x02H\bR\tbonusUsed\x88\x01\x01B\x05\n" +
+	" \x01(\x02H\bR\tbonusUsed\x88\x01\x01\x12 \n" +
+	"\tbranch_id\x18\v \x01(\x03H\tR\bbranchId\x88\x01\x01B\x05\n" +
 	"\x03_idB\x0e\n" +
 	"\f_customer_idB\t\n" +
 	"\a_statusB\x17\n" +
@@ -807,7 +816,9 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\v_created_atB\r\n" +
 	"\v_updated_atB\v\n" +
 	"\t_customerB\r\n" +
-	"\v_bonus_used\"\xcd\x01\n" +
+	"\v_bonus_usedB\f\n" +
+	"\n" +
+	"_branch_id\"\xcd\x01\n" +
 	"\tOrderItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12(\n" +
 	"\x10service_order_id\x18\x02 \x01(\x03R\x0eserviceOrderId\x12\x1d\n" +
