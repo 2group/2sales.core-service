@@ -896,7 +896,8 @@ type GiftCertificate struct {
 	RemainingAmount float64                `protobuf:"fixed64,5,opt,name=remaining_amount,json=remainingAmount,proto3" json:"remaining_amount,omitempty"`
 	Status          string                 `protobuf:"bytes,6,opt,name=status,proto3" json:"status,omitempty"` // active, used, expired
 	ExpiresAt       *string                `protobuf:"bytes,7,opt,name=expires_at,json=expiresAt,proto3,oneof" json:"expires_at,omitempty"`
-	UpdatedAt       *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	CreatedAt       *string                `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt       *string                `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -976,6 +977,13 @@ func (x *GiftCertificate) GetStatus() string {
 func (x *GiftCertificate) GetExpiresAt() string {
 	if x != nil && x.ExpiresAt != nil {
 		return *x.ExpiresAt
+	}
+	return ""
+}
+
+func (x *GiftCertificate) GetCreatedAt() string {
+	if x != nil && x.CreatedAt != nil {
+		return *x.CreatedAt
 	}
 	return ""
 }
@@ -1460,7 +1468,7 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\border_id\x18\x03 \x01(\x03R\aorderId\x12!\n" +
 	"\fbonus_change\x18\x04 \x01(\x01R\vbonusChange\"f\n" +
 	"\x1eCreateBonusTransactionResponse\x12D\n" +
-	"\vtransaction\x18\x01 \x01(\v2\".customer.CustomerBonusTransactionR\vtransaction\"\xbd\x02\n" +
+	"\vtransaction\x18\x01 \x01(\v2\".customer.CustomerBonusTransactionR\vtransaction\"\xf0\x02\n" +
 	"\x0fGiftCertificate\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03R\n" +
@@ -1472,8 +1480,11 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\n" +
 	"expires_at\x18\a \x01(\tH\x00R\texpiresAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\b \x01(\tH\x01R\tupdatedAt\x88\x01\x01B\r\n" +
+	"created_at\x18\b \x01(\tH\x01R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"updated_at\x18\t \x01(\tH\x02R\tupdatedAt\x88\x01\x01B\r\n" +
 	"\v_expires_atB\r\n" +
+	"\v_created_atB\r\n" +
 	"\v_updated_at\"[\n" +
 	"\x1cCreateGiftCertificateRequest\x12;\n" +
 	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"\\\n" +

@@ -112,7 +112,8 @@ message GiftCertificate {
     double remaining_amount = 5;
     string status = 6; // active, used, expired
     optional string expires_at = 7;
-    optional string updated_at = 8;
+    optional string created_at = 8;
+    optional string updated_at = 9;
 }
 
 message CreateGiftCertificateRequest {
