@@ -34,6 +34,7 @@ type Customer struct {
 	TotalSpent      *float32               `protobuf:"fixed32,9,opt,name=total_spent,json=totalSpent,proto3,oneof" json:"total_spent,omitempty"`
 	OrganizationId  *int64                 `protobuf:"varint,10,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
 	LoyaltyLevelId  *int64                 `protobuf:"varint,11,opt,name=loyalty_level_id,json=loyaltyLevelId,proto3,oneof" json:"loyalty_level_id,omitempty"`
+	BranchId        *int64                 `protobuf:"varint,12,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -141,6 +142,13 @@ func (x *Customer) GetOrganizationId() int64 {
 func (x *Customer) GetLoyaltyLevelId() int64 {
 	if x != nil && x.LoyaltyLevelId != nil {
 		return *x.LoyaltyLevelId
+	}
+	return 0
+}
+
+func (x *Customer) GetBranchId() int64 {
+	if x != nil && x.BranchId != nil {
+		return *x.BranchId
 	}
 	return 0
 }
@@ -891,7 +899,7 @@ var File_customer_customer_proto protoreflect.FileDescriptor
 
 const file_customer_customer_proto_rawDesc = "" +
 	"\n" +
-	"\x17customer/customer.proto\x12\bcustomer\"\xd5\x04\n" +
+	"\x17customer/customer.proto\x12\bcustomer\"\x85\x05\n" +
 	"\bCustomer\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1c\n" +
 	"\auser_id\x18\x02 \x01(\x03H\x01R\x06userId\x88\x01\x01\x12\"\n" +
@@ -909,7 +917,8 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x0forganization_id\x18\n" +
 	" \x01(\x03H\tR\x0eorganizationId\x88\x01\x01\x12-\n" +
 	"\x10loyalty_level_id\x18\v \x01(\x03H\n" +
-	"R\x0eloyaltyLevelId\x88\x01\x01B\x05\n" +
+	"R\x0eloyaltyLevelId\x88\x01\x01\x12 \n" +
+	"\tbranch_id\x18\f \x01(\x03H\vR\bbranchId\x88\x01\x01B\x05\n" +
 	"\x03_idB\n" +
 	"\n" +
 	"\b_user_idB\r\n" +
@@ -922,7 +931,9 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x11_cashback_balanceB\x0e\n" +
 	"\f_total_spentB\x12\n" +
 	"\x10_organization_idB\x13\n" +
-	"\x11_loyalty_level_id\"\x88\x02\n" +
+	"\x11_loyalty_level_idB\f\n" +
+	"\n" +
+	"_branch_id\"\x88\x02\n" +
 	"\x18CustomerBonusTransaction\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03R\n" +
