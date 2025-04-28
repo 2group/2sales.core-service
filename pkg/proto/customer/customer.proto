@@ -14,7 +14,7 @@ service CustomerService {
 
   rpc CreateGiftCertificate (CreateGiftCertificateRequest) returns (CreateGiftCertificateResponse);
   rpc GetGiftCertificate (GetGiftCertificateRequest) returns (GetGiftCertificateResponse);
-  rpc RedeemGiftCertificate (RedeemGiftCertificateRequest) returns (RedeemGiftCertificateResponse);
+  rpc RedeemGiftCertificate (UpdateGiftCertificateRequest) returns (UpdateGiftCertificateResponse);
   rpc ListGiftCertificates (ListGiftCertificatesRequest) returns (ListGiftCertificatesResponse);
 
 }
@@ -132,12 +132,12 @@ message GetGiftCertificateResponse {
     GiftCertificate certificate = 1;
 }
 
-message RedeemGiftCertificateRequest {
+message UpdateGiftCertificateRequest {
     int64 id = 1;
     double amount = 2; // сколько хотим списать
 }
 
-message RedeemGiftCertificateResponse {
+message UpdateGiftCertificateResponse {
     GiftCertificate certificate = 1;
 }
 

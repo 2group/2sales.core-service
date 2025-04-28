@@ -1171,7 +1171,7 @@ func (x *GetGiftCertificateResponse) GetCertificate() *GiftCertificate {
 	return nil
 }
 
-type RedeemGiftCertificateRequest struct {
+type UpdateGiftCertificateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Amount        float64                `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"` // сколько хотим списать
@@ -1179,20 +1179,20 @@ type RedeemGiftCertificateRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *RedeemGiftCertificateRequest) Reset() {
-	*x = RedeemGiftCertificateRequest{}
+func (x *UpdateGiftCertificateRequest) Reset() {
+	*x = UpdateGiftCertificateRequest{}
 	mi := &file_customer_customer_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *RedeemGiftCertificateRequest) String() string {
+func (x *UpdateGiftCertificateRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RedeemGiftCertificateRequest) ProtoMessage() {}
+func (*UpdateGiftCertificateRequest) ProtoMessage() {}
 
-func (x *RedeemGiftCertificateRequest) ProtoReflect() protoreflect.Message {
+func (x *UpdateGiftCertificateRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_customer_customer_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1204,46 +1204,46 @@ func (x *RedeemGiftCertificateRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RedeemGiftCertificateRequest.ProtoReflect.Descriptor instead.
-func (*RedeemGiftCertificateRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateGiftCertificateRequest.ProtoReflect.Descriptor instead.
+func (*UpdateGiftCertificateRequest) Descriptor() ([]byte, []int) {
 	return file_customer_customer_proto_rawDescGZIP(), []int{20}
 }
 
-func (x *RedeemGiftCertificateRequest) GetId() int64 {
+func (x *UpdateGiftCertificateRequest) GetId() int64 {
 	if x != nil {
 		return x.Id
 	}
 	return 0
 }
 
-func (x *RedeemGiftCertificateRequest) GetAmount() float64 {
+func (x *UpdateGiftCertificateRequest) GetAmount() float64 {
 	if x != nil {
 		return x.Amount
 	}
 	return 0
 }
 
-type RedeemGiftCertificateResponse struct {
+type UpdateGiftCertificateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Certificate   *GiftCertificate       `protobuf:"bytes,1,opt,name=certificate,proto3" json:"certificate,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *RedeemGiftCertificateResponse) Reset() {
-	*x = RedeemGiftCertificateResponse{}
+func (x *UpdateGiftCertificateResponse) Reset() {
+	*x = UpdateGiftCertificateResponse{}
 	mi := &file_customer_customer_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *RedeemGiftCertificateResponse) String() string {
+func (x *UpdateGiftCertificateResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RedeemGiftCertificateResponse) ProtoMessage() {}
+func (*UpdateGiftCertificateResponse) ProtoMessage() {}
 
-func (x *RedeemGiftCertificateResponse) ProtoReflect() protoreflect.Message {
+func (x *UpdateGiftCertificateResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_customer_customer_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1255,12 +1255,12 @@ func (x *RedeemGiftCertificateResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RedeemGiftCertificateResponse.ProtoReflect.Descriptor instead.
-func (*RedeemGiftCertificateResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateGiftCertificateResponse.ProtoReflect.Descriptor instead.
+func (*UpdateGiftCertificateResponse) Descriptor() ([]byte, []int) {
 	return file_customer_customer_proto_rawDescGZIP(), []int{21}
 }
 
-func (x *RedeemGiftCertificateResponse) GetCertificate() *GiftCertificate {
+func (x *UpdateGiftCertificateResponse) GetCertificate() *GiftCertificate {
 	if x != nil {
 		return x.Certificate
 	}
@@ -1494,10 +1494,10 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"Y\n" +
 	"\x1aGetGiftCertificateResponse\x12;\n" +
 	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"F\n" +
-	"\x1cRedeemGiftCertificateRequest\x12\x0e\n" +
+	"\x1cUpdateGiftCertificateRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
 	"\x06amount\x18\x02 \x01(\x01R\x06amount\"\\\n" +
-	"\x1dRedeemGiftCertificateResponse\x12;\n" +
+	"\x1dUpdateGiftCertificateResponse\x12;\n" +
 	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"\xc3\x01\n" +
 	"\x1bListGiftCertificatesRequest\x12$\n" +
 	"\vcustomer_id\x18\x01 \x01(\x03H\x00R\n" +
@@ -1520,7 +1520,7 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x16CreateBonusTransaction\x12'.customer.CreateBonusTransactionRequest\x1a(.customer.CreateBonusTransactionResponse\x12h\n" +
 	"\x15CreateGiftCertificate\x12&.customer.CreateGiftCertificateRequest\x1a'.customer.CreateGiftCertificateResponse\x12_\n" +
 	"\x12GetGiftCertificate\x12#.customer.GetGiftCertificateRequest\x1a$.customer.GetGiftCertificateResponse\x12h\n" +
-	"\x15RedeemGiftCertificate\x12&.customer.RedeemGiftCertificateRequest\x1a'.customer.RedeemGiftCertificateResponse\x12e\n" +
+	"\x15RedeemGiftCertificate\x12&.customer.UpdateGiftCertificateRequest\x1a'.customer.UpdateGiftCertificateResponse\x12e\n" +
 	"\x14ListGiftCertificates\x12%.customer.ListGiftCertificatesRequest\x1a&.customer.ListGiftCertificatesResponseBFZDgithub.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1b\x06proto3"
 
 var (
@@ -1557,8 +1557,8 @@ var file_customer_customer_proto_goTypes = []any{
 	(*CreateGiftCertificateResponse)(nil),  // 17: customer.CreateGiftCertificateResponse
 	(*GetGiftCertificateRequest)(nil),      // 18: customer.GetGiftCertificateRequest
 	(*GetGiftCertificateResponse)(nil),     // 19: customer.GetGiftCertificateResponse
-	(*RedeemGiftCertificateRequest)(nil),   // 20: customer.RedeemGiftCertificateRequest
-	(*RedeemGiftCertificateResponse)(nil),  // 21: customer.RedeemGiftCertificateResponse
+	(*UpdateGiftCertificateRequest)(nil),   // 20: customer.UpdateGiftCertificateRequest
+	(*UpdateGiftCertificateResponse)(nil),  // 21: customer.UpdateGiftCertificateResponse
 	(*ListGiftCertificatesRequest)(nil),    // 22: customer.ListGiftCertificatesRequest
 	(*ListGiftCertificatesResponse)(nil),   // 23: customer.ListGiftCertificatesResponse
 }
@@ -1574,7 +1574,7 @@ var file_customer_customer_proto_depIdxs = []int32{
 	15, // 8: customer.CreateGiftCertificateRequest.certificate:type_name -> customer.GiftCertificate
 	15, // 9: customer.CreateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
 	15, // 10: customer.GetGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
-	15, // 11: customer.RedeemGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
+	15, // 11: customer.UpdateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
 	15, // 12: customer.ListGiftCertificatesResponse.certificates:type_name -> customer.GiftCertificate
 	3,  // 13: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
 	5,  // 14: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
@@ -1584,7 +1584,7 @@ var file_customer_customer_proto_depIdxs = []int32{
 	13, // 18: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
 	16, // 19: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
 	18, // 20: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
-	20, // 21: customer.CustomerService.RedeemGiftCertificate:input_type -> customer.RedeemGiftCertificateRequest
+	20, // 21: customer.CustomerService.RedeemGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
 	22, // 22: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
 	4,  // 23: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
 	6,  // 24: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
@@ -1594,7 +1594,7 @@ var file_customer_customer_proto_depIdxs = []int32{
 	14, // 28: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
 	17, // 29: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
 	19, // 30: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
-	21, // 31: customer.CustomerService.RedeemGiftCertificate:output_type -> customer.RedeemGiftCertificateResponse
+	21, // 31: customer.CustomerService.RedeemGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
 	23, // 32: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
 	23, // [23:33] is the sub-list for method output_type
 	13, // [13:23] is the sub-list for method input_type
