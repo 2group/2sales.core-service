@@ -191,26 +191,46 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 	log := h.log.With("method", "ListServices")
 	log.Info("request_received")
 
-	limitStr := chi.URLParam(r, "limit")
-	offsetStr := chi.URLParam(r, "offset")
+	limitStr := r.URL.Query().Get("limit")
+	offsetStr := r.URL.Query().Get("offset")
+	orgIDStr := r.URL.Query().Get("organization_id")
+	branchIDStr := r.URL.Query().Get("branch_id")
 
 	limit, err := strconv.ParseInt(limitStr, 10, 32)
 	if err != nil {
 		log.Warn("invalid_limit", "limit", limitStr, "error", err)
 		limit = 20
 	}
-	offset, err := strconv.ParseInt(offsetStr, 10, 64)
+	offset, err := strconv.ParseInt(offsetStr, 10, 32)
 	if err != nil {
 		log.Warn("invalid_offset", "offset", offsetStr, "error", err)
 		offset = 0
 	}
 
-	req := &servicev1.ListServicesRequest{
-		Limit:  int32(limit),
-		Offset: int32(offset),
+	var organizationID *int64
+	if orgIDStr != "" {
+		orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
+		if err == nil {
+			organizationID = proto.Int64(orgID)
+		}
 	}
 
-	log.Info("calling_service_microservice", "limit", limit, "offset", offset)
+	var branchID *int64
+	if branchIDStr != "" {
+		brID, err := strconv.ParseInt(branchIDStr, 10, 64)
+		if err == nil {
+			branchID = proto.Int64(brID)
+		}
+	}
+
+	req := &servicev1.ListServicesRequest{
+		OrganizationId: organizationID,
+		BranchId:       branchID,
+		Limit:          int32(limit),
+		Offset:         int32(offset),
+	}
+
+	log.Info("calling_service_microservice", "organization_id", organizationID, "branch_id", branchID, "limit", limit, "offset", offset)
 	resp, err := h.service.Api.ListServices(r.Context(), req)
 	if err != nil {
 		log.Error("gRPC_call_failed", "error", err)
