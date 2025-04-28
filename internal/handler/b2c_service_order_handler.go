@@ -107,14 +107,16 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 
 	query := r.URL.Query()
 	orgIDStr := query.Get("organization_id")
+	branchIDStr := query.Get("branch_id")
 	limitStr := query.Get("limit")
 	offsetStr := query.Get("offset")
 
 	var (
-		orgID  int64 = 0
-		limit  int64 = 50
-		offset int64 = 0
-		err    error
+		orgID    int64 = 0
+		branchID int64 = 0
+		limit    int64 = 50
+		offset   int64 = 0
+		err      error
 	)
 
 	if orgIDStr != "" {
@@ -122,6 +124,15 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		if err != nil || orgID < 0 {
 			log.Error("invalid_organization_id", "organization_id", orgIDStr, "error", err)
 			json.WriteError(w, http.StatusBadRequest, errors.New("invalid organization_id"))
+			return
+		}
+	}
+
+	if branchIDStr != "" {
+		branchID, err = strconv.ParseInt(branchIDStr, 10, 64)
+		if err != nil || branchID < 0 {
+			log.Error("invalid_branch_id", "branch_id", branchIDStr, "error", err)
+			json.WriteError(w, http.StatusBadRequest, errors.New("invalid branch_id"))
 			return
 		}
 	}
@@ -144,10 +155,16 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		}
 	}
 
-	log.Info("calling_b2c_service_order_microservice", "organization_id", orgID, "limit", limit, "offset", offset)
+	log.Info("calling_b2c_service_order_microservice",
+		"organization_id", orgID,
+		"branch_id", branchID,
+		"limit", limit,
+		"offset", offset,
+	)
 
 	req := &orderv1.ListB2CServiceOrdersRequest{
 		OrganizationId: orgID,
+		BranchId:       branchID,
 		Limit:          limit,
 		Offset:         offset,
 	}
