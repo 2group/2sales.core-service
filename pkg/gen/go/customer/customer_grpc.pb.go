@@ -27,7 +27,7 @@ const (
 	CustomerService_CreateBonusTransaction_FullMethodName = "/customer.CustomerService/CreateBonusTransaction"
 	CustomerService_CreateGiftCertificate_FullMethodName  = "/customer.CustomerService/CreateGiftCertificate"
 	CustomerService_GetGiftCertificate_FullMethodName     = "/customer.CustomerService/GetGiftCertificate"
-	CustomerService_RedeemGiftCertificate_FullMethodName  = "/customer.CustomerService/RedeemGiftCertificate"
+	CustomerService_UpdateGiftCertificate_FullMethodName  = "/customer.CustomerService/UpdateGiftCertificate"
 	CustomerService_ListGiftCertificates_FullMethodName   = "/customer.CustomerService/ListGiftCertificates"
 )
 
@@ -43,7 +43,7 @@ type CustomerServiceClient interface {
 	CreateBonusTransaction(ctx context.Context, in *CreateBonusTransactionRequest, opts ...grpc.CallOption) (*CreateBonusTransactionResponse, error)
 	CreateGiftCertificate(ctx context.Context, in *CreateGiftCertificateRequest, opts ...grpc.CallOption) (*CreateGiftCertificateResponse, error)
 	GetGiftCertificate(ctx context.Context, in *GetGiftCertificateRequest, opts ...grpc.CallOption) (*GetGiftCertificateResponse, error)
-	RedeemGiftCertificate(ctx context.Context, in *UpdateGiftCertificateRequest, opts ...grpc.CallOption) (*UpdateGiftCertificateResponse, error)
+	UpdateGiftCertificate(ctx context.Context, in *UpdateGiftCertificateRequest, opts ...grpc.CallOption) (*UpdateGiftCertificateResponse, error)
 	ListGiftCertificates(ctx context.Context, in *ListGiftCertificatesRequest, opts ...grpc.CallOption) (*ListGiftCertificatesResponse, error)
 }
 
@@ -135,10 +135,10 @@ func (c *customerServiceClient) GetGiftCertificate(ctx context.Context, in *GetG
 	return out, nil
 }
 
-func (c *customerServiceClient) RedeemGiftCertificate(ctx context.Context, in *UpdateGiftCertificateRequest, opts ...grpc.CallOption) (*UpdateGiftCertificateResponse, error) {
+func (c *customerServiceClient) UpdateGiftCertificate(ctx context.Context, in *UpdateGiftCertificateRequest, opts ...grpc.CallOption) (*UpdateGiftCertificateResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateGiftCertificateResponse)
-	err := c.cc.Invoke(ctx, CustomerService_RedeemGiftCertificate_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, CustomerService_UpdateGiftCertificate_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +167,7 @@ type CustomerServiceServer interface {
 	CreateBonusTransaction(context.Context, *CreateBonusTransactionRequest) (*CreateBonusTransactionResponse, error)
 	CreateGiftCertificate(context.Context, *CreateGiftCertificateRequest) (*CreateGiftCertificateResponse, error)
 	GetGiftCertificate(context.Context, *GetGiftCertificateRequest) (*GetGiftCertificateResponse, error)
-	RedeemGiftCertificate(context.Context, *UpdateGiftCertificateRequest) (*UpdateGiftCertificateResponse, error)
+	UpdateGiftCertificate(context.Context, *UpdateGiftCertificateRequest) (*UpdateGiftCertificateResponse, error)
 	ListGiftCertificates(context.Context, *ListGiftCertificatesRequest) (*ListGiftCertificatesResponse, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
@@ -203,8 +203,8 @@ func (UnimplementedCustomerServiceServer) CreateGiftCertificate(context.Context,
 func (UnimplementedCustomerServiceServer) GetGiftCertificate(context.Context, *GetGiftCertificateRequest) (*GetGiftCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGiftCertificate not implemented")
 }
-func (UnimplementedCustomerServiceServer) RedeemGiftCertificate(context.Context, *UpdateGiftCertificateRequest) (*UpdateGiftCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RedeemGiftCertificate not implemented")
+func (UnimplementedCustomerServiceServer) UpdateGiftCertificate(context.Context, *UpdateGiftCertificateRequest) (*UpdateGiftCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateGiftCertificate not implemented")
 }
 func (UnimplementedCustomerServiceServer) ListGiftCertificates(context.Context, *ListGiftCertificatesRequest) (*ListGiftCertificatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificates not implemented")
@@ -374,20 +374,20 @@ func _CustomerService_GetGiftCertificate_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CustomerService_RedeemGiftCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CustomerService_UpdateGiftCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateGiftCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CustomerServiceServer).RedeemGiftCertificate(ctx, in)
+		return srv.(CustomerServiceServer).UpdateGiftCertificate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CustomerService_RedeemGiftCertificate_FullMethodName,
+		FullMethod: CustomerService_UpdateGiftCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CustomerServiceServer).RedeemGiftCertificate(ctx, req.(*UpdateGiftCertificateRequest))
+		return srv.(CustomerServiceServer).UpdateGiftCertificate(ctx, req.(*UpdateGiftCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -450,8 +450,8 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CustomerService_GetGiftCertificate_Handler,
 		},
 		{
-			MethodName: "RedeemGiftCertificate",
-			Handler:    _CustomerService_RedeemGiftCertificate_Handler,
+			MethodName: "UpdateGiftCertificate",
+			Handler:    _CustomerService_UpdateGiftCertificate_Handler,
 		},
 		{
 			MethodName: "ListGiftCertificates",

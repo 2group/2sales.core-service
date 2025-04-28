@@ -14,9 +14,8 @@ service CustomerService {
 
   rpc CreateGiftCertificate (CreateGiftCertificateRequest) returns (CreateGiftCertificateResponse);
   rpc GetGiftCertificate (GetGiftCertificateRequest) returns (GetGiftCertificateResponse);
-  rpc RedeemGiftCertificate (UpdateGiftCertificateRequest) returns (UpdateGiftCertificateResponse);
+  rpc UpdateGiftCertificate (UpdateGiftCertificateRequest) returns (UpdateGiftCertificateResponse);
   rpc ListGiftCertificates (ListGiftCertificatesRequest) returns (ListGiftCertificatesResponse);
-
 }
 
 message Customer {

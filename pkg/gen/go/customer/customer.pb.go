@@ -1520,7 +1520,7 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x16CreateBonusTransaction\x12'.customer.CreateBonusTransactionRequest\x1a(.customer.CreateBonusTransactionResponse\x12h\n" +
 	"\x15CreateGiftCertificate\x12&.customer.CreateGiftCertificateRequest\x1a'.customer.CreateGiftCertificateResponse\x12_\n" +
 	"\x12GetGiftCertificate\x12#.customer.GetGiftCertificateRequest\x1a$.customer.GetGiftCertificateResponse\x12h\n" +
-	"\x15RedeemGiftCertificate\x12&.customer.UpdateGiftCertificateRequest\x1a'.customer.UpdateGiftCertificateResponse\x12e\n" +
+	"\x15UpdateGiftCertificate\x12&.customer.UpdateGiftCertificateRequest\x1a'.customer.UpdateGiftCertificateResponse\x12e\n" +
 	"\x14ListGiftCertificates\x12%.customer.ListGiftCertificatesRequest\x1a&.customer.ListGiftCertificatesResponseBFZDgithub.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1b\x06proto3"
 
 var (
@@ -1584,7 +1584,7 @@ var file_customer_customer_proto_depIdxs = []int32{
 	13, // 18: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
 	16, // 19: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
 	18, // 20: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
-	20, // 21: customer.CustomerService.RedeemGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
+	20, // 21: customer.CustomerService.UpdateGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
 	22, // 22: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
 	4,  // 23: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
 	6,  // 24: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
@@ -1594,7 +1594,7 @@ var file_customer_customer_proto_depIdxs = []int32{
 	14, // 28: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
 	17, // 29: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
 	19, // 30: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
-	21, // 31: customer.CustomerService.RedeemGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
+	21, // 31: customer.CustomerService.UpdateGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
 	23, // 32: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
 	23, // [23:33] is the sub-list for method output_type
 	13, // [13:23] is the sub-list for method input_type
