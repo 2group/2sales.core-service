@@ -22,6 +22,9 @@ message OrderDetail {
     float original_total_price = 4;
     float final_total_price = 5;
     repeated OrderItemDetail order_items = 6;
+
+    optional int64 gift_certificate_id = 7;
+    optional float gift_used_amount = 8;
 }
 
 message Order {
@@ -37,6 +40,9 @@ message Order {
   optional customer.Customer customer = 9;
   optional float bonus_used = 10;
   optional int64 branch_id = 11;
+
+  optional int64 gift_certificate_id = 12;
+  optional float gift_used_amount = 13;
 }
 
 message OrderItem {
