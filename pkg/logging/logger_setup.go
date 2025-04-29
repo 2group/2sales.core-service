@@ -26,9 +26,6 @@ func SetupLogger(publisher *kafka.KafkaPublisher, topic, env string) {
 	}
 
 	// Attach static fields and set as default
-	logger := slog.New(handler).With(
-		"service", "core-service",
-		"env", env,
-	)
+	logger := slog.New(handler).With()
 	slog.SetDefault(logger)
 }
