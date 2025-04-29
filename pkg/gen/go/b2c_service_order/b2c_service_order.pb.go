@@ -31,6 +31,8 @@ type OrderDetail struct {
 	OriginalTotalPrice float32                `protobuf:"fixed32,4,opt,name=original_total_price,json=originalTotalPrice,proto3" json:"original_total_price,omitempty"`
 	FinalTotalPrice    float32                `protobuf:"fixed32,5,opt,name=final_total_price,json=finalTotalPrice,proto3" json:"final_total_price,omitempty"`
 	OrderItems         []*OrderItemDetail     `protobuf:"bytes,6,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
+	GiftCertificateId  *int64                 `protobuf:"varint,7,opt,name=gift_certificate_id,json=giftCertificateId,proto3,oneof" json:"gift_certificate_id,omitempty"`
+	GiftUsedAmount     *float32               `protobuf:"fixed32,8,opt,name=gift_used_amount,json=giftUsedAmount,proto3,oneof" json:"gift_used_amount,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -107,6 +109,20 @@ func (x *OrderDetail) GetOrderItems() []*OrderItemDetail {
 	return nil
 }
 
+func (x *OrderDetail) GetGiftCertificateId() int64 {
+	if x != nil && x.GiftCertificateId != nil {
+		return *x.GiftCertificateId
+	}
+	return 0
+}
+
+func (x *OrderDetail) GetGiftUsedAmount() float32 {
+	if x != nil && x.GiftUsedAmount != nil {
+		return *x.GiftUsedAmount
+	}
+	return 0
+}
+
 type Order struct {
 	state              protoimpl.MessageState `protogen:"open.v1"`
 	Id                 *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
@@ -120,6 +136,8 @@ type Order struct {
 	Customer           *customer.Customer     `protobuf:"bytes,9,opt,name=customer,proto3,oneof" json:"customer,omitempty"`
 	BonusUsed          *float32               `protobuf:"fixed32,10,opt,name=bonus_used,json=bonusUsed,proto3,oneof" json:"bonus_used,omitempty"`
 	BranchId           *int64                 `protobuf:"varint,11,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
+	GiftCertificateId  *int64                 `protobuf:"varint,12,opt,name=gift_certificate_id,json=giftCertificateId,proto3,oneof" json:"gift_certificate_id,omitempty"`
+	GiftUsedAmount     *float32               `protobuf:"fixed32,13,opt,name=gift_used_amount,json=giftUsedAmount,proto3,oneof" json:"gift_used_amount,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -227,6 +245,20 @@ func (x *Order) GetBonusUsed() float32 {
 func (x *Order) GetBranchId() int64 {
 	if x != nil && x.BranchId != nil {
 		return *x.BranchId
+	}
+	return 0
+}
+
+func (x *Order) GetGiftCertificateId() int64 {
+	if x != nil && x.GiftCertificateId != nil {
+		return *x.GiftCertificateId
+	}
+	return 0
+}
+
+func (x *Order) GetGiftUsedAmount() float32 {
+	if x != nil && x.GiftUsedAmount != nil {
+		return *x.GiftUsedAmount
 	}
 	return 0
 }
@@ -781,7 +813,7 @@ var File_b2c_service_order_b2c_service_order_proto protoreflect.FileDescriptor
 
 const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
-	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\"\x88\x02\n" +
+	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\"\x99\x03\n" +
 	"\vOrderDetail\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12.\n" +
 	"\bcustomer\x18\x02 \x01(\v2\x12.customer.CustomerR\bcustomer\x12\x16\n" +
@@ -789,7 +821,11 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x14original_total_price\x18\x04 \x01(\x02R\x12originalTotalPrice\x12*\n" +
 	"\x11final_total_price\x18\x05 \x01(\x02R\x0ffinalTotalPrice\x12C\n" +
 	"\vorder_items\x18\x06 \x03(\v2\".b2c_service_order.OrderItemDetailR\n" +
-	"orderItems\"\xe2\x04\n" +
+	"orderItems\x123\n" +
+	"\x13gift_certificate_id\x18\a \x01(\x03H\x00R\x11giftCertificateId\x88\x01\x01\x12-\n" +
+	"\x10gift_used_amount\x18\b \x01(\x02H\x01R\x0egiftUsedAmount\x88\x01\x01B\x16\n" +
+	"\x14_gift_certificate_idB\x13\n" +
+	"\x11_gift_used_amount\"\xf3\x05\n" +
 	"\x05Order\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03H\x01R\n" +
@@ -807,7 +843,10 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
 	"bonus_used\x18\n" +
 	" \x01(\x02H\bR\tbonusUsed\x88\x01\x01\x12 \n" +
-	"\tbranch_id\x18\v \x01(\x03H\tR\bbranchId\x88\x01\x01B\x05\n" +
+	"\tbranch_id\x18\v \x01(\x03H\tR\bbranchId\x88\x01\x01\x123\n" +
+	"\x13gift_certificate_id\x18\f \x01(\x03H\n" +
+	"R\x11giftCertificateId\x88\x01\x01\x12-\n" +
+	"\x10gift_used_amount\x18\r \x01(\x02H\vR\x0egiftUsedAmount\x88\x01\x01B\x05\n" +
 	"\x03_idB\x0e\n" +
 	"\f_customer_idB\t\n" +
 	"\a_statusB\x17\n" +
@@ -818,7 +857,9 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\t_customerB\r\n" +
 	"\v_bonus_usedB\f\n" +
 	"\n" +
-	"_branch_id\"\xcd\x01\n" +
+	"_branch_idB\x16\n" +
+	"\x14_gift_certificate_idB\x13\n" +
+	"\x11_gift_used_amount\"\xcd\x01\n" +
 	"\tOrderItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12(\n" +
 	"\x10service_order_id\x18\x02 \x01(\x03R\x0eserviceOrderId\x12\x1d\n" +
@@ -922,6 +963,7 @@ func file_b2c_service_order_b2c_service_order_proto_init() {
 	if File_b2c_service_order_b2c_service_order_proto != nil {
 		return
 	}
+	file_b2c_service_order_b2c_service_order_proto_msgTypes[0].OneofWrappers = []any{}
 	file_b2c_service_order_b2c_service_order_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

@@ -90,6 +90,7 @@ func (s *APIServer) Run() error {
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
 	customerHandler := handler.NewCustomerHandler(s.log.With("component", "customer_handler"), customergrpc)
+	giftCertificateHandler := handler.NewGiftCertificateHandler(s.log.With("component", "gift_certificate_handler"), customergrpc)
 	serviceHandler := handler.NewServiceHandler(s.log.With("component", "service_handler"), servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log.With("component", "b2c_service_order_handler"), B2CServiceOrderGrpc)
 	EmployeeHandler := handler.NewEmployeeHandler(s.log.With("component", "employee_handler"), Employeegrpc)
@@ -330,6 +331,15 @@ func (s *APIServer) Run() error {
 				authRouter.Delete("/{customer_id}", customerHandler.DeleteCustomer)
 				authRouter.Patch("/{customer_id}", customerHandler.PartialUpdateCustomer)
 				authRouter.Put("/{customer_id}", customerHandler.UpdateCustomer)
+			})
+		})
+
+		apiRouter.Route("/gift-certificates", func(certificateRouter chi.Router) {
+			certificateRouter.Group(func(authRouter chi.Router) {
+				//authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", giftCertificateHandler.CreateGiftCertificate)
+				authRouter.Get("/", giftCertificateHandler.ListGiftCertificates)
+				authRouter.Get("/{certificate_id}", giftCertificateHandler.GetGiftCertificate)
 			})
 		})
 		apiRouter.Route("/service", func(serviceRouter chi.Router) {

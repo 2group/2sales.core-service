@@ -887,6 +887,506 @@ func (x *CreateBonusTransactionResponse) GetTransaction() *CustomerBonusTransact
 	return nil
 }
 
+type GiftCertificate struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CustomerId      int64                  `protobuf:"varint,2,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	OrganizationId  int64                  `protobuf:"varint,3,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	OriginalAmount  float64                `protobuf:"fixed64,4,opt,name=original_amount,json=originalAmount,proto3" json:"original_amount,omitempty"`
+	RemainingAmount float64                `protobuf:"fixed64,5,opt,name=remaining_amount,json=remainingAmount,proto3" json:"remaining_amount,omitempty"`
+	Status          string                 `protobuf:"bytes,6,opt,name=status,proto3" json:"status,omitempty"` // active, used, expired
+	ExpiresAt       *string                `protobuf:"bytes,7,opt,name=expires_at,json=expiresAt,proto3,oneof" json:"expires_at,omitempty"`
+	CreatedAt       *string                `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt       *string                `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *GiftCertificate) Reset() {
+	*x = GiftCertificate{}
+	mi := &file_customer_customer_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GiftCertificate) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GiftCertificate) ProtoMessage() {}
+
+func (x *GiftCertificate) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GiftCertificate.ProtoReflect.Descriptor instead.
+func (*GiftCertificate) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GiftCertificate) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *GiftCertificate) GetCustomerId() int64 {
+	if x != nil {
+		return x.CustomerId
+	}
+	return 0
+}
+
+func (x *GiftCertificate) GetOrganizationId() int64 {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return 0
+}
+
+func (x *GiftCertificate) GetOriginalAmount() float64 {
+	if x != nil {
+		return x.OriginalAmount
+	}
+	return 0
+}
+
+func (x *GiftCertificate) GetRemainingAmount() float64 {
+	if x != nil {
+		return x.RemainingAmount
+	}
+	return 0
+}
+
+func (x *GiftCertificate) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *GiftCertificate) GetExpiresAt() string {
+	if x != nil && x.ExpiresAt != nil {
+		return *x.ExpiresAt
+	}
+	return ""
+}
+
+func (x *GiftCertificate) GetCreatedAt() string {
+	if x != nil && x.CreatedAt != nil {
+		return *x.CreatedAt
+	}
+	return ""
+}
+
+func (x *GiftCertificate) GetUpdatedAt() string {
+	if x != nil && x.UpdatedAt != nil {
+		return *x.UpdatedAt
+	}
+	return ""
+}
+
+type CreateGiftCertificateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Certificate   *GiftCertificate       `protobuf:"bytes,1,opt,name=certificate,proto3" json:"certificate,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateGiftCertificateRequest) Reset() {
+	*x = CreateGiftCertificateRequest{}
+	mi := &file_customer_customer_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateGiftCertificateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateGiftCertificateRequest) ProtoMessage() {}
+
+func (x *CreateGiftCertificateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateGiftCertificateRequest.ProtoReflect.Descriptor instead.
+func (*CreateGiftCertificateRequest) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *CreateGiftCertificateRequest) GetCertificate() *GiftCertificate {
+	if x != nil {
+		return x.Certificate
+	}
+	return nil
+}
+
+type CreateGiftCertificateResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Certificate   *GiftCertificate       `protobuf:"bytes,1,opt,name=certificate,proto3" json:"certificate,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateGiftCertificateResponse) Reset() {
+	*x = CreateGiftCertificateResponse{}
+	mi := &file_customer_customer_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateGiftCertificateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateGiftCertificateResponse) ProtoMessage() {}
+
+func (x *CreateGiftCertificateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateGiftCertificateResponse.ProtoReflect.Descriptor instead.
+func (*CreateGiftCertificateResponse) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *CreateGiftCertificateResponse) GetCertificate() *GiftCertificate {
+	if x != nil {
+		return x.Certificate
+	}
+	return nil
+}
+
+type GetGiftCertificateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGiftCertificateRequest) Reset() {
+	*x = GetGiftCertificateRequest{}
+	mi := &file_customer_customer_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGiftCertificateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGiftCertificateRequest) ProtoMessage() {}
+
+func (x *GetGiftCertificateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGiftCertificateRequest.ProtoReflect.Descriptor instead.
+func (*GetGiftCertificateRequest) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetGiftCertificateRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type GetGiftCertificateResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Certificate   *GiftCertificate       `protobuf:"bytes,1,opt,name=certificate,proto3" json:"certificate,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGiftCertificateResponse) Reset() {
+	*x = GetGiftCertificateResponse{}
+	mi := &file_customer_customer_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGiftCertificateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGiftCertificateResponse) ProtoMessage() {}
+
+func (x *GetGiftCertificateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGiftCertificateResponse.ProtoReflect.Descriptor instead.
+func (*GetGiftCertificateResponse) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *GetGiftCertificateResponse) GetCertificate() *GiftCertificate {
+	if x != nil {
+		return x.Certificate
+	}
+	return nil
+}
+
+type UpdateGiftCertificateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Amount        float64                `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"` // сколько хотим списать
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateGiftCertificateRequest) Reset() {
+	*x = UpdateGiftCertificateRequest{}
+	mi := &file_customer_customer_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateGiftCertificateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateGiftCertificateRequest) ProtoMessage() {}
+
+func (x *UpdateGiftCertificateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateGiftCertificateRequest.ProtoReflect.Descriptor instead.
+func (*UpdateGiftCertificateRequest) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *UpdateGiftCertificateRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateGiftCertificateRequest) GetAmount() float64 {
+	if x != nil {
+		return x.Amount
+	}
+	return 0
+}
+
+type UpdateGiftCertificateResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Certificate   *GiftCertificate       `protobuf:"bytes,1,opt,name=certificate,proto3" json:"certificate,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateGiftCertificateResponse) Reset() {
+	*x = UpdateGiftCertificateResponse{}
+	mi := &file_customer_customer_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateGiftCertificateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateGiftCertificateResponse) ProtoMessage() {}
+
+func (x *UpdateGiftCertificateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateGiftCertificateResponse.ProtoReflect.Descriptor instead.
+func (*UpdateGiftCertificateResponse) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *UpdateGiftCertificateResponse) GetCertificate() *GiftCertificate {
+	if x != nil {
+		return x.Certificate
+	}
+	return nil
+}
+
+type ListGiftCertificatesRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	CustomerId     *int64                 `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3,oneof" json:"customer_id,omitempty"`
+	OrganizationId *int64                 `protobuf:"varint,2,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	Limit          int32                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset         int32                  `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ListGiftCertificatesRequest) Reset() {
+	*x = ListGiftCertificatesRequest{}
+	mi := &file_customer_customer_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListGiftCertificatesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListGiftCertificatesRequest) ProtoMessage() {}
+
+func (x *ListGiftCertificatesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListGiftCertificatesRequest.ProtoReflect.Descriptor instead.
+func (*ListGiftCertificatesRequest) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *ListGiftCertificatesRequest) GetCustomerId() int64 {
+	if x != nil && x.CustomerId != nil {
+		return *x.CustomerId
+	}
+	return 0
+}
+
+func (x *ListGiftCertificatesRequest) GetOrganizationId() int64 {
+	if x != nil && x.OrganizationId != nil {
+		return *x.OrganizationId
+	}
+	return 0
+}
+
+func (x *ListGiftCertificatesRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *ListGiftCertificatesRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+type ListGiftCertificatesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Certificates  []*GiftCertificate     `protobuf:"bytes,1,rep,name=certificates,proto3" json:"certificates,omitempty"`
+	TotalCount    int32                  `protobuf:"varint,2,opt,name=total_count,json=totalCount,proto3" json:"total_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListGiftCertificatesResponse) Reset() {
+	*x = ListGiftCertificatesResponse{}
+	mi := &file_customer_customer_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListGiftCertificatesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListGiftCertificatesResponse) ProtoMessage() {}
+
+func (x *ListGiftCertificatesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListGiftCertificatesResponse.ProtoReflect.Descriptor instead.
+func (*ListGiftCertificatesResponse) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *ListGiftCertificatesResponse) GetCertificates() []*GiftCertificate {
+	if x != nil {
+		return x.Certificates
+	}
+	return nil
+}
+
+func (x *ListGiftCertificatesResponse) GetTotalCount() int32 {
+	if x != nil {
+		return x.TotalCount
+	}
+	return 0
+}
+
 var File_customer_customer_proto protoreflect.FileDescriptor
 
 const file_customer_customer_proto_rawDesc = "" +
@@ -968,14 +1468,60 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\border_id\x18\x03 \x01(\x03R\aorderId\x12!\n" +
 	"\fbonus_change\x18\x04 \x01(\x01R\vbonusChange\"f\n" +
 	"\x1eCreateBonusTransactionResponse\x12D\n" +
-	"\vtransaction\x18\x01 \x01(\v2\".customer.CustomerBonusTransactionR\vtransaction2\xb3\x04\n" +
+	"\vtransaction\x18\x01 \x01(\v2\".customer.CustomerBonusTransactionR\vtransaction\"\xf0\x02\n" +
+	"\x0fGiftCertificate\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
+	"\vcustomer_id\x18\x02 \x01(\x03R\n" +
+	"customerId\x12'\n" +
+	"\x0forganization_id\x18\x03 \x01(\x03R\x0eorganizationId\x12'\n" +
+	"\x0foriginal_amount\x18\x04 \x01(\x01R\x0eoriginalAmount\x12)\n" +
+	"\x10remaining_amount\x18\x05 \x01(\x01R\x0fremainingAmount\x12\x16\n" +
+	"\x06status\x18\x06 \x01(\tR\x06status\x12\"\n" +
+	"\n" +
+	"expires_at\x18\a \x01(\tH\x00R\texpiresAt\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"created_at\x18\b \x01(\tH\x01R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"updated_at\x18\t \x01(\tH\x02R\tupdatedAt\x88\x01\x01B\r\n" +
+	"\v_expires_atB\r\n" +
+	"\v_created_atB\r\n" +
+	"\v_updated_at\"[\n" +
+	"\x1cCreateGiftCertificateRequest\x12;\n" +
+	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"\\\n" +
+	"\x1dCreateGiftCertificateResponse\x12;\n" +
+	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"+\n" +
+	"\x19GetGiftCertificateRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"Y\n" +
+	"\x1aGetGiftCertificateResponse\x12;\n" +
+	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"F\n" +
+	"\x1cUpdateGiftCertificateRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
+	"\x06amount\x18\x02 \x01(\x01R\x06amount\"\\\n" +
+	"\x1dUpdateGiftCertificateResponse\x12;\n" +
+	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"\xc3\x01\n" +
+	"\x1bListGiftCertificatesRequest\x12$\n" +
+	"\vcustomer_id\x18\x01 \x01(\x03H\x00R\n" +
+	"customerId\x88\x01\x01\x12,\n" +
+	"\x0forganization_id\x18\x02 \x01(\x03H\x01R\x0eorganizationId\x88\x01\x01\x12\x14\n" +
+	"\x05limit\x18\x03 \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x04 \x01(\x05R\x06offsetB\x0e\n" +
+	"\f_customer_idB\x12\n" +
+	"\x10_organization_id\"~\n" +
+	"\x1cListGiftCertificatesResponse\x12=\n" +
+	"\fcertificates\x18\x01 \x03(\v2\x19.customer.GiftCertificateR\fcertificates\x12\x1f\n" +
+	"\vtotal_count\x18\x02 \x01(\x05R\n" +
+	"totalCount2\xcf\a\n" +
 	"\x0fCustomerService\x12J\n" +
 	"\vGetCustomer\x12\x1c.customer.GetCustomerRequest\x1a\x1d.customer.GetCustomerResponse\x12S\n" +
 	"\x0eCreateCustomer\x12\x1f.customer.CreateCustomerRequest\x1a .customer.CreateCustomerResponse\x12S\n" +
 	"\x0eDeleteCustomer\x12\x1f.customer.DeleteCustomerRequest\x1a .customer.DeleteCustomerResponse\x12h\n" +
 	"\x15PartialUpdateCustomer\x12&.customer.PartialUpdateCustomerRequest\x1a'.customer.PartialUpdateCustomerResponse\x12S\n" +
 	"\x0eUpdateCustomer\x12\x1f.customer.UpdateCustomerRequest\x1a .customer.UpdateCustomerResponse\x12k\n" +
-	"\x16CreateBonusTransaction\x12'.customer.CreateBonusTransactionRequest\x1a(.customer.CreateBonusTransactionResponseBFZDgithub.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1b\x06proto3"
+	"\x16CreateBonusTransaction\x12'.customer.CreateBonusTransactionRequest\x1a(.customer.CreateBonusTransactionResponse\x12h\n" +
+	"\x15CreateGiftCertificate\x12&.customer.CreateGiftCertificateRequest\x1a'.customer.CreateGiftCertificateResponse\x12_\n" +
+	"\x12GetGiftCertificate\x12#.customer.GetGiftCertificateRequest\x1a$.customer.GetGiftCertificateResponse\x12h\n" +
+	"\x15UpdateGiftCertificate\x12&.customer.UpdateGiftCertificateRequest\x1a'.customer.UpdateGiftCertificateResponse\x12e\n" +
+	"\x14ListGiftCertificates\x12%.customer.ListGiftCertificatesRequest\x1a&.customer.ListGiftCertificatesResponseBFZDgithub.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1b\x06proto3"
 
 var (
 	file_customer_customer_proto_rawDescOnce sync.Once
@@ -989,7 +1535,7 @@ func file_customer_customer_proto_rawDescGZIP() []byte {
 	return file_customer_customer_proto_rawDescData
 }
 
-var file_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_customer_customer_proto_goTypes = []any{
 	(*Customer)(nil),                       // 0: customer.Customer
 	(*CustomerBonusTransaction)(nil),       // 1: customer.CustomerBonusTransaction
@@ -1006,6 +1552,15 @@ var file_customer_customer_proto_goTypes = []any{
 	(*DeleteCustomerResponse)(nil),         // 12: customer.DeleteCustomerResponse
 	(*CreateBonusTransactionRequest)(nil),  // 13: customer.CreateBonusTransactionRequest
 	(*CreateBonusTransactionResponse)(nil), // 14: customer.CreateBonusTransactionResponse
+	(*GiftCertificate)(nil),                // 15: customer.GiftCertificate
+	(*CreateGiftCertificateRequest)(nil),   // 16: customer.CreateGiftCertificateRequest
+	(*CreateGiftCertificateResponse)(nil),  // 17: customer.CreateGiftCertificateResponse
+	(*GetGiftCertificateRequest)(nil),      // 18: customer.GetGiftCertificateRequest
+	(*GetGiftCertificateResponse)(nil),     // 19: customer.GetGiftCertificateResponse
+	(*UpdateGiftCertificateRequest)(nil),   // 20: customer.UpdateGiftCertificateRequest
+	(*UpdateGiftCertificateResponse)(nil),  // 21: customer.UpdateGiftCertificateResponse
+	(*ListGiftCertificatesRequest)(nil),    // 22: customer.ListGiftCertificatesRequest
+	(*ListGiftCertificatesResponse)(nil),   // 23: customer.ListGiftCertificatesResponse
 }
 var file_customer_customer_proto_depIdxs = []int32{
 	0,  // 0: customer.GetCustomerResponse.customer:type_name -> customer.Customer
@@ -1016,23 +1571,36 @@ var file_customer_customer_proto_depIdxs = []int32{
 	0,  // 5: customer.PartialUpdateCustomerRequest.customer:type_name -> customer.Customer
 	0,  // 6: customer.PartialUpdateCustomerResponse.customer:type_name -> customer.Customer
 	1,  // 7: customer.CreateBonusTransactionResponse.transaction:type_name -> customer.CustomerBonusTransaction
-	3,  // 8: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
-	5,  // 9: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
-	11, // 10: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
-	9,  // 11: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
-	7,  // 12: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
-	13, // 13: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
-	4,  // 14: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
-	6,  // 15: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
-	12, // 16: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
-	10, // 17: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
-	8,  // 18: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
-	14, // 19: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
-	14, // [14:20] is the sub-list for method output_type
-	8,  // [8:14] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	15, // 8: customer.CreateGiftCertificateRequest.certificate:type_name -> customer.GiftCertificate
+	15, // 9: customer.CreateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
+	15, // 10: customer.GetGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
+	15, // 11: customer.UpdateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
+	15, // 12: customer.ListGiftCertificatesResponse.certificates:type_name -> customer.GiftCertificate
+	3,  // 13: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
+	5,  // 14: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
+	11, // 15: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
+	9,  // 16: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
+	7,  // 17: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
+	13, // 18: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
+	16, // 19: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
+	18, // 20: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
+	20, // 21: customer.CustomerService.UpdateGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
+	22, // 22: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
+	4,  // 23: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
+	6,  // 24: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
+	12, // 25: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
+	10, // 26: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
+	8,  // 27: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
+	14, // 28: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
+	17, // 29: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
+	19, // 30: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
+	21, // 31: customer.CustomerService.UpdateGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
+	23, // 32: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
+	23, // [23:33] is the sub-list for method output_type
+	13, // [13:23] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_customer_customer_proto_init() }
@@ -1048,13 +1616,15 @@ func file_customer_customer_proto_init() {
 		(*GetCustomerRequest_PhoneNumber)(nil),
 	}
 	file_customer_customer_proto_msgTypes[5].OneofWrappers = []any{}
+	file_customer_customer_proto_msgTypes[15].OneofWrappers = []any{}
+	file_customer_customer_proto_msgTypes[22].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_customer_customer_proto_rawDesc), len(file_customer_customer_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   15,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
