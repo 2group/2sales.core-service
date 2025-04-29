@@ -16,7 +16,7 @@ type ServiceClient struct {
 func NewServiceClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*ServiceClient, error) {
 	cc, err := grpc.DialContext(ctx, addr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		// grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor),
+		grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor()),
 	)
 	if err != nil {
 		return nil, err

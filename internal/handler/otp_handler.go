@@ -2,6 +2,8 @@ package handler
 
 import (
 	"errors"
+	"github.com/2group/2sales.core-service/internal/grpc"
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"log/slog"
 	"net/http"
 
@@ -11,18 +13,21 @@ import (
 
 type OtpHandler struct {
 	log        *slog.Logger
-	otpService userv1.OtpServiceClient
+	otpService *grpc.OtpClient
 }
 
-func NewOtpHandler(log *slog.Logger, otpClient userv1.OtpServiceClient) *OtpHandler {
+func NewOtpHandler(client *grpc.OtpClient) *OtpHandler {
 	return &OtpHandler{
-		log:        log,
-		otpService: otpClient,
+		otpService: client,
 	}
 }
 
 func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "RequestSmsOtp")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "otp_handler",
+		"method", "RequestSmsOtp",
+	)
+
 	log.Info("request_received")
 
 	var req struct {
@@ -35,7 +40,7 @@ func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := h.otpService.RequestSmsOtp(r.Context(), &userv1.RequestSmsOtpRequest{
+	_, err := h.otpService.Api.RequestSmsOtp(r.Context(), &userv1.RequestSmsOtpRequest{
 		PhoneNumber: req.PhoneNumber,
 	})
 	if err != nil {
@@ -52,7 +57,11 @@ func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *OtpHandler) VerifySmsOtp(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "VerifySmsOtp")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "otp_handler",
+		"method", "VerifySmsOtp",
+	)
+
 	log.Info("request_received")
 
 	var req struct {
@@ -66,7 +75,7 @@ func (h *OtpHandler) VerifySmsOtp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.otpService.VerifySmsOtp(r.Context(), &userv1.VerifySmsOtpRequest{
+	resp, err := h.otpService.Api.VerifySmsOtp(r.Context(), &userv1.VerifySmsOtpRequest{
 		PhoneNumber: req.PhoneNumber,
 		Code:        req.Code,
 	})
@@ -81,7 +90,11 @@ func (h *OtpHandler) VerifySmsOtp(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *OtpHandler) RequestMailOtp(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "RequestMailOtp")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "otp_handler",
+		"method", "RequestMailOtp",
+	)
+
 	log.Info("request_received")
 
 	var req userv1.RequestMailOtpRequest
@@ -91,7 +104,7 @@ func (h *OtpHandler) RequestMailOtp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.otpService.RequestMailOtp(r.Context(), &req)
+	resp, err := h.otpService.Api.RequestMailOtp(r.Context(), &req)
 	if err != nil {
 		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusInternalServerError, errors.New("failed to request mail OTP"))
@@ -103,7 +116,11 @@ func (h *OtpHandler) RequestMailOtp(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *OtpHandler) VerifyMailOtp(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "VerifyMailOtp")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "otp_handler",
+		"method", "VerifyMailOtp",
+	)
+
 	log.Info("request_received")
 
 	var req userv1.VerifyMailOtpRequest
@@ -113,7 +130,7 @@ func (h *OtpHandler) VerifyMailOtp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.otpService.VerifyMailOtp(r.Context(), &req)
+	resp, err := h.otpService.Api.VerifyMailOtp(r.Context(), &req)
 	if err != nil {
 		log.Error("gRPC_call_failed", "error", err)
 		json.WriteError(w, http.StatusUnauthorized, errors.New("verification failed"))

@@ -16,7 +16,7 @@ type EmployeeClient struct {
 func NewEmployeeClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*EmployeeClient, error) {
 	cc, err := grpc.DialContext(ctx, addr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		// grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor),
+		grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor()),
 	)
 	if err != nil {
 		return nil, err

@@ -16,7 +16,7 @@ type B2CServiceOrderClient struct {
 func NewB2CServiceOrderClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*B2CServiceOrderClient, error) {
 	cc, err := grpc.DialContext(ctx, addr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		// grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor),
+		grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor()),
 	)
 	if err != nil {
 		return nil, err

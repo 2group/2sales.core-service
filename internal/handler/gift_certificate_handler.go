@@ -2,7 +2,7 @@ package handler
 
 import (
 	"errors"
-	"log/slog"
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"net/http"
 	"strconv"
 
@@ -13,19 +13,19 @@ import (
 )
 
 type GiftCertificateHandler struct {
-	log    *slog.Logger
 	client *grpc.CustomerClient
 }
 
-func NewGiftCertificateHandler(log *slog.Logger, client *grpc.CustomerClient) *GiftCertificateHandler {
-	return &GiftCertificateHandler{
-		log:    log,
-		client: client,
-	}
+func NewGiftCertificateHandler(client *grpc.CustomerClient) *GiftCertificateHandler {
+	return &GiftCertificateHandler{client: client}
 }
 
 func (h *GiftCertificateHandler) CreateGiftCertificate(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "CreateGiftCertificate")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "gift_certificate_handler",
+		"method", "CreateGiftCertificate",
+	)
+
 	log.Info("request_received")
 
 	req := &customerv1.CreateGiftCertificateRequest{}
@@ -48,7 +48,11 @@ func (h *GiftCertificateHandler) CreateGiftCertificate(w http.ResponseWriter, r 
 }
 
 func (h *GiftCertificateHandler) GetGiftCertificate(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "GetGiftCertificate")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "gift_certificate_handler",
+		"method", "GetGiftCertificate",
+	)
+
 	log.Info("request_received")
 
 	certificateIDStr := chi.URLParam(r, "certificate_id")
@@ -74,7 +78,11 @@ func (h *GiftCertificateHandler) GetGiftCertificate(w http.ResponseWriter, r *ht
 }
 
 func (h *GiftCertificateHandler) ListGiftCertificates(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "ListGiftCertificates")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "gift_certificate_handler",
+		"method", "ListGiftCertificates",
+	)
+
 	log.Info("request_received")
 
 	query := r.URL.Query()

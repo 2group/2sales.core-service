@@ -16,7 +16,7 @@ type OtpClient struct {
 func NewOtpClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*OtpClient, error) {
 	cc, err := grpc.DialContext(ctx, addr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		// grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor),
+		grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor()),
 	)
 	if err != nil {
 		return nil, err

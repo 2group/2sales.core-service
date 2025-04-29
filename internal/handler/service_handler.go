@@ -2,7 +2,7 @@ package handler
 
 import (
 	"errors"
-	"log/slog"
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"net/http"
 	"strconv"
 
@@ -14,19 +14,21 @@ import (
 )
 
 type ServiceHandler struct {
-	log     *slog.Logger
 	service *grpc.ServiceClient
 }
 
-func NewServiceHandler(log *slog.Logger, service *grpc.ServiceClient) *ServiceHandler {
+func NewServiceHandler(service *grpc.ServiceClient) *ServiceHandler {
 	return &ServiceHandler{
-		log:     log,
 		service: service,
 	}
 }
 
 func (h *ServiceHandler) CreateService(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "CreateService")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "service_handler",
+		"method", "CreateService",
+	)
+
 	log.Info("request_received")
 
 	req := &servicev1.CreateServiceRequest{}
@@ -49,7 +51,11 @@ func (h *ServiceHandler) CreateService(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ServiceHandler) GetService(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "GetService")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "service_handler",
+		"method", "GetService",
+	)
+
 	log.Info("request_received")
 
 	idStr := chi.URLParam(r, "id")
@@ -74,7 +80,11 @@ func (h *ServiceHandler) GetService(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ServiceHandler) DeleteService(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "DeleteService")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "service_handler",
+		"method", "DeleteService",
+	)
+
 	log.Info("request_received")
 
 	idStr := chi.URLParam(r, "id")
@@ -99,7 +109,11 @@ func (h *ServiceHandler) DeleteService(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ServiceHandler) PartialUpdateService(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "PartialUpdateService")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "service_handler",
+		"method", "PartialUpdateService",
+	)
+
 	log.Info("request_received")
 
 	idStr := chi.URLParam(r, "id")
@@ -132,7 +146,11 @@ func (h *ServiceHandler) PartialUpdateService(w http.ResponseWriter, r *http.Req
 }
 
 func (h *ServiceHandler) UpdateService(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "UpdateService")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "service_handler",
+		"method", "UpdateService",
+	)
+
 	log.Info("request_received")
 
 	idStr := chi.URLParam(r, "id")
@@ -165,7 +183,11 @@ func (h *ServiceHandler) UpdateService(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ServiceHandler) GeneratePresignedURLs(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "GeneratePresignedURLs")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "service_handler",
+		"method", "GeneratePresignedURLs",
+	)
+
 	log.Info("request_received")
 
 	req := &servicev1.GeneratePresignedURLsRequest{}
@@ -188,7 +210,11 @@ func (h *ServiceHandler) GeneratePresignedURLs(w http.ResponseWriter, r *http.Re
 }
 
 func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "ListServices")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "service_handler",
+		"method", "ListServices",
+	)
+
 	log.Info("request_received")
 
 	limitStr := r.URL.Query().Get("limit")

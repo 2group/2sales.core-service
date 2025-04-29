@@ -2,7 +2,7 @@ package handler
 
 import (
 	"errors"
-	"log/slog"
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"net/http"
 	"strconv"
 
@@ -13,19 +13,21 @@ import (
 )
 
 type EmployeeHandler struct {
-	log      *slog.Logger
 	employee *grpc.EmployeeClient
 }
 
-func NewEmployeeHandler(log *slog.Logger, employee *grpc.EmployeeClient) *EmployeeHandler {
+func NewEmployeeHandler(employee *grpc.EmployeeClient) *EmployeeHandler {
 	return &EmployeeHandler{
-		log:      log,
 		employee: employee,
 	}
 }
 
 func (h *EmployeeHandler) CreateEmployee(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "CreateEmployee")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "employee_handler",
+		"method", "CreateEmployee",
+	)
+
 	log.Info("request_received")
 
 	req := &employeev1.CreateEmployeeRequest{}
@@ -48,7 +50,11 @@ func (h *EmployeeHandler) CreateEmployee(w http.ResponseWriter, r *http.Request)
 }
 
 func (h *EmployeeHandler) GetEmployee(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "GetEmployee")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "employee_handler",
+		"method", "GetEmployee",
+	)
+
 	log.Info("request_received")
 
 	employeeIDStr := chi.URLParam(r, "employee_id")
@@ -76,7 +82,11 @@ func (h *EmployeeHandler) GetEmployee(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *EmployeeHandler) UpdateEmployee(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "UpdateEmployee")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "employee_handler",
+		"method", "UpdateEmployee",
+	)
+
 	log.Info("request_received")
 
 	employeeIDStr := chi.URLParam(r, "employee_id")
@@ -131,7 +141,10 @@ func (h *EmployeeHandler) UpdateEmployee(w http.ResponseWriter, r *http.Request)
 //}
 
 func (h *EmployeeHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "CreateRole")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "employee_handler",
+		"method", "CreateRole",
+	)
 	log.Info("request_received")
 
 	req := &employeev1.CreateRoleRequest{}
@@ -154,7 +167,11 @@ func (h *EmployeeHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *EmployeeHandler) UpdateRole(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "UpdateRole")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "employee_handler",
+		"method", "UpdateRole",
+	)
+
 	log.Info("request_received")
 
 	roleIDStr := chi.URLParam(r, "role_id")
@@ -187,7 +204,11 @@ func (h *EmployeeHandler) UpdateRole(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *EmployeeHandler) DeleteRole(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "DeleteRole")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "employee_handler",
+		"method", "DeleteRole",
+	)
+
 	log.Info("request_received")
 
 	roleIDStr := chi.URLParam(r, "role_id")
@@ -213,7 +234,11 @@ func (h *EmployeeHandler) DeleteRole(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *EmployeeHandler) ListRoles(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "ListRoles")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "employee_handler",
+		"method", "ListRoles",
+	)
+
 	log.Info("request_received")
 
 	limitStr := r.URL.Query().Get("limit")

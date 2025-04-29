@@ -82,18 +82,19 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 
-	otpHandler := handler.NewOtpHandler(s.log.With("component", "otp_handler"), otpgrpc.Api)
-	userHandler := handler.NewUserHandler(s.log.With("component", "user_handler"), usergrpc)
+	otpHandler := handler.NewOtpHandler(otpgrpc)
+	userHandler := handler.NewUserHandler(usergrpc)
 
 	organizationHandler := handler.NewOrganizationHandler(organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
-	customerHandler := handler.NewCustomerHandler(s.log.With("component", "customer_handler"), customergrpc)
-	giftCertificateHandler := handler.NewGiftCertificateHandler(s.log.With("component", "gift_certificate_handler"), customergrpc)
-	serviceHandler := handler.NewServiceHandler(s.log.With("component", "service_handler"), servicegrpc)
-	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(s.log.With("component", "b2c_service_order_handler"), B2CServiceOrderGrpc)
-	EmployeeHandler := handler.NewEmployeeHandler(s.log.With("component", "employee_handler"), Employeegrpc)
+	customerHandler := handler.NewCustomerHandler(customergrpc)
+	giftCertificateHandler := handler.NewGiftCertificateHandler(customergrpc)
+	serviceHandler := handler.NewServiceHandler(servicegrpc)
+	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(B2CServiceOrderGrpc)
+	EmployeeHandler := handler.NewEmployeeHandler(Employeegrpc)
+
 	// adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
 	router.Route("/admin/api", func(adminRouter chi.Router) {

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"errors"
-	"log/slog"
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"net/http"
 	"strconv"
 
@@ -13,19 +13,18 @@ import (
 )
 
 type CustomerHandler struct {
-	log      *slog.Logger
 	customer *grpc.CustomerClient
 }
 
-func NewCustomerHandler(log *slog.Logger, customer *grpc.CustomerClient) *CustomerHandler {
-	return &CustomerHandler{
-		log:      log,
-		customer: customer,
-	}
+func NewCustomerHandler(customer *grpc.CustomerClient) *CustomerHandler {
+	return &CustomerHandler{customer: customer}
 }
 
 func (h *CustomerHandler) CreateCustomer(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "CreateCustomer")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "customer_handler",
+		"method", "CreateCustomer",
+	)
 	log.Info("request_received")
 
 	req := &customerv1.CreateCustomerRequest{}
@@ -48,7 +47,10 @@ func (h *CustomerHandler) CreateCustomer(w http.ResponseWriter, r *http.Request)
 }
 
 func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "GetCustomer")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "customer_handler",
+		"method", "GetCustomer",
+	)
 	log.Info("request_received")
 
 	customerIDStr := chi.URLParam(r, "customer_id")
@@ -76,7 +78,10 @@ func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "DeleteCustomer")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "customer_handler",
+		"method", "DeleteCustomer",
+	)
 	log.Info("request_received")
 
 	customerIDStr := chi.URLParam(r, "customer_id")
@@ -102,7 +107,10 @@ func (h *CustomerHandler) DeleteCustomer(w http.ResponseWriter, r *http.Request)
 }
 
 func (h *CustomerHandler) PartialUpdateCustomer(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "PartialUpdateCustomer")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "customer_handler",
+		"method", "PartialUpdateCustomer",
+	)
 	log.Info("request_received")
 
 	customerIDStr := chi.URLParam(r, "customer_id")
@@ -135,7 +143,10 @@ func (h *CustomerHandler) PartialUpdateCustomer(w http.ResponseWriter, r *http.R
 }
 
 func (h *CustomerHandler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "UpdateCustomer")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "customer_handler",
+		"method", "UpdateCustomer",
+	)
 	log.Info("request_received")
 
 	customerIDStr := chi.URLParam(r, "customer_id")

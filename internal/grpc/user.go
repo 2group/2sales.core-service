@@ -14,7 +14,10 @@ type UserClient struct {
 }
 
 func NewUserClient(ctx context.Context, addr string, timeout time.Duration, retriesCount int) (*UserClient, error) {
-	cc, err := grpc.DialContext(ctx, addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	cc, err := grpc.DialContext(ctx, addr,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithUnaryInterceptor(CorrelationUnaryInterceptor()),
+	)
 	if err != nil {
 		return nil, err
 	}

@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -16,15 +17,18 @@ type UserHandler struct {
 	user *grpc.UserClient
 }
 
-func NewUserHandler(log *slog.Logger, user *grpc.UserClient) *UserHandler {
+func NewUserHandler(user *grpc.UserClient) *UserHandler {
 	return &UserHandler{
-		log:  log,
 		user: user,
 	}
 }
 
 func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "Login")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "user_handler",
+		"method", "Login",
+	)
+
 	log.Info("request_received")
 
 	req := &userv1.LoginRequest{}
@@ -47,7 +51,11 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "UpdateUser")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "user_handler",
+		"method", "UpdateUser",
+	)
+
 	log.Info("request_received")
 
 	req := &userv1.UpdateUserRequest{}
@@ -70,7 +78,11 @@ func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "CreateUser")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "user_handler",
+		"method", "CreateUser",
+	)
+
 	log.Info("request_received")
 
 	req := &userv1.CreateUserRequest{}
@@ -111,7 +123,11 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 // }
 
 func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "ListUsers")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "user_handler",
+		"method", "ListUsers",
+	)
+
 	log.Info("request_received")
 
 	limitStr := chi.URLParam(r, "limit")

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"errors"
-	"log/slog"
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"net/http"
 	"strconv"
 
@@ -15,19 +15,20 @@ import (
 )
 
 type B2CServiceOrderHandler struct {
-	log               *slog.Logger
 	b2c_service_order *grpc.B2CServiceOrderClient
 }
 
-func NewB2CServiceOrderHandler(log *slog.Logger, b2c_service_order *grpc.B2CServiceOrderClient) *B2CServiceOrderHandler {
+func NewB2CServiceOrderHandler(b2c_service_order *grpc.B2CServiceOrderClient) *B2CServiceOrderHandler {
 	return &B2CServiceOrderHandler{
-		log:               log,
 		b2c_service_order: b2c_service_order,
 	}
 }
 
 func (h *B2CServiceOrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "CreateOrder")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "b2c_service_order_handler",
+		"method", "CreateOrder",
+	)
 	log.Info("request_received")
 
 	req := &orderv1.CreateOrderRequest{}
@@ -63,7 +64,10 @@ func (h *B2CServiceOrderHandler) CreateOrder(w http.ResponseWriter, r *http.Requ
 }
 
 func (h *B2CServiceOrderHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "GetOrder")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "b2c_service_order_handler",
+		"method", "GetOrder",
+	)
 	log.Info("request_received")
 
 	orderIDStr := chi.URLParam(r, "order_id")
@@ -102,7 +106,10 @@ func (h *B2CServiceOrderHandler) GetOrder(w http.ResponseWriter, r *http.Request
 }
 
 func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "ListOrders")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "b2c_service_order_handler",
+		"method", "ListOrders",
+	)
 	log.Info("request_received")
 
 	query := r.URL.Query()
