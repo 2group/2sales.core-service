@@ -25,7 +25,7 @@ func CorrelationUnaryServerInterceptor(baseLogger *slog.Logger) grpc.UnaryServer
 		// 1) pull metadata
 		md, _ := metadata.FromIncomingContext(ctx)
 		var cid string
-		if vals := md.Get("x-correlation-id"); len(vals) > 0 {
+		if vals := md.Get("X-Correlation-Id"); len(vals) > 0 {
 			cid = vals[0]
 		}
 

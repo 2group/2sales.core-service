@@ -25,7 +25,7 @@ func NewAPIServer(cfg *config.Config, log *slog.Logger) *APIServer {
 }
 
 func (s *APIServer) Run() error {
-	s.log.Info("application_started")
+	slog.Default().Info("application_started")
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 	router.Use(middleware.URLFormat)
