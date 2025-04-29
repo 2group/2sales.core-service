@@ -10,9 +10,9 @@ import (
 )
 
 // context key for request-scoped logger
-type ctxKeyLogger struct{}
+type CtxKeyLogger struct{}
 
-var loggerKey = &ctxKeyLogger{}
+var LoggerKey = &CtxKeyLogger{}
 
 type CtxKeyCorrelationID struct{}
 
@@ -24,11 +24,11 @@ func CorrelationMiddleware(next http.Handler) http.Handler {
 		if cid == "" {
 			cid = uuid.NewString()
 		}
-		w.Header().Set("X-Correlation-ID", cid)
+		w.Header().Set("X-Correlation-Id", cid)
 
 		// 1) stash in logger
 		reqLogger := slog.Default().With("correlation_id", cid)
-		ctx := context.WithValue(r.Context(), loggerKey, reqLogger)
+		ctx := context.WithValue(r.Context(), LoggerKey, reqLogger)
 
 		// 2) also stash raw cid for gRPC propagation
 		ctx = context.WithValue(ctx, CorrelationIDKey, cid)
@@ -39,7 +39,7 @@ func CorrelationMiddleware(next http.Handler) http.Handler {
 
 // LoggerFromContext returns the request-scoped logger or falls back to default.
 func LoggerFromContext(ctx context.Context) *slog.Logger {
-	if l, ok := ctx.Value(loggerKey).(*slog.Logger); ok {
+	if l, ok := ctx.Value(LoggerKey).(*slog.Logger); ok {
 		return l
 	}
 	return slog.Default()

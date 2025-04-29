@@ -9,33 +9,33 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-type ctxKeyLogger struct{}
+type CtxKeyGrpcLogger struct{}
 
-var LoggerKey = &ctxKeyLogger{}
+var GrpcLoggerKey = &CtxKeyGrpcLogger{}
 
 // CorrelationUnaryServerInterceptor extracts the correlation ID from metadata,
 // attaches it to the slog logger, and stores that in the RPC context.
-func CorrelationUnaryServerInterceptor(baseLogger *slog.Logger) grpc.UnaryServerInterceptor {
+func CorrelationUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 	return func(
 		ctx context.Context,
 		req interface{},
 		info *grpc.UnaryServerInfo,
 		handler grpc.UnaryHandler,
 	) (interface{}, error) {
-		// 1) pull metadata
+		// 1) Extract correlation ID from metadata
 		md, _ := metadata.FromIncomingContext(ctx)
 		var cid string
-		if vals := md.Get("x-correlation-id"); len(vals) > 0 {
+		if vals := md.Get("X-Correlation-Id"); len(vals) > 0 {
 			cid = vals[0]
 		}
 
-		// 2) build a per-RPC logger
-		rpcLogger := baseLogger.With("correlation_id", cid)
+		// 2) Build a per-RPC logger with the correlation_id field
+		rpcLogger := slog.Default().With("correlation_id", cid)
 
-		// 3) stash it in the context
-		ctx = context.WithValue(ctx, LoggerKey, rpcLogger)
+		// 3) Store it in context so handlers can pull it out
+		ctx = context.WithValue(ctx, GrpcLoggerKey, rpcLogger)
 
-		// 4) call the handler
+		// 4) Continue handling the RPC
 		return handler(ctx, req)
 	}
 }

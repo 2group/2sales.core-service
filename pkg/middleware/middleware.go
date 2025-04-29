@@ -72,7 +72,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 		userID := int64(rawUser)
-		ctx := context.WithValue(r.Context(), loggerKey,
+		ctx := context.WithValue(r.Context(), LoggerKey,
 			LoggerFromContext(r.Context()).With("user_id", userID),
 		)
 
