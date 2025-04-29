@@ -24,7 +24,10 @@ func NewOrganizationHandler(organization *grpc.OrganizationClient) *Organization
 }
 
 func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "CreateOrganization")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "organization_handler",
+		"method", "CreateOrganization",
+	)
 
 	log.Info("request_received")
 
@@ -57,7 +60,7 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Request) {
 	log := middleware.LoggerFromContext(r.Context()).With(
 		"component", "organization_handler",
-		"method", "CreateOrganization",
+		"method", "GetOrganization",
 	)
 	log.Info("request_recieved")
 	orgIDStr := chi.URLParam(r, "organization_id")
@@ -90,7 +93,10 @@ func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Req
 }
 
 func (h *OrganizationHandler) DeleteOrganization(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "DeleteOrganization")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "organization_handler",
+		"method", "DeleteOrganization",
+	)
 
 	log.Info("request_received")
 
@@ -123,7 +129,11 @@ func (h *OrganizationHandler) DeleteOrganization(w http.ResponseWriter, r *http.
 }
 
 func (h *OrganizationHandler) PartialUpdateOrganization(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "PartialUpdateOrganization")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "organization_handler",
+		"method", "PartialUpdateOrganization",
+	)
+
 	log.Info("request_received")
 
 	orgIDStr := chi.URLParam(r, "organization_id")
@@ -163,7 +173,10 @@ func (h *OrganizationHandler) PartialUpdateOrganization(w http.ResponseWriter, r
 }
 
 func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "UpdateOrganization")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "organization_handler",
+		"method", "UpdateOrganization",
+	)
 	log.Info("request_received")
 
 	orgIDStr := chi.URLParam(r, "organization_id")
@@ -203,7 +216,10 @@ func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.
 }
 
 func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "ListOrganizations")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "organization_handler",
+		"method", "ListOrganizations",
+	)
 	log.Info("request_received")
 
 	rc := middleware.NewRoleChecker(r)
