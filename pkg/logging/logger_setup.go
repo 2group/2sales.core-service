@@ -7,12 +7,10 @@ import (
 	"github.com/2group/2sales.core-service/pkg/kafka"
 )
 
-func SetupLogger(publisher *kafka.KafkaPublisher, topic, env string) *slog.Logger {
+func SetupLogger(publisher *kafka.KafkaPublisher, topic, env string) {
 	var level slog.Level
 	switch env {
-	case "local":
-		level = slog.LevelDebug
-	case "dev":
+	case "local", "dev":
 		level = slog.LevelDebug
 	case "prod":
 		level = slog.LevelInfo
@@ -20,14 +18,17 @@ func SetupLogger(publisher *kafka.KafkaPublisher, topic, env string) *slog.Logge
 		level = slog.LevelDebug
 	}
 
+	var handler slog.Handler
 	if env == "local" {
-		// In local, log only to the console.
-		consoleHandler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: level})
-		return slog.New(consoleHandler).With("service", "product_service")
+		handler = slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: level})
+	} else {
+		handler = NewKafkaJSONHandler(publisher, topic, &slog.HandlerOptions{Level: level})
 	}
 
-	// For non-local environments, use our Kafka JSON handler.
-	opts := &slog.HandlerOptions{Level: level}
-	kafkaJSONHandler := NewKafkaJSONHandler(publisher, topic, opts)
-	return slog.New(kafkaJSONHandler)
+	// Attach static fields and set as default
+	logger := slog.New(handler).With(
+		"service", "core-service",
+		"env", env,
+	)
+	slog.SetDefault(logger)
 }

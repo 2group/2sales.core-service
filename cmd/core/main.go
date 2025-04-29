@@ -29,10 +29,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	log := logging.SetupLogger(kafkaPublisher, "logs.core-service", cfg.Env)
+	logging.SetupLogger(kafkaPublisher, "logs.core-service", cfg.Env)
 
-	log.Info("starting_application", "port", cfg.REST.Port)
-
+	slog.Default().Info("starting_application", "port", cfg.REST.Port)
+	log := setupLogger(cfg.Env)
 	application := app.NewAPIServer(cfg, log)
 
 	if err := application.Run(); err != nil {

@@ -19,8 +19,8 @@ type OrganizationHandler struct {
 	organization *grpc.OrganizationClient
 }
 
-func NewOrganizationHandler(log *slog.Logger, organization *grpc.OrganizationClient) *OrganizationHandler {
-	return &OrganizationHandler{log: log, organization: organization}
+func NewOrganizationHandler(organization *grpc.OrganizationClient) *OrganizationHandler {
+	return &OrganizationHandler{organization: organization}
 }
 
 func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +55,10 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 }
 
 func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Request) {
-	log := h.log.With("method", "GetOrganization")
+	log := middleware.LoggerFromContext(r.Context()).With(
+		"component", "organization_handler",
+		"method", "CreateOrganization",
+	)
 	log.Info("request_recieved")
 	orgIDStr := chi.URLParam(r, "organization_id")
 	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)

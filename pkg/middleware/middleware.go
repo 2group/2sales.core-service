@@ -72,6 +72,9 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 		userID := int64(rawUser)
+		ctx := context.WithValue(r.Context(), loggerKey,
+			LoggerFromContext(r.Context()).With("user_id", userID),
+		)
 
 		// 4) employee_id or customer_id
 		var employeeID *int64
@@ -141,8 +144,6 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			}
 		}
 
-		// 6) inject into context
-		ctx := r.Context()
 		ctx = context.WithValue(ctx, ContextUserIDKey, userID)
 		if employeeID != nil {
 			ctx = context.WithValue(ctx, ContextEmployeeIDKey, *employeeID)
