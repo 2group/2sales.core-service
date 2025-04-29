@@ -14,6 +14,10 @@ type ctxKeyLogger struct{}
 
 var loggerKey = &ctxKeyLogger{}
 
+type CtxKeyCorrelationID struct{}
+
+var CorrelationIDKey = &CtxKeyCorrelationID{}
+
 func CorrelationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cid := r.Header.Get("X-Correlation-ID")
@@ -22,10 +26,12 @@ func CorrelationMiddleware(next http.Handler) http.Handler {
 		}
 		w.Header().Set("X-Correlation-ID", cid)
 
-		reqLogger := slog.Default().With(
-			"correlation_id", cid,
-		)
+		// 1) stash in logger
+		reqLogger := slog.Default().With("correlation_id", cid)
 		ctx := context.WithValue(r.Context(), loggerKey, reqLogger)
+
+		// 2) also stash raw cid for gRPC propagation
+		ctx = context.WithValue(ctx, CorrelationIDKey, cid)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
