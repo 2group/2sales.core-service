@@ -11,7 +11,7 @@ import (
 
 type ctxKeyLogger struct{}
 
-var loggerKey = &ctxKeyLogger{}
+var LoggerKey = &ctxKeyLogger{}
 
 // CorrelationUnaryServerInterceptor extracts the correlation ID from metadata,
 // attaches it to the slog logger, and stores that in the RPC context.
@@ -33,7 +33,7 @@ func CorrelationUnaryServerInterceptor(baseLogger *slog.Logger) grpc.UnaryServer
 		rpcLogger := baseLogger.With("correlation_id", cid)
 
 		// 3) stash it in the context
-		ctx = context.WithValue(ctx, loggerKey, rpcLogger)
+		ctx = context.WithValue(ctx, LoggerKey, rpcLogger)
 
 		// 4) call the handler
 		return handler(ctx, req)
