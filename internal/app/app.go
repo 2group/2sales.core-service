@@ -34,11 +34,11 @@ func (s *APIServer) Run() error {
 	router.Use(auth.CorrelationMiddleware)
 	context := context.Background()
 
-	//usergrpc, err := grpc.NewUserClient(context, s.cfg.GRPC.User, time.Hour, 2)
-	//if err != nil {
-	//	panic(err)
-	//}
-	//
+	usergrpc, err := grpc.NewUserClient(context, s.cfg.GRPC.User, time.Hour, 2)
+	if err != nil {
+		panic(err)
+	}
+
 	organizationgrpc, err := grpc.NewOrganizationClient(context, s.cfg.GRPC.Organization, time.Hour, 2)
 	if err != nil {
 		panic(err)
@@ -84,7 +84,7 @@ func (s *APIServer) Run() error {
 	//}
 
 	//otpHandler := handler.NewOtpHandler(otpgrpc)
-	//userHandler := handler.NewUserHandler(usergrpc)
+	userHandler := handler.NewUserHandler(usergrpc)
 
 	organizationHandler := handler.NewOrganizationHandler(organizationgrpc)
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
@@ -108,27 +108,27 @@ func (s *APIServer) Run() error {
 
 	router.Route("/api/v1", func(apiRouter chi.Router) {
 		apiRouter.Route("/user", func(userRouter chi.Router) {
-			//userRouter.Post("/login", userHandler.Login)
-			//// userRouter.Post("/register", userHandler.Register)
-			//userRouter.Put("/", userHandler.UpdateUser)
-			//userRouter.Post("/", userHandler.CreateUser)
-			//userRouter.Get("/", userHandler.ListUsers)
-			// userRouter.Get("/", userHandler.ListUser)
-			// userRouter.Get("/phone", userHandler.GetUserByEmail)
-			// userRouter.Group(func(authRouter chi.Router) {
-			// 	authRouter.Use(auth.AuthMiddleware)
-			// 	authRouter.Get("/me", userHandler.HandleGetMyProfile)
-			// 	authRouter.Put("/me", userHandler.HandleUpdateMyProfile)
-			// 	authRouter.Patch("/me", userHandler.HandlePatchMyProfile)
-			// 	authRouter.Route("/roles", func(rolesRouter chi.Router) {
-			// 		rolesRouter.Get("/my", userHandler.ListMyOrganizationRoles)
-			// 	})
-			// 	authRouter.Route("/users", func(usersRouter chi.Router) {
-			// 		usersRouter.Post("/", userHandler.CreateUser)
-			// 		usersRouter.Get("/my", userHandler.ListMyOrganizationUsers)
-			// 		usersRouter.Patch("/{user_id}", userHandler.PatchUser)
-			// 	})
-			// })
+			userRouter.Post("/login", userHandler.Login)
+			// userRouter.Post("/register", userHandler.Register)
+			userRouter.Put("/", userHandler.UpdateUser)
+			userRouter.Post("/", userHandler.CreateUser)
+			userRouter.Get("/", userHandler.ListUsers)
+			//userRouter.Get("/", userHandler.ListUser)
+			//userRouter.Get("/phone", userHandler.GetUserByEmail)
+			//userRouter.Group(func(authRouter chi.Router) {
+			//	authRouter.Use(auth.AuthMiddleware)
+			//	authRouter.Get("/me", userHandler.HandleGetMyProfile)
+			//	authRouter.Put("/me", userHandler.HandleUpdateMyProfile)
+			//	authRouter.Patch("/me", userHandler.HandlePatchMyProfile)
+			//	authRouter.Route("/roles", func(rolesRouter chi.Router) {
+			//		rolesRouter.Get("/my", userHandler.ListMyOrganizationRoles)
+			//	})
+			//	authRouter.Route("/users", func(usersRouter chi.Router) {
+			//		usersRouter.Post("/", userHandler.CreateUser)
+			//		usersRouter.Get("/my", userHandler.ListMyOrganizationUsers)
+			//		usersRouter.Patch("/{user_id}", userHandler.PatchUser)
+			//	})
+			//})
 		})
 		apiRouter.Route("/product", func(productRouter chi.Router) {
 			productRouter.Group(func(authRouter chi.Router) {
