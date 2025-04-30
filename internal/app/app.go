@@ -43,12 +43,11 @@ func (s *APIServer) Run() error {
 	if err != nil {
 		panic(err)
 	}
-	//
-	//otpgrpc, err := grpc.NewOtpClient(context, s.cfg.GRPC.User, time.Hour, 2)
-	//if err != nil {
-	//	panic(err)
-	//}
-	//
+	otpgrpc, err := grpc.NewOtpClient(context, s.cfg.GRPC.User, time.Hour, 2)
+	if err != nil {
+		panic(err)
+	}
+
 	//// crmgrpc, err := grpc.NewCrmClient(context, s.cfg.GRPC.CRM, time.Hour, 2)
 	//// if err != nil {
 	//// 	panic(err)
@@ -83,7 +82,7 @@ func (s *APIServer) Run() error {
 	//	panic(err)
 	//}
 
-	//otpHandler := handler.NewOtpHandler(otpgrpc)
+	otpHandler := handler.NewOtpHandler(otpgrpc)
 	userHandler := handler.NewUserHandler(usergrpc)
 
 	organizationHandler := handler.NewOrganizationHandler(organizationgrpc)
@@ -113,22 +112,28 @@ func (s *APIServer) Run() error {
 			userRouter.Put("/", userHandler.UpdateUser)
 			userRouter.Post("/", userHandler.CreateUser)
 			userRouter.Get("/", userHandler.ListUsers)
-			//userRouter.Get("/", userHandler.ListUser)
-			//userRouter.Get("/phone", userHandler.GetUserByEmail)
-			//userRouter.Group(func(authRouter chi.Router) {
-			//	authRouter.Use(auth.AuthMiddleware)
-			//	authRouter.Get("/me", userHandler.HandleGetMyProfile)
-			//	authRouter.Put("/me", userHandler.HandleUpdateMyProfile)
-			//	authRouter.Patch("/me", userHandler.HandlePatchMyProfile)
-			//	authRouter.Route("/roles", func(rolesRouter chi.Router) {
-			//		rolesRouter.Get("/my", userHandler.ListMyOrganizationRoles)
-			//	})
-			//	authRouter.Route("/users", func(usersRouter chi.Router) {
-			//		usersRouter.Post("/", userHandler.CreateUser)
-			//		usersRouter.Get("/my", userHandler.ListMyOrganizationUsers)
-			//		usersRouter.Patch("/{user_id}", userHandler.PatchUser)
-			//	})
-			//})
+			// userRouter.Get("/", userHandler.ListUser)
+			// userRouter.Get("/phone", userHandler.GetUserByEmail)
+			userRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				// authRouter.Get("/me", userHandler.HandleGetMyProfile)
+				// authRouter.Put("/me", userHandler.HandleUpdateMyProfile)
+				// authRouter.Patch("/me", userHandler.HandlePatchMyProfile)
+				// authRouter.Route("/roles", func(rolesRouter chi.Router) {
+				// 	rolesRouter.Get("/my", userHandler.ListMyOrganizationRoles)
+				// })
+				// authRouter.Route("/users", func(usersRouter chi.Router) {
+				// usersRouter.Post("/", userHandler.CreateUser)
+				// usersRouter.Get("/my", userHandler.ListMyOrganizationUsers)
+				// usersRouter.Patch("/{user_id}", userHandler.PatchUser)
+				// })
+			})
+			userRouter.Route("/otp", func(otpRouter chi.Router) {
+				otpRouter.Post("/request-sms", otpHandler.RequestSmsOtp)
+				otpRouter.Post("/verify-sms", otpHandler.VerifySmsOtp)
+				otpRouter.Post("/request-mail", otpHandler.RequestMailOtp)
+				otpRouter.Post("/verify-mail", otpHandler.VerifyMailOtp)
+			})
 		})
 		apiRouter.Route("/product", func(productRouter chi.Router) {
 			productRouter.Group(func(authRouter chi.Router) {
@@ -381,13 +386,6 @@ func (s *APIServer) Run() error {
 		//	})
 		//})
 		//
-		//apiRouter.Route("/otp", func(otpRouter chi.Router) {
-		//	otpRouter.Post("/request-sms", otpHandler.RequestSmsOtp)
-		//	otpRouter.Post("/verify-sms", otpHandler.VerifySmsOtp)
-		//	otpRouter.Post("/request-mail", otpHandler.RequestMailOtp)
-		//	otpRouter.Post("/verify-mail", otpHandler.VerifyMailOtp)
-		//
-		//})
 	})
 
 	return http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", s.cfg.REST.Port), router)

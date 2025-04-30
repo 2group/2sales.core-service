@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log/slog"
 	"net/http"
 	"strconv"
 
@@ -12,11 +13,14 @@ import (
 )
 
 type UserHandler struct {
+	log  *slog.Logger
 	user *grpc.UserClient
 }
 
 func NewUserHandler(user *grpc.UserClient) *UserHandler {
-	return &UserHandler{user: user}
+	return &UserHandler{
+		user: user,
+	}
 }
 
 func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +38,7 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Debug().Interface("request", req).Msg("calling_user_service")
+	log.Debug().Any("request", req).Msg("calling_user_service")
 	resp, err := h.user.Api.Login(r.Context(), req)
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
@@ -48,8 +52,8 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	log := zerolog.Ctx(r.Context()).With().
-		Str("component", "user_handler").
-		Str("method", "UpdateUser").
+		Str("component", "organization_handler").
+		Str("method", "GetOrganization").
 		Logger()
 
 	log.Info().Msg("request_received")
@@ -61,7 +65,7 @@ func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Debug().Interface("request", req).Msg("calling_user_service")
+	log.Debug().Any("request", req).Msg("calling_user_service")
 	resp, err := h.user.Api.UpdateUser(r.Context(), req)
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
@@ -69,14 +73,14 @@ func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Info().Int64("user_id", resp.GetUser().GetId()).Msg("succeeded")
+	log.Info().Int64("user_id", *resp.User.Id).Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	log := zerolog.Ctx(r.Context()).With().
-		Str("component", "user_handler").
-		Str("method", "CreateUser").
+		Str("component", "organization_handler").
+		Str("method", "GetOrganization").
 		Logger()
 
 	log.Info().Msg("request_received")
@@ -88,7 +92,7 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Debug().Interface("request", req).Msg("calling_user_service")
+	log.Debug().Any("request", req).Msg("calling_user_service")
 	resp, err := h.user.Api.CreateUser(r.Context(), req)
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
@@ -96,14 +100,32 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Info().Int64("user_id", resp.GetUser().GetId()).Msg("succeeded")
+	log.Info().Int64("user_id", *resp.User.Id).Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
+// func (h *UserHandler) GetUserByEmail(w http.ResponseWriter, r *http.Request) {
+// 	req := &userv1.GetUserRequest{}
+// 	err := json.ParseJSON(r, &req)
+// 	if err != nil {
+// 		json.WriteError(w, http.StatusBadRequest, err)
+// 		return
+// 	}
+
+// 	response, err := h.user.Api.GetUser(r.Context(), req)
+// 	if err != nil {
+// 		json.WriteError(w, http.StatusInternalServerError, err)
+// 		return
+// 	}
+
+// 	json.WriteJSON(w, http.StatusOK, response)
+// 	return
+// }
+
 func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
 	log := zerolog.Ctx(r.Context()).With().
-		Str("component", "user_handler").
-		Str("method", "ListUsers").
+		Str("component", "organization_handler").
+		Str("method", "GetOrganization").
 		Logger()
 
 	log.Info().Msg("request_received")
@@ -113,19 +135,12 @@ func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
 
 	limit, err := strconv.ParseInt(limitStr, 10, 32)
 	if err != nil {
-		log.Warn().
-			Str("limit", limitStr).
-			Err(err).
-			Msg("invalid_limit")
+		log.Warn().Err(err).Int64("limit", limit).Msg("invalid_limit")
 		limit = 20
 	}
-
 	offset, err := strconv.ParseInt(offsetStr, 10, 64)
 	if err != nil {
-		log.Warn().
-			Str("offset", offsetStr).
-			Err(err).
-			Msg("invalid_offset")
+		log.Warn().Err(err).Int64("offset", offset).Msg("invalid_offset")
 		offset = 0
 	}
 
@@ -134,7 +149,7 @@ func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
 		Offset: int32(offset),
 	}
 
-	log.Debug().Interface("request", req).Msg("calling_user_service")
+	log.Debug().Any("request", req).Msg("calling_user_service")
 	resp, err := h.user.Api.ListUsers(r.Context(), req)
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
