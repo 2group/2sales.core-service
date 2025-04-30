@@ -3,10 +3,11 @@ package handler
 import (
 	"errors"
 	"fmt"
-	"github.com/rs/zerolog"
 	"log/slog"
 	"net/http"
 	"strconv"
+
+	"github.com/rs/zerolog"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	organizationv1 "github.com/2group/2sales.core-service/pkg/gen/go/organization"

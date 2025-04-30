@@ -4,87 +4,49 @@ import (
 	"io"
 	"os"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/rs/zerolog"
 )
 
-var logger zerolog.Logger
-var slogLogger *SlogAdapter
+var (
+	rootLogger zerolog.Logger
+	once       sync.Once
+)
 
+// SetupLogger initializes the global logger once based on the environment.
+// env: "prod" -> InfoLevel, others ("dev","local",etc.) -> DebugLevel.
 func SetupLogger(env string) {
-	switch strings.ToLower(env) {
-	case "prod":
-		zerolog.SetGlobalLevel(zerolog.InfoLevel)
-	default:
-		zerolog.SetGlobalLevel(zerolog.DebugLevel)
-	}
-
-	var output io.Writer
-	if env == "local" || env == "dev" {
-		output = zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
-	} else {
-		output = os.Stdout
-	}
-
-	logger = zerolog.New(output).With().Timestamp().Logger()
-	slogLogger = NewSlogAdapter(logger)
-}
-
-func Logger() zerolog.Logger {
-	return logger
-}
-
-func Slog() *SlogAdapter {
-	return slogLogger
-}
-
-type SlogAdapter struct {
-	z zerolog.Logger
-}
-
-func NewSlogAdapter(z zerolog.Logger) *SlogAdapter {
-	return &SlogAdapter{z: z}
-}
-
-func (l *SlogAdapter) With(args ...any) *SlogAdapter {
-	child := l.z.With()
-	for i := 0; i < len(args)-1; i += 2 {
-		key, ok := args[i].(string)
-		if !ok {
-			continue
+	once.Do(func() {
+		// 1) Set global level
+		level := zerolog.DebugLevel
+		if strings.EqualFold(env, "prod") {
+			level = zerolog.InfoLevel
 		}
-		child = child.Str(key, stringify(args[i+1]))
-	}
-	return &SlogAdapter{z: child.Logger()}
-}
+		zerolog.SetGlobalLevel(level)
 
-func (l *SlogAdapter) Info(msg string, args ...any) {
-	l.write(l.z.Info(), msg, args...)
-}
-
-func (l *SlogAdapter) Debug(msg string, args ...any) {
-	l.write(l.z.Debug(), msg, args...)
-}
-
-func (l *SlogAdapter) Error(msg string, args ...any) {
-	l.write(l.z.Error(), msg, args...)
-}
-
-func (l *SlogAdapter) write(event *zerolog.Event, msg string, args ...any) {
-	for i := 0; i < len(args)-1; i += 2 {
-		key, ok := args[i].(string)
-		if !ok {
-			continue
+		// 2) Choose output writer
+		var output io.Writer
+		if strings.EqualFold(env, "dev") || strings.EqualFold(env, "local") {
+			output = zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
+		} else {
+			output = os.Stdout
 		}
-		event = event.Interface(key, args[i+1])
-	}
-	event.Msg(msg)
+
+		// 3) Build root logger with timestamp and caller info
+		rootLogger = zerolog.New(output).
+			With().
+			Timestamp().
+			Caller().
+			Logger()
+	})
 }
 
-func stringify(v any) string {
-	if s, ok := v.(string); ok {
-		return s
-	}
-	return "<non-string>"
+// L returns the global logger instance. Call SetupLogger before using.
+func Slog() *zerolog.Logger {
+	return &rootLogger
 }
+
+// FromContext returns a logger enriched with "correlation_id" from ctx if present.
+// If no correlation ID is found, returns the root logger.

@@ -30,7 +30,7 @@ func CorrelationUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 		}
 
 		// 2) Build a per-RPC logger with the correlation_id field
-		rpcLogger := logging.Slog().With("correlation_id", cid)
+		rpcLogger := logging.Slog().With().Str("correlation_id", cid)
 
 		// 3) Store it in context so handlers can pull it out
 		ctx = context.WithValue(ctx, GrpcLoggerKey, rpcLogger)
