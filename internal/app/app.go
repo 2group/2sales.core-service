@@ -68,10 +68,10 @@ func (s *APIServer) Run() error {
 	//	panic(err)
 	//}
 	//
-	//servicegrpc, err := grpc.NewServiceClient(context, s.cfg.GRPC.Service, time.Hour, 2)
-	//if err != nil {
-	//	panic(err)
-	//}
+	servicegrpc, err := grpc.NewServiceClient(context, s.cfg.GRPC.Service, time.Hour, 2)
+	if err != nil {
+		panic(err)
+	}
 	//
 	//B2CServiceOrderGrpc, err := grpc.NewB2CServiceOrderClient(context, s.cfg.GRPC.B2CServiceOrder, time.Hour, 2)
 	//if err != nil {
@@ -91,7 +91,7 @@ func (s *APIServer) Run() error {
 	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
 	//customerHandler := handler.NewCustomerHandler(customergrpc)
 	//giftCertificateHandler := handler.NewGiftCertificateHandler(customergrpc)
-	//serviceHandler := handler.NewServiceHandler(servicegrpc)
+	serviceHandler := handler.NewServiceHandler(servicegrpc)
 	//B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(B2CServiceOrderGrpc)
 	//EmployeeHandler := handler.NewEmployeeHandler(Employeegrpc)
 
@@ -349,18 +349,18 @@ func (s *APIServer) Run() error {
 		//		authRouter.Get("/{certificate_id}", giftCertificateHandler.GetGiftCertificate)
 		//	})
 		//})
-		//apiRouter.Route("/service", func(serviceRouter chi.Router) {
-		//	serviceRouter.Group(func(authRouter chi.Router) {
-		//		authRouter.Use(auth.AuthMiddleware)
-		//		authRouter.Post("/", serviceHandler.CreateService)
-		//		authRouter.Get("/{id}", serviceHandler.GetService)
-		//		authRouter.Delete("/{id}", serviceHandler.DeleteService)
-		//		authRouter.Patch("/{id}", serviceHandler.PartialUpdateService)
-		//		authRouter.Put("/{id}", serviceHandler.UpdateService)
-		//		authRouter.Post("/presigned-urls", serviceHandler.GeneratePresignedURLs)
-		//		authRouter.Get("/", serviceHandler.ListServices)
-		//	})
-		//})
+		apiRouter.Route("/service", func(serviceRouter chi.Router) {
+			serviceRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", serviceHandler.CreateService)
+				authRouter.Get("/{id}", serviceHandler.GetService)
+				authRouter.Delete("/{id}", serviceHandler.DeleteService)
+				authRouter.Patch("/{id}", serviceHandler.PartialUpdateService)
+				authRouter.Put("/{id}", serviceHandler.UpdateService)
+				authRouter.Post("/presigned-urls", serviceHandler.GeneratePresignedURLs)
+				authRouter.Get("/", serviceHandler.ListServices)
+			})
+		})
 		//apiRouter.Route("/employee", func(employeeRouter chi.Router) {
 		//	employeeRouter.Group(func(authRouter chi.Router) {
 		//		authRouter.Post("/", EmployeeHandler.CreateEmployee)
