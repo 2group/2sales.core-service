@@ -3,6 +3,7 @@ package handler
 import (
 	"errors"
 	"fmt"
+	"github.com/rs/zerolog"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -24,7 +25,7 @@ func NewOrganizationHandler(organization *grpc.OrganizationClient) *Organization
 }
 
 func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.Request) {
-	log := middleware.LoggerFromContext(r.Context()).With().
+	log := zerolog.Ctx(r.Context()).With().
 		Str("component", "organization_handler").
 		Str("method", "CreateOrganization").
 		Logger()
@@ -64,51 +65,58 @@ func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.
 }
 
 func (h *OrganizationHandler) GetOrganization(w http.ResponseWriter, r *http.Request) {
-	log := middleware.LoggerFromContext(r.Context()).With(
-		"component", "organization_handler",
-		"method", "GetOrganization",
-	)
-	log.Info("request_recieved")
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "GetOrganization").
+		Logger()
+
+	log.Info().Msg("request_received")
+
 	orgIDStr := chi.URLParam(r, "organization_id")
 	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
 	if err != nil {
-		log.Error("invalid_id", "organization_id", orgIDStr, "error", err)
+		log.Error().
+			Str("organization_id", orgIDStr).
+			Err(err).
+			Msg("invalid_id")
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
 	rc := middleware.NewRoleChecker(r)
 	if !(rc.HasSuperAdmin() || rc.HasOrgAdmin(orgID)) {
-		log.Error("forbidden")
+		log.Error().Msg("forbidden")
 		json.WriteError(w, http.StatusForbidden, errors.New("No permission"))
 		return
 	}
 
-	log.Info("calling_organization_microservice", "organization_id", orgID)
+	log.Info().
+		Int64("organization_id", orgID).
+		Msg("calling_organization_microservice")
 
 	req := &organizationv1.GetOrganizationRequest{Id: orgID}
 	resp, err := h.organization.Api.GetOrganization(r.Context(), req)
 	if err != nil {
-		log.Error("gRPC_call_failed", "error", err)
+		log.Error().Err(err).Msg("gRPC_call_failed")
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
-	log.Info("succeeded")
-	json.WriteJSON(w, http.StatusOK, resp)
 
+	log.Info().Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *OrganizationHandler) DeleteOrganization(w http.ResponseWriter, r *http.Request) {
-	log := middleware.LoggerFromContext(r.Context()).With(
-		"component", "organization_handler",
-		"method", "DeleteOrganization",
-	)
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "DeleteOrganization").
+		Logger()
 
-	log.Info("request_received")
+	log.Info().Msg("request_received")
 
 	rc := middleware.NewRoleChecker(r)
 	if !rc.HasSuperAdmin() {
-		log.Error("forbidden")
+		log.Error().Msg("forbidden")
 		json.WriteError(w, http.StatusForbidden, errors.New("forbidden"))
 		return
 	}
@@ -116,43 +124,55 @@ func (h *OrganizationHandler) DeleteOrganization(w http.ResponseWriter, r *http.
 	orgIDStr := chi.URLParam(r, "organization_id")
 	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
 	if err != nil {
-		log.Error("invalid_id", "organization_id", orgIDStr, "error", err)
+		log.Error().
+			Str("organization_id", orgIDStr).
+			Err(err).
+			Msg("invalid_id")
 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid organization_id"))
 		return
 	}
 
-	log.Info("calling_organization_microservice", "organization_id", orgID)
+	log.Info().
+		Int64("organization_id", orgID).
+		Msg("calling_organization_microservice")
+
 	req := &organizationv1.DeleteOrganizationRequest{Id: orgID}
 	resp, err := h.organization.Api.DeleteOrganization(r.Context(), req)
 	if err != nil {
-		log.Error("gRPC_call_failed", "error", err)
+		log.Error().Err(err).Msg("gRPC_call_failed")
 		json.WriteError(w, http.StatusInternalServerError, errors.New("unable to delete organization"))
 		return
 	}
 
-	log.Info("succeeded", "organization_id", orgID)
+	log.Info().
+		Int64("organization_id", orgID).
+		Msg("succeeded")
+
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *OrganizationHandler) PartialUpdateOrganization(w http.ResponseWriter, r *http.Request) {
-	log := middleware.LoggerFromContext(r.Context()).With(
-		"component", "organization_handler",
-		"method", "PartialUpdateOrganization",
-	)
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "PartialUpdateOrganization").
+		Logger()
 
-	log.Info("request_received")
+	log.Info().Msg("request_received")
 
 	orgIDStr := chi.URLParam(r, "organization_id")
 	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
 	if err != nil {
-		log.Error("invalid_id", "organization_id", orgIDStr, "error", err)
+		log.Error().
+			Str("organization_id", orgIDStr).
+			Err(err).
+			Msg("invalid_id")
 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid organization_id"))
 		return
 	}
 
 	rc := middleware.NewRoleChecker(r)
 	if !rc.HasSuperAdmin() && !rc.HasOrgAdmin(orgID) {
-		log.Error("forbidden")
+		log.Error().Msg("forbidden")
 		json.WriteError(w, http.StatusForbidden, errors.New("forbidden"))
 		return
 	}
@@ -161,41 +181,51 @@ func (h *OrganizationHandler) PartialUpdateOrganization(w http.ResponseWriter, r
 		Organization: &organizationv1.Organization{Id: &orgID},
 	}
 	if err := json.ParseJSON(r, req); err != nil {
-		log.Error("invalid_payload", "error", err)
+		log.Error().Err(err).Msg("invalid_payload")
 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid payload"))
 		return
 	}
-	log.Info("calling_organization_microservice", "request", req)
+
+	log.Info().
+		Interface("request", req).
+		Msg("calling_organization_microservice")
 
 	resp, err := h.organization.Api.PartialUpdateOrganization(r.Context(), req)
 	if err != nil {
-		log.Error("gRPC_call_failed", "error", err)
+		log.Error().Err(err).Msg("gRPC_call_failed")
 		json.WriteError(w, http.StatusInternalServerError, errors.New("unable to update organization"))
 		return
 	}
 
-	log.Info("succeeded", "organization_id", orgID)
+	log.Info().
+		Int64("organization_id", orgID).
+		Msg("succeeded")
+
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.Request) {
-	log := middleware.LoggerFromContext(r.Context()).With(
-		"component", "organization_handler",
-		"method", "UpdateOrganization",
-	)
-	log.Info("request_received")
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "UpdateOrganization").
+		Logger()
+
+	log.Info().Msg("request_received")
 
 	orgIDStr := chi.URLParam(r, "organization_id")
 	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
 	if err != nil {
-		log.Error("invalid_id", "organization_id", orgIDStr, "error", err)
+		log.Error().
+			Str("organization_id", orgIDStr).
+			Err(err).
+			Msg("invalid_id")
 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid organization_id"))
 		return
 	}
 
 	rc := middleware.NewRoleChecker(r)
 	if !rc.HasSuperAdmin() && !rc.HasOrgAdmin(orgID) {
-		log.Error("forbidden")
+		log.Error().Msg("forbidden")
 		json.WriteError(w, http.StatusForbidden, errors.New("forbidden"))
 		return
 	}
@@ -204,33 +234,40 @@ func (h *OrganizationHandler) UpdateOrganization(w http.ResponseWriter, r *http.
 		Organization: &organizationv1.Organization{Id: &orgID},
 	}
 	if err := json.ParseJSON(r, req); err != nil {
-		log.Error("invalid_payload", "error", err)
+		log.Error().Err(err).Msg("invalid_payload")
 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid payload"))
 		return
 	}
-	log.Info("calling_organization_microservice", "request", req)
+
+	log.Info().
+		Interface("request", req).
+		Msg("calling_organization_microservice")
 
 	resp, err := h.organization.Api.UpdateOrganization(r.Context(), req)
 	if err != nil {
-		log.Error("gRPC_call_failed", "error", err)
+		log.Error().Err(err).Msg("gRPC_call_failed")
 		json.WriteError(w, http.StatusInternalServerError, errors.New("unable to update organization"))
 		return
 	}
 
-	log.Info("succeeded", "organization_id", orgID)
+	log.Info().
+		Int64("organization_id", orgID).
+		Msg("succeeded")
+
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
 func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.Request) {
-	log := middleware.LoggerFromContext(r.Context()).With(
-		"component", "organization_handler",
-		"method", "ListOrganizations",
-	)
-	log.Info("request_received")
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "ListOrganizations").
+		Logger()
+
+	log.Info().Msg("request_received")
 
 	rc := middleware.NewRoleChecker(r)
 	if !rc.HasSuperAdmin() {
-		log.Error("forbidden")
+		log.Error().Msg("forbidden")
 		json.WriteError(w, http.StatusForbidden, errors.New("forbidden"))
 		return
 	}
@@ -240,17 +277,27 @@ func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.R
 
 	limit, err := strconv.ParseInt(limitStr, 10, 32)
 	if err != nil {
-		log.Warn("invalid_limit", "limit", limitStr, "error", err)
+		log.Warn().
+			Str("limit", limitStr).
+			Err(err).
+			Msg("invalid_limit")
 		limit = 20
 	}
 
 	offset, err := strconv.ParseInt(offsetStr, 10, 64)
 	if err != nil {
-		log.Warn("invalid_offset", "offset", offsetStr, "error", err)
+		log.Warn().
+			Str("offset", offsetStr).
+			Err(err).
+			Msg("invalid_offset")
 		offset = 0
 	}
 
-	log.Info("calling_organization_microservice", "limit", limit, "offset", offset)
+	log.Info().
+		Int64("limit", limit).
+		Int64("offset", offset).
+		Msg("calling_organization_microservice")
+
 	req := &organizationv1.ListOrganizationsRequest{
 		Limit:  int32(limit),
 		Offset: int32(offset),
@@ -258,12 +305,12 @@ func (h *OrganizationHandler) ListOrganizations(w http.ResponseWriter, r *http.R
 
 	resp, err := h.organization.Api.ListOrganizations(r.Context(), req)
 	if err != nil {
-		log.Error("gRPC_call_failed", "error", err)
+		log.Error().Err(err).Msg("gRPC_call_failed")
 		json.WriteError(w, http.StatusInternalServerError, errors.New("unable to list organizations"))
 		return
 	}
 
-	log.Info("succeeded")
+	log.Info().Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 

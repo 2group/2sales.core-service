@@ -72,9 +72,9 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 		userID := int64(rawUser)
-		ctx := context.WithValue(r.Context(), LoggerKey,
-			LoggerFromContext(r.Context()).With("user_id", userID),
-		)
+		//ctx := context.WithValue(r.Context(), LoggerKey,
+		//	LoggerFromContext(r.Context()).With("user_id", userID),
+		//)
 
 		// 4) employee_id or customer_id
 		var employeeID *int64
@@ -144,7 +144,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			}
 		}
 
-		ctx = context.WithValue(ctx, ContextUserIDKey, userID)
+		ctx := context.WithValue(r.Context(), ContextUserIDKey, userID)
 		if employeeID != nil {
 			ctx = context.WithValue(ctx, ContextEmployeeIDKey, *employeeID)
 		}
