@@ -59,8 +59,8 @@ func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
 
 func (h *OtpHandler) VerifySmsOtp(w http.ResponseWriter, r *http.Request) {
 	log := zerolog.Ctx(r.Context()).With().
-		Str("component", "organization_handler").
-		Str("method", "GetOrganization").
+		Str("component", "otp_handler").
+		Str("method", "VerifySmsOtp").
 		Logger()
 
 	log.Info().Msg("request_received")
@@ -86,7 +86,7 @@ func (h *OtpHandler) VerifySmsOtp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Info().Int64("user_id", *resp.User.Id).Msg("succeeded")
+	log.Info().Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
