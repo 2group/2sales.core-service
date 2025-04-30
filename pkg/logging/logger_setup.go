@@ -44,7 +44,7 @@ func SetupLogger(env string) {
 }
 
 // L returns the global logger instance. Call SetupLogger before using.
-func Slog() *zerolog.Logger {
+func L() *zerolog.Logger {
 	return &rootLogger
 }
 

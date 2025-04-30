@@ -8,6 +8,7 @@ import (
 	"github.com/2group/2sales.core-service/internal/config"
 	"github.com/2group/2sales.core-service/pkg/kafka"
 	"github.com/2group/2sales.core-service/pkg/logging"
+	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -30,8 +31,7 @@ func main() {
 	}
 
 	logging.SetupLogger(cfg.Env)
-
-	slog.Default().Info("starting_application", "port", cfg.REST.Port)
+	log.Info().Int("port", cfg.REST.Port).Msg("starting_application")
 	log := setupLogger(cfg.Env)
 	application := app.NewAPIServer(cfg, log)
 

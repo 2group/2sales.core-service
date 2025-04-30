@@ -13,6 +13,7 @@ import (
 	auth "github.com/2group/2sales.core-service/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/rs/zerolog/log"
 )
 
 type APIServer struct {
@@ -25,7 +26,7 @@ func NewAPIServer(cfg *config.Config, log *slog.Logger) *APIServer {
 }
 
 func (s *APIServer) Run() error {
-	slog.Default().Info("application_started")
+	log.Info().Msg("application_started")
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 	router.Use(middleware.URLFormat)
