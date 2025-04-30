@@ -3,7 +3,7 @@ package grpc
 import (
 	"context"
 
-	"log/slog"
+	"github.com/2group/2sales.core-service/pkg/logging"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -30,7 +30,7 @@ func CorrelationUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 		}
 
 		// 2) Build a per-RPC logger with the correlation_id field
-		rpcLogger := slog.Default().With("correlation_id", cid)
+		rpcLogger := logging.Slog().With("correlation_id", cid)
 
 		// 3) Store it in context so handlers can pull it out
 		ctx = context.WithValue(ctx, GrpcLoggerKey, rpcLogger)

@@ -24,36 +24,42 @@ func NewOrganizationHandler(organization *grpc.OrganizationClient) *Organization
 }
 
 func (h *OrganizationHandler) CreateOrganization(w http.ResponseWriter, r *http.Request) {
-	log := middleware.LoggerFromContext(r.Context()).With(
-		"component", "organization_handler",
-		"method", "CreateOrganization",
-	)
+	log := middleware.LoggerFromContext(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "CreateOrganization").
+		Logger()
 
-	log.Info("request_received")
+	log.Info().Msg("request_received")
 
 	rc := middleware.NewRoleChecker(r)
 	if !rc.HasSuperAdmin() {
-		log.Error("forbidden")
+		log.Error().Msg("forbidden")
 		json.WriteError(w, http.StatusForbidden, errors.New("forbidden"))
 		return
 	}
 
 	req := &organizationv1.CreateOrganizationRequest{}
 	if err := json.ParseJSON(r, req); err != nil {
-		log.Error("invalid_payload", "error", err)
+		log.Error().Err(err).Msg("invalid_payload")
 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid payload"))
 		return
 	}
 
-	log.Info("calling_organization_microservice", "request", req)
+	log.Info().
+		Interface("request", req).
+		Msg("calling_organization_microservice")
+
 	resp, err := h.organization.Api.CreateOrganization(r.Context(), req)
 	if err != nil {
-		log.Error("gRPC_call_failed", "error", err)
+		log.Error().Err(err).Msg("gRPC_call_failed")
 		json.WriteError(w, http.StatusInternalServerError, errors.New("unable to create organization"))
 		return
 	}
 
-	log.Info("succeeded", "organization_id", resp.GetOrganization().GetId())
+	log.Info().
+		Int64("organization_id", resp.GetOrganization().GetId()).
+		Msg("succeeded")
+
 	json.WriteJSON(w, http.StatusCreated, resp)
 }
 
