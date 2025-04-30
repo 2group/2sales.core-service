@@ -1,31 +1,90 @@
 package logging
 
 import (
-	"log/slog"
+	"io"
 	"os"
+	"strings"
+	"time"
 
-	"github.com/2group/2sales.core-service/pkg/kafka"
+	"github.com/rs/zerolog"
 )
 
-func SetupLogger(publisher *kafka.KafkaPublisher, topic, env string) {
-	var level slog.Level
-	switch env {
-	case "local", "dev":
-		level = slog.LevelDebug
+var logger zerolog.Logger
+var slogLogger *SlogAdapter
+
+func SetupLogger(env string) {
+	switch strings.ToLower(env) {
 	case "prod":
-		level = slog.LevelInfo
+		zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	default:
-		level = slog.LevelDebug
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	}
 
-	var handler slog.Handler
-	if env == "local" {
-		handler = slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: level})
+	var output io.Writer
+	if env == "local" || env == "dev" {
+		output = zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
 	} else {
-		handler = NewKafkaJSONHandler(publisher, topic, &slog.HandlerOptions{Level: level})
+		output = os.Stdout
 	}
 
-	// Attach static fields and set as default
-	logger := slog.New(handler).With()
-	slog.SetDefault(logger)
+	logger = zerolog.New(output).With().Timestamp().Logger()
+	slogLogger = NewSlogAdapter(logger)
+}
+
+func Logger() zerolog.Logger {
+	return logger
+}
+
+func Slog() *SlogAdapter {
+	return slogLogger
+}
+
+type SlogAdapter struct {
+	z zerolog.Logger
+}
+
+func NewSlogAdapter(z zerolog.Logger) *SlogAdapter {
+	return &SlogAdapter{z: z}
+}
+
+func (l *SlogAdapter) With(args ...any) *SlogAdapter {
+	child := l.z.With()
+	for i := 0; i < len(args)-1; i += 2 {
+		key, ok := args[i].(string)
+		if !ok {
+			continue
+		}
+		child = child.Str(key, stringify(args[i+1]))
+	}
+	return &SlogAdapter{z: child.Logger()}
+}
+
+func (l *SlogAdapter) Info(msg string, args ...any) {
+	l.write(l.z.Info(), msg, args...)
+}
+
+func (l *SlogAdapter) Debug(msg string, args ...any) {
+	l.write(l.z.Debug(), msg, args...)
+}
+
+func (l *SlogAdapter) Error(msg string, args ...any) {
+	l.write(l.z.Error(), msg, args...)
+}
+
+func (l *SlogAdapter) write(event *zerolog.Event, msg string, args ...any) {
+	for i := 0; i < len(args)-1; i += 2 {
+		key, ok := args[i].(string)
+		if !ok {
+			continue
+		}
+		event = event.Interface(key, args[i+1])
+	}
+	event.Msg(msg)
+}
+
+func stringify(v any) string {
+	if s, ok := v.(string); ok {
+		return s
+	}
+	return "<non-string>"
 }
