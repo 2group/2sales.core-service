@@ -1174,6 +1174,7 @@ func (x *GetGiftCertificateResponse) GetCertificate() *GiftCertificate {
 type UpdateGiftCertificateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Certificate   *GiftCertificate       `protobuf:"bytes,1,opt,name=certificate,proto3" json:"certificate,omitempty"`
+	Amount        float64                `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1215,10 +1216,16 @@ func (x *UpdateGiftCertificateRequest) GetCertificate() *GiftCertificate {
 	return nil
 }
 
+func (x *UpdateGiftCertificateRequest) GetAmount() float64 {
+	if x != nil {
+		return x.Amount
+	}
+	return 0
+}
+
 type UpdateGiftCertificateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Certificate   *GiftCertificate       `protobuf:"bytes,1,opt,name=certificate,proto3" json:"certificate,omitempty"`
-	Amount        float64                `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1258,13 +1265,6 @@ func (x *UpdateGiftCertificateResponse) GetCertificate() *GiftCertificate {
 		return x.Certificate
 	}
 	return nil
-}
-
-func (x *UpdateGiftCertificateResponse) GetAmount() float64 {
-	if x != nil {
-		return x.Amount
-	}
-	return 0
 }
 
 type ListGiftCertificatesRequest struct {
@@ -1493,12 +1493,12 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x19GetGiftCertificateRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"Y\n" +
 	"\x1aGetGiftCertificateResponse\x12;\n" +
-	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"[\n" +
+	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"s\n" +
 	"\x1cUpdateGiftCertificateRequest\x12;\n" +
-	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"t\n" +
-	"\x1dUpdateGiftCertificateResponse\x12;\n" +
 	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\x12\x16\n" +
-	"\x06amount\x18\x02 \x01(\x01R\x06amount\"\xc3\x01\n" +
+	"\x06amount\x18\x02 \x01(\x01R\x06amount\"\\\n" +
+	"\x1dUpdateGiftCertificateResponse\x12;\n" +
+	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"\xc3\x01\n" +
 	"\x1bListGiftCertificatesRequest\x12$\n" +
 	"\vcustomer_id\x18\x01 \x01(\x03H\x00R\n" +
 	"customerId\x88\x01\x01\x12,\n" +
