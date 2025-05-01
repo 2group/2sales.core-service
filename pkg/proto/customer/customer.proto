@@ -137,6 +137,7 @@ message UpdateGiftCertificateRequest {
 
 message UpdateGiftCertificateResponse {
     GiftCertificate certificate = 1;
+    double amount = 2;
 }
 
 message ListGiftCertificatesRequest {
