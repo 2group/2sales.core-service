@@ -1,147 +1,148 @@
 package handler
 
-//
-//import (
-//	"errors"
-//	"github.com/2group/2sales.core-service/pkg/middleware"
-//	"net/http"
-//	"strconv"
-//
-//	"github.com/2group/2sales.core-service/internal/grpc"
-//	customerv1 "github.com/2group/2sales.core-service/pkg/gen/go/customer"
-//	"github.com/2group/2sales.core-service/pkg/json"
-//	"github.com/go-chi/chi/v5"
-//)
-//
-//type GiftCertificateHandler struct {
-//	client *grpc.CustomerClient
-//}
-//
-//func NewGiftCertificateHandler(client *grpc.CustomerClient) *GiftCertificateHandler {
-//	return &GiftCertificateHandler{client: client}
-//}
-//
-//func (h *GiftCertificateHandler) CreateGiftCertificate(w http.ResponseWriter, r *http.Request) {
-//	log := middleware.LoggerFromContext(r.Context()).With(
-//		"component", "gift_certificate_handler",
-//		"method", "CreateGiftCertificate",
-//	)
-//
-//	log.Info("request_received")
-//
-//	req := &customerv1.CreateGiftCertificateRequest{}
-//	if err := json.ParseJSON(r, req); err != nil {
-//		log.Error("invalid_payload", "error", err)
-//		json.WriteError(w, http.StatusBadRequest, err)
-//		return
-//	}
-//
-//	log.Debug("calling_customer_service", "request", req)
-//	resp, err := h.client.Api.CreateGiftCertificate(r.Context(), req)
-//	if err != nil {
-//		log.Error("gRPC_call_failed", "error", err)
-//		json.WriteError(w, http.StatusBadRequest, err)
-//		return
-//	}
-//
-//	log.Info("succeeded", "certificate_id", resp.Certificate.GetId())
-//	json.WriteJSON(w, http.StatusCreated, resp)
-//}
-//
-//func (h *GiftCertificateHandler) GetGiftCertificate(w http.ResponseWriter, r *http.Request) {
-//	log := middleware.LoggerFromContext(r.Context()).With(
-//		"component", "gift_certificate_handler",
-//		"method", "GetGiftCertificate",
-//	)
-//
-//	log.Info("request_received")
-//
-//	certificateIDStr := chi.URLParam(r, "certificate_id")
-//	certificateID, err := strconv.ParseInt(certificateIDStr, 10, 64)
-//	if err != nil {
-//		log.Error("invalid_certificate_id", "certificate_id", certificateIDStr, "error", err)
-//		json.WriteError(w, http.StatusBadRequest, errors.New("invalid certificate_id"))
-//		return
-//	}
-//
-//	req := &customerv1.GetGiftCertificateRequest{Id: certificateID}
-//	log.Debug("calling_customer_service", "certificate_id", certificateID)
-//
-//	resp, err := h.client.Api.GetGiftCertificate(r.Context(), req)
-//	if err != nil {
-//		log.Error("gRPC_call_failed", "error", err)
-//		json.WriteError(w, http.StatusNotFound, err)
-//		return
-//	}
-//
-//	log.Info("succeeded", "certificate_id", resp.Certificate.GetId())
-//	json.WriteJSON(w, http.StatusOK, resp)
-//}
-//
-//func (h *GiftCertificateHandler) ListGiftCertificates(w http.ResponseWriter, r *http.Request) {
-//	log := middleware.LoggerFromContext(r.Context()).With(
-//		"component", "gift_certificate_handler",
-//		"method", "ListGiftCertificates",
-//	)
-//
-//	log.Info("request_received")
-//
-//	query := r.URL.Query()
-//
-//	customerIDStr := query.Get("customer_id")
-//	organizationIDStr := query.Get("organization_id")
-//	limitStr := query.Get("limit")
-//	offsetStr := query.Get("offset")
-//
-//	var (
-//		customerID     *int64
-//		organizationID *int64
-//		limit          int32 = 20
-//		offset         int32 = 0
-//		err            error
-//	)
-//
-//	if customerIDStr != "" {
-//		id, err := strconv.ParseInt(customerIDStr, 10, 64)
-//		if err == nil {
-//			customerID = &id
-//		}
-//	}
-//	if organizationIDStr != "" {
-//		id, err := strconv.ParseInt(organizationIDStr, 10, 64)
-//		if err == nil {
-//			organizationID = &id
-//		}
-//	}
-//	if limitStr != "" {
-//		l, err := strconv.ParseInt(limitStr, 10, 32)
-//		if err == nil {
-//			limit = int32(l)
-//		}
-//	}
-//	if offsetStr != "" {
-//		o, err := strconv.ParseInt(offsetStr, 10, 32)
-//		if err == nil {
-//			offset = int32(o)
-//		}
-//	}
-//
-//	req := &customerv1.ListGiftCertificatesRequest{
-//		CustomerId:     customerID,
-//		OrganizationId: organizationID,
-//		Limit:          limit,
-//		Offset:         offset,
-//	}
-//
-//	log.Debug("calling_customer_service", "request", req)
-//
-//	resp, err := h.client.Api.ListGiftCertificates(r.Context(), req)
-//	if err != nil {
-//		log.Error("gRPC_call_failed", "error", err)
-//		json.WriteError(w, http.StatusInternalServerError, err)
-//		return
-//	}
-//
-//	log.Info("succeeded", "certificates_count", len(resp.Certificates))
-//	json.WriteJSON(w, http.StatusOK, resp)
-//}
+import (
+	"errors"
+	"net/http"
+	"strconv"
+
+	"github.com/2group/2sales.core-service/internal/grpc"
+	customerv1 "github.com/2group/2sales.core-service/pkg/gen/go/customer"
+	"github.com/2group/2sales.core-service/pkg/json"
+	"github.com/go-chi/chi/v5"
+	"github.com/rs/zerolog"
+)
+
+type GiftCertificateHandler struct {
+	client *grpc.CustomerClient
+}
+
+func NewGiftCertificateHandler(client *grpc.CustomerClient) *GiftCertificateHandler {
+	return &GiftCertificateHandler{client: client}
+}
+
+func (h *GiftCertificateHandler) CreateGiftCertificate(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "gift_certificate_handler").
+		Str("method", "CreateGiftCertificate").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	req := &customerv1.CreateGiftCertificateRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error().Err(err).Msg("invalid_payload")
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	log.Debug().Interface("request", req).Msg("calling_customer_service")
+
+	resp, err := h.client.Api.CreateGiftCertificate(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	log.Info().Int64("certificate_id", resp.Certificate.GetId()).Msg("succeeded")
+	json.WriteJSON(w, http.StatusCreated, resp)
+}
+
+func (h *GiftCertificateHandler) GetGiftCertificate(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "gift_certificate_handler").
+		Str("method", "GetGiftCertificate").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	certificateIDStr := chi.URLParam(r, "certificate_id")
+	certificateID, err := strconv.ParseInt(certificateIDStr, 10, 64)
+	if err != nil {
+		log.Error().Str("certificate_id", certificateIDStr).Err(err).Msg("invalid_certificate_id")
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid certificate_id"))
+		return
+	}
+
+	req := &customerv1.GetGiftCertificateRequest{Id: certificateID}
+	log.Debug().Int64("certificate_id", certificateID).Msg("calling_customer_service")
+
+	resp, err := h.client.Api.GetGiftCertificate(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusNotFound, err)
+		return
+	}
+
+	log.Info().Int64("certificate_id", resp.Certificate.GetId()).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *GiftCertificateHandler) ListGiftCertificates(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "gift_certificate_handler").
+		Str("method", "ListGiftCertificates").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	query := r.URL.Query()
+
+	var (
+		customerID     *int64
+		organizationID *int64
+		limit          int32 = 20
+		offset         int32 = 0
+	)
+
+	if customerIDStr := query.Get("customer_id"); customerIDStr != "" {
+		if id, err := strconv.ParseInt(customerIDStr, 10, 64); err == nil {
+			customerID = &id
+		} else {
+			log.Warn().Str("customer_id", customerIDStr).Err(err).Msg("invalid_customer_id")
+		}
+	}
+
+	if organizationIDStr := query.Get("organization_id"); organizationIDStr != "" {
+		if id, err := strconv.ParseInt(organizationIDStr, 10, 64); err == nil {
+			organizationID = &id
+		} else {
+			log.Warn().Str("organization_id", organizationIDStr).Err(err).Msg("invalid_organization_id")
+		}
+	}
+
+	if limitStr := query.Get("limit"); limitStr != "" {
+		if l, err := strconv.ParseInt(limitStr, 10, 32); err == nil {
+			limit = int32(l)
+		} else {
+			log.Warn().Str("limit", limitStr).Err(err).Msg("invalid_limit")
+		}
+	}
+
+	if offsetStr := query.Get("offset"); offsetStr != "" {
+		if o, err := strconv.ParseInt(offsetStr, 10, 32); err == nil {
+			offset = int32(o)
+		} else {
+			log.Warn().Str("offset", offsetStr).Err(err).Msg("invalid_offset")
+		}
+	}
+
+	req := &customerv1.ListGiftCertificatesRequest{
+		CustomerId:     customerID,
+		OrganizationId: organizationID,
+		Limit:          limit,
+		Offset:         offset,
+	}
+
+	log.Debug().Interface("request", req).Msg("calling_customer_service")
+
+	resp, err := h.client.Api.ListGiftCertificates(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("certificates_count", len(resp.Certificates)).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}

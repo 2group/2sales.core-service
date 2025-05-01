@@ -63,7 +63,7 @@ func (s *APIServer) Run() error {
 	////	panic(err)
 	////}
 	//
-	//customergrpc, err := grpc.NewCustomerClient(context, s.cfg.GRPC.Customer, time.Hour, 2)
+	customergrpc, err := grpc.NewCustomerClient(context, s.cfg.GRPC.Customer, time.Hour, 2)
 	//if err != nil {
 	//	panic(err)
 	//}
@@ -73,11 +73,11 @@ func (s *APIServer) Run() error {
 		panic(err)
 	}
 	//
-	//B2CServiceOrderGrpc, err := grpc.NewB2CServiceOrderClient(context, s.cfg.GRPC.B2CServiceOrder, time.Hour, 2)
+	B2CServiceOrderGrpc, err := grpc.NewB2CServiceOrderClient(context, s.cfg.GRPC.B2CServiceOrder, time.Hour, 2)
 	//if err != nil {
 	//	panic(err)
 	//}
-	//Employeegrpc, err := grpc.NewEmployeeClient(context, s.cfg.GRPC.Employee, time.Hour, 2)
+	Employeegrpc, err := grpc.NewEmployeeClient(context, s.cfg.GRPC.Employee, time.Hour, 2)
 	//if err != nil {
 	//	panic(err)
 	//}
@@ -89,11 +89,11 @@ func (s *APIServer) Run() error {
 	// crmHandler := handler.NewCrmHandler(s.log, crmgrpc)
 	// warehouseHandler := handler.NewWarehouseHandler(s.log, warehousegrpc)
 	// orderHandler := handler.NewOrderHandler(s.log, ordergrpc)
-	//customerHandler := handler.NewCustomerHandler(customergrpc)
-	//giftCertificateHandler := handler.NewGiftCertificateHandler(customergrpc)
+	customerHandler := handler.NewCustomerHandler(customergrpc)
+	giftCertificateHandler := handler.NewGiftCertificateHandler(customergrpc)
 	serviceHandler := handler.NewServiceHandler(servicegrpc)
-	//B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(B2CServiceOrderGrpc)
-	//EmployeeHandler := handler.NewEmployeeHandler(Employeegrpc)
+	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(B2CServiceOrderGrpc)
+	EmployeeHandler := handler.NewEmployeeHandler(Employeegrpc)
 
 	// adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
@@ -330,25 +330,25 @@ func (s *APIServer) Run() error {
 				// authRouter.Get("/banners", advertisementHandler.ListBanners)
 			})
 		})
-		//apiRouter.Route("/customer", func(customerRouter chi.Router) {
-		//	customerRouter.Group(func(authRouter chi.Router) {
-		//		//authRouter.Use(auth.AuthMiddleware)
-		//		authRouter.Post("/", customerHandler.CreateCustomer)
-		//		authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
-		//		authRouter.Delete("/{customer_id}", customerHandler.DeleteCustomer)
-		//		authRouter.Patch("/{customer_id}", customerHandler.PartialUpdateCustomer)
-		//		authRouter.Put("/{customer_id}", customerHandler.UpdateCustomer)
-		//	})
-		//})
-		//
-		//apiRouter.Route("/gift-certificates", func(certificateRouter chi.Router) {
-		//	certificateRouter.Group(func(authRouter chi.Router) {
-		//		//authRouter.Use(auth.AuthMiddleware)
-		//		authRouter.Post("/", giftCertificateHandler.CreateGiftCertificate)
-		//		authRouter.Get("/", giftCertificateHandler.ListGiftCertificates)
-		//		authRouter.Get("/{certificate_id}", giftCertificateHandler.GetGiftCertificate)
-		//	})
-		//})
+		apiRouter.Route("/customer", func(customerRouter chi.Router) {
+			customerRouter.Group(func(authRouter chi.Router) {
+				//authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", customerHandler.CreateCustomer)
+				authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
+				authRouter.Delete("/{customer_id}", customerHandler.DeleteCustomer)
+				authRouter.Patch("/{customer_id}", customerHandler.PartialUpdateCustomer)
+				authRouter.Put("/{customer_id}", customerHandler.UpdateCustomer)
+			})
+		})
+
+		apiRouter.Route("/gift-certificates", func(certificateRouter chi.Router) {
+			certificateRouter.Group(func(authRouter chi.Router) {
+				//authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", giftCertificateHandler.CreateGiftCertificate)
+				authRouter.Get("/", giftCertificateHandler.ListGiftCertificates)
+				authRouter.Get("/{certificate_id}", giftCertificateHandler.GetGiftCertificate)
+			})
+		})
 		apiRouter.Route("/service", func(serviceRouter chi.Router) {
 			serviceRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
@@ -361,31 +361,31 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/", serviceHandler.ListServices)
 			})
 		})
-		//apiRouter.Route("/employee", func(employeeRouter chi.Router) {
-		//	employeeRouter.Group(func(authRouter chi.Router) {
-		//		authRouter.Post("/", EmployeeHandler.CreateEmployee)
-		//		authRouter.Get("/{employee_id}", EmployeeHandler.GetEmployee)
-		//		authRouter.Put("/{employee_id}", EmployeeHandler.UpdateEmployee)
-		//
-		//		authRouter.Route("/role", func(roleRouter chi.Router) {
-		//			roleRouter.Post("/", EmployeeHandler.CreateRole)
-		//			roleRouter.Get("/", EmployeeHandler.ListRoles)
-		//			roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
-		//			roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
-		//		})
-		//	})
-		//})
-		//
-		//apiRouter.Route("/order", func(orderRouter chi.Router) {
-		//	orderRouter.Group(func(authRouter chi.Router) {
-		//		//authRouter.Use(auth.AuthMiddleware)
-		//		authRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
-		//		authRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
-		//		authRouter.Get("/", B2CServiceOrderHandler.ListOrders)
-		//		// authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
-		//	})
-		//})
-		//
+		apiRouter.Route("/employee", func(employeeRouter chi.Router) {
+			employeeRouter.Group(func(authRouter chi.Router) {
+				authRouter.Post("/", EmployeeHandler.CreateEmployee)
+				authRouter.Get("/{employee_id}", EmployeeHandler.GetEmployee)
+				authRouter.Put("/{employee_id}", EmployeeHandler.UpdateEmployee)
+
+				authRouter.Route("/role", func(roleRouter chi.Router) {
+					roleRouter.Post("/", EmployeeHandler.CreateRole)
+					roleRouter.Get("/", EmployeeHandler.ListRoles)
+					roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
+					roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
+				})
+			})
+		})
+
+		apiRouter.Route("/order", func(orderRouter chi.Router) {
+			orderRouter.Group(func(authRouter chi.Router) {
+				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Post("/", B2CServiceOrderHandler.CreateOrder)
+				authRouter.Get("/{order_id}", B2CServiceOrderHandler.GetOrder)
+				authRouter.Get("/", B2CServiceOrderHandler.ListOrders)
+				// authRouter.Put("/{order_id}", B2CServiceOrderHandler.UpdateOrder)
+			})
+		})
+
 	})
 
 	return http.ListenAndServe(fmt.Sprintf("0.0.0.0:%d", s.cfg.REST.Port), router)
