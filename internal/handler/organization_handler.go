@@ -734,10 +734,22 @@ func (h *OrganizationHandler) UpdateStory(w http.ResponseWriter, r *http.Request
 }
 
 func (h *OrganizationHandler) ListStories(w http.ResponseWriter, r *http.Request) {
-	req := &organizationv1.ListStoryRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
+	query := r.URL.Query()
+	orgIDStr := query.Get("organization_id")
+
+	if orgIDStr == "" {
+		json.WriteError(w, http.StatusBadRequest, errors.New("organization_id is required"))
 		return
+	}
+
+	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid organization_id"))
+		return
+	}
+
+	req := &organizationv1.ListStoryRequest{
+		OrganizationId: orgID,
 	}
 
 	response, err := h.organization.Api.ListStory(r.Context(), req)
@@ -788,10 +800,22 @@ func (h *OrganizationHandler) UpdateBanner(w http.ResponseWriter, r *http.Reques
 }
 
 func (h *OrganizationHandler) ListBanners(w http.ResponseWriter, r *http.Request) {
-	req := &organizationv1.ListBannerRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		json.WriteError(w, http.StatusBadRequest, err)
+	query := r.URL.Query()
+	orgIDStr := query.Get("organization_id")
+
+	if orgIDStr == "" {
+		json.WriteError(w, http.StatusBadRequest, errors.New("organization_id is required"))
 		return
+	}
+
+	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
+	if err != nil {
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid organization_id"))
+		return
+	}
+
+	req := &organizationv1.ListBannerRequest{
+		OrganizationId: orgID,
 	}
 
 	response, err := h.organization.Api.ListBanner(r.Context(), req)
