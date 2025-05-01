@@ -1173,8 +1173,7 @@ func (x *GetGiftCertificateResponse) GetCertificate() *GiftCertificate {
 
 type UpdateGiftCertificateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Amount        float64                `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"` // сколько хотим списать
+	Certificate   *GiftCertificate       `protobuf:"bytes,1,opt,name=certificate,proto3" json:"certificate,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1209,18 +1208,11 @@ func (*UpdateGiftCertificateRequest) Descriptor() ([]byte, []int) {
 	return file_customer_customer_proto_rawDescGZIP(), []int{20}
 }
 
-func (x *UpdateGiftCertificateRequest) GetId() int64 {
+func (x *UpdateGiftCertificateRequest) GetCertificate() *GiftCertificate {
 	if x != nil {
-		return x.Id
+		return x.Certificate
 	}
-	return 0
-}
-
-func (x *UpdateGiftCertificateRequest) GetAmount() float64 {
-	if x != nil {
-		return x.Amount
-	}
-	return 0
+	return nil
 }
 
 type UpdateGiftCertificateResponse struct {
@@ -1493,10 +1485,9 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x19GetGiftCertificateRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"Y\n" +
 	"\x1aGetGiftCertificateResponse\x12;\n" +
-	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"F\n" +
-	"\x1cUpdateGiftCertificateRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
-	"\x06amount\x18\x02 \x01(\x01R\x06amount\"\\\n" +
+	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"[\n" +
+	"\x1cUpdateGiftCertificateRequest\x12;\n" +
+	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"\\\n" +
 	"\x1dUpdateGiftCertificateResponse\x12;\n" +
 	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"\xc3\x01\n" +
 	"\x1bListGiftCertificatesRequest\x12$\n" +
@@ -1574,33 +1565,34 @@ var file_customer_customer_proto_depIdxs = []int32{
 	15, // 8: customer.CreateGiftCertificateRequest.certificate:type_name -> customer.GiftCertificate
 	15, // 9: customer.CreateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
 	15, // 10: customer.GetGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
-	15, // 11: customer.UpdateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
-	15, // 12: customer.ListGiftCertificatesResponse.certificates:type_name -> customer.GiftCertificate
-	3,  // 13: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
-	5,  // 14: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
-	11, // 15: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
-	9,  // 16: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
-	7,  // 17: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
-	13, // 18: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
-	16, // 19: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
-	18, // 20: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
-	20, // 21: customer.CustomerService.UpdateGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
-	22, // 22: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
-	4,  // 23: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
-	6,  // 24: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
-	12, // 25: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
-	10, // 26: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
-	8,  // 27: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
-	14, // 28: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
-	17, // 29: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
-	19, // 30: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
-	21, // 31: customer.CustomerService.UpdateGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
-	23, // 32: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
-	23, // [23:33] is the sub-list for method output_type
-	13, // [13:23] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	15, // 11: customer.UpdateGiftCertificateRequest.certificate:type_name -> customer.GiftCertificate
+	15, // 12: customer.UpdateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
+	15, // 13: customer.ListGiftCertificatesResponse.certificates:type_name -> customer.GiftCertificate
+	3,  // 14: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
+	5,  // 15: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
+	11, // 16: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
+	9,  // 17: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
+	7,  // 18: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
+	13, // 19: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
+	16, // 20: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
+	18, // 21: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
+	20, // 22: customer.CustomerService.UpdateGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
+	22, // 23: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
+	4,  // 24: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
+	6,  // 25: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
+	12, // 26: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
+	10, // 27: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
+	8,  // 28: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
+	14, // 29: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
+	17, // 30: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
+	19, // 31: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
+	21, // 32: customer.CustomerService.UpdateGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
+	23, // 33: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
+	24, // [24:34] is the sub-list for method output_type
+	14, // [14:24] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_customer_customer_proto_init() }

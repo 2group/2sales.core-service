@@ -132,8 +132,7 @@ message GetGiftCertificateResponse {
 }
 
 message UpdateGiftCertificateRequest {
-    int64 id = 1;
-    double amount = 2; // сколько хотим списать
+    GiftCertificate certificate = 1;
 }
 
 message UpdateGiftCertificateResponse {
