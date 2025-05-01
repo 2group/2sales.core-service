@@ -548,6 +548,7 @@ type VerifySmsOtpResponse struct {
 	Ok            bool                   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
 	User          *User                  `protobuf:"bytes,2,opt,name=user,proto3,oneof" json:"user,omitempty"`
 	Token         *string                `protobuf:"bytes,3,opt,name=token,proto3,oneof" json:"token,omitempty"`
+	Customer      *customer.Customer     `protobuf:"bytes,4,opt,name=customer,proto3,oneof" json:"customer,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -601,6 +602,13 @@ func (x *VerifySmsOtpResponse) GetToken() string {
 		return *x.Token
 	}
 	return ""
+}
+
+func (x *VerifySmsOtpResponse) GetCustomer() *customer.Customer {
+	if x != nil {
+		return x.Customer
+	}
+	return nil
 }
 
 type RequestMailOtpRequest struct {
@@ -952,14 +960,16 @@ const file_user_user_proto_rawDesc = "" +
 	"\x02ok\x18\x01 \x01(\bR\x02ok\"L\n" +
 	"\x13VerifySmsOtpRequest\x12!\n" +
 	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\tR\x04code\"y\n" +
+	"\x04code\x18\x02 \x01(\tR\x04code\"\xbb\x01\n" +
 	"\x14VerifySmsOtpResponse\x12\x0e\n" +
 	"\x02ok\x18\x01 \x01(\bR\x02ok\x12#\n" +
 	"\x04user\x18\x02 \x01(\v2\n" +
 	".user.UserH\x00R\x04user\x88\x01\x01\x12\x19\n" +
-	"\x05token\x18\x03 \x01(\tH\x01R\x05token\x88\x01\x01B\a\n" +
+	"\x05token\x18\x03 \x01(\tH\x01R\x05token\x88\x01\x01\x123\n" +
+	"\bcustomer\x18\x04 \x01(\v2\x12.customer.CustomerH\x02R\bcustomer\x88\x01\x01B\a\n" +
 	"\x05_userB\b\n" +
-	"\x06_token\"-\n" +
+	"\x06_tokenB\v\n" +
+	"\t_customer\"-\n" +
 	"\x15RequestMailOtpRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"(\n" +
 	"\x16RequestMailOtpResponse\x12\x0e\n" +
@@ -1039,29 +1049,30 @@ var file_user_user_proto_depIdxs = []int32{
 	0,  // 5: user.UpdateUserRequest.user:type_name -> user.User
 	0,  // 6: user.UpdateUserResponse.user:type_name -> user.User
 	0,  // 7: user.VerifySmsOtpResponse.user:type_name -> user.User
-	0,  // 8: user.VerifyMailOtpResponse.user:type_name -> user.User
-	0,  // 9: user.ListUsersResponse.users:type_name -> user.User
-	1,  // 10: user.UserService.Login:input_type -> user.LoginRequest
-	3,  // 11: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	5,  // 12: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
-	15, // 13: user.UserService.ListUsers:input_type -> user.ListUsersRequest
-	7,  // 14: user.OtpService.RequestSmsOtp:input_type -> user.RequestSmsOtpRequest
-	9,  // 15: user.OtpService.VerifySmsOtp:input_type -> user.VerifySmsOtpRequest
-	11, // 16: user.OtpService.RequestMailOtp:input_type -> user.RequestMailOtpRequest
-	13, // 17: user.OtpService.VerifyMailOtp:input_type -> user.VerifyMailOtpRequest
-	2,  // 18: user.UserService.Login:output_type -> user.LoginResponse
-	4,  // 19: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	6,  // 20: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
-	16, // 21: user.UserService.ListUsers:output_type -> user.ListUsersResponse
-	8,  // 22: user.OtpService.RequestSmsOtp:output_type -> user.RequestSmsOtpResponse
-	10, // 23: user.OtpService.VerifySmsOtp:output_type -> user.VerifySmsOtpResponse
-	12, // 24: user.OtpService.RequestMailOtp:output_type -> user.RequestMailOtpResponse
-	14, // 25: user.OtpService.VerifyMailOtp:output_type -> user.VerifyMailOtpResponse
-	18, // [18:26] is the sub-list for method output_type
-	10, // [10:18] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	17, // 8: user.VerifySmsOtpResponse.customer:type_name -> customer.Customer
+	0,  // 9: user.VerifyMailOtpResponse.user:type_name -> user.User
+	0,  // 10: user.ListUsersResponse.users:type_name -> user.User
+	1,  // 11: user.UserService.Login:input_type -> user.LoginRequest
+	3,  // 12: user.UserService.CreateUser:input_type -> user.CreateUserRequest
+	5,  // 13: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
+	15, // 14: user.UserService.ListUsers:input_type -> user.ListUsersRequest
+	7,  // 15: user.OtpService.RequestSmsOtp:input_type -> user.RequestSmsOtpRequest
+	9,  // 16: user.OtpService.VerifySmsOtp:input_type -> user.VerifySmsOtpRequest
+	11, // 17: user.OtpService.RequestMailOtp:input_type -> user.RequestMailOtpRequest
+	13, // 18: user.OtpService.VerifyMailOtp:input_type -> user.VerifyMailOtpRequest
+	2,  // 19: user.UserService.Login:output_type -> user.LoginResponse
+	4,  // 20: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	6,  // 21: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
+	16, // 22: user.UserService.ListUsers:output_type -> user.ListUsersResponse
+	8,  // 23: user.OtpService.RequestSmsOtp:output_type -> user.RequestSmsOtpResponse
+	10, // 24: user.OtpService.VerifySmsOtp:output_type -> user.VerifySmsOtpResponse
+	12, // 25: user.OtpService.RequestMailOtp:output_type -> user.RequestMailOtpResponse
+	14, // 26: user.OtpService.VerifyMailOtp:output_type -> user.VerifyMailOtpResponse
+	19, // [19:27] is the sub-list for method output_type
+	11, // [11:19] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_user_user_proto_init() }

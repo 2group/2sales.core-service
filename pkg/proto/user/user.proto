@@ -75,6 +75,7 @@ message VerifySmsOtpResponse {
     bool ok = 1;
     optional User user = 2;
     optional string token = 3;
+    optional customer.Customer customer = 4;
 }
 
 message RequestMailOtpRequest {
