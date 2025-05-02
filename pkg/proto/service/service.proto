@@ -93,8 +93,9 @@ message GeneratePresignedURLsResponse {
 message ListServicesRequest{
     optional int64 organization_id = 1;
     optional int64 branch_id = 2;
-    int32 limit = 3;
-    int32 offset = 4;
+    optional string search_text = 3;
+    int32 limit = 4;
+    int32 offset = 5;
 }
 
 message ListServicesResponse{
