@@ -160,3 +160,55 @@ func (h *UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
 	log.Info().Int("users_count", len(resp.Users)).Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
+
+func (h *UserHandler) RefreshToken(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "user_handler").
+		Str("method", "RefreshToken").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	req := &userv1.RefreshTokenRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error().Err(err).Msg("invalid_payload")
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	resp, err := h.user.Api.RefreshToken(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("grpc_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *UserHandler) Logout(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "user_handler").
+		Str("method", "Logout").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	req := &userv1.LogoutRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error().Err(err).Msg("invalid_payload")
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	_, err := h.user.Api.Logout(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("grpc_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Msg("succeeded")
+	w.WriteHeader(http.StatusOK)
+}

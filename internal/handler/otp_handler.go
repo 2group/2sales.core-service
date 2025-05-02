@@ -46,7 +46,7 @@ func (h *OtpHandler) RequestSmsOtp(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
-		json.WriteError(w, http.StatusInternalServerError, errors.New("failed to request OTP"))
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -108,7 +108,7 @@ func (h *OtpHandler) RequestMailOtp(w http.ResponseWriter, r *http.Request) {
 	resp, err := h.otpService.Api.RequestMailOtp(r.Context(), &req)
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
-		json.WriteError(w, http.StatusInternalServerError, errors.New("failed to request mail OTP"))
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
