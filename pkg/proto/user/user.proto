@@ -72,9 +72,8 @@ message VerifySmsOtpRequest {
 }
 
 message VerifySmsOtpResponse {
-    bool ok = 1;
-    optional User user = 2;
-    optional string token = 3;
+    optional User user = 1;
+    optional string token = 2;
 }
 
 message RequestMailOtpRequest {
