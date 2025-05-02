@@ -12,13 +12,15 @@ service UserService {
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
     rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
     rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+    rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+    rpc Logout (LogoutRequest) returns (LogoutResponse);
 }
 
 service OtpService {
-    rpc RequestSmsOtp(RequestSmsOtpRequest) returns (RequestSmsOtpResponse);
-    rpc VerifySmsOtp(VerifySmsOtpRequest) returns (VerifySmsOtpResponse);
-    rpc RequestMailOtp(RequestMailOtpRequest) returns (RequestMailOtpResponse);
-    rpc VerifyMailOtp(VerifyMailOtpRequest) returns (VerifyMailOtpResponse);
+    rpc RequestSmsOtp (RequestSmsOtpRequest) returns (RequestSmsOtpResponse);
+    rpc VerifySmsOtp (VerifySmsOtpRequest) returns (VerifySmsOtpResponse);
+    rpc RequestMailOtp (RequestMailOtpRequest) returns (RequestMailOtpResponse);
+    rpc VerifyMailOtp (VerifyMailOtpRequest) returns (VerifyMailOtpResponse);
 }
 
 message User {
@@ -37,11 +39,29 @@ message LoginRequest {
 }
 
 message LoginResponse {
-    string token = 1;
-    User user = 2;
-    bool is_completed = 3;
+    string access_token = 1;
+    string refresh_token = 2;
+    User user = 3;
+    bool is_completed = 4;
 }
 
+message LogoutRequest {
+    string refresh_token = 1;
+}
+  
+message LogoutResponse {
+}
+
+message RefreshTokenRequest {
+    string refresh_token = 1;
+}
+  
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    User user = 3;
+}
+  
 message CreateUserRequest {
     User user = 1;
 }
@@ -63,7 +83,6 @@ message RequestSmsOtpRequest {
 }
 
 message RequestSmsOtpResponse {
-    bool ok = 1;
 }
 
 message VerifySmsOtpRequest {
@@ -72,9 +91,9 @@ message VerifySmsOtpRequest {
 }
 
 message VerifySmsOtpResponse {
-    bool ok = 1;
-    optional User user = 2;
-    optional string token = 3;
+    string access_token = 1;
+    string refresh_token = 2;
+    optional User user = 3;
 }
 
 message RequestMailOtpRequest {
@@ -82,7 +101,6 @@ message RequestMailOtpRequest {
 }
 
 message RequestMailOtpResponse {
-    bool ok = 1;
 }
 
 message VerifyMailOtpRequest {
@@ -91,9 +109,8 @@ message VerifyMailOtpRequest {
 }
 
 message VerifyMailOtpResponse {
-    bool ok = 1;
-    optional User user = 2;
-    optional string token = 3;
+    optional User user = 1;
+    optional string token = 2;
 }
 
 message ListUsersRequest{
