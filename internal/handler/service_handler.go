@@ -219,6 +219,7 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 	offsetStr := r.URL.Query().Get("offset")
 	orgIDStr := r.URL.Query().Get("organization_id")
 	branchIDStr := r.URL.Query().Get("branch_id")
+	searchTextStr := r.URL.Query().Get("search_text")
 
 	limit, err := strconv.ParseInt(limitStr, 10, 32)
 	if err != nil {
@@ -245,19 +246,31 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	var searchText *string
+	if searchTextStr != "" {
+		searchText = proto.String(searchTextStr)
+	}
+
 	req := &servicev1.ListServicesRequest{
 		OrganizationId: organizationID,
 		BranchId:       branchID,
+		SearchText:     searchText,
 		Limit:          int32(limit),
 		Offset:         int32(offset),
 	}
 
 	log.Info().
-		Int64("organization_id", *organizationID).
-		Int64("branch_id", *branchID).
 		Int64("limit", limit).
 		Int64("offset", offset).
+		Str("search_text", searchTextStr).
 		Msg("calling_service_microservice")
+
+	if organizationID != nil {
+		log = log.With().Int64("organization_id", *organizationID).Logger()
+	}
+	if branchID != nil {
+		log = log.With().Int64("branch_id", *branchID).Logger()
+	}
 
 	resp, err := h.service.Api.ListServices(r.Context(), req)
 	if err != nil {
