@@ -1,9 +1,10 @@
 package jwt
 
 import (
-	"time"
-
+	"crypto/rand"
+	"encoding/hex"
 	"github.com/golang-jwt/jwt/v5"
+	"time"
 )
 
 type RoleScope struct {
@@ -47,4 +48,12 @@ func NewToken(
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(Secret)
+}
+
+func GenerateRefreshToken() (string, error) {
+	bytes := make([]byte, 32)
+	if _, err := rand.Read(bytes); err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(bytes), nil
 }
