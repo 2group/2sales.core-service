@@ -6,7 +6,6 @@ import (
 
 	"github.com/2group/2sales.core-service/internal/app"
 	"github.com/2group/2sales.core-service/internal/config"
-	"github.com/2group/2sales.core-service/pkg/kafka"
 	"github.com/2group/2sales.core-service/pkg/logging"
 	"github.com/rs/zerolog/log"
 )
@@ -19,16 +18,6 @@ const (
 
 func main() {
 	cfg := config.MustLoad()
-	var kafkaPublisher *kafka.KafkaPublisher
-	var err error
-	if cfg.Env != "local" {
-		kafkaPublisher, err = kafka.NewKafkaPublisher(cfg.KafkaBroker)
-		defer kafkaPublisher.Close()
-	}
-	if err != nil {
-		slog.Error("failed to create Kafka publisher", slog.String("error", err.Error()))
-		os.Exit(1)
-	}
 
 	logging.SetupLogger(cfg.Env)
 	log.Info().Int("port", cfg.REST.Port).Msg("starting_application")

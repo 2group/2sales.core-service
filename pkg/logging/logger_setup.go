@@ -28,7 +28,7 @@ func SetupLogger(env string) {
 
 		// 2) Choose output writer
 		var output io.Writer
-		if strings.EqualFold(env, "dev") || strings.EqualFold(env, "local") {
+		if strings.EqualFold(env, "local") {
 			output = zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
 		} else {
 			output = os.Stdout
