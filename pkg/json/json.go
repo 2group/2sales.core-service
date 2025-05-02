@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strconv"
 	"unicode"
 
 	"google.golang.org/protobuf/encoding/protojson"
@@ -226,9 +225,15 @@ func convertNumbers(v interface{}) interface{} {
 		}
 		return x
 	case string:
-		// Attempt conversion only if the string represents an integer.
-		if num, err := strconv.ParseInt(x, 10, 64); err == nil {
-			return json.Number(strconv.FormatInt(num, 10))
+		isDigits := true
+		for _, r := range x {
+			if r < '0' || r > '9' {
+				isDigits = false
+				break
+			}
+		}
+		if isDigits {
+			return json.Number(x)
 		}
 		return x
 	default:
