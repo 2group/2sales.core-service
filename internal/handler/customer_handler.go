@@ -2,8 +2,10 @@ package handler
 
 import (
 	"errors"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	customerv1 "github.com/2group/2sales.core-service/pkg/gen/go/customer"
@@ -66,6 +68,19 @@ func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 
 	req := &customerv1.GetCustomerRequest{
 		Lookup: &customerv1.GetCustomerRequest_Id{Id: customerID},
+	}
+
+	var paths []string
+	if strings.EqualFold(r.URL.Query().Get("include_loyalty"), "true") {
+		paths = append(paths, "loyalty_level")
+	}
+	if strings.EqualFold(r.URL.Query().Get("include_cashback"), "true") {
+		paths = append(paths, "cashback_balance")
+	}
+
+	if len(paths) > 0 {
+		req.FieldMask = &fieldmaskpb.FieldMask{Paths: paths}
+		log.Debug().Strs("field_mask.paths", paths).Msg("using field mask")
 	}
 
 	log.Debug().Int64("customer_id", customerID).Msg("calling_customer_service")
