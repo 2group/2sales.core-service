@@ -4,6 +4,7 @@ package user;
 
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/user;userv1";
 
+import "google/protobuf/field_mask.proto";
 import "customer/customer.proto";
 import "employee/employee.proto";
 
@@ -88,12 +89,14 @@ message RequestSmsOtpResponse {
 message VerifySmsOtpRequest {
     string phone_number = 1;
     string code = 2;
+    google.protobuf.FieldMask field_mask = 3;
 }
 
 message VerifySmsOtpResponse {
     string access_token = 1;
     string refresh_token = 2;
     optional User user = 3;
+    optional customer.Customer customer = 4;
 }
 
 message RequestMailOtpRequest {
