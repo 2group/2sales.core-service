@@ -741,7 +741,6 @@ type VerifySmsOtpResponse struct {
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	User          *User                  `protobuf:"bytes,3,opt,name=user,proto3,oneof" json:"user,omitempty"`
-	Customer      *customer.Customer     `protobuf:"bytes,4,opt,name=customer,proto3,oneof" json:"customer,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -793,13 +792,6 @@ func (x *VerifySmsOtpResponse) GetRefreshToken() string {
 func (x *VerifySmsOtpResponse) GetUser() *User {
 	if x != nil {
 		return x.User
-	}
-	return nil
-}
-
-func (x *VerifySmsOtpResponse) GetCustomer() *customer.Customer {
-	if x != nil {
-		return x.Customer
 	}
 	return nil
 }
@@ -1149,15 +1141,13 @@ const file_user_user_proto_rawDesc = "" +
 	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\tR\x04code\x129\n" +
 	"\n" +
-	"field_mask\x18\x03 \x01(\v2\x1a.google.protobuf.FieldMaskR\tfieldMask\"\xce\x01\n" +
+	"field_mask\x18\x03 \x01(\v2\x1a.google.protobuf.FieldMaskR\tfieldMask\"\x8c\x01\n" +
 	"\x14VerifySmsOtpResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12#\n" +
 	"\x04user\x18\x03 \x01(\v2\n" +
-	".user.UserH\x00R\x04user\x88\x01\x01\x123\n" +
-	"\bcustomer\x18\x04 \x01(\v2\x12.customer.CustomerH\x01R\bcustomer\x88\x01\x01B\a\n" +
-	"\x05_userB\v\n" +
-	"\t_customer\"-\n" +
+	".user.UserH\x00R\x04user\x88\x01\x01B\a\n" +
+	"\x05_user\"-\n" +
 	"\x15RequestMailOtpRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"\x18\n" +
 	"\x16RequestMailOtpResponse\"@\n" +
@@ -1244,34 +1234,33 @@ var file_user_user_proto_depIdxs = []int32{
 	0,  // 7: user.UpdateUserResponse.user:type_name -> user.User
 	23, // 8: user.VerifySmsOtpRequest.field_mask:type_name -> google.protobuf.FieldMask
 	0,  // 9: user.VerifySmsOtpResponse.user:type_name -> user.User
-	21, // 10: user.VerifySmsOtpResponse.customer:type_name -> customer.Customer
-	0,  // 11: user.VerifyMailOtpResponse.user:type_name -> user.User
-	0,  // 12: user.ListUsersResponse.users:type_name -> user.User
-	1,  // 13: user.UserService.Login:input_type -> user.LoginRequest
-	7,  // 14: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	9,  // 15: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
-	19, // 16: user.UserService.ListUsers:input_type -> user.ListUsersRequest
-	5,  // 17: user.UserService.RefreshToken:input_type -> user.RefreshTokenRequest
-	3,  // 18: user.UserService.Logout:input_type -> user.LogoutRequest
-	11, // 19: user.OtpService.RequestSmsOtp:input_type -> user.RequestSmsOtpRequest
-	13, // 20: user.OtpService.VerifySmsOtp:input_type -> user.VerifySmsOtpRequest
-	15, // 21: user.OtpService.RequestMailOtp:input_type -> user.RequestMailOtpRequest
-	17, // 22: user.OtpService.VerifyMailOtp:input_type -> user.VerifyMailOtpRequest
-	2,  // 23: user.UserService.Login:output_type -> user.LoginResponse
-	8,  // 24: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	10, // 25: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
-	20, // 26: user.UserService.ListUsers:output_type -> user.ListUsersResponse
-	6,  // 27: user.UserService.RefreshToken:output_type -> user.RefreshTokenResponse
-	4,  // 28: user.UserService.Logout:output_type -> user.LogoutResponse
-	12, // 29: user.OtpService.RequestSmsOtp:output_type -> user.RequestSmsOtpResponse
-	14, // 30: user.OtpService.VerifySmsOtp:output_type -> user.VerifySmsOtpResponse
-	16, // 31: user.OtpService.RequestMailOtp:output_type -> user.RequestMailOtpResponse
-	18, // 32: user.OtpService.VerifyMailOtp:output_type -> user.VerifyMailOtpResponse
-	23, // [23:33] is the sub-list for method output_type
-	13, // [13:23] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	0,  // 10: user.VerifyMailOtpResponse.user:type_name -> user.User
+	0,  // 11: user.ListUsersResponse.users:type_name -> user.User
+	1,  // 12: user.UserService.Login:input_type -> user.LoginRequest
+	7,  // 13: user.UserService.CreateUser:input_type -> user.CreateUserRequest
+	9,  // 14: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
+	19, // 15: user.UserService.ListUsers:input_type -> user.ListUsersRequest
+	5,  // 16: user.UserService.RefreshToken:input_type -> user.RefreshTokenRequest
+	3,  // 17: user.UserService.Logout:input_type -> user.LogoutRequest
+	11, // 18: user.OtpService.RequestSmsOtp:input_type -> user.RequestSmsOtpRequest
+	13, // 19: user.OtpService.VerifySmsOtp:input_type -> user.VerifySmsOtpRequest
+	15, // 20: user.OtpService.RequestMailOtp:input_type -> user.RequestMailOtpRequest
+	17, // 21: user.OtpService.VerifyMailOtp:input_type -> user.VerifyMailOtpRequest
+	2,  // 22: user.UserService.Login:output_type -> user.LoginResponse
+	8,  // 23: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	10, // 24: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
+	20, // 25: user.UserService.ListUsers:output_type -> user.ListUsersResponse
+	6,  // 26: user.UserService.RefreshToken:output_type -> user.RefreshTokenResponse
+	4,  // 27: user.UserService.Logout:output_type -> user.LogoutResponse
+	12, // 28: user.OtpService.RequestSmsOtp:output_type -> user.RequestSmsOtpResponse
+	14, // 29: user.OtpService.VerifySmsOtp:output_type -> user.VerifySmsOtpResponse
+	16, // 30: user.OtpService.RequestMailOtp:output_type -> user.RequestMailOtpResponse
+	18, // 31: user.OtpService.VerifyMailOtp:output_type -> user.VerifyMailOtpResponse
+	22, // [22:32] is the sub-list for method output_type
+	12, // [12:22] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_user_user_proto_init() }

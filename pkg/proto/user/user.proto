@@ -96,7 +96,6 @@ message VerifySmsOtpResponse {
     string access_token = 1;
     string refresh_token = 2;
     optional User user = 3;
-    optional customer.Customer customer = 4;
 }
 
 message RequestMailOtpRequest {
