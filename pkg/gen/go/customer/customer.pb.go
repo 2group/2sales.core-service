@@ -1405,6 +1405,166 @@ func (x *ListGiftCertificatesResponse) GetTotalCount() int32 {
 	return 0
 }
 
+type ListCustomersRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId  *int64                 `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	SearchText      *string                `protobuf:"bytes,2,opt,name=search_text,json=searchText,proto3,oneof" json:"search_text,omitempty"` // by name, email, phone
+	CreatedAtFrom   *string                `protobuf:"bytes,3,opt,name=created_at_from,json=createdAtFrom,proto3,oneof" json:"created_at_from,omitempty"`
+	CreatedAtTo     *string                `protobuf:"bytes,4,opt,name=created_at_to,json=createdAtTo,proto3,oneof" json:"created_at_to,omitempty"`
+	LoyaltyLevelId  *int64                 `protobuf:"varint,5,opt,name=loyalty_level_id,json=loyaltyLevelId,proto3,oneof" json:"loyalty_level_id,omitempty"`
+	DateOfBirthFrom *string                `protobuf:"bytes,6,opt,name=date_of_birth_from,json=dateOfBirthFrom,proto3,oneof" json:"date_of_birth_from,omitempty"`
+	DateOfBirthTo   *string                `protobuf:"bytes,7,opt,name=date_of_birth_to,json=dateOfBirthTo,proto3,oneof" json:"date_of_birth_to,omitempty"`
+	Limit           int32                  `protobuf:"varint,8,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset          int32                  `protobuf:"varint,9,opt,name=offset,proto3" json:"offset,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *ListCustomersRequest) Reset() {
+	*x = ListCustomersRequest{}
+	mi := &file_customer_customer_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCustomersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCustomersRequest) ProtoMessage() {}
+
+func (x *ListCustomersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCustomersRequest.ProtoReflect.Descriptor instead.
+func (*ListCustomersRequest) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *ListCustomersRequest) GetOrganizationId() int64 {
+	if x != nil && x.OrganizationId != nil {
+		return *x.OrganizationId
+	}
+	return 0
+}
+
+func (x *ListCustomersRequest) GetSearchText() string {
+	if x != nil && x.SearchText != nil {
+		return *x.SearchText
+	}
+	return ""
+}
+
+func (x *ListCustomersRequest) GetCreatedAtFrom() string {
+	if x != nil && x.CreatedAtFrom != nil {
+		return *x.CreatedAtFrom
+	}
+	return ""
+}
+
+func (x *ListCustomersRequest) GetCreatedAtTo() string {
+	if x != nil && x.CreatedAtTo != nil {
+		return *x.CreatedAtTo
+	}
+	return ""
+}
+
+func (x *ListCustomersRequest) GetLoyaltyLevelId() int64 {
+	if x != nil && x.LoyaltyLevelId != nil {
+		return *x.LoyaltyLevelId
+	}
+	return 0
+}
+
+func (x *ListCustomersRequest) GetDateOfBirthFrom() string {
+	if x != nil && x.DateOfBirthFrom != nil {
+		return *x.DateOfBirthFrom
+	}
+	return ""
+}
+
+func (x *ListCustomersRequest) GetDateOfBirthTo() string {
+	if x != nil && x.DateOfBirthTo != nil {
+		return *x.DateOfBirthTo
+	}
+	return ""
+}
+
+func (x *ListCustomersRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *ListCustomersRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+type ListCustomersResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Customers     []*Customer            `protobuf:"bytes,1,rep,name=customers,proto3" json:"customers,omitempty"`
+	TotalCount    int32                  `protobuf:"varint,2,opt,name=total_count,json=totalCount,proto3" json:"total_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCustomersResponse) Reset() {
+	*x = ListCustomersResponse{}
+	mi := &file_customer_customer_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCustomersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCustomersResponse) ProtoMessage() {}
+
+func (x *ListCustomersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCustomersResponse.ProtoReflect.Descriptor instead.
+func (*ListCustomersResponse) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *ListCustomersResponse) GetCustomers() []*Customer {
+	if x != nil {
+		return x.Customers
+	}
+	return nil
+}
+
+func (x *ListCustomersResponse) GetTotalCount() int32 {
+	if x != nil {
+		return x.TotalCount
+	}
+	return 0
+}
+
 var File_customer_customer_proto protoreflect.FileDescriptor
 
 const file_customer_customer_proto_rawDesc = "" +
@@ -1532,13 +1692,36 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x1cListGiftCertificatesResponse\x12=\n" +
 	"\fcertificates\x18\x01 \x03(\v2\x19.customer.GiftCertificateR\fcertificates\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x05R\n" +
-	"totalCount2\xcf\a\n" +
+	"totalCount\"\x88\x04\n" +
+	"\x14ListCustomersRequest\x12,\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12$\n" +
+	"\vsearch_text\x18\x02 \x01(\tH\x01R\n" +
+	"searchText\x88\x01\x01\x12+\n" +
+	"\x0fcreated_at_from\x18\x03 \x01(\tH\x02R\rcreatedAtFrom\x88\x01\x01\x12'\n" +
+	"\rcreated_at_to\x18\x04 \x01(\tH\x03R\vcreatedAtTo\x88\x01\x01\x12-\n" +
+	"\x10loyalty_level_id\x18\x05 \x01(\x03H\x04R\x0eloyaltyLevelId\x88\x01\x01\x120\n" +
+	"\x12date_of_birth_from\x18\x06 \x01(\tH\x05R\x0fdateOfBirthFrom\x88\x01\x01\x12,\n" +
+	"\x10date_of_birth_to\x18\a \x01(\tH\x06R\rdateOfBirthTo\x88\x01\x01\x12\x14\n" +
+	"\x05limit\x18\b \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\t \x01(\x05R\x06offsetB\x12\n" +
+	"\x10_organization_idB\x0e\n" +
+	"\f_search_textB\x12\n" +
+	"\x10_created_at_fromB\x10\n" +
+	"\x0e_created_at_toB\x13\n" +
+	"\x11_loyalty_level_idB\x15\n" +
+	"\x13_date_of_birth_fromB\x13\n" +
+	"\x11_date_of_birth_to\"j\n" +
+	"\x15ListCustomersResponse\x120\n" +
+	"\tcustomers\x18\x01 \x03(\v2\x12.customer.CustomerR\tcustomers\x12\x1f\n" +
+	"\vtotal_count\x18\x02 \x01(\x05R\n" +
+	"totalCount2\xa1\b\n" +
 	"\x0fCustomerService\x12J\n" +
 	"\vGetCustomer\x12\x1c.customer.GetCustomerRequest\x1a\x1d.customer.GetCustomerResponse\x12S\n" +
 	"\x0eCreateCustomer\x12\x1f.customer.CreateCustomerRequest\x1a .customer.CreateCustomerResponse\x12S\n" +
 	"\x0eDeleteCustomer\x12\x1f.customer.DeleteCustomerRequest\x1a .customer.DeleteCustomerResponse\x12h\n" +
 	"\x15PartialUpdateCustomer\x12&.customer.PartialUpdateCustomerRequest\x1a'.customer.PartialUpdateCustomerResponse\x12S\n" +
-	"\x0eUpdateCustomer\x12\x1f.customer.UpdateCustomerRequest\x1a .customer.UpdateCustomerResponse\x12k\n" +
+	"\x0eUpdateCustomer\x12\x1f.customer.UpdateCustomerRequest\x1a .customer.UpdateCustomerResponse\x12P\n" +
+	"\rListCustomers\x12\x1e.customer.ListCustomersRequest\x1a\x1f.customer.ListCustomersResponse\x12k\n" +
 	"\x16CreateBonusTransaction\x12'.customer.CreateBonusTransactionRequest\x1a(.customer.CreateBonusTransactionResponse\x12h\n" +
 	"\x15CreateGiftCertificate\x12&.customer.CreateGiftCertificateRequest\x1a'.customer.CreateGiftCertificateResponse\x12_\n" +
 	"\x12GetGiftCertificate\x12#.customer.GetGiftCertificateRequest\x1a$.customer.GetGiftCertificateResponse\x12h\n" +
@@ -1557,7 +1740,7 @@ func file_customer_customer_proto_rawDescGZIP() []byte {
 	return file_customer_customer_proto_rawDescData
 }
 
-var file_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 var file_customer_customer_proto_goTypes = []any{
 	(*Customer)(nil),                       // 0: customer.Customer
 	(*CustomerBonusTransaction)(nil),       // 1: customer.CustomerBonusTransaction
@@ -1583,12 +1766,14 @@ var file_customer_customer_proto_goTypes = []any{
 	(*UpdateGiftCertificateResponse)(nil),  // 21: customer.UpdateGiftCertificateResponse
 	(*ListGiftCertificatesRequest)(nil),    // 22: customer.ListGiftCertificatesRequest
 	(*ListGiftCertificatesResponse)(nil),   // 23: customer.ListGiftCertificatesResponse
-	(*organization.LoyaltyLevel)(nil),      // 24: organization.LoyaltyLevel
-	(*fieldmaskpb.FieldMask)(nil),          // 25: google.protobuf.FieldMask
+	(*ListCustomersRequest)(nil),           // 24: customer.ListCustomersRequest
+	(*ListCustomersResponse)(nil),          // 25: customer.ListCustomersResponse
+	(*organization.LoyaltyLevel)(nil),      // 26: organization.LoyaltyLevel
+	(*fieldmaskpb.FieldMask)(nil),          // 27: google.protobuf.FieldMask
 }
 var file_customer_customer_proto_depIdxs = []int32{
-	24, // 0: customer.Customer.loyalty_level:type_name -> organization.LoyaltyLevel
-	25, // 1: customer.GetCustomerRequest.field_mask:type_name -> google.protobuf.FieldMask
+	26, // 0: customer.Customer.loyalty_level:type_name -> organization.LoyaltyLevel
+	27, // 1: customer.GetCustomerRequest.field_mask:type_name -> google.protobuf.FieldMask
 	0,  // 2: customer.GetCustomerResponse.customer:type_name -> customer.Customer
 	0,  // 3: customer.CreateCustomerRequest.customer:type_name -> customer.Customer
 	0,  // 4: customer.CreateCustomerResponse.customer:type_name -> customer.Customer
@@ -1603,31 +1788,34 @@ var file_customer_customer_proto_depIdxs = []int32{
 	15, // 13: customer.UpdateGiftCertificateRequest.certificate:type_name -> customer.GiftCertificate
 	15, // 14: customer.UpdateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
 	15, // 15: customer.ListGiftCertificatesResponse.certificates:type_name -> customer.GiftCertificate
-	3,  // 16: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
-	5,  // 17: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
-	11, // 18: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
-	9,  // 19: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
-	7,  // 20: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
-	13, // 21: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
-	16, // 22: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
-	18, // 23: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
-	20, // 24: customer.CustomerService.UpdateGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
-	22, // 25: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
-	4,  // 26: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
-	6,  // 27: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
-	12, // 28: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
-	10, // 29: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
-	8,  // 30: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
-	14, // 31: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
-	17, // 32: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
-	19, // 33: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
-	21, // 34: customer.CustomerService.UpdateGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
-	23, // 35: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
-	26, // [26:36] is the sub-list for method output_type
-	16, // [16:26] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	0,  // 16: customer.ListCustomersResponse.customers:type_name -> customer.Customer
+	3,  // 17: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
+	5,  // 18: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
+	11, // 19: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
+	9,  // 20: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
+	7,  // 21: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
+	24, // 22: customer.CustomerService.ListCustomers:input_type -> customer.ListCustomersRequest
+	13, // 23: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
+	16, // 24: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
+	18, // 25: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
+	20, // 26: customer.CustomerService.UpdateGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
+	22, // 27: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
+	4,  // 28: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
+	6,  // 29: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
+	12, // 30: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
+	10, // 31: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
+	8,  // 32: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
+	25, // 33: customer.CustomerService.ListCustomers:output_type -> customer.ListCustomersResponse
+	14, // 34: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
+	17, // 35: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
+	19, // 36: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
+	21, // 37: customer.CustomerService.UpdateGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
+	23, // 38: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
+	28, // [28:39] is the sub-list for method output_type
+	17, // [17:28] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_customer_customer_proto_init() }
@@ -1645,13 +1833,14 @@ func file_customer_customer_proto_init() {
 	file_customer_customer_proto_msgTypes[5].OneofWrappers = []any{}
 	file_customer_customer_proto_msgTypes[15].OneofWrappers = []any{}
 	file_customer_customer_proto_msgTypes[22].OneofWrappers = []any{}
+	file_customer_customer_proto_msgTypes[24].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_customer_customer_proto_rawDesc), len(file_customer_customer_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   24,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -13,7 +13,9 @@ service CustomerService {
   rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
   rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
   rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
+  rpc ListCustomers (ListCustomersRequest) returns (ListCustomersResponse);
   rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (CreateBonusTransactionResponse);
+
 
   rpc CreateGiftCertificate (CreateGiftCertificateRequest) returns (CreateGiftCertificateResponse);
   rpc GetGiftCertificate (GetGiftCertificateRequest) returns (GetGiftCertificateResponse);
@@ -156,6 +158,25 @@ message ListGiftCertificatesResponse {
     repeated GiftCertificate certificates = 1;
     int32 total_count = 2;
 }
+
+message ListCustomersRequest {
+    optional int64 organization_id = 1;
+    optional string search_text = 2; // by name, email, phone
+    optional string created_at_from = 3;
+    optional string created_at_to = 4;
+    optional int64 loyalty_level_id = 5;
+    optional string date_of_birth_from = 6;
+    optional string date_of_birth_to = 7;
+    int32 limit = 8;
+    int32 offset = 9;
+}
+
+message ListCustomersResponse {
+    repeated Customer customers = 1;
+    int32 total_count = 2;
+}
+
+
 
 
 
