@@ -2,14 +2,17 @@ package handler
 
 import (
 	"errors"
-	"google.golang.org/protobuf/types/known/fieldmaskpb"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
 
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
+
 	"github.com/2group/2sales.core-service/internal/grpc"
 	customerv1 "github.com/2group/2sales.core-service/pkg/gen/go/customer"
 	"github.com/2group/2sales.core-service/pkg/json"
+	"github.com/2group/2sales.core-service/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/rs/zerolog"
 )
@@ -63,6 +66,50 @@ func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Error().Str("customer_id", customerIDStr).Err(err).Msg("invalid_customer_id")
 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid customer_id"))
+		return
+	}
+
+	req := &customerv1.GetCustomerRequest{
+		Lookup: &customerv1.GetCustomerRequest_Id{Id: customerID},
+	}
+
+	var paths []string
+	if strings.EqualFold(r.URL.Query().Get("include_loyalty"), "true") {
+		paths = append(paths, "loyalty_level")
+	}
+	if strings.EqualFold(r.URL.Query().Get("include_cashback"), "true") {
+		paths = append(paths, "cashback_balance")
+	}
+
+	if len(paths) > 0 {
+		req.FieldMask = &fieldmaskpb.FieldMask{Paths: paths}
+		log.Debug().Strs("field_mask.paths", paths).Msg("using field mask")
+	}
+
+	log.Debug().Int64("customer_id", customerID).Msg("calling_customer_service")
+
+	resp, err := h.customer.Api.GetCustomer(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusNotFound, err)
+		return
+	}
+
+	log.Info().Int64("customer_id", resp.Customer.GetId()).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *CustomerHandler) GetMyCustomer(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "customer_handler").
+		Str("method", "GetMyCustomer").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	customerID, ok := middleware.GetCustomerID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
 		return
 	}
 
@@ -190,6 +237,42 @@ func (h *CustomerHandler) UpdateCustomer(w http.ResponseWriter, r *http.Request)
 	}
 
 	log.Debug().Int64("customer_id", customerID).Msg("calling_customer_service")
+
+	resp, err := h.customer.Api.UpdateCustomer(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	log.Info().Int64("customer_id", resp.Customer.GetId()).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *CustomerHandler) UpdateMyCustomer(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "customer_handler").
+		Str("method", "UpdateMyCustomer").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	customerId, ok := middleware.GetCustomerID(r)
+	if !ok {
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("Unauthorized"))
+		return
+	}
+
+	req := &customerv1.UpdateCustomerRequest{
+		Customer: &customerv1.Customer{Id: &customerId},
+	}
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error().Err(err).Msg("invalid_payload")
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	log.Debug().Int64("customer_id", customerId).Msg("calling_customer_service")
 
 	resp, err := h.customer.Api.UpdateCustomer(r.Context(), req)
 	if err != nil {
