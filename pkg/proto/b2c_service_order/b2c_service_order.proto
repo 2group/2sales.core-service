@@ -90,10 +90,15 @@ message GetOrderResponse {
 
 
 message ListB2CServiceOrdersRequest {
-   int64 organization_id = 1;
-   int64 branch_id = 2;
-   int64 limit = 3;
-   int64 offset = 4;
+   optional int64 organization_id = 1;
+   optional int64 branch_id = 2;
+   optional string created_at_from = 3;
+   optional string created_at_to = 4;
+   optional double price_from = 5;
+   optional double price_to = 6;
+   optional string search_text = 7;
+   int64 limit = 8;
+   int64 offset = 9;
  }
 
 message ListB2CServiceOrdersResponse {
