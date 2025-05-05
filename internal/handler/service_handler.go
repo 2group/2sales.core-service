@@ -216,13 +216,16 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 
 	log.Info().Msg("request_received")
 
-	limitStr := r.URL.Query().Get("limit")
-	offsetStr := r.URL.Query().Get("offset")
-	orgIDStr := r.URL.Query().Get("organization_id")
-	branchIDStr := r.URL.Query().Get("branch_id")
-	searchTextStr := r.URL.Query().Get("search_text")
-	createdAtFromStr := r.URL.Query().Get("created_at_from")
-	createdAtToStr := r.URL.Query().Get("created_at_to")
+	query := r.URL.Query()
+	limitStr := query.Get("limit")
+	offsetStr := query.Get("offset")
+	orgIDStr := query.Get("organization_id")
+	branchIDStr := query.Get("branch_id")
+	searchTextStr := query.Get("search_text")
+	createdAtFromStr := query.Get("created_at_from")
+	createdAtToStr := query.Get("created_at_to")
+	priceFromStr := query.Get("price_from")
+	priceToStr := query.Get("price_to")
 
 	limit, err := strconv.ParseInt(limitStr, 10, 32)
 	if err != nil {
@@ -272,12 +275,30 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	var priceFrom, priceTo *float64
+	if priceFromStr != "" {
+		if val, err := strconv.ParseFloat(priceFromStr, 64); err == nil {
+			priceFrom = proto.Float64(val)
+		} else {
+			log.Warn().Str("price_from", priceFromStr).Err(err).Msg("invalid_price_from")
+		}
+	}
+	if priceToStr != "" {
+		if val, err := strconv.ParseFloat(priceToStr, 64); err == nil {
+			priceTo = proto.Float64(val)
+		} else {
+			log.Warn().Str("price_to", priceToStr).Err(err).Msg("invalid_price_to")
+		}
+	}
+
 	req := &servicev1.ListServicesRequest{
 		OrganizationId: organizationID,
 		BranchId:       branchID,
 		SearchText:     searchText,
 		CreatedAtFrom:  createdAtFrom,
 		CreatedAtTo:    createdAtTo,
+		PriceFrom:      priceFrom,
+		PriceTo:        priceTo,
 		Limit:          int32(limit),
 		Offset:         int32(offset),
 	}
@@ -288,6 +309,8 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 		Str("search_text", searchTextStr).
 		Str("created_at_from", createdAtFromStr).
 		Str("created_at_to", createdAtToStr).
+		Str("price_from", priceFromStr).
+		Str("price_to", priceToStr).
 		Msg("calling_service_microservice")
 
 	if organizationID != nil {
