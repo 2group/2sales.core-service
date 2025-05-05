@@ -11,6 +11,7 @@ import "employee/employee.proto";
 service UserService {
     rpc Login (LoginRequest) returns (LoginResponse);
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+    rpc GetUser (GetUserRequest) returns (GetUserResponse);
     rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
     rpc PartialUpdateUser (PartialUpdateUserRequest) returns (PartialUpdateUserResponse);
     rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
@@ -69,6 +70,17 @@ message CreateUserRequest {
 }
 
 message CreateUserResponse {
+    User user = 1;
+}
+
+message GetUserRequest {
+    oneof lookup {
+        int64 id = 1;
+        int64 customer_id = 2;
+    }
+}
+
+message GetUserResponse {
     User user = 1;
 }
 
