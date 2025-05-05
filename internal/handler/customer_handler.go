@@ -77,8 +77,11 @@ func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	if strings.EqualFold(r.URL.Query().Get("include_loyalty"), "true") {
 		paths = append(paths, "loyalty_level")
 	}
-	if strings.EqualFold(r.URL.Query().Get("include_cashback"), "true") {
-		paths = append(paths, "cashback_balance")
+	if strings.EqualFold(r.URL.Query().Get("include_email"), "true") {
+		paths = append(paths, "email")
+	}
+	if strings.EqualFold(r.URL.Query().Get("include_phone_number"), "true") {
+		paths = append(paths, "phone_number")
 	}
 
 	if len(paths) > 0 {
@@ -118,11 +121,14 @@ func (h *CustomerHandler) GetMyCustomer(w http.ResponseWriter, r *http.Request) 
 	}
 
 	var paths []string
-	if strings.EqualFold(r.URL.Query().Get("include_loyalty"), "true") {
+	if strings.EqualFold(r.URL.Query().Get("include_loyalty_level"), "true") {
 		paths = append(paths, "loyalty_level")
 	}
-	if strings.EqualFold(r.URL.Query().Get("include_cashback"), "true") {
-		paths = append(paths, "cashback_balance")
+	if strings.EqualFold(r.URL.Query().Get("include_email"), "true") {
+		paths = append(paths, "email")
+	}
+	if strings.EqualFold(r.URL.Query().Get("include_phone_number"), "true") {
+		paths = append(paths, "phone_number")
 	}
 
 	if len(paths) > 0 {
