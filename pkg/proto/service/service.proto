@@ -96,8 +96,10 @@ message ListServicesRequest{
     optional string search_text = 3;
     optional string created_at_from = 4;
     optional string created_at_to = 5;
-    int32 limit = 6;
-    int32 offset = 7;
+    optional double price_from = 6;
+    optional double price_to = 7;
+    int32 limit = 8;
+    int32 offset = 9;
 }
 
 message ListServicesResponse{
