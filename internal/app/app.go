@@ -333,9 +333,9 @@ func (s *APIServer) Run() error {
 			})
 		})
 		apiRouter.Route("/customer", func(customerRouter chi.Router) {
+			customerRouter.Post("/", customerHandler.CreateCustomer)
 			customerRouter.Group(func(authRouter chi.Router) {
-				//authRouter.Use(auth.AuthMiddleware)
-				authRouter.Post("/", customerHandler.CreateCustomer)
+				authRouter.Use(auth.AuthMiddleware)
 				authRouter.Get("/", customerHandler.ListCustomers)
 				authRouter.Get("/my", customerHandler.GetMyCustomer)
 				authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
