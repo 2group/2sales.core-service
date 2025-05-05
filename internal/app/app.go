@@ -336,6 +336,7 @@ func (s *APIServer) Run() error {
 			customerRouter.Group(func(authRouter chi.Router) {
 				//authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", customerHandler.CreateCustomer)
+				authRouter.Get("/", customerHandler.ListCustomers)
 				authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
 				authRouter.Delete("/{customer_id}", customerHandler.DeleteCustomer)
 				authRouter.Patch("/{customer_id}", customerHandler.PartialUpdateCustomer)

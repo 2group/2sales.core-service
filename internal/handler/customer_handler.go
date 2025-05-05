@@ -201,3 +201,97 @@ func (h *CustomerHandler) UpdateCustomer(w http.ResponseWriter, r *http.Request)
 	log.Info().Int64("customer_id", resp.Customer.GetId()).Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
+
+func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "customer_handler").
+		Str("method", "ListCustomers").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	q := r.URL.Query()
+
+	var (
+		limit           int32 = 20
+		offset          int32 = 0
+		organizationID  *int64
+		loyaltyLevelID  *int64
+		searchText      *string
+		createdAtFrom   *string
+		createdAtTo     *string
+		dateOfBirthFrom *string
+		dateOfBirthTo   *string
+	)
+
+	// Pagination
+	if l := q.Get("limit"); l != "" {
+		if val, err := strconv.ParseInt(l, 10, 32); err == nil {
+			limit = int32(val)
+		}
+	}
+	if o := q.Get("offset"); o != "" {
+		if val, err := strconv.ParseInt(o, 10, 32); err == nil {
+			offset = int32(val)
+		}
+	}
+
+	// Organization
+	if org := q.Get("organization_id"); org != "" {
+		if val, err := strconv.ParseInt(org, 10, 64); err == nil {
+			organizationID = &val
+		}
+	}
+
+	// Loyalty
+	if loyalty := q.Get("loyalty_level_id"); loyalty != "" {
+		if val, err := strconv.ParseInt(loyalty, 10, 64); err == nil {
+			loyaltyLevelID = &val
+		}
+	}
+
+	// Search
+	if s := q.Get("search_text"); s != "" {
+		searchText = &s
+	}
+
+	// created_at
+	if v := q.Get("created_at_from"); v != "" {
+		createdAtFrom = &v
+	}
+	if v := q.Get("created_at_to"); v != "" {
+		createdAtTo = &v
+	}
+
+	// date_of_birth
+	if v := q.Get("date_of_birth_from"); v != "" {
+		dateOfBirthFrom = &v
+	}
+	if v := q.Get("date_of_birth_to"); v != "" {
+		dateOfBirthTo = &v
+	}
+
+	req := &customerv1.ListCustomersRequest{
+		Limit:           limit,
+		Offset:          offset,
+		OrganizationId:  organizationID,
+		LoyaltyLevelId:  loyaltyLevelID,
+		SearchText:      searchText,
+		CreatedAtFrom:   createdAtFrom,
+		CreatedAtTo:     createdAtTo,
+		DateOfBirthFrom: dateOfBirthFrom,
+		DateOfBirthTo:   dateOfBirthTo,
+	}
+
+	log.Debug().Interface("request", req).Msg("calling_customer_service")
+
+	resp, err := h.customer.Api.ListCustomers(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("customers_count", len(resp.Customers)).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
