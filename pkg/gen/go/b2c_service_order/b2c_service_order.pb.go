@@ -691,13 +691,13 @@ func (x *GetOrderResponse) GetOrderDetail() *OrderDetail {
 
 type ListB2CServiceOrdersRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	OrganizationId int64                  `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
-	BranchId       int64                  `protobuf:"varint,2,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	CreatedAtFrom  string                 `protobuf:"bytes,3,opt,name=created_at_from,json=createdAtFrom,proto3" json:"created_at_from,omitempty"`
-	CreatedAtTo    string                 `protobuf:"bytes,4,opt,name=created_at_to,json=createdAtTo,proto3" json:"created_at_to,omitempty"`
-	PriceFrom      float64                `protobuf:"fixed64,5,opt,name=price_from,json=priceFrom,proto3" json:"price_from,omitempty"`
-	PriceTo        float64                `protobuf:"fixed64,6,opt,name=price_to,json=priceTo,proto3" json:"price_to,omitempty"`
-	SearchText     string                 `protobuf:"bytes,7,opt,name=search_text,json=searchText,proto3" json:"search_text,omitempty"`
+	OrganizationId *int64                 `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	BranchId       *int64                 `protobuf:"varint,2,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
+	CreatedAtFrom  *string                `protobuf:"bytes,3,opt,name=created_at_from,json=createdAtFrom,proto3,oneof" json:"created_at_from,omitempty"`
+	CreatedAtTo    *string                `protobuf:"bytes,4,opt,name=created_at_to,json=createdAtTo,proto3,oneof" json:"created_at_to,omitempty"`
+	PriceFrom      *float64               `protobuf:"fixed64,5,opt,name=price_from,json=priceFrom,proto3,oneof" json:"price_from,omitempty"`
+	PriceTo        *float64               `protobuf:"fixed64,6,opt,name=price_to,json=priceTo,proto3,oneof" json:"price_to,omitempty"`
+	SearchText     *string                `protobuf:"bytes,7,opt,name=search_text,json=searchText,proto3,oneof" json:"search_text,omitempty"`
 	Limit          int64                  `protobuf:"varint,8,opt,name=limit,proto3" json:"limit,omitempty"`
 	Offset         int64                  `protobuf:"varint,9,opt,name=offset,proto3" json:"offset,omitempty"`
 	unknownFields  protoimpl.UnknownFields
@@ -735,50 +735,50 @@ func (*ListB2CServiceOrdersRequest) Descriptor() ([]byte, []int) {
 }
 
 func (x *ListB2CServiceOrdersRequest) GetOrganizationId() int64 {
-	if x != nil {
-		return x.OrganizationId
+	if x != nil && x.OrganizationId != nil {
+		return *x.OrganizationId
 	}
 	return 0
 }
 
 func (x *ListB2CServiceOrdersRequest) GetBranchId() int64 {
-	if x != nil {
-		return x.BranchId
+	if x != nil && x.BranchId != nil {
+		return *x.BranchId
 	}
 	return 0
 }
 
 func (x *ListB2CServiceOrdersRequest) GetCreatedAtFrom() string {
-	if x != nil {
-		return x.CreatedAtFrom
+	if x != nil && x.CreatedAtFrom != nil {
+		return *x.CreatedAtFrom
 	}
 	return ""
 }
 
 func (x *ListB2CServiceOrdersRequest) GetCreatedAtTo() string {
-	if x != nil {
-		return x.CreatedAtTo
+	if x != nil && x.CreatedAtTo != nil {
+		return *x.CreatedAtTo
 	}
 	return ""
 }
 
 func (x *ListB2CServiceOrdersRequest) GetPriceFrom() float64 {
-	if x != nil {
-		return x.PriceFrom
+	if x != nil && x.PriceFrom != nil {
+		return *x.PriceFrom
 	}
 	return 0
 }
 
 func (x *ListB2CServiceOrdersRequest) GetPriceTo() float64 {
-	if x != nil {
-		return x.PriceTo
+	if x != nil && x.PriceTo != nil {
+		return *x.PriceTo
 	}
 	return 0
 }
 
 func (x *ListB2CServiceOrdersRequest) GetSearchText() string {
-	if x != nil {
-		return x.SearchText
+	if x != nil && x.SearchText != nil {
+		return *x.SearchText
 	}
 	return ""
 }
@@ -927,19 +927,27 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x0fGetOrderRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"U\n" +
 	"\x10GetOrderResponse\x12A\n" +
-	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"\xb8\x02\n" +
-	"\x1bListB2CServiceOrdersRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\x12\x1b\n" +
-	"\tbranch_id\x18\x02 \x01(\x03R\bbranchId\x12&\n" +
-	"\x0fcreated_at_from\x18\x03 \x01(\tR\rcreatedAtFrom\x12\"\n" +
-	"\rcreated_at_to\x18\x04 \x01(\tR\vcreatedAtTo\x12\x1d\n" +
+	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"\xcf\x03\n" +
+	"\x1bListB2CServiceOrdersRequest\x12,\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12 \n" +
+	"\tbranch_id\x18\x02 \x01(\x03H\x01R\bbranchId\x88\x01\x01\x12+\n" +
+	"\x0fcreated_at_from\x18\x03 \x01(\tH\x02R\rcreatedAtFrom\x88\x01\x01\x12'\n" +
+	"\rcreated_at_to\x18\x04 \x01(\tH\x03R\vcreatedAtTo\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"price_from\x18\x05 \x01(\x01R\tpriceFrom\x12\x19\n" +
-	"\bprice_to\x18\x06 \x01(\x01R\apriceTo\x12\x1f\n" +
-	"\vsearch_text\x18\a \x01(\tR\n" +
-	"searchText\x12\x14\n" +
+	"price_from\x18\x05 \x01(\x01H\x04R\tpriceFrom\x88\x01\x01\x12\x1e\n" +
+	"\bprice_to\x18\x06 \x01(\x01H\x05R\apriceTo\x88\x01\x01\x12$\n" +
+	"\vsearch_text\x18\a \x01(\tH\x06R\n" +
+	"searchText\x88\x01\x01\x12\x14\n" +
 	"\x05limit\x18\b \x01(\x03R\x05limit\x12\x16\n" +
-	"\x06offset\x18\t \x01(\x03R\x06offset\"w\n" +
+	"\x06offset\x18\t \x01(\x03R\x06offsetB\x12\n" +
+	"\x10_organization_idB\f\n" +
+	"\n" +
+	"_branch_idB\x12\n" +
+	"\x10_created_at_fromB\x10\n" +
+	"\x0e_created_at_toB\r\n" +
+	"\v_price_fromB\v\n" +
+	"\t_price_toB\x0e\n" +
+	"\f_search_text\"w\n" +
 	"\x1cListB2CServiceOrdersResponse\x126\n" +
 	"\x06orders\x18\x01 \x03(\v2\x1e.b2c_service_order.OrderDetailR\x06orders\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x03R\n" +
@@ -1012,6 +1020,7 @@ func file_b2c_service_order_b2c_service_order_proto_init() {
 	}
 	file_b2c_service_order_b2c_service_order_proto_msgTypes[0].OneofWrappers = []any{}
 	file_b2c_service_order_b2c_service_order_proto_msgTypes[1].OneofWrappers = []any{}
+	file_b2c_service_order_b2c_service_order_proto_msgTypes[10].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

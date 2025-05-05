@@ -2,8 +2,10 @@ package handler
 
 import (
 	"errors"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	"github.com/2group/2sales.core-service/pkg/json"
@@ -118,9 +120,15 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 	branchIDStr := query.Get("branch_id")
 	limitStr := query.Get("limit")
 	offsetStr := query.Get("offset")
+	searchText := query.Get("search_text")
+	createdAtFromStr := query.Get("created_at_from")
+	createdAtToStr := query.Get("created_at_to")
+	priceFromStr := query.Get("price_from")
+	priceToStr := query.Get("price_to")
 
 	var (
 		orgID, branchID, limit, offset int64
+		priceFrom, priceTo             float64
 		err                            error
 	)
 
@@ -162,11 +170,54 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		}
 	}
 
+	if priceFromStr != "" {
+		priceFrom, err = strconv.ParseFloat(priceFromStr, 64)
+		if err != nil {
+			log.Error().Str("price_from", priceFromStr).Err(err).Msg("invalid_price_from")
+			json.WriteError(w, http.StatusBadRequest, errors.New("invalid price_from"))
+			return
+		}
+	}
+
+	if priceToStr != "" {
+		priceTo, err = strconv.ParseFloat(priceToStr, 64)
+		if err != nil {
+			log.Error().Str("price_to", priceToStr).Err(err).Msg("invalid_price_to")
+			json.WriteError(w, http.StatusBadRequest, errors.New("invalid price_to"))
+			return
+		}
+	}
+
+	var createdAtFromTs, createdAtToTs *timestamppb.Timestamp
+	if createdAtFromStr != "" {
+		if t, err := time.Parse(time.RFC3339, createdAtFromStr); err == nil {
+			createdAtFromTs = timestamppb.New(t)
+		} else {
+			log.Error().Str("created_at_from", createdAtFromStr).Err(err).Msg("invalid_created_at_from")
+			json.WriteError(w, http.StatusBadRequest, errors.New("invalid created_at_from"))
+			return
+		}
+	}
+	if createdAtToStr != "" {
+		if t, err := time.Parse(time.RFC3339, createdAtToStr); err == nil {
+			createdAtToTs = timestamppb.New(t)
+		} else {
+			log.Error().Str("created_at_to", createdAtToStr).Err(err).Msg("invalid_created_at_to")
+			json.WriteError(w, http.StatusBadRequest, errors.New("invalid created_at_to"))
+			return
+		}
+	}
+
 	log.Info().
 		Int64("organization_id", orgID).
 		Int64("branch_id", branchID).
 		Int64("limit", limit).
 		Int64("offset", offset).
+		Str("search_text", searchText).
+		Str("created_at_from", createdAtFromStr).
+		Str("created_at_to", createdAtToStr).
+		Float64("price_from", priceFrom).
+		Float64("price_to", priceTo).
 		Msg("calling_microservice")
 
 	req := &orderv1.ListB2CServiceOrdersRequest{
@@ -174,6 +225,11 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		BranchId:       branchID,
 		Limit:          limit,
 		Offset:         offset,
+		SearchText:     searchText,
+		CreatedAtFrom:  createdAtFromTs,
+		CreatedAtTo:    createdAtToTs,
+		PriceFrom:      priceFrom,
+		PriceTo:        priceTo,
 	}
 
 	resp, err := h.b2c_service_order.Api.ListOrders(r.Context(), req)
