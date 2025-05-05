@@ -12,6 +12,7 @@ service UserService {
     rpc Login (LoginRequest) returns (LoginResponse);
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
     rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+    rpc PartialUpdateUser (PartialUpdateUserRequest) returns (PartialUpdateUserResponse);
     rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
     rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
     rpc Logout (LogoutRequest) returns (LogoutResponse);
@@ -76,6 +77,14 @@ message UpdateUserRequest {
 }
 
 message UpdateUserResponse {
+    User user = 1;
+}
+
+message PartialUpdateUserRequest {
+    User user = 1;
+}
+
+message PartialUpdateUserResponse {
     User user = 1;
 }
 
