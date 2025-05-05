@@ -2,10 +2,8 @@ package handler
 
 import (
 	"errors"
-	"google.golang.org/protobuf/types/known/timestamppb"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	"github.com/2group/2sales.core-service/pkg/json"
@@ -188,25 +186,25 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		}
 	}
 
-	var createdAtFromTs, createdAtToTs *timestamppb.Timestamp
-	if createdAtFromStr != "" {
-		if t, err := time.Parse(time.RFC3339, createdAtFromStr); err == nil {
-			createdAtFromTs = timestamppb.New(t)
-		} else {
-			log.Error().Str("created_at_from", createdAtFromStr).Err(err).Msg("invalid_created_at_from")
-			json.WriteError(w, http.StatusBadRequest, errors.New("invalid created_at_from"))
-			return
-		}
-	}
-	if createdAtToStr != "" {
-		if t, err := time.Parse(time.RFC3339, createdAtToStr); err == nil {
-			createdAtToTs = timestamppb.New(t)
-		} else {
-			log.Error().Str("created_at_to", createdAtToStr).Err(err).Msg("invalid_created_at_to")
-			json.WriteError(w, http.StatusBadRequest, errors.New("invalid created_at_to"))
-			return
-		}
-	}
+	// var createdAtFromTs, createdAtToTs *timestamppb.Timestamp
+	// if createdAtFromStr != "" {
+	// 	if t, err := time.Parse(time.RFC3339, createdAtFromStr); err == nil {
+	// 		createdAtFromTs = timestamppb.New(t)
+	// 	} else {
+	// 		log.Error().Str("created_at_from", createdAtFromStr).Err(err).Msg("invalid_created_at_from")
+	// 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid created_at_from"))
+	// 		return
+	// 	}
+	// }
+	// if createdAtToStr != "" {
+	// 	if t, err := time.Parse(time.RFC3339, createdAtToStr); err == nil {
+	// 		createdAtToTs = timestamppb.New(t)
+	// 	} else {
+	// 		log.Error().Str("created_at_to", createdAtToStr).Err(err).Msg("invalid_created_at_to")
+	// 		json.WriteError(w, http.StatusBadRequest, errors.New("invalid created_at_to"))
+	// 		return
+	// 	}
+	// }
 
 	log.Info().
 		Int64("organization_id", orgID).
@@ -221,15 +219,15 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		Msg("calling_microservice")
 
 	req := &orderv1.ListB2CServiceOrdersRequest{
-		OrganizationId: orgID,
-		BranchId:       branchID,
+		OrganizationId: &orgID,
+		BranchId:       &branchID,
 		Limit:          limit,
 		Offset:         offset,
-		SearchText:     searchText,
-		CreatedAtFrom:  createdAtFromTs,
-		CreatedAtTo:    createdAtToTs,
-		PriceFrom:      priceFrom,
-		PriceTo:        priceTo,
+		SearchText:     &searchText,
+		// CreatedAtFrom:  &createdAtFromTs,
+		// CreatedAtTo:    &createdAtToTs,
+		PriceFrom: &priceFrom,
+		PriceTo:   &priceTo,
 	}
 
 	resp, err := h.b2c_service_order.Api.ListOrders(r.Context(), req)
