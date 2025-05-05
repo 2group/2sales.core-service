@@ -814,8 +814,10 @@ type ListServicesRequest struct {
 	OrganizationId *int64                 `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
 	BranchId       *int64                 `protobuf:"varint,2,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
 	SearchText     *string                `protobuf:"bytes,3,opt,name=search_text,json=searchText,proto3,oneof" json:"search_text,omitempty"`
-	Limit          int32                  `protobuf:"varint,4,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset         int32                  `protobuf:"varint,5,opt,name=offset,proto3" json:"offset,omitempty"`
+	CreatedAtFrom  *string                `protobuf:"bytes,4,opt,name=created_at_from,json=createdAtFrom,proto3,oneof" json:"created_at_from,omitempty"`
+	CreatedAtTo    *string                `protobuf:"bytes,5,opt,name=created_at_to,json=createdAtTo,proto3,oneof" json:"created_at_to,omitempty"`
+	Limit          int32                  `protobuf:"varint,6,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset         int32                  `protobuf:"varint,7,opt,name=offset,proto3" json:"offset,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -867,6 +869,20 @@ func (x *ListServicesRequest) GetBranchId() int64 {
 func (x *ListServicesRequest) GetSearchText() string {
 	if x != nil && x.SearchText != nil {
 		return *x.SearchText
+	}
+	return ""
+}
+
+func (x *ListServicesRequest) GetCreatedAtFrom() string {
+	if x != nil && x.CreatedAtFrom != nil {
+		return *x.CreatedAtFrom
+	}
+	return ""
+}
+
+func (x *ListServicesRequest) GetCreatedAtTo() string {
+	if x != nil && x.CreatedAtTo != nil {
+		return *x.CreatedAtTo
 	}
 	return ""
 }
@@ -1006,18 +1022,22 @@ const file_service_service_proto_rawDesc = "" +
 	"\n" +
 	"object_key\x18\x03 \x01(\tR\tobjectKey\"a\n" +
 	"\x1dGeneratePresignedURLsResponse\x12@\n" +
-	"\x0epresigned_urls\x18\x01 \x03(\v2\x19.service.PresignedURLInfoR\rpresignedUrls\"\xeb\x01\n" +
+	"\x0epresigned_urls\x18\x01 \x03(\v2\x19.service.PresignedURLInfoR\rpresignedUrls\"\xe7\x02\n" +
 	"\x13ListServicesRequest\x12,\n" +
 	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12 \n" +
 	"\tbranch_id\x18\x02 \x01(\x03H\x01R\bbranchId\x88\x01\x01\x12$\n" +
 	"\vsearch_text\x18\x03 \x01(\tH\x02R\n" +
-	"searchText\x88\x01\x01\x12\x14\n" +
-	"\x05limit\x18\x04 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x05 \x01(\x05R\x06offsetB\x12\n" +
+	"searchText\x88\x01\x01\x12+\n" +
+	"\x0fcreated_at_from\x18\x04 \x01(\tH\x03R\rcreatedAtFrom\x88\x01\x01\x12'\n" +
+	"\rcreated_at_to\x18\x05 \x01(\tH\x04R\vcreatedAtTo\x88\x01\x01\x12\x14\n" +
+	"\x05limit\x18\x06 \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\a \x01(\x05R\x06offsetB\x12\n" +
 	"\x10_organization_idB\f\n" +
 	"\n" +
 	"_branch_idB\x0e\n" +
-	"\f_search_text\"e\n" +
+	"\f_search_textB\x12\n" +
+	"\x10_created_at_fromB\x10\n" +
+	"\x0e_created_at_to\"e\n" +
 	"\x14ListServicesResponse\x12,\n" +
 	"\bservices\x18\x01 \x03(\v2\x10.service.ServiceR\bservices\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x05R\n" +

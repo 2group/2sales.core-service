@@ -94,8 +94,10 @@ message ListServicesRequest{
     optional int64 organization_id = 1;
     optional int64 branch_id = 2;
     optional string search_text = 3;
-    int32 limit = 4;
-    int32 offset = 5;
+    optional string created_at_from = 4;
+    optional string created_at_to = 5;
+    int32 limit = 6;
+    int32 offset = 7;
 }
 
 message ListServicesResponse{
