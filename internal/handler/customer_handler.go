@@ -74,7 +74,7 @@ func (h *CustomerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var paths []string
-	if strings.EqualFold(r.URL.Query().Get("include_loyalty"), "true") {
+	if strings.EqualFold(r.URL.Query().Get("include_loyalty_level"), "true") {
 		paths = append(paths, "loyalty_level")
 	}
 	if strings.EqualFold(r.URL.Query().Get("include_email"), "true") {
