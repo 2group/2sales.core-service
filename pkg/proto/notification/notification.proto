@@ -1,7 +1,11 @@
 syntax = "proto3";
+
 package notification;
 
-// channels you can send over
+option go_package = "github.com/2group/2sales.notification-service/pkg/gen/go/notification;notificationv1";
+
+import "google/protobuf/empty.proto";
+
 enum Channel {
   CHANNEL_UNSPECIFIED = 0;
   EMAIL               = 1;
@@ -10,56 +14,61 @@ enum Channel {
   WHATSAPP            = 4;
 }
 
-// top-level request: exactly one target, and any set of channels
-message NotificationRequested {
-  string                  template_type = 1;            // e.g. "invoice_ready"
-  map<string,string>      template_data = 2;            // vars for template
+enum TargetType {
+  TARGET_UNSPECIFIED       = 0;
+  ORG_ROLE_EMPLOYEES       = 1;
+  ORG_CUSTOMERS            = 2;
+  ORG_ALL_EMPLOYEES        = 3;
+  USER                     = 4;
+  EMPLOYEE                 = 5;
+  CUSTOMER                 = 6;
+}
 
-  oneof target {
-    OrgRoleEmployees      org_role_employees = 10;
-    OrgCustomers          org_customers      = 11;
-    OrgAllEmployees       org_all_employees  = 12;
-    UserTarget            user               = 13;
-    EmployeeTarget        employee           = 14;
-    CustomerTarget        customer           = 15;
-  }
-
-  repeated Channel        channels          = 20;        // can mix & match
+service NotificationService {
+    rpc CreateNotification(CreateNotificationRequest) returns (google.protobuf.Empty);
 }
 
 message OrgRoleEmployees {
   int64 organization_id = 1;
   int64 role_id         = 2;
 }
+
 message OrgCustomers {
   int64 organization_id = 1;
 }
+
 message OrgAllEmployees {
   int64 organization_id = 1;
 }
+
 message UserTarget {
   int64 user_id = 1;
 }
+
 message EmployeeTarget {
   int64 employee_id = 1;
 }
+
 message CustomerTarget {
   int64 customer_id = 1;
 }
 
-// one‐per‐recipient, one‐per‐channel after expansion
-message DeliveryRequest {
-  int64     recipient_id = 1;    // PK of notification_recipients
-  int64     recipient_id_value = 2; // actual user_id/employee_id/customer_id
-  Channel   channel      = 3;
-  string    address      = 4;    // email addr, phone #, ws topic
-  string    body         = 5;    // rendered content
+message CreateNotificationRequest {
+    Notification notification = 1;
 }
 
-// status callback
-message NotificationStatus {
-  int64                 recipient_id  = 1; // notification_recipients.id
-  bool                  delivered     = 2;
-  string                error_message = 3;
-  google.protobuf.Timestamp timestamp  = 4; // when delivery was attempted
+message Notification {
+  string template_type = 1;
+  map<string,string> template_data = 2;
+
+  oneof target {
+    OrgRoleEmployees org_role_employees = 10;
+    OrgCustomers org_customers = 11;
+    OrgAllEmployees org_all_employees = 12;
+    UserTarget user = 13;
+    EmployeeTarget employee = 14;
+    CustomerTarget customer = 15;
+  }
+
+  repeated Channel channels = 20;
 }

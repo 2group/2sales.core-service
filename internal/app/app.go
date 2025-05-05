@@ -337,10 +337,12 @@ func (s *APIServer) Run() error {
 				//authRouter.Use(auth.AuthMiddleware)
 				authRouter.Post("/", customerHandler.CreateCustomer)
 				authRouter.Get("/", customerHandler.ListCustomers)
+				authRouter.Get("/my", customerHandler.GetMyCustomer)
 				authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
 				authRouter.Delete("/{customer_id}", customerHandler.DeleteCustomer)
 				authRouter.Patch("/{customer_id}", customerHandler.PartialUpdateCustomer)
 				authRouter.Put("/{customer_id}", customerHandler.UpdateCustomer)
+				authRouter.Put("/my", customerHandler.UpdateMyCustomer)
 			})
 		})
 
