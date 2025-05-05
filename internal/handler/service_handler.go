@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/2group/2sales.core-service/internal/grpc"
 	servicev1 "github.com/2group/2sales.core-service/pkg/gen/go/service"
@@ -220,6 +221,8 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 	orgIDStr := r.URL.Query().Get("organization_id")
 	branchIDStr := r.URL.Query().Get("branch_id")
 	searchTextStr := r.URL.Query().Get("search_text")
+	createdAtFromStr := r.URL.Query().Get("created_at_from")
+	createdAtToStr := r.URL.Query().Get("created_at_to")
 
 	limit, err := strconv.ParseInt(limitStr, 10, 32)
 	if err != nil {
@@ -251,10 +254,30 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 		searchText = proto.String(searchTextStr)
 	}
 
+	var createdAtFrom *string
+	if createdAtFromStr != "" {
+		if _, err := time.Parse(time.RFC3339, createdAtFromStr); err == nil {
+			createdAtFrom = proto.String(createdAtFromStr)
+		} else {
+			log.Warn().Str("created_at_from", createdAtFromStr).Err(err).Msg("invalid_created_at_from")
+		}
+	}
+
+	var createdAtTo *string
+	if createdAtToStr != "" {
+		if _, err := time.Parse(time.RFC3339, createdAtToStr); err == nil {
+			createdAtTo = proto.String(createdAtToStr)
+		} else {
+			log.Warn().Str("created_at_to", createdAtToStr).Err(err).Msg("invalid_created_at_to")
+		}
+	}
+
 	req := &servicev1.ListServicesRequest{
 		OrganizationId: organizationID,
 		BranchId:       branchID,
 		SearchText:     searchText,
+		CreatedAtFrom:  createdAtFrom,
+		CreatedAtTo:    createdAtTo,
 		Limit:          int32(limit),
 		Offset:         int32(offset),
 	}
@@ -263,6 +286,8 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 		Int64("limit", limit).
 		Int64("offset", offset).
 		Str("search_text", searchTextStr).
+		Str("created_at_from", createdAtFromStr).
+		Str("created_at_to", createdAtToStr).
 		Msg("calling_service_microservice")
 
 	if organizationID != nil {
