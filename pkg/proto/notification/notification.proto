@@ -4,8 +4,6 @@ package notification;
 
 option go_package = "github.com/2group/2sales.notification-service/pkg/gen/go/notification;notificationv1";
 
-import "google/protobuf/empty.proto";
-
 enum Channel {
   CHANNEL_UNSPECIFIED = 0;
   EMAIL               = 1;
@@ -25,7 +23,7 @@ enum TargetType {
 }
 
 service NotificationService {
-    rpc CreateNotification(CreateNotificationRequest) returns (google.protobuf.Empty);
+    rpc CreateNotification(CreateNotificationRequest) returns (CreateNotificationResponse);
 }
 
 message OrgRoleEmployees {
@@ -55,6 +53,9 @@ message CustomerTarget {
 
 message CreateNotificationRequest {
     Notification notification = 1;
+}
+
+message CreateNotificationResponse {
 }
 
 message Notification {
