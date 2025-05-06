@@ -456,6 +456,43 @@ func (h *OrganizationHandler) UpdateBranch(w http.ResponseWriter, r *http.Reques
 	h.log.Info("Response sent", "status", http.StatusOK)
 }
 
+func (h *OrganizationHandler) ListBranchesByOrganization(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "ListBranchesByOrganization").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	orgIDStr := r.URL.Query().Get("organization_id")
+	if orgIDStr == "" {
+		log.Error().Msg("organization_id is required")
+		json.WriteError(w, http.StatusBadRequest, fmt.Errorf("organization_id is required"))
+		return
+	}
+
+	orgID, err := strconv.ParseInt(orgIDStr, 10, 64)
+	if err != nil {
+		log.Error().Str("organization_id", orgIDStr).Err(err).Msg("invalid_id")
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	req := &organizationv1.ListBranchesByOrganizationRequest{
+		OrganizationId: &orgID,
+	}
+
+	resp, err := h.organization.Api.ListBranchesByOrganization(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("grpc_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("branch_count", len(resp.Branches)).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
 func (h *OrganizationHandler) CreateAddress(w http.ResponseWriter, r *http.Request) {
 	req := &organizationv1.CreateAddressRequest{}
 	if err := json.ParseJSON(r, req); err != nil {

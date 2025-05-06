@@ -176,6 +176,7 @@ func (s *APIServer) Run() error {
 					bRouter.Put("/{branch_id}", organizationHandler.UpdateBranch)
 					bRouter.Patch("/{branch_id}", organizationHandler.PartialUpdateBranch)
 					bRouter.Delete("/{branch_id}", organizationHandler.DeleteBranch)
+					bRouter.Get("/", organizationHandler.ListBranchesByOrganization)
 				})
 				authRouter.Route("/address", func(aRouter chi.Router) {
 					aRouter.Post("/", organizationHandler.CreateAddress)
