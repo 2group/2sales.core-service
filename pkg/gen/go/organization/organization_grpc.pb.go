@@ -46,6 +46,7 @@ const (
 	OrganizationService_UpdateBanner_FullMethodName                    = "/organization.OrganizationService/UpdateBanner"
 	OrganizationService_ListBanner_FullMethodName                      = "/organization.OrganizationService/ListBanner"
 	OrganizationService_CreateMobilePageDiscount_FullMethodName        = "/organization.OrganizationService/CreateMobilePageDiscount"
+	OrganizationService_UpdateMobilePageDiscount_FullMethodName        = "/organization.OrganizationService/UpdateMobilePageDiscount"
 	OrganizationService_ListMobilePageDiscounts_FullMethodName         = "/organization.OrganizationService/ListMobilePageDiscounts"
 )
 
@@ -80,6 +81,7 @@ type OrganizationServiceClient interface {
 	UpdateBanner(ctx context.Context, in *UpdateBannerRequest, opts ...grpc.CallOption) (*UpdateBannerResponse, error)
 	ListBanner(ctx context.Context, in *ListBannerRequest, opts ...grpc.CallOption) (*ListBannerResponse, error)
 	CreateMobilePageDiscount(ctx context.Context, in *CreateMobilePageDiscountRequest, opts ...grpc.CallOption) (*CreateMobilePageDiscountResponse, error)
+	UpdateMobilePageDiscount(ctx context.Context, in *UpdateMobilePageDiscountRequest, opts ...grpc.CallOption) (*UpdateMobilePageDiscountResponse, error)
 	ListMobilePageDiscounts(ctx context.Context, in *ListMobilePageDiscountsRequest, opts ...grpc.CallOption) (*ListMobilePageDiscountsResponse, error)
 }
 
@@ -361,6 +363,16 @@ func (c *organizationServiceClient) CreateMobilePageDiscount(ctx context.Context
 	return out, nil
 }
 
+func (c *organizationServiceClient) UpdateMobilePageDiscount(ctx context.Context, in *UpdateMobilePageDiscountRequest, opts ...grpc.CallOption) (*UpdateMobilePageDiscountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateMobilePageDiscountResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_UpdateMobilePageDiscount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *organizationServiceClient) ListMobilePageDiscounts(ctx context.Context, in *ListMobilePageDiscountsRequest, opts ...grpc.CallOption) (*ListMobilePageDiscountsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ListMobilePageDiscountsResponse)
@@ -402,6 +414,7 @@ type OrganizationServiceServer interface {
 	UpdateBanner(context.Context, *UpdateBannerRequest) (*UpdateBannerResponse, error)
 	ListBanner(context.Context, *ListBannerRequest) (*ListBannerResponse, error)
 	CreateMobilePageDiscount(context.Context, *CreateMobilePageDiscountRequest) (*CreateMobilePageDiscountResponse, error)
+	UpdateMobilePageDiscount(context.Context, *UpdateMobilePageDiscountRequest) (*UpdateMobilePageDiscountResponse, error)
 	ListMobilePageDiscounts(context.Context, *ListMobilePageDiscountsRequest) (*ListMobilePageDiscountsResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
@@ -493,6 +506,9 @@ func (UnimplementedOrganizationServiceServer) ListBanner(context.Context, *ListB
 }
 func (UnimplementedOrganizationServiceServer) CreateMobilePageDiscount(context.Context, *CreateMobilePageDiscountRequest) (*CreateMobilePageDiscountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMobilePageDiscount not implemented")
+}
+func (UnimplementedOrganizationServiceServer) UpdateMobilePageDiscount(context.Context, *UpdateMobilePageDiscountRequest) (*UpdateMobilePageDiscountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMobilePageDiscount not implemented")
 }
 func (UnimplementedOrganizationServiceServer) ListMobilePageDiscounts(context.Context, *ListMobilePageDiscountsRequest) (*ListMobilePageDiscountsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMobilePageDiscounts not implemented")
@@ -1004,6 +1020,24 @@ func _OrganizationService_CreateMobilePageDiscount_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_UpdateMobilePageDiscount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMobilePageDiscountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).UpdateMobilePageDiscount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_UpdateMobilePageDiscount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).UpdateMobilePageDiscount(ctx, req.(*UpdateMobilePageDiscountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrganizationService_ListMobilePageDiscounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListMobilePageDiscountsRequest)
 	if err := dec(in); err != nil {
@@ -1136,6 +1170,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateMobilePageDiscount",
 			Handler:    _OrganizationService_CreateMobilePageDiscount_Handler,
+		},
+		{
+			MethodName: "UpdateMobilePageDiscount",
+			Handler:    _OrganizationService_UpdateMobilePageDiscount_Handler,
 		},
 		{
 			MethodName: "ListMobilePageDiscounts",

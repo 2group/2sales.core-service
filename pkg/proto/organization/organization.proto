@@ -38,6 +38,7 @@ service OrganizationService {
     rpc ListBanner (ListBannerRequest) returns (ListBannerResponse);
 
     rpc CreateMobilePageDiscount (CreateMobilePageDiscountRequest) returns (CreateMobilePageDiscountResponse);
+    rpc UpdateMobilePageDiscount (UpdateMobilePageDiscountRequest) returns (UpdateMobilePageDiscountResponse);
     rpc ListMobilePageDiscounts (ListMobilePageDiscountsRequest) returns (ListMobilePageDiscountsResponse);
 }
 
@@ -344,6 +345,14 @@ message CreateMobilePageDiscountRequest {
 }
 
 message CreateMobilePageDiscountResponse {
+    MobilePageDiscount discount = 1;
+}
+
+message UpdateMobilePageDiscountRequest {
+    MobilePageDiscount discount = 1;
+}
+
+message UpdateMobilePageDiscountResponse {
     MobilePageDiscount discount = 1;
 }
 
