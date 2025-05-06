@@ -201,6 +201,12 @@ func (s *APIServer) Run() error {
 					bRouter.Get("/", organizationHandler.ListBanners)
 				})
 
+				authRouter.Route("/mobile-page-discount", func(mRouter chi.Router) {
+					mRouter.Post("/", organizationHandler.CreateMobilePageDiscount)
+					mRouter.Put("/{discount_id}", organizationHandler.UpdateMobilePageDiscount)
+					mRouter.Get("/", organizationHandler.ListMobilePageDiscounts)
+				})
+
 				// authRouter.Get("/", organizationHandler.ListOrganizations)
 				// authRouter.Post("/my", organizationHandler.CreateOrganization)
 				// authRouter.Get("/my", organizationHandler.GetMyOrganization)

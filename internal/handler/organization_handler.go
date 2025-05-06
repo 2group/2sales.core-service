@@ -826,3 +826,82 @@ func (h *OrganizationHandler) ListBanners(w http.ResponseWriter, r *http.Request
 
 	json.WriteJSON(w, http.StatusOK, response)
 }
+
+func (h *OrganizationHandler) CreateMobilePageDiscount(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "CreateMobilePageDiscount").Logger()
+
+	log.Info().Msg("request_received")
+
+	req := &organizationv1.CreateMobilePageDiscountRequest{}
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error().Err(err).Msg("invalid_payload")
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid payload"))
+		return
+	}
+
+	resp, err := h.organization.Api.CreateMobilePageDiscount(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("grpc_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int64("discount_id", resp.GetDiscount().GetId()).Msg("succeeded")
+	json.WriteJSON(w, http.StatusCreated, resp)
+}
+
+func (h *OrganizationHandler) UpdateMobilePageDiscount(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "UpdateMobilePageDiscount").Logger()
+
+	log.Info().Msg("request_received")
+
+	discountIDStr := chi.URLParam(r, "discount_id")
+	discountID, err := strconv.ParseInt(discountIDStr, 10, 64)
+	if err != nil {
+		log.Error().Str("discount_id", discountIDStr).Err(err).Msg("invalid_discount_id")
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid discount_id"))
+		return
+	}
+
+	req := &organizationv1.UpdateMobilePageDiscountRequest{
+		Discount: &organizationv1.MobilePageDiscount{Id: &discountID},
+	}
+	if err := json.ParseJSON(r, req); err != nil {
+		log.Error().Err(err).Msg("invalid_payload")
+		json.WriteError(w, http.StatusBadRequest, errors.New("invalid payload"))
+		return
+	}
+
+	resp, err := h.organization.Api.UpdateMobilePageDiscount(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("grpc_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int64("discount_id", discountID).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *OrganizationHandler) ListMobilePageDiscounts(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "organization_handler").
+		Str("method", "ListMobilePageDiscounts").Logger()
+
+	log.Info().Msg("request_received")
+
+	req := &organizationv1.ListMobilePageDiscountsRequest{}
+	resp, err := h.organization.Api.ListMobilePageDiscounts(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("grpc_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("count", len(resp.GetDiscounts())).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
