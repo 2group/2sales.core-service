@@ -36,6 +36,20 @@ service OrganizationService {
     rpc CreateBanner (CreateBannerRequest) returns (CreateBannerResponse);
     rpc UpdateBanner (UpdateBannerRequest) returns (UpdateBannerResponse);
     rpc ListBanner (ListBannerRequest) returns (ListBannerResponse);
+
+    rpc CreateMobilePageDiscount (CreateMobilePageDiscountRequest) returns (CreateMobilePageDiscountResponse);
+    rpc ListMobilePageDiscounts (ListMobilePageDiscountsRequest) returns (ListMobilePageDiscountsResponse);
+}
+
+message MobilePageDiscount {
+    optional int64 id = 1;
+    string name = 2;
+    optional string from_date = 3;
+    optional string to_date = 4;
+    optional string button_text = 5;
+    optional string button_url = 6;
+    optional string created_at = 7;
+    optional string updated_at = 8;
 }
 
 message Address {
@@ -323,4 +337,18 @@ message ListBannerResponse {
 }
 message ListBannerRequest {
     int64 organization_id = 1;
+}
+
+message CreateMobilePageDiscountRequest {
+    MobilePageDiscount discount = 1;
+}
+
+message CreateMobilePageDiscountResponse {
+    MobilePageDiscount discount = 1;
+}
+
+message ListMobilePageDiscountsRequest {}
+
+message ListMobilePageDiscountsResponse {
+    repeated MobilePageDiscount discounts = 1;
 }

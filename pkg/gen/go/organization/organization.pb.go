@@ -21,6 +21,106 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type MobilePageDiscount struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	FromDate      *string                `protobuf:"bytes,3,opt,name=from_date,json=fromDate,proto3,oneof" json:"from_date,omitempty"`
+	ToDate        *string                `protobuf:"bytes,4,opt,name=to_date,json=toDate,proto3,oneof" json:"to_date,omitempty"`
+	ButtonText    *string                `protobuf:"bytes,5,opt,name=button_text,json=buttonText,proto3,oneof" json:"button_text,omitempty"`
+	ButtonUrl     *string                `protobuf:"bytes,6,opt,name=button_url,json=buttonUrl,proto3,oneof" json:"button_url,omitempty"`
+	CreatedAt     *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt     *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MobilePageDiscount) Reset() {
+	*x = MobilePageDiscount{}
+	mi := &file_organization_organization_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MobilePageDiscount) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MobilePageDiscount) ProtoMessage() {}
+
+func (x *MobilePageDiscount) ProtoReflect() protoreflect.Message {
+	mi := &file_organization_organization_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MobilePageDiscount.ProtoReflect.Descriptor instead.
+func (*MobilePageDiscount) Descriptor() ([]byte, []int) {
+	return file_organization_organization_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *MobilePageDiscount) GetId() int64 {
+	if x != nil && x.Id != nil {
+		return *x.Id
+	}
+	return 0
+}
+
+func (x *MobilePageDiscount) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *MobilePageDiscount) GetFromDate() string {
+	if x != nil && x.FromDate != nil {
+		return *x.FromDate
+	}
+	return ""
+}
+
+func (x *MobilePageDiscount) GetToDate() string {
+	if x != nil && x.ToDate != nil {
+		return *x.ToDate
+	}
+	return ""
+}
+
+func (x *MobilePageDiscount) GetButtonText() string {
+	if x != nil && x.ButtonText != nil {
+		return *x.ButtonText
+	}
+	return ""
+}
+
+func (x *MobilePageDiscount) GetButtonUrl() string {
+	if x != nil && x.ButtonUrl != nil {
+		return *x.ButtonUrl
+	}
+	return ""
+}
+
+func (x *MobilePageDiscount) GetCreatedAt() string {
+	if x != nil && x.CreatedAt != nil {
+		return *x.CreatedAt
+	}
+	return ""
+}
+
+func (x *MobilePageDiscount) GetUpdatedAt() string {
+	if x != nil && x.UpdatedAt != nil {
+		return *x.UpdatedAt
+	}
+	return ""
+}
+
 type Address struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
@@ -39,7 +139,7 @@ type Address struct {
 
 func (x *Address) Reset() {
 	*x = Address{}
-	mi := &file_organization_organization_proto_msgTypes[0]
+	mi := &file_organization_organization_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -51,7 +151,7 @@ func (x *Address) String() string {
 func (*Address) ProtoMessage() {}
 
 func (x *Address) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[0]
+	mi := &file_organization_organization_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -64,7 +164,7 @@ func (x *Address) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Address.ProtoReflect.Descriptor instead.
 func (*Address) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{0}
+	return file_organization_organization_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Address) GetId() int64 {
@@ -155,7 +255,7 @@ type Organization struct {
 
 func (x *Organization) Reset() {
 	*x = Organization{}
-	mi := &file_organization_organization_proto_msgTypes[1]
+	mi := &file_organization_organization_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -167,7 +267,7 @@ func (x *Organization) String() string {
 func (*Organization) ProtoMessage() {}
 
 func (x *Organization) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[1]
+	mi := &file_organization_organization_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -180,7 +280,7 @@ func (x *Organization) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Organization.ProtoReflect.Descriptor instead.
 func (*Organization) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{1}
+	return file_organization_organization_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Organization) GetId() int64 {
@@ -272,7 +372,7 @@ type OrganizationDetail struct {
 
 func (x *OrganizationDetail) Reset() {
 	*x = OrganizationDetail{}
-	mi := &file_organization_organization_proto_msgTypes[2]
+	mi := &file_organization_organization_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -284,7 +384,7 @@ func (x *OrganizationDetail) String() string {
 func (*OrganizationDetail) ProtoMessage() {}
 
 func (x *OrganizationDetail) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[2]
+	mi := &file_organization_organization_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -297,7 +397,7 @@ func (x *OrganizationDetail) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrganizationDetail.ProtoReflect.Descriptor instead.
 func (*OrganizationDetail) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{2}
+	return file_organization_organization_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *OrganizationDetail) GetId() int64 {
@@ -391,7 +491,7 @@ type Branch struct {
 
 func (x *Branch) Reset() {
 	*x = Branch{}
-	mi := &file_organization_organization_proto_msgTypes[3]
+	mi := &file_organization_organization_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -403,7 +503,7 @@ func (x *Branch) String() string {
 func (*Branch) ProtoMessage() {}
 
 func (x *Branch) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[3]
+	mi := &file_organization_organization_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -416,7 +516,7 @@ func (x *Branch) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Branch.ProtoReflect.Descriptor instead.
 func (*Branch) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{3}
+	return file_organization_organization_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Branch) GetId() int64 {
@@ -475,7 +575,7 @@ type BranchDetail struct {
 
 func (x *BranchDetail) Reset() {
 	*x = BranchDetail{}
-	mi := &file_organization_organization_proto_msgTypes[4]
+	mi := &file_organization_organization_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -487,7 +587,7 @@ func (x *BranchDetail) String() string {
 func (*BranchDetail) ProtoMessage() {}
 
 func (x *BranchDetail) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[4]
+	mi := &file_organization_organization_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -500,7 +600,7 @@ func (x *BranchDetail) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BranchDetail.ProtoReflect.Descriptor instead.
 func (*BranchDetail) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{4}
+	return file_organization_organization_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *BranchDetail) GetId() int64 {
@@ -560,7 +660,7 @@ type LoyaltyLevel struct {
 
 func (x *LoyaltyLevel) Reset() {
 	*x = LoyaltyLevel{}
-	mi := &file_organization_organization_proto_msgTypes[5]
+	mi := &file_organization_organization_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -572,7 +672,7 @@ func (x *LoyaltyLevel) String() string {
 func (*LoyaltyLevel) ProtoMessage() {}
 
 func (x *LoyaltyLevel) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[5]
+	mi := &file_organization_organization_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -585,7 +685,7 @@ func (x *LoyaltyLevel) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoyaltyLevel.ProtoReflect.Descriptor instead.
 func (*LoyaltyLevel) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{5}
+	return file_organization_organization_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *LoyaltyLevel) GetId() int64 {
@@ -653,7 +753,7 @@ type Story struct {
 
 func (x *Story) Reset() {
 	*x = Story{}
-	mi := &file_organization_organization_proto_msgTypes[6]
+	mi := &file_organization_organization_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -665,7 +765,7 @@ func (x *Story) String() string {
 func (*Story) ProtoMessage() {}
 
 func (x *Story) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[6]
+	mi := &file_organization_organization_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -678,7 +778,7 @@ func (x *Story) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Story.ProtoReflect.Descriptor instead.
 func (*Story) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{6}
+	return file_organization_organization_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Story) GetId() int64 {
@@ -754,7 +854,7 @@ type Banner struct {
 
 func (x *Banner) Reset() {
 	*x = Banner{}
-	mi := &file_organization_organization_proto_msgTypes[7]
+	mi := &file_organization_organization_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -766,7 +866,7 @@ func (x *Banner) String() string {
 func (*Banner) ProtoMessage() {}
 
 func (x *Banner) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[7]
+	mi := &file_organization_organization_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -779,7 +879,7 @@ func (x *Banner) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Banner.ProtoReflect.Descriptor instead.
 func (*Banner) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{7}
+	return file_organization_organization_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Banner) GetId() int64 {
@@ -854,7 +954,7 @@ type CreateLoyaltyLevelRequest struct {
 
 func (x *CreateLoyaltyLevelRequest) Reset() {
 	*x = CreateLoyaltyLevelRequest{}
-	mi := &file_organization_organization_proto_msgTypes[8]
+	mi := &file_organization_organization_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -866,7 +966,7 @@ func (x *CreateLoyaltyLevelRequest) String() string {
 func (*CreateLoyaltyLevelRequest) ProtoMessage() {}
 
 func (x *CreateLoyaltyLevelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[8]
+	mi := &file_organization_organization_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -879,7 +979,7 @@ func (x *CreateLoyaltyLevelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateLoyaltyLevelRequest.ProtoReflect.Descriptor instead.
 func (*CreateLoyaltyLevelRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{8}
+	return file_organization_organization_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *CreateLoyaltyLevelRequest) GetLoyaltyLevel() *LoyaltyLevel {
@@ -898,7 +998,7 @@ type CreateLoyaltyLevelResponse struct {
 
 func (x *CreateLoyaltyLevelResponse) Reset() {
 	*x = CreateLoyaltyLevelResponse{}
-	mi := &file_organization_organization_proto_msgTypes[9]
+	mi := &file_organization_organization_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -910,7 +1010,7 @@ func (x *CreateLoyaltyLevelResponse) String() string {
 func (*CreateLoyaltyLevelResponse) ProtoMessage() {}
 
 func (x *CreateLoyaltyLevelResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[9]
+	mi := &file_organization_organization_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -923,7 +1023,7 @@ func (x *CreateLoyaltyLevelResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateLoyaltyLevelResponse.ProtoReflect.Descriptor instead.
 func (*CreateLoyaltyLevelResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{9}
+	return file_organization_organization_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *CreateLoyaltyLevelResponse) GetLoyaltyLevel() *LoyaltyLevel {
@@ -942,7 +1042,7 @@ type GetLoyaltyLevelRequest struct {
 
 func (x *GetLoyaltyLevelRequest) Reset() {
 	*x = GetLoyaltyLevelRequest{}
-	mi := &file_organization_organization_proto_msgTypes[10]
+	mi := &file_organization_organization_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -954,7 +1054,7 @@ func (x *GetLoyaltyLevelRequest) String() string {
 func (*GetLoyaltyLevelRequest) ProtoMessage() {}
 
 func (x *GetLoyaltyLevelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[10]
+	mi := &file_organization_organization_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -967,7 +1067,7 @@ func (x *GetLoyaltyLevelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLoyaltyLevelRequest.ProtoReflect.Descriptor instead.
 func (*GetLoyaltyLevelRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{10}
+	return file_organization_organization_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GetLoyaltyLevelRequest) GetId() int64 {
@@ -986,7 +1086,7 @@ type GetLoyaltyLevelResponse struct {
 
 func (x *GetLoyaltyLevelResponse) Reset() {
 	*x = GetLoyaltyLevelResponse{}
-	mi := &file_organization_organization_proto_msgTypes[11]
+	mi := &file_organization_organization_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -998,7 +1098,7 @@ func (x *GetLoyaltyLevelResponse) String() string {
 func (*GetLoyaltyLevelResponse) ProtoMessage() {}
 
 func (x *GetLoyaltyLevelResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[11]
+	mi := &file_organization_organization_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1011,7 +1111,7 @@ func (x *GetLoyaltyLevelResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLoyaltyLevelResponse.ProtoReflect.Descriptor instead.
 func (*GetLoyaltyLevelResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{11}
+	return file_organization_organization_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetLoyaltyLevelResponse) GetLoyaltyLevel() *LoyaltyLevel {
@@ -1030,7 +1130,7 @@ type UpdateLoyaltyLevelRequest struct {
 
 func (x *UpdateLoyaltyLevelRequest) Reset() {
 	*x = UpdateLoyaltyLevelRequest{}
-	mi := &file_organization_organization_proto_msgTypes[12]
+	mi := &file_organization_organization_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1042,7 +1142,7 @@ func (x *UpdateLoyaltyLevelRequest) String() string {
 func (*UpdateLoyaltyLevelRequest) ProtoMessage() {}
 
 func (x *UpdateLoyaltyLevelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[12]
+	mi := &file_organization_organization_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1055,7 +1155,7 @@ func (x *UpdateLoyaltyLevelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateLoyaltyLevelRequest.ProtoReflect.Descriptor instead.
 func (*UpdateLoyaltyLevelRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{12}
+	return file_organization_organization_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *UpdateLoyaltyLevelRequest) GetLoyaltyLevel() *LoyaltyLevel {
@@ -1074,7 +1174,7 @@ type UpdateLoyaltyLevelResponse struct {
 
 func (x *UpdateLoyaltyLevelResponse) Reset() {
 	*x = UpdateLoyaltyLevelResponse{}
-	mi := &file_organization_organization_proto_msgTypes[13]
+	mi := &file_organization_organization_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1086,7 +1186,7 @@ func (x *UpdateLoyaltyLevelResponse) String() string {
 func (*UpdateLoyaltyLevelResponse) ProtoMessage() {}
 
 func (x *UpdateLoyaltyLevelResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[13]
+	mi := &file_organization_organization_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1099,7 +1199,7 @@ func (x *UpdateLoyaltyLevelResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateLoyaltyLevelResponse.ProtoReflect.Descriptor instead.
 func (*UpdateLoyaltyLevelResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{13}
+	return file_organization_organization_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *UpdateLoyaltyLevelResponse) GetLoyaltyLevel() *LoyaltyLevel {
@@ -1118,7 +1218,7 @@ type ListLoyaltyLevelsByOrganizationRequest struct {
 
 func (x *ListLoyaltyLevelsByOrganizationRequest) Reset() {
 	*x = ListLoyaltyLevelsByOrganizationRequest{}
-	mi := &file_organization_organization_proto_msgTypes[14]
+	mi := &file_organization_organization_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1130,7 +1230,7 @@ func (x *ListLoyaltyLevelsByOrganizationRequest) String() string {
 func (*ListLoyaltyLevelsByOrganizationRequest) ProtoMessage() {}
 
 func (x *ListLoyaltyLevelsByOrganizationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[14]
+	mi := &file_organization_organization_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1143,7 +1243,7 @@ func (x *ListLoyaltyLevelsByOrganizationRequest) ProtoReflect() protoreflect.Mes
 
 // Deprecated: Use ListLoyaltyLevelsByOrganizationRequest.ProtoReflect.Descriptor instead.
 func (*ListLoyaltyLevelsByOrganizationRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{14}
+	return file_organization_organization_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ListLoyaltyLevelsByOrganizationRequest) GetOrganizationId() int64 {
@@ -1162,7 +1262,7 @@ type ListLoyaltyLevelsByOrganizationResponse struct {
 
 func (x *ListLoyaltyLevelsByOrganizationResponse) Reset() {
 	*x = ListLoyaltyLevelsByOrganizationResponse{}
-	mi := &file_organization_organization_proto_msgTypes[15]
+	mi := &file_organization_organization_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1174,7 +1274,7 @@ func (x *ListLoyaltyLevelsByOrganizationResponse) String() string {
 func (*ListLoyaltyLevelsByOrganizationResponse) ProtoMessage() {}
 
 func (x *ListLoyaltyLevelsByOrganizationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[15]
+	mi := &file_organization_organization_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1187,7 +1287,7 @@ func (x *ListLoyaltyLevelsByOrganizationResponse) ProtoReflect() protoreflect.Me
 
 // Deprecated: Use ListLoyaltyLevelsByOrganizationResponse.ProtoReflect.Descriptor instead.
 func (*ListLoyaltyLevelsByOrganizationResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{15}
+	return file_organization_organization_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ListLoyaltyLevelsByOrganizationResponse) GetLoyaltyLevels() []*LoyaltyLevel {
@@ -1206,7 +1306,7 @@ type CreateAddressRequest struct {
 
 func (x *CreateAddressRequest) Reset() {
 	*x = CreateAddressRequest{}
-	mi := &file_organization_organization_proto_msgTypes[16]
+	mi := &file_organization_organization_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1218,7 +1318,7 @@ func (x *CreateAddressRequest) String() string {
 func (*CreateAddressRequest) ProtoMessage() {}
 
 func (x *CreateAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[16]
+	mi := &file_organization_organization_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1231,7 +1331,7 @@ func (x *CreateAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateAddressRequest.ProtoReflect.Descriptor instead.
 func (*CreateAddressRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{16}
+	return file_organization_organization_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *CreateAddressRequest) GetAddress() *Address {
@@ -1250,7 +1350,7 @@ type CreateAddressResponse struct {
 
 func (x *CreateAddressResponse) Reset() {
 	*x = CreateAddressResponse{}
-	mi := &file_organization_organization_proto_msgTypes[17]
+	mi := &file_organization_organization_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1262,7 +1362,7 @@ func (x *CreateAddressResponse) String() string {
 func (*CreateAddressResponse) ProtoMessage() {}
 
 func (x *CreateAddressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[17]
+	mi := &file_organization_organization_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1275,7 +1375,7 @@ func (x *CreateAddressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateAddressResponse.ProtoReflect.Descriptor instead.
 func (*CreateAddressResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{17}
+	return file_organization_organization_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *CreateAddressResponse) GetAddress() *Address {
@@ -1294,7 +1394,7 @@ type GetAddressRequest struct {
 
 func (x *GetAddressRequest) Reset() {
 	*x = GetAddressRequest{}
-	mi := &file_organization_organization_proto_msgTypes[18]
+	mi := &file_organization_organization_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1306,7 +1406,7 @@ func (x *GetAddressRequest) String() string {
 func (*GetAddressRequest) ProtoMessage() {}
 
 func (x *GetAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[18]
+	mi := &file_organization_organization_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1319,7 +1419,7 @@ func (x *GetAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAddressRequest.ProtoReflect.Descriptor instead.
 func (*GetAddressRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{18}
+	return file_organization_organization_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetAddressRequest) GetId() int64 {
@@ -1338,7 +1438,7 @@ type GetAddressResponse struct {
 
 func (x *GetAddressResponse) Reset() {
 	*x = GetAddressResponse{}
-	mi := &file_organization_organization_proto_msgTypes[19]
+	mi := &file_organization_organization_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1350,7 +1450,7 @@ func (x *GetAddressResponse) String() string {
 func (*GetAddressResponse) ProtoMessage() {}
 
 func (x *GetAddressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[19]
+	mi := &file_organization_organization_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1363,7 +1463,7 @@ func (x *GetAddressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAddressResponse.ProtoReflect.Descriptor instead.
 func (*GetAddressResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{19}
+	return file_organization_organization_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetAddressResponse) GetAddress() *Address {
@@ -1382,7 +1482,7 @@ type UpdateAddressRequest struct {
 
 func (x *UpdateAddressRequest) Reset() {
 	*x = UpdateAddressRequest{}
-	mi := &file_organization_organization_proto_msgTypes[20]
+	mi := &file_organization_organization_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1394,7 +1494,7 @@ func (x *UpdateAddressRequest) String() string {
 func (*UpdateAddressRequest) ProtoMessage() {}
 
 func (x *UpdateAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[20]
+	mi := &file_organization_organization_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1407,7 +1507,7 @@ func (x *UpdateAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateAddressRequest.ProtoReflect.Descriptor instead.
 func (*UpdateAddressRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{20}
+	return file_organization_organization_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *UpdateAddressRequest) GetAddress() *Address {
@@ -1426,7 +1526,7 @@ type UpdateAddressResponse struct {
 
 func (x *UpdateAddressResponse) Reset() {
 	*x = UpdateAddressResponse{}
-	mi := &file_organization_organization_proto_msgTypes[21]
+	mi := &file_organization_organization_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1438,7 +1538,7 @@ func (x *UpdateAddressResponse) String() string {
 func (*UpdateAddressResponse) ProtoMessage() {}
 
 func (x *UpdateAddressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[21]
+	mi := &file_organization_organization_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1451,7 +1551,7 @@ func (x *UpdateAddressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateAddressResponse.ProtoReflect.Descriptor instead.
 func (*UpdateAddressResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{21}
+	return file_organization_organization_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *UpdateAddressResponse) GetAddress() *Address {
@@ -1470,7 +1570,7 @@ type PartialUpdateAddressRequest struct {
 
 func (x *PartialUpdateAddressRequest) Reset() {
 	*x = PartialUpdateAddressRequest{}
-	mi := &file_organization_organization_proto_msgTypes[22]
+	mi := &file_organization_organization_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1482,7 +1582,7 @@ func (x *PartialUpdateAddressRequest) String() string {
 func (*PartialUpdateAddressRequest) ProtoMessage() {}
 
 func (x *PartialUpdateAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[22]
+	mi := &file_organization_organization_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1495,7 +1595,7 @@ func (x *PartialUpdateAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartialUpdateAddressRequest.ProtoReflect.Descriptor instead.
 func (*PartialUpdateAddressRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{22}
+	return file_organization_organization_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *PartialUpdateAddressRequest) GetAddress() *Address {
@@ -1514,7 +1614,7 @@ type PartialUpdateAddressResponse struct {
 
 func (x *PartialUpdateAddressResponse) Reset() {
 	*x = PartialUpdateAddressResponse{}
-	mi := &file_organization_organization_proto_msgTypes[23]
+	mi := &file_organization_organization_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1526,7 +1626,7 @@ func (x *PartialUpdateAddressResponse) String() string {
 func (*PartialUpdateAddressResponse) ProtoMessage() {}
 
 func (x *PartialUpdateAddressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[23]
+	mi := &file_organization_organization_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1539,7 +1639,7 @@ func (x *PartialUpdateAddressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartialUpdateAddressResponse.ProtoReflect.Descriptor instead.
 func (*PartialUpdateAddressResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{23}
+	return file_organization_organization_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *PartialUpdateAddressResponse) GetAddress() *Address {
@@ -1558,7 +1658,7 @@ type DeleteAddressRequest struct {
 
 func (x *DeleteAddressRequest) Reset() {
 	*x = DeleteAddressRequest{}
-	mi := &file_organization_organization_proto_msgTypes[24]
+	mi := &file_organization_organization_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1570,7 +1670,7 @@ func (x *DeleteAddressRequest) String() string {
 func (*DeleteAddressRequest) ProtoMessage() {}
 
 func (x *DeleteAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[24]
+	mi := &file_organization_organization_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1583,7 +1683,7 @@ func (x *DeleteAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteAddressRequest.ProtoReflect.Descriptor instead.
 func (*DeleteAddressRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{24}
+	return file_organization_organization_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *DeleteAddressRequest) GetId() int64 {
@@ -1601,7 +1701,7 @@ type DeleteAddressResponse struct {
 
 func (x *DeleteAddressResponse) Reset() {
 	*x = DeleteAddressResponse{}
-	mi := &file_organization_organization_proto_msgTypes[25]
+	mi := &file_organization_organization_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1613,7 +1713,7 @@ func (x *DeleteAddressResponse) String() string {
 func (*DeleteAddressResponse) ProtoMessage() {}
 
 func (x *DeleteAddressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[25]
+	mi := &file_organization_organization_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1626,7 +1726,7 @@ func (x *DeleteAddressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteAddressResponse.ProtoReflect.Descriptor instead.
 func (*DeleteAddressResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{25}
+	return file_organization_organization_proto_rawDescGZIP(), []int{26}
 }
 
 type CreateOrganizationRequest struct {
@@ -1638,7 +1738,7 @@ type CreateOrganizationRequest struct {
 
 func (x *CreateOrganizationRequest) Reset() {
 	*x = CreateOrganizationRequest{}
-	mi := &file_organization_organization_proto_msgTypes[26]
+	mi := &file_organization_organization_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1650,7 +1750,7 @@ func (x *CreateOrganizationRequest) String() string {
 func (*CreateOrganizationRequest) ProtoMessage() {}
 
 func (x *CreateOrganizationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[26]
+	mi := &file_organization_organization_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1663,7 +1763,7 @@ func (x *CreateOrganizationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrganizationRequest.ProtoReflect.Descriptor instead.
 func (*CreateOrganizationRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{26}
+	return file_organization_organization_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *CreateOrganizationRequest) GetOrganization() *Organization {
@@ -1682,7 +1782,7 @@ type CreateOrganizationResponse struct {
 
 func (x *CreateOrganizationResponse) Reset() {
 	*x = CreateOrganizationResponse{}
-	mi := &file_organization_organization_proto_msgTypes[27]
+	mi := &file_organization_organization_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1694,7 +1794,7 @@ func (x *CreateOrganizationResponse) String() string {
 func (*CreateOrganizationResponse) ProtoMessage() {}
 
 func (x *CreateOrganizationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[27]
+	mi := &file_organization_organization_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1707,7 +1807,7 @@ func (x *CreateOrganizationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrganizationResponse.ProtoReflect.Descriptor instead.
 func (*CreateOrganizationResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{27}
+	return file_organization_organization_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *CreateOrganizationResponse) GetOrganization() *Organization {
@@ -1726,7 +1826,7 @@ type GetOrganizationRequest struct {
 
 func (x *GetOrganizationRequest) Reset() {
 	*x = GetOrganizationRequest{}
-	mi := &file_organization_organization_proto_msgTypes[28]
+	mi := &file_organization_organization_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1738,7 +1838,7 @@ func (x *GetOrganizationRequest) String() string {
 func (*GetOrganizationRequest) ProtoMessage() {}
 
 func (x *GetOrganizationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[28]
+	mi := &file_organization_organization_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1751,7 +1851,7 @@ func (x *GetOrganizationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrganizationRequest.ProtoReflect.Descriptor instead.
 func (*GetOrganizationRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{28}
+	return file_organization_organization_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *GetOrganizationRequest) GetId() int64 {
@@ -1770,7 +1870,7 @@ type GetOrganizationResponse struct {
 
 func (x *GetOrganizationResponse) Reset() {
 	*x = GetOrganizationResponse{}
-	mi := &file_organization_organization_proto_msgTypes[29]
+	mi := &file_organization_organization_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1782,7 +1882,7 @@ func (x *GetOrganizationResponse) String() string {
 func (*GetOrganizationResponse) ProtoMessage() {}
 
 func (x *GetOrganizationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[29]
+	mi := &file_organization_organization_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1795,7 +1895,7 @@ func (x *GetOrganizationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrganizationResponse.ProtoReflect.Descriptor instead.
 func (*GetOrganizationResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{29}
+	return file_organization_organization_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *GetOrganizationResponse) GetOrganization() *OrganizationDetail {
@@ -1814,7 +1914,7 @@ type UpdateOrganizationRequest struct {
 
 func (x *UpdateOrganizationRequest) Reset() {
 	*x = UpdateOrganizationRequest{}
-	mi := &file_organization_organization_proto_msgTypes[30]
+	mi := &file_organization_organization_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1826,7 +1926,7 @@ func (x *UpdateOrganizationRequest) String() string {
 func (*UpdateOrganizationRequest) ProtoMessage() {}
 
 func (x *UpdateOrganizationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[30]
+	mi := &file_organization_organization_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1839,7 +1939,7 @@ func (x *UpdateOrganizationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrganizationRequest.ProtoReflect.Descriptor instead.
 func (*UpdateOrganizationRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{30}
+	return file_organization_organization_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *UpdateOrganizationRequest) GetOrganization() *Organization {
@@ -1858,7 +1958,7 @@ type UpdateOrganizationResponse struct {
 
 func (x *UpdateOrganizationResponse) Reset() {
 	*x = UpdateOrganizationResponse{}
-	mi := &file_organization_organization_proto_msgTypes[31]
+	mi := &file_organization_organization_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1870,7 +1970,7 @@ func (x *UpdateOrganizationResponse) String() string {
 func (*UpdateOrganizationResponse) ProtoMessage() {}
 
 func (x *UpdateOrganizationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[31]
+	mi := &file_organization_organization_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1883,7 +1983,7 @@ func (x *UpdateOrganizationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrganizationResponse.ProtoReflect.Descriptor instead.
 func (*UpdateOrganizationResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{31}
+	return file_organization_organization_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *UpdateOrganizationResponse) GetOrganization() *Organization {
@@ -1902,7 +2002,7 @@ type PartialUpdateOrganizationRequest struct {
 
 func (x *PartialUpdateOrganizationRequest) Reset() {
 	*x = PartialUpdateOrganizationRequest{}
-	mi := &file_organization_organization_proto_msgTypes[32]
+	mi := &file_organization_organization_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1914,7 +2014,7 @@ func (x *PartialUpdateOrganizationRequest) String() string {
 func (*PartialUpdateOrganizationRequest) ProtoMessage() {}
 
 func (x *PartialUpdateOrganizationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[32]
+	mi := &file_organization_organization_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1927,7 +2027,7 @@ func (x *PartialUpdateOrganizationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartialUpdateOrganizationRequest.ProtoReflect.Descriptor instead.
 func (*PartialUpdateOrganizationRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{32}
+	return file_organization_organization_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *PartialUpdateOrganizationRequest) GetOrganization() *Organization {
@@ -1946,7 +2046,7 @@ type PartialUpdateOrganizationResponse struct {
 
 func (x *PartialUpdateOrganizationResponse) Reset() {
 	*x = PartialUpdateOrganizationResponse{}
-	mi := &file_organization_organization_proto_msgTypes[33]
+	mi := &file_organization_organization_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1958,7 +2058,7 @@ func (x *PartialUpdateOrganizationResponse) String() string {
 func (*PartialUpdateOrganizationResponse) ProtoMessage() {}
 
 func (x *PartialUpdateOrganizationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[33]
+	mi := &file_organization_organization_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1971,7 +2071,7 @@ func (x *PartialUpdateOrganizationResponse) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use PartialUpdateOrganizationResponse.ProtoReflect.Descriptor instead.
 func (*PartialUpdateOrganizationResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{33}
+	return file_organization_organization_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *PartialUpdateOrganizationResponse) GetOrganization() *Organization {
@@ -1990,7 +2090,7 @@ type DeleteOrganizationRequest struct {
 
 func (x *DeleteOrganizationRequest) Reset() {
 	*x = DeleteOrganizationRequest{}
-	mi := &file_organization_organization_proto_msgTypes[34]
+	mi := &file_organization_organization_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2002,7 +2102,7 @@ func (x *DeleteOrganizationRequest) String() string {
 func (*DeleteOrganizationRequest) ProtoMessage() {}
 
 func (x *DeleteOrganizationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[34]
+	mi := &file_organization_organization_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2015,7 +2115,7 @@ func (x *DeleteOrganizationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteOrganizationRequest.ProtoReflect.Descriptor instead.
 func (*DeleteOrganizationRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{34}
+	return file_organization_organization_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *DeleteOrganizationRequest) GetId() int64 {
@@ -2033,7 +2133,7 @@ type DeleteOrganizationResponse struct {
 
 func (x *DeleteOrganizationResponse) Reset() {
 	*x = DeleteOrganizationResponse{}
-	mi := &file_organization_organization_proto_msgTypes[35]
+	mi := &file_organization_organization_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2045,7 +2145,7 @@ func (x *DeleteOrganizationResponse) String() string {
 func (*DeleteOrganizationResponse) ProtoMessage() {}
 
 func (x *DeleteOrganizationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[35]
+	mi := &file_organization_organization_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2058,7 +2158,7 @@ func (x *DeleteOrganizationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteOrganizationResponse.ProtoReflect.Descriptor instead.
 func (*DeleteOrganizationResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{35}
+	return file_organization_organization_proto_rawDescGZIP(), []int{36}
 }
 
 type ListOrganizationsRequest struct {
@@ -2071,7 +2171,7 @@ type ListOrganizationsRequest struct {
 
 func (x *ListOrganizationsRequest) Reset() {
 	*x = ListOrganizationsRequest{}
-	mi := &file_organization_organization_proto_msgTypes[36]
+	mi := &file_organization_organization_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2083,7 +2183,7 @@ func (x *ListOrganizationsRequest) String() string {
 func (*ListOrganizationsRequest) ProtoMessage() {}
 
 func (x *ListOrganizationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[36]
+	mi := &file_organization_organization_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2096,7 +2196,7 @@ func (x *ListOrganizationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListOrganizationsRequest.ProtoReflect.Descriptor instead.
 func (*ListOrganizationsRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{36}
+	return file_organization_organization_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *ListOrganizationsRequest) GetLimit() int32 {
@@ -2123,7 +2223,7 @@ type ListOrganizationsResponse struct {
 
 func (x *ListOrganizationsResponse) Reset() {
 	*x = ListOrganizationsResponse{}
-	mi := &file_organization_organization_proto_msgTypes[37]
+	mi := &file_organization_organization_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2135,7 +2235,7 @@ func (x *ListOrganizationsResponse) String() string {
 func (*ListOrganizationsResponse) ProtoMessage() {}
 
 func (x *ListOrganizationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[37]
+	mi := &file_organization_organization_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2148,7 +2248,7 @@ func (x *ListOrganizationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListOrganizationsResponse.ProtoReflect.Descriptor instead.
 func (*ListOrganizationsResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{37}
+	return file_organization_organization_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *ListOrganizationsResponse) GetOrganizations() []*Organization {
@@ -2174,7 +2274,7 @@ type CreateBranchRequest struct {
 
 func (x *CreateBranchRequest) Reset() {
 	*x = CreateBranchRequest{}
-	mi := &file_organization_organization_proto_msgTypes[38]
+	mi := &file_organization_organization_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2186,7 +2286,7 @@ func (x *CreateBranchRequest) String() string {
 func (*CreateBranchRequest) ProtoMessage() {}
 
 func (x *CreateBranchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[38]
+	mi := &file_organization_organization_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2199,7 +2299,7 @@ func (x *CreateBranchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateBranchRequest.ProtoReflect.Descriptor instead.
 func (*CreateBranchRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{38}
+	return file_organization_organization_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *CreateBranchRequest) GetBranch() *Branch {
@@ -2218,7 +2318,7 @@ type CreateBranchResponse struct {
 
 func (x *CreateBranchResponse) Reset() {
 	*x = CreateBranchResponse{}
-	mi := &file_organization_organization_proto_msgTypes[39]
+	mi := &file_organization_organization_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2230,7 +2330,7 @@ func (x *CreateBranchResponse) String() string {
 func (*CreateBranchResponse) ProtoMessage() {}
 
 func (x *CreateBranchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[39]
+	mi := &file_organization_organization_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2243,7 +2343,7 @@ func (x *CreateBranchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateBranchResponse.ProtoReflect.Descriptor instead.
 func (*CreateBranchResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{39}
+	return file_organization_organization_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *CreateBranchResponse) GetBranch() *Branch {
@@ -2262,7 +2362,7 @@ type GetBranchRequest struct {
 
 func (x *GetBranchRequest) Reset() {
 	*x = GetBranchRequest{}
-	mi := &file_organization_organization_proto_msgTypes[40]
+	mi := &file_organization_organization_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2274,7 +2374,7 @@ func (x *GetBranchRequest) String() string {
 func (*GetBranchRequest) ProtoMessage() {}
 
 func (x *GetBranchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[40]
+	mi := &file_organization_organization_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2287,7 +2387,7 @@ func (x *GetBranchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBranchRequest.ProtoReflect.Descriptor instead.
 func (*GetBranchRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{40}
+	return file_organization_organization_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *GetBranchRequest) GetId() int64 {
@@ -2306,7 +2406,7 @@ type GetBranchResponse struct {
 
 func (x *GetBranchResponse) Reset() {
 	*x = GetBranchResponse{}
-	mi := &file_organization_organization_proto_msgTypes[41]
+	mi := &file_organization_organization_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2318,7 +2418,7 @@ func (x *GetBranchResponse) String() string {
 func (*GetBranchResponse) ProtoMessage() {}
 
 func (x *GetBranchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[41]
+	mi := &file_organization_organization_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2331,7 +2431,7 @@ func (x *GetBranchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBranchResponse.ProtoReflect.Descriptor instead.
 func (*GetBranchResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{41}
+	return file_organization_organization_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *GetBranchResponse) GetBranch() *BranchDetail {
@@ -2350,7 +2450,7 @@ type UpdateBranchRequest struct {
 
 func (x *UpdateBranchRequest) Reset() {
 	*x = UpdateBranchRequest{}
-	mi := &file_organization_organization_proto_msgTypes[42]
+	mi := &file_organization_organization_proto_msgTypes[43]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2362,7 +2462,7 @@ func (x *UpdateBranchRequest) String() string {
 func (*UpdateBranchRequest) ProtoMessage() {}
 
 func (x *UpdateBranchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[42]
+	mi := &file_organization_organization_proto_msgTypes[43]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2375,7 +2475,7 @@ func (x *UpdateBranchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateBranchRequest.ProtoReflect.Descriptor instead.
 func (*UpdateBranchRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{42}
+	return file_organization_organization_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *UpdateBranchRequest) GetBranch() *Branch {
@@ -2394,7 +2494,7 @@ type UpdateBranchResponse struct {
 
 func (x *UpdateBranchResponse) Reset() {
 	*x = UpdateBranchResponse{}
-	mi := &file_organization_organization_proto_msgTypes[43]
+	mi := &file_organization_organization_proto_msgTypes[44]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2406,7 +2506,7 @@ func (x *UpdateBranchResponse) String() string {
 func (*UpdateBranchResponse) ProtoMessage() {}
 
 func (x *UpdateBranchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[43]
+	mi := &file_organization_organization_proto_msgTypes[44]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2419,7 +2519,7 @@ func (x *UpdateBranchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateBranchResponse.ProtoReflect.Descriptor instead.
 func (*UpdateBranchResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{43}
+	return file_organization_organization_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *UpdateBranchResponse) GetBranch() *Branch {
@@ -2438,7 +2538,7 @@ type PartialUpdateBranchRequest struct {
 
 func (x *PartialUpdateBranchRequest) Reset() {
 	*x = PartialUpdateBranchRequest{}
-	mi := &file_organization_organization_proto_msgTypes[44]
+	mi := &file_organization_organization_proto_msgTypes[45]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2450,7 +2550,7 @@ func (x *PartialUpdateBranchRequest) String() string {
 func (*PartialUpdateBranchRequest) ProtoMessage() {}
 
 func (x *PartialUpdateBranchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[44]
+	mi := &file_organization_organization_proto_msgTypes[45]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2463,7 +2563,7 @@ func (x *PartialUpdateBranchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartialUpdateBranchRequest.ProtoReflect.Descriptor instead.
 func (*PartialUpdateBranchRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{44}
+	return file_organization_organization_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *PartialUpdateBranchRequest) GetBranch() *Branch {
@@ -2482,7 +2582,7 @@ type PartialUpdateBranchResponse struct {
 
 func (x *PartialUpdateBranchResponse) Reset() {
 	*x = PartialUpdateBranchResponse{}
-	mi := &file_organization_organization_proto_msgTypes[45]
+	mi := &file_organization_organization_proto_msgTypes[46]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2494,7 +2594,7 @@ func (x *PartialUpdateBranchResponse) String() string {
 func (*PartialUpdateBranchResponse) ProtoMessage() {}
 
 func (x *PartialUpdateBranchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[45]
+	mi := &file_organization_organization_proto_msgTypes[46]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2507,7 +2607,7 @@ func (x *PartialUpdateBranchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartialUpdateBranchResponse.ProtoReflect.Descriptor instead.
 func (*PartialUpdateBranchResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{45}
+	return file_organization_organization_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *PartialUpdateBranchResponse) GetBranch() *Branch {
@@ -2526,7 +2626,7 @@ type DeleteBranchRequest struct {
 
 func (x *DeleteBranchRequest) Reset() {
 	*x = DeleteBranchRequest{}
-	mi := &file_organization_organization_proto_msgTypes[46]
+	mi := &file_organization_organization_proto_msgTypes[47]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2538,7 +2638,7 @@ func (x *DeleteBranchRequest) String() string {
 func (*DeleteBranchRequest) ProtoMessage() {}
 
 func (x *DeleteBranchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[46]
+	mi := &file_organization_organization_proto_msgTypes[47]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2551,7 +2651,7 @@ func (x *DeleteBranchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteBranchRequest.ProtoReflect.Descriptor instead.
 func (*DeleteBranchRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{46}
+	return file_organization_organization_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *DeleteBranchRequest) GetId() int64 {
@@ -2569,7 +2669,7 @@ type DeleteBranchResponse struct {
 
 func (x *DeleteBranchResponse) Reset() {
 	*x = DeleteBranchResponse{}
-	mi := &file_organization_organization_proto_msgTypes[47]
+	mi := &file_organization_organization_proto_msgTypes[48]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2581,7 +2681,7 @@ func (x *DeleteBranchResponse) String() string {
 func (*DeleteBranchResponse) ProtoMessage() {}
 
 func (x *DeleteBranchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[47]
+	mi := &file_organization_organization_proto_msgTypes[48]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2594,7 +2694,7 @@ func (x *DeleteBranchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteBranchResponse.ProtoReflect.Descriptor instead.
 func (*DeleteBranchResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{47}
+	return file_organization_organization_proto_rawDescGZIP(), []int{48}
 }
 
 type CreateStoryResponse struct {
@@ -2606,7 +2706,7 @@ type CreateStoryResponse struct {
 
 func (x *CreateStoryResponse) Reset() {
 	*x = CreateStoryResponse{}
-	mi := &file_organization_organization_proto_msgTypes[48]
+	mi := &file_organization_organization_proto_msgTypes[49]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2618,7 +2718,7 @@ func (x *CreateStoryResponse) String() string {
 func (*CreateStoryResponse) ProtoMessage() {}
 
 func (x *CreateStoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[48]
+	mi := &file_organization_organization_proto_msgTypes[49]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2631,7 +2731,7 @@ func (x *CreateStoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateStoryResponse.ProtoReflect.Descriptor instead.
 func (*CreateStoryResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{48}
+	return file_organization_organization_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *CreateStoryResponse) GetStory() *Story {
@@ -2650,7 +2750,7 @@ type CreateStoryRequest struct {
 
 func (x *CreateStoryRequest) Reset() {
 	*x = CreateStoryRequest{}
-	mi := &file_organization_organization_proto_msgTypes[49]
+	mi := &file_organization_organization_proto_msgTypes[50]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2662,7 +2762,7 @@ func (x *CreateStoryRequest) String() string {
 func (*CreateStoryRequest) ProtoMessage() {}
 
 func (x *CreateStoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[49]
+	mi := &file_organization_organization_proto_msgTypes[50]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2675,7 +2775,7 @@ func (x *CreateStoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateStoryRequest.ProtoReflect.Descriptor instead.
 func (*CreateStoryRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{49}
+	return file_organization_organization_proto_rawDescGZIP(), []int{50}
 }
 
 func (x *CreateStoryRequest) GetStory() *Story {
@@ -2694,7 +2794,7 @@ type UpdateStoryResponse struct {
 
 func (x *UpdateStoryResponse) Reset() {
 	*x = UpdateStoryResponse{}
-	mi := &file_organization_organization_proto_msgTypes[50]
+	mi := &file_organization_organization_proto_msgTypes[51]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2706,7 +2806,7 @@ func (x *UpdateStoryResponse) String() string {
 func (*UpdateStoryResponse) ProtoMessage() {}
 
 func (x *UpdateStoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[50]
+	mi := &file_organization_organization_proto_msgTypes[51]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2719,7 +2819,7 @@ func (x *UpdateStoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateStoryResponse.ProtoReflect.Descriptor instead.
 func (*UpdateStoryResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{50}
+	return file_organization_organization_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *UpdateStoryResponse) GetStory() *Story {
@@ -2738,7 +2838,7 @@ type UpdateStoryRequest struct {
 
 func (x *UpdateStoryRequest) Reset() {
 	*x = UpdateStoryRequest{}
-	mi := &file_organization_organization_proto_msgTypes[51]
+	mi := &file_organization_organization_proto_msgTypes[52]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2750,7 +2850,7 @@ func (x *UpdateStoryRequest) String() string {
 func (*UpdateStoryRequest) ProtoMessage() {}
 
 func (x *UpdateStoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[51]
+	mi := &file_organization_organization_proto_msgTypes[52]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2763,7 +2863,7 @@ func (x *UpdateStoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateStoryRequest.ProtoReflect.Descriptor instead.
 func (*UpdateStoryRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{51}
+	return file_organization_organization_proto_rawDescGZIP(), []int{52}
 }
 
 func (x *UpdateStoryRequest) GetStory() *Story {
@@ -2782,7 +2882,7 @@ type ListStoryResponse struct {
 
 func (x *ListStoryResponse) Reset() {
 	*x = ListStoryResponse{}
-	mi := &file_organization_organization_proto_msgTypes[52]
+	mi := &file_organization_organization_proto_msgTypes[53]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2794,7 +2894,7 @@ func (x *ListStoryResponse) String() string {
 func (*ListStoryResponse) ProtoMessage() {}
 
 func (x *ListStoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[52]
+	mi := &file_organization_organization_proto_msgTypes[53]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2807,7 +2907,7 @@ func (x *ListStoryResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListStoryResponse.ProtoReflect.Descriptor instead.
 func (*ListStoryResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{52}
+	return file_organization_organization_proto_rawDescGZIP(), []int{53}
 }
 
 func (x *ListStoryResponse) GetStories() []*Story {
@@ -2826,7 +2926,7 @@ type ListStoryRequest struct {
 
 func (x *ListStoryRequest) Reset() {
 	*x = ListStoryRequest{}
-	mi := &file_organization_organization_proto_msgTypes[53]
+	mi := &file_organization_organization_proto_msgTypes[54]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2838,7 +2938,7 @@ func (x *ListStoryRequest) String() string {
 func (*ListStoryRequest) ProtoMessage() {}
 
 func (x *ListStoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[53]
+	mi := &file_organization_organization_proto_msgTypes[54]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2851,7 +2951,7 @@ func (x *ListStoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListStoryRequest.ProtoReflect.Descriptor instead.
 func (*ListStoryRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{53}
+	return file_organization_organization_proto_rawDescGZIP(), []int{54}
 }
 
 func (x *ListStoryRequest) GetOrganizationId() int64 {
@@ -2870,7 +2970,7 @@ type CreateBannerResponse struct {
 
 func (x *CreateBannerResponse) Reset() {
 	*x = CreateBannerResponse{}
-	mi := &file_organization_organization_proto_msgTypes[54]
+	mi := &file_organization_organization_proto_msgTypes[55]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2882,7 +2982,7 @@ func (x *CreateBannerResponse) String() string {
 func (*CreateBannerResponse) ProtoMessage() {}
 
 func (x *CreateBannerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[54]
+	mi := &file_organization_organization_proto_msgTypes[55]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2895,7 +2995,7 @@ func (x *CreateBannerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateBannerResponse.ProtoReflect.Descriptor instead.
 func (*CreateBannerResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{54}
+	return file_organization_organization_proto_rawDescGZIP(), []int{55}
 }
 
 func (x *CreateBannerResponse) GetBanner() *Banner {
@@ -2914,7 +3014,7 @@ type CreateBannerRequest struct {
 
 func (x *CreateBannerRequest) Reset() {
 	*x = CreateBannerRequest{}
-	mi := &file_organization_organization_proto_msgTypes[55]
+	mi := &file_organization_organization_proto_msgTypes[56]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2926,7 +3026,7 @@ func (x *CreateBannerRequest) String() string {
 func (*CreateBannerRequest) ProtoMessage() {}
 
 func (x *CreateBannerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[55]
+	mi := &file_organization_organization_proto_msgTypes[56]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2939,7 +3039,7 @@ func (x *CreateBannerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateBannerRequest.ProtoReflect.Descriptor instead.
 func (*CreateBannerRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{55}
+	return file_organization_organization_proto_rawDescGZIP(), []int{56}
 }
 
 func (x *CreateBannerRequest) GetBanner() *Banner {
@@ -2958,7 +3058,7 @@ type UpdateBannerResponse struct {
 
 func (x *UpdateBannerResponse) Reset() {
 	*x = UpdateBannerResponse{}
-	mi := &file_organization_organization_proto_msgTypes[56]
+	mi := &file_organization_organization_proto_msgTypes[57]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2970,7 +3070,7 @@ func (x *UpdateBannerResponse) String() string {
 func (*UpdateBannerResponse) ProtoMessage() {}
 
 func (x *UpdateBannerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[56]
+	mi := &file_organization_organization_proto_msgTypes[57]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2983,7 +3083,7 @@ func (x *UpdateBannerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateBannerResponse.ProtoReflect.Descriptor instead.
 func (*UpdateBannerResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{56}
+	return file_organization_organization_proto_rawDescGZIP(), []int{57}
 }
 
 func (x *UpdateBannerResponse) GetBanner() *Banner {
@@ -3002,7 +3102,7 @@ type UpdateBannerRequest struct {
 
 func (x *UpdateBannerRequest) Reset() {
 	*x = UpdateBannerRequest{}
-	mi := &file_organization_organization_proto_msgTypes[57]
+	mi := &file_organization_organization_proto_msgTypes[58]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3014,7 +3114,7 @@ func (x *UpdateBannerRequest) String() string {
 func (*UpdateBannerRequest) ProtoMessage() {}
 
 func (x *UpdateBannerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[57]
+	mi := &file_organization_organization_proto_msgTypes[58]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3027,7 +3127,7 @@ func (x *UpdateBannerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateBannerRequest.ProtoReflect.Descriptor instead.
 func (*UpdateBannerRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{57}
+	return file_organization_organization_proto_rawDescGZIP(), []int{58}
 }
 
 func (x *UpdateBannerRequest) GetBanner() *Banner {
@@ -3046,7 +3146,7 @@ type ListBannerResponse struct {
 
 func (x *ListBannerResponse) Reset() {
 	*x = ListBannerResponse{}
-	mi := &file_organization_organization_proto_msgTypes[58]
+	mi := &file_organization_organization_proto_msgTypes[59]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3058,7 +3158,7 @@ func (x *ListBannerResponse) String() string {
 func (*ListBannerResponse) ProtoMessage() {}
 
 func (x *ListBannerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[58]
+	mi := &file_organization_organization_proto_msgTypes[59]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3071,7 +3171,7 @@ func (x *ListBannerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListBannerResponse.ProtoReflect.Descriptor instead.
 func (*ListBannerResponse) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{58}
+	return file_organization_organization_proto_rawDescGZIP(), []int{59}
 }
 
 func (x *ListBannerResponse) GetBanners() []*Banner {
@@ -3090,7 +3190,7 @@ type ListBannerRequest struct {
 
 func (x *ListBannerRequest) Reset() {
 	*x = ListBannerRequest{}
-	mi := &file_organization_organization_proto_msgTypes[59]
+	mi := &file_organization_organization_proto_msgTypes[60]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3102,7 +3202,7 @@ func (x *ListBannerRequest) String() string {
 func (*ListBannerRequest) ProtoMessage() {}
 
 func (x *ListBannerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_organization_organization_proto_msgTypes[59]
+	mi := &file_organization_organization_proto_msgTypes[60]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3115,7 +3215,7 @@ func (x *ListBannerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListBannerRequest.ProtoReflect.Descriptor instead.
 func (*ListBannerRequest) Descriptor() ([]byte, []int) {
-	return file_organization_organization_proto_rawDescGZIP(), []int{59}
+	return file_organization_organization_proto_rawDescGZIP(), []int{60}
 }
 
 func (x *ListBannerRequest) GetOrganizationId() int64 {
@@ -3125,11 +3225,201 @@ func (x *ListBannerRequest) GetOrganizationId() int64 {
 	return 0
 }
 
+type CreateMobilePageDiscountRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Discount      *MobilePageDiscount    `protobuf:"bytes,1,opt,name=discount,proto3" json:"discount,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateMobilePageDiscountRequest) Reset() {
+	*x = CreateMobilePageDiscountRequest{}
+	mi := &file_organization_organization_proto_msgTypes[61]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateMobilePageDiscountRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateMobilePageDiscountRequest) ProtoMessage() {}
+
+func (x *CreateMobilePageDiscountRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_organization_organization_proto_msgTypes[61]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateMobilePageDiscountRequest.ProtoReflect.Descriptor instead.
+func (*CreateMobilePageDiscountRequest) Descriptor() ([]byte, []int) {
+	return file_organization_organization_proto_rawDescGZIP(), []int{61}
+}
+
+func (x *CreateMobilePageDiscountRequest) GetDiscount() *MobilePageDiscount {
+	if x != nil {
+		return x.Discount
+	}
+	return nil
+}
+
+type CreateMobilePageDiscountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Discount      *MobilePageDiscount    `protobuf:"bytes,1,opt,name=discount,proto3" json:"discount,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateMobilePageDiscountResponse) Reset() {
+	*x = CreateMobilePageDiscountResponse{}
+	mi := &file_organization_organization_proto_msgTypes[62]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateMobilePageDiscountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateMobilePageDiscountResponse) ProtoMessage() {}
+
+func (x *CreateMobilePageDiscountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_organization_organization_proto_msgTypes[62]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateMobilePageDiscountResponse.ProtoReflect.Descriptor instead.
+func (*CreateMobilePageDiscountResponse) Descriptor() ([]byte, []int) {
+	return file_organization_organization_proto_rawDescGZIP(), []int{62}
+}
+
+func (x *CreateMobilePageDiscountResponse) GetDiscount() *MobilePageDiscount {
+	if x != nil {
+		return x.Discount
+	}
+	return nil
+}
+
+type ListMobilePageDiscountsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMobilePageDiscountsRequest) Reset() {
+	*x = ListMobilePageDiscountsRequest{}
+	mi := &file_organization_organization_proto_msgTypes[63]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMobilePageDiscountsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMobilePageDiscountsRequest) ProtoMessage() {}
+
+func (x *ListMobilePageDiscountsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_organization_organization_proto_msgTypes[63]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMobilePageDiscountsRequest.ProtoReflect.Descriptor instead.
+func (*ListMobilePageDiscountsRequest) Descriptor() ([]byte, []int) {
+	return file_organization_organization_proto_rawDescGZIP(), []int{63}
+}
+
+type ListMobilePageDiscountsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Discounts     []*MobilePageDiscount  `protobuf:"bytes,1,rep,name=discounts,proto3" json:"discounts,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMobilePageDiscountsResponse) Reset() {
+	*x = ListMobilePageDiscountsResponse{}
+	mi := &file_organization_organization_proto_msgTypes[64]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMobilePageDiscountsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMobilePageDiscountsResponse) ProtoMessage() {}
+
+func (x *ListMobilePageDiscountsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_organization_organization_proto_msgTypes[64]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMobilePageDiscountsResponse.ProtoReflect.Descriptor instead.
+func (*ListMobilePageDiscountsResponse) Descriptor() ([]byte, []int) {
+	return file_organization_organization_proto_rawDescGZIP(), []int{64}
+}
+
+func (x *ListMobilePageDiscountsResponse) GetDiscounts() []*MobilePageDiscount {
+	if x != nil {
+		return x.Discounts
+	}
+	return nil
+}
+
 var File_organization_organization_proto protoreflect.FileDescriptor
 
 const file_organization_organization_proto_rawDesc = "" +
 	"\n" +
-	"\x1forganization/organization.proto\x12\forganization\"\x98\x03\n" +
+	"\x1forganization/organization.proto\x12\forganization\"\xed\x02\n" +
+	"\x12MobilePageDiscount\x12\x13\n" +
+	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
+	"\tfrom_date\x18\x03 \x01(\tH\x01R\bfromDate\x88\x01\x01\x12\x1c\n" +
+	"\ato_date\x18\x04 \x01(\tH\x02R\x06toDate\x88\x01\x01\x12$\n" +
+	"\vbutton_text\x18\x05 \x01(\tH\x03R\n" +
+	"buttonText\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"button_url\x18\x06 \x01(\tH\x04R\tbuttonUrl\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"created_at\x18\a \x01(\tH\x05R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"updated_at\x18\b \x01(\tH\x06R\tupdatedAt\x88\x01\x01B\x05\n" +
+	"\x03_idB\f\n" +
+	"\n" +
+	"_from_dateB\n" +
+	"\n" +
+	"\b_to_dateB\x0e\n" +
+	"\f_button_textB\r\n" +
+	"\v_button_urlB\r\n" +
+	"\v_created_atB\r\n" +
+	"\v_updated_at\"\x98\x03\n" +
 	"\aAddress\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x18\n" +
@@ -3387,7 +3677,14 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\x12ListBannerResponse\x12.\n" +
 	"\abanners\x18\x01 \x03(\v2\x14.organization.BannerR\abanners\"<\n" +
 	"\x11ListBannerRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId2\xd9\x13\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\"_\n" +
+	"\x1fCreateMobilePageDiscountRequest\x12<\n" +
+	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\"`\n" +
+	" CreateMobilePageDiscountResponse\x12<\n" +
+	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\" \n" +
+	"\x1eListMobilePageDiscountsRequest\"a\n" +
+	"\x1fListMobilePageDiscountsResponse\x12>\n" +
+	"\tdiscounts\x18\x01 \x03(\v2 .organization.MobilePageDiscountR\tdiscounts2\xcc\x15\n" +
 	"\x13OrganizationService\x12X\n" +
 	"\rCreateAddress\x12\".organization.CreateAddressRequest\x1a#.organization.CreateAddressResponse\x12O\n" +
 	"\n" +
@@ -3416,7 +3713,9 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\fCreateBanner\x12!.organization.CreateBannerRequest\x1a\".organization.CreateBannerResponse\x12U\n" +
 	"\fUpdateBanner\x12!.organization.UpdateBannerRequest\x1a\".organization.UpdateBannerResponse\x12O\n" +
 	"\n" +
-	"ListBanner\x12\x1f.organization.ListBannerRequest\x1a .organization.ListBannerResponseBNZLgithub.com/2group/2sales.core-service/pkg/gen/go/organization;organizationv1b\x06proto3"
+	"ListBanner\x12\x1f.organization.ListBannerRequest\x1a .organization.ListBannerResponse\x12y\n" +
+	"\x18CreateMobilePageDiscount\x12-.organization.CreateMobilePageDiscountRequest\x1a..organization.CreateMobilePageDiscountResponse\x12v\n" +
+	"\x17ListMobilePageDiscounts\x12,.organization.ListMobilePageDiscountsRequest\x1a-.organization.ListMobilePageDiscountsResponseBNZLgithub.com/2group/2sales.core-service/pkg/gen/go/organization;organizationv1b\x06proto3"
 
 var (
 	file_organization_organization_proto_rawDescOnce sync.Once
@@ -3430,167 +3729,179 @@ func file_organization_organization_proto_rawDescGZIP() []byte {
 	return file_organization_organization_proto_rawDescData
 }
 
-var file_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 60)
+var file_organization_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 65)
 var file_organization_organization_proto_goTypes = []any{
-	(*Address)(nil),                                 // 0: organization.Address
-	(*Organization)(nil),                            // 1: organization.Organization
-	(*OrganizationDetail)(nil),                      // 2: organization.OrganizationDetail
-	(*Branch)(nil),                                  // 3: organization.Branch
-	(*BranchDetail)(nil),                            // 4: organization.BranchDetail
-	(*LoyaltyLevel)(nil),                            // 5: organization.LoyaltyLevel
-	(*Story)(nil),                                   // 6: organization.Story
-	(*Banner)(nil),                                  // 7: organization.Banner
-	(*CreateLoyaltyLevelRequest)(nil),               // 8: organization.CreateLoyaltyLevelRequest
-	(*CreateLoyaltyLevelResponse)(nil),              // 9: organization.CreateLoyaltyLevelResponse
-	(*GetLoyaltyLevelRequest)(nil),                  // 10: organization.GetLoyaltyLevelRequest
-	(*GetLoyaltyLevelResponse)(nil),                 // 11: organization.GetLoyaltyLevelResponse
-	(*UpdateLoyaltyLevelRequest)(nil),               // 12: organization.UpdateLoyaltyLevelRequest
-	(*UpdateLoyaltyLevelResponse)(nil),              // 13: organization.UpdateLoyaltyLevelResponse
-	(*ListLoyaltyLevelsByOrganizationRequest)(nil),  // 14: organization.ListLoyaltyLevelsByOrganizationRequest
-	(*ListLoyaltyLevelsByOrganizationResponse)(nil), // 15: organization.ListLoyaltyLevelsByOrganizationResponse
-	(*CreateAddressRequest)(nil),                    // 16: organization.CreateAddressRequest
-	(*CreateAddressResponse)(nil),                   // 17: organization.CreateAddressResponse
-	(*GetAddressRequest)(nil),                       // 18: organization.GetAddressRequest
-	(*GetAddressResponse)(nil),                      // 19: organization.GetAddressResponse
-	(*UpdateAddressRequest)(nil),                    // 20: organization.UpdateAddressRequest
-	(*UpdateAddressResponse)(nil),                   // 21: organization.UpdateAddressResponse
-	(*PartialUpdateAddressRequest)(nil),             // 22: organization.PartialUpdateAddressRequest
-	(*PartialUpdateAddressResponse)(nil),            // 23: organization.PartialUpdateAddressResponse
-	(*DeleteAddressRequest)(nil),                    // 24: organization.DeleteAddressRequest
-	(*DeleteAddressResponse)(nil),                   // 25: organization.DeleteAddressResponse
-	(*CreateOrganizationRequest)(nil),               // 26: organization.CreateOrganizationRequest
-	(*CreateOrganizationResponse)(nil),              // 27: organization.CreateOrganizationResponse
-	(*GetOrganizationRequest)(nil),                  // 28: organization.GetOrganizationRequest
-	(*GetOrganizationResponse)(nil),                 // 29: organization.GetOrganizationResponse
-	(*UpdateOrganizationRequest)(nil),               // 30: organization.UpdateOrganizationRequest
-	(*UpdateOrganizationResponse)(nil),              // 31: organization.UpdateOrganizationResponse
-	(*PartialUpdateOrganizationRequest)(nil),        // 32: organization.PartialUpdateOrganizationRequest
-	(*PartialUpdateOrganizationResponse)(nil),       // 33: organization.PartialUpdateOrganizationResponse
-	(*DeleteOrganizationRequest)(nil),               // 34: organization.DeleteOrganizationRequest
-	(*DeleteOrganizationResponse)(nil),              // 35: organization.DeleteOrganizationResponse
-	(*ListOrganizationsRequest)(nil),                // 36: organization.ListOrganizationsRequest
-	(*ListOrganizationsResponse)(nil),               // 37: organization.ListOrganizationsResponse
-	(*CreateBranchRequest)(nil),                     // 38: organization.CreateBranchRequest
-	(*CreateBranchResponse)(nil),                    // 39: organization.CreateBranchResponse
-	(*GetBranchRequest)(nil),                        // 40: organization.GetBranchRequest
-	(*GetBranchResponse)(nil),                       // 41: organization.GetBranchResponse
-	(*UpdateBranchRequest)(nil),                     // 42: organization.UpdateBranchRequest
-	(*UpdateBranchResponse)(nil),                    // 43: organization.UpdateBranchResponse
-	(*PartialUpdateBranchRequest)(nil),              // 44: organization.PartialUpdateBranchRequest
-	(*PartialUpdateBranchResponse)(nil),             // 45: organization.PartialUpdateBranchResponse
-	(*DeleteBranchRequest)(nil),                     // 46: organization.DeleteBranchRequest
-	(*DeleteBranchResponse)(nil),                    // 47: organization.DeleteBranchResponse
-	(*CreateStoryResponse)(nil),                     // 48: organization.CreateStoryResponse
-	(*CreateStoryRequest)(nil),                      // 49: organization.CreateStoryRequest
-	(*UpdateStoryResponse)(nil),                     // 50: organization.UpdateStoryResponse
-	(*UpdateStoryRequest)(nil),                      // 51: organization.UpdateStoryRequest
-	(*ListStoryResponse)(nil),                       // 52: organization.ListStoryResponse
-	(*ListStoryRequest)(nil),                        // 53: organization.ListStoryRequest
-	(*CreateBannerResponse)(nil),                    // 54: organization.CreateBannerResponse
-	(*CreateBannerRequest)(nil),                     // 55: organization.CreateBannerRequest
-	(*UpdateBannerResponse)(nil),                    // 56: organization.UpdateBannerResponse
-	(*UpdateBannerRequest)(nil),                     // 57: organization.UpdateBannerRequest
-	(*ListBannerResponse)(nil),                      // 58: organization.ListBannerResponse
-	(*ListBannerRequest)(nil),                       // 59: organization.ListBannerRequest
+	(*MobilePageDiscount)(nil),                      // 0: organization.MobilePageDiscount
+	(*Address)(nil),                                 // 1: organization.Address
+	(*Organization)(nil),                            // 2: organization.Organization
+	(*OrganizationDetail)(nil),                      // 3: organization.OrganizationDetail
+	(*Branch)(nil),                                  // 4: organization.Branch
+	(*BranchDetail)(nil),                            // 5: organization.BranchDetail
+	(*LoyaltyLevel)(nil),                            // 6: organization.LoyaltyLevel
+	(*Story)(nil),                                   // 7: organization.Story
+	(*Banner)(nil),                                  // 8: organization.Banner
+	(*CreateLoyaltyLevelRequest)(nil),               // 9: organization.CreateLoyaltyLevelRequest
+	(*CreateLoyaltyLevelResponse)(nil),              // 10: organization.CreateLoyaltyLevelResponse
+	(*GetLoyaltyLevelRequest)(nil),                  // 11: organization.GetLoyaltyLevelRequest
+	(*GetLoyaltyLevelResponse)(nil),                 // 12: organization.GetLoyaltyLevelResponse
+	(*UpdateLoyaltyLevelRequest)(nil),               // 13: organization.UpdateLoyaltyLevelRequest
+	(*UpdateLoyaltyLevelResponse)(nil),              // 14: organization.UpdateLoyaltyLevelResponse
+	(*ListLoyaltyLevelsByOrganizationRequest)(nil),  // 15: organization.ListLoyaltyLevelsByOrganizationRequest
+	(*ListLoyaltyLevelsByOrganizationResponse)(nil), // 16: organization.ListLoyaltyLevelsByOrganizationResponse
+	(*CreateAddressRequest)(nil),                    // 17: organization.CreateAddressRequest
+	(*CreateAddressResponse)(nil),                   // 18: organization.CreateAddressResponse
+	(*GetAddressRequest)(nil),                       // 19: organization.GetAddressRequest
+	(*GetAddressResponse)(nil),                      // 20: organization.GetAddressResponse
+	(*UpdateAddressRequest)(nil),                    // 21: organization.UpdateAddressRequest
+	(*UpdateAddressResponse)(nil),                   // 22: organization.UpdateAddressResponse
+	(*PartialUpdateAddressRequest)(nil),             // 23: organization.PartialUpdateAddressRequest
+	(*PartialUpdateAddressResponse)(nil),            // 24: organization.PartialUpdateAddressResponse
+	(*DeleteAddressRequest)(nil),                    // 25: organization.DeleteAddressRequest
+	(*DeleteAddressResponse)(nil),                   // 26: organization.DeleteAddressResponse
+	(*CreateOrganizationRequest)(nil),               // 27: organization.CreateOrganizationRequest
+	(*CreateOrganizationResponse)(nil),              // 28: organization.CreateOrganizationResponse
+	(*GetOrganizationRequest)(nil),                  // 29: organization.GetOrganizationRequest
+	(*GetOrganizationResponse)(nil),                 // 30: organization.GetOrganizationResponse
+	(*UpdateOrganizationRequest)(nil),               // 31: organization.UpdateOrganizationRequest
+	(*UpdateOrganizationResponse)(nil),              // 32: organization.UpdateOrganizationResponse
+	(*PartialUpdateOrganizationRequest)(nil),        // 33: organization.PartialUpdateOrganizationRequest
+	(*PartialUpdateOrganizationResponse)(nil),       // 34: organization.PartialUpdateOrganizationResponse
+	(*DeleteOrganizationRequest)(nil),               // 35: organization.DeleteOrganizationRequest
+	(*DeleteOrganizationResponse)(nil),              // 36: organization.DeleteOrganizationResponse
+	(*ListOrganizationsRequest)(nil),                // 37: organization.ListOrganizationsRequest
+	(*ListOrganizationsResponse)(nil),               // 38: organization.ListOrganizationsResponse
+	(*CreateBranchRequest)(nil),                     // 39: organization.CreateBranchRequest
+	(*CreateBranchResponse)(nil),                    // 40: organization.CreateBranchResponse
+	(*GetBranchRequest)(nil),                        // 41: organization.GetBranchRequest
+	(*GetBranchResponse)(nil),                       // 42: organization.GetBranchResponse
+	(*UpdateBranchRequest)(nil),                     // 43: organization.UpdateBranchRequest
+	(*UpdateBranchResponse)(nil),                    // 44: organization.UpdateBranchResponse
+	(*PartialUpdateBranchRequest)(nil),              // 45: organization.PartialUpdateBranchRequest
+	(*PartialUpdateBranchResponse)(nil),             // 46: organization.PartialUpdateBranchResponse
+	(*DeleteBranchRequest)(nil),                     // 47: organization.DeleteBranchRequest
+	(*DeleteBranchResponse)(nil),                    // 48: organization.DeleteBranchResponse
+	(*CreateStoryResponse)(nil),                     // 49: organization.CreateStoryResponse
+	(*CreateStoryRequest)(nil),                      // 50: organization.CreateStoryRequest
+	(*UpdateStoryResponse)(nil),                     // 51: organization.UpdateStoryResponse
+	(*UpdateStoryRequest)(nil),                      // 52: organization.UpdateStoryRequest
+	(*ListStoryResponse)(nil),                       // 53: organization.ListStoryResponse
+	(*ListStoryRequest)(nil),                        // 54: organization.ListStoryRequest
+	(*CreateBannerResponse)(nil),                    // 55: organization.CreateBannerResponse
+	(*CreateBannerRequest)(nil),                     // 56: organization.CreateBannerRequest
+	(*UpdateBannerResponse)(nil),                    // 57: organization.UpdateBannerResponse
+	(*UpdateBannerRequest)(nil),                     // 58: organization.UpdateBannerRequest
+	(*ListBannerResponse)(nil),                      // 59: organization.ListBannerResponse
+	(*ListBannerRequest)(nil),                       // 60: organization.ListBannerRequest
+	(*CreateMobilePageDiscountRequest)(nil),         // 61: organization.CreateMobilePageDiscountRequest
+	(*CreateMobilePageDiscountResponse)(nil),        // 62: organization.CreateMobilePageDiscountResponse
+	(*ListMobilePageDiscountsRequest)(nil),          // 63: organization.ListMobilePageDiscountsRequest
+	(*ListMobilePageDiscountsResponse)(nil),         // 64: organization.ListMobilePageDiscountsResponse
 }
 var file_organization_organization_proto_depIdxs = []int32{
-	3,  // 0: organization.OrganizationDetail.branches:type_name -> organization.Branch
-	0,  // 1: organization.BranchDetail.address:type_name -> organization.Address
-	5,  // 2: organization.CreateLoyaltyLevelRequest.loyalty_level:type_name -> organization.LoyaltyLevel
-	5,  // 3: organization.CreateLoyaltyLevelResponse.loyalty_level:type_name -> organization.LoyaltyLevel
-	5,  // 4: organization.GetLoyaltyLevelResponse.loyalty_level:type_name -> organization.LoyaltyLevel
-	5,  // 5: organization.UpdateLoyaltyLevelRequest.loyalty_level:type_name -> organization.LoyaltyLevel
-	5,  // 6: organization.UpdateLoyaltyLevelResponse.loyalty_level:type_name -> organization.LoyaltyLevel
-	5,  // 7: organization.ListLoyaltyLevelsByOrganizationResponse.loyalty_levels:type_name -> organization.LoyaltyLevel
-	0,  // 8: organization.CreateAddressRequest.address:type_name -> organization.Address
-	0,  // 9: organization.CreateAddressResponse.address:type_name -> organization.Address
-	0,  // 10: organization.GetAddressResponse.address:type_name -> organization.Address
-	0,  // 11: organization.UpdateAddressRequest.address:type_name -> organization.Address
-	0,  // 12: organization.UpdateAddressResponse.address:type_name -> organization.Address
-	0,  // 13: organization.PartialUpdateAddressRequest.address:type_name -> organization.Address
-	0,  // 14: organization.PartialUpdateAddressResponse.address:type_name -> organization.Address
-	1,  // 15: organization.CreateOrganizationRequest.organization:type_name -> organization.Organization
-	1,  // 16: organization.CreateOrganizationResponse.organization:type_name -> organization.Organization
-	2,  // 17: organization.GetOrganizationResponse.organization:type_name -> organization.OrganizationDetail
-	1,  // 18: organization.UpdateOrganizationRequest.organization:type_name -> organization.Organization
-	1,  // 19: organization.UpdateOrganizationResponse.organization:type_name -> organization.Organization
-	1,  // 20: organization.PartialUpdateOrganizationRequest.organization:type_name -> organization.Organization
-	1,  // 21: organization.PartialUpdateOrganizationResponse.organization:type_name -> organization.Organization
-	1,  // 22: organization.ListOrganizationsResponse.organizations:type_name -> organization.Organization
-	3,  // 23: organization.CreateBranchRequest.branch:type_name -> organization.Branch
-	3,  // 24: organization.CreateBranchResponse.branch:type_name -> organization.Branch
-	4,  // 25: organization.GetBranchResponse.branch:type_name -> organization.BranchDetail
-	3,  // 26: organization.UpdateBranchRequest.branch:type_name -> organization.Branch
-	3,  // 27: organization.UpdateBranchResponse.branch:type_name -> organization.Branch
-	3,  // 28: organization.PartialUpdateBranchRequest.branch:type_name -> organization.Branch
-	3,  // 29: organization.PartialUpdateBranchResponse.branch:type_name -> organization.Branch
-	6,  // 30: organization.CreateStoryResponse.story:type_name -> organization.Story
-	6,  // 31: organization.CreateStoryRequest.story:type_name -> organization.Story
-	6,  // 32: organization.UpdateStoryResponse.story:type_name -> organization.Story
-	6,  // 33: organization.UpdateStoryRequest.story:type_name -> organization.Story
-	6,  // 34: organization.ListStoryResponse.stories:type_name -> organization.Story
-	7,  // 35: organization.CreateBannerResponse.banner:type_name -> organization.Banner
-	7,  // 36: organization.CreateBannerRequest.banner:type_name -> organization.Banner
-	7,  // 37: organization.UpdateBannerResponse.banner:type_name -> organization.Banner
-	7,  // 38: organization.UpdateBannerRequest.banner:type_name -> organization.Banner
-	7,  // 39: organization.ListBannerResponse.banners:type_name -> organization.Banner
-	16, // 40: organization.OrganizationService.CreateAddress:input_type -> organization.CreateAddressRequest
-	18, // 41: organization.OrganizationService.GetAddress:input_type -> organization.GetAddressRequest
-	20, // 42: organization.OrganizationService.UpdateAddress:input_type -> organization.UpdateAddressRequest
-	22, // 43: organization.OrganizationService.PartialUpdateAddress:input_type -> organization.PartialUpdateAddressRequest
-	24, // 44: organization.OrganizationService.DeleteAddress:input_type -> organization.DeleteAddressRequest
-	26, // 45: organization.OrganizationService.CreateOrganization:input_type -> organization.CreateOrganizationRequest
-	28, // 46: organization.OrganizationService.GetOrganization:input_type -> organization.GetOrganizationRequest
-	30, // 47: organization.OrganizationService.UpdateOrganization:input_type -> organization.UpdateOrganizationRequest
-	32, // 48: organization.OrganizationService.PartialUpdateOrganization:input_type -> organization.PartialUpdateOrganizationRequest
-	34, // 49: organization.OrganizationService.DeleteOrganization:input_type -> organization.DeleteOrganizationRequest
-	36, // 50: organization.OrganizationService.ListOrganizations:input_type -> organization.ListOrganizationsRequest
-	38, // 51: organization.OrganizationService.CreateBranch:input_type -> organization.CreateBranchRequest
-	40, // 52: organization.OrganizationService.GetBranch:input_type -> organization.GetBranchRequest
-	42, // 53: organization.OrganizationService.UpdateBranch:input_type -> organization.UpdateBranchRequest
-	44, // 54: organization.OrganizationService.PartialUpdateBranch:input_type -> organization.PartialUpdateBranchRequest
-	46, // 55: organization.OrganizationService.DeleteBranch:input_type -> organization.DeleteBranchRequest
-	8,  // 56: organization.OrganizationService.CreateLoyaltyLevel:input_type -> organization.CreateLoyaltyLevelRequest
-	10, // 57: organization.OrganizationService.GetLoyaltyLevel:input_type -> organization.GetLoyaltyLevelRequest
-	12, // 58: organization.OrganizationService.UpdateLoyaltyLevel:input_type -> organization.UpdateLoyaltyLevelRequest
-	14, // 59: organization.OrganizationService.ListLoyaltyLevelsByOrganization:input_type -> organization.ListLoyaltyLevelsByOrganizationRequest
-	49, // 60: organization.OrganizationService.CreateStory:input_type -> organization.CreateStoryRequest
-	51, // 61: organization.OrganizationService.UpdateStory:input_type -> organization.UpdateStoryRequest
-	53, // 62: organization.OrganizationService.ListStory:input_type -> organization.ListStoryRequest
-	55, // 63: organization.OrganizationService.CreateBanner:input_type -> organization.CreateBannerRequest
-	57, // 64: organization.OrganizationService.UpdateBanner:input_type -> organization.UpdateBannerRequest
-	59, // 65: organization.OrganizationService.ListBanner:input_type -> organization.ListBannerRequest
-	17, // 66: organization.OrganizationService.CreateAddress:output_type -> organization.CreateAddressResponse
-	19, // 67: organization.OrganizationService.GetAddress:output_type -> organization.GetAddressResponse
-	21, // 68: organization.OrganizationService.UpdateAddress:output_type -> organization.UpdateAddressResponse
-	23, // 69: organization.OrganizationService.PartialUpdateAddress:output_type -> organization.PartialUpdateAddressResponse
-	25, // 70: organization.OrganizationService.DeleteAddress:output_type -> organization.DeleteAddressResponse
-	27, // 71: organization.OrganizationService.CreateOrganization:output_type -> organization.CreateOrganizationResponse
-	29, // 72: organization.OrganizationService.GetOrganization:output_type -> organization.GetOrganizationResponse
-	31, // 73: organization.OrganizationService.UpdateOrganization:output_type -> organization.UpdateOrganizationResponse
-	33, // 74: organization.OrganizationService.PartialUpdateOrganization:output_type -> organization.PartialUpdateOrganizationResponse
-	35, // 75: organization.OrganizationService.DeleteOrganization:output_type -> organization.DeleteOrganizationResponse
-	37, // 76: organization.OrganizationService.ListOrganizations:output_type -> organization.ListOrganizationsResponse
-	39, // 77: organization.OrganizationService.CreateBranch:output_type -> organization.CreateBranchResponse
-	41, // 78: organization.OrganizationService.GetBranch:output_type -> organization.GetBranchResponse
-	43, // 79: organization.OrganizationService.UpdateBranch:output_type -> organization.UpdateBranchResponse
-	45, // 80: organization.OrganizationService.PartialUpdateBranch:output_type -> organization.PartialUpdateBranchResponse
-	47, // 81: organization.OrganizationService.DeleteBranch:output_type -> organization.DeleteBranchResponse
-	9,  // 82: organization.OrganizationService.CreateLoyaltyLevel:output_type -> organization.CreateLoyaltyLevelResponse
-	11, // 83: organization.OrganizationService.GetLoyaltyLevel:output_type -> organization.GetLoyaltyLevelResponse
-	13, // 84: organization.OrganizationService.UpdateLoyaltyLevel:output_type -> organization.UpdateLoyaltyLevelResponse
-	15, // 85: organization.OrganizationService.ListLoyaltyLevelsByOrganization:output_type -> organization.ListLoyaltyLevelsByOrganizationResponse
-	48, // 86: organization.OrganizationService.CreateStory:output_type -> organization.CreateStoryResponse
-	50, // 87: organization.OrganizationService.UpdateStory:output_type -> organization.UpdateStoryResponse
-	52, // 88: organization.OrganizationService.ListStory:output_type -> organization.ListStoryResponse
-	54, // 89: organization.OrganizationService.CreateBanner:output_type -> organization.CreateBannerResponse
-	56, // 90: organization.OrganizationService.UpdateBanner:output_type -> organization.UpdateBannerResponse
-	58, // 91: organization.OrganizationService.ListBanner:output_type -> organization.ListBannerResponse
-	66, // [66:92] is the sub-list for method output_type
-	40, // [40:66] is the sub-list for method input_type
-	40, // [40:40] is the sub-list for extension type_name
-	40, // [40:40] is the sub-list for extension extendee
-	0,  // [0:40] is the sub-list for field type_name
+	4,  // 0: organization.OrganizationDetail.branches:type_name -> organization.Branch
+	1,  // 1: organization.BranchDetail.address:type_name -> organization.Address
+	6,  // 2: organization.CreateLoyaltyLevelRequest.loyalty_level:type_name -> organization.LoyaltyLevel
+	6,  // 3: organization.CreateLoyaltyLevelResponse.loyalty_level:type_name -> organization.LoyaltyLevel
+	6,  // 4: organization.GetLoyaltyLevelResponse.loyalty_level:type_name -> organization.LoyaltyLevel
+	6,  // 5: organization.UpdateLoyaltyLevelRequest.loyalty_level:type_name -> organization.LoyaltyLevel
+	6,  // 6: organization.UpdateLoyaltyLevelResponse.loyalty_level:type_name -> organization.LoyaltyLevel
+	6,  // 7: organization.ListLoyaltyLevelsByOrganizationResponse.loyalty_levels:type_name -> organization.LoyaltyLevel
+	1,  // 8: organization.CreateAddressRequest.address:type_name -> organization.Address
+	1,  // 9: organization.CreateAddressResponse.address:type_name -> organization.Address
+	1,  // 10: organization.GetAddressResponse.address:type_name -> organization.Address
+	1,  // 11: organization.UpdateAddressRequest.address:type_name -> organization.Address
+	1,  // 12: organization.UpdateAddressResponse.address:type_name -> organization.Address
+	1,  // 13: organization.PartialUpdateAddressRequest.address:type_name -> organization.Address
+	1,  // 14: organization.PartialUpdateAddressResponse.address:type_name -> organization.Address
+	2,  // 15: organization.CreateOrganizationRequest.organization:type_name -> organization.Organization
+	2,  // 16: organization.CreateOrganizationResponse.organization:type_name -> organization.Organization
+	3,  // 17: organization.GetOrganizationResponse.organization:type_name -> organization.OrganizationDetail
+	2,  // 18: organization.UpdateOrganizationRequest.organization:type_name -> organization.Organization
+	2,  // 19: organization.UpdateOrganizationResponse.organization:type_name -> organization.Organization
+	2,  // 20: organization.PartialUpdateOrganizationRequest.organization:type_name -> organization.Organization
+	2,  // 21: organization.PartialUpdateOrganizationResponse.organization:type_name -> organization.Organization
+	2,  // 22: organization.ListOrganizationsResponse.organizations:type_name -> organization.Organization
+	4,  // 23: organization.CreateBranchRequest.branch:type_name -> organization.Branch
+	4,  // 24: organization.CreateBranchResponse.branch:type_name -> organization.Branch
+	5,  // 25: organization.GetBranchResponse.branch:type_name -> organization.BranchDetail
+	4,  // 26: organization.UpdateBranchRequest.branch:type_name -> organization.Branch
+	4,  // 27: organization.UpdateBranchResponse.branch:type_name -> organization.Branch
+	4,  // 28: organization.PartialUpdateBranchRequest.branch:type_name -> organization.Branch
+	4,  // 29: organization.PartialUpdateBranchResponse.branch:type_name -> organization.Branch
+	7,  // 30: organization.CreateStoryResponse.story:type_name -> organization.Story
+	7,  // 31: organization.CreateStoryRequest.story:type_name -> organization.Story
+	7,  // 32: organization.UpdateStoryResponse.story:type_name -> organization.Story
+	7,  // 33: organization.UpdateStoryRequest.story:type_name -> organization.Story
+	7,  // 34: organization.ListStoryResponse.stories:type_name -> organization.Story
+	8,  // 35: organization.CreateBannerResponse.banner:type_name -> organization.Banner
+	8,  // 36: organization.CreateBannerRequest.banner:type_name -> organization.Banner
+	8,  // 37: organization.UpdateBannerResponse.banner:type_name -> organization.Banner
+	8,  // 38: organization.UpdateBannerRequest.banner:type_name -> organization.Banner
+	8,  // 39: organization.ListBannerResponse.banners:type_name -> organization.Banner
+	0,  // 40: organization.CreateMobilePageDiscountRequest.discount:type_name -> organization.MobilePageDiscount
+	0,  // 41: organization.CreateMobilePageDiscountResponse.discount:type_name -> organization.MobilePageDiscount
+	0,  // 42: organization.ListMobilePageDiscountsResponse.discounts:type_name -> organization.MobilePageDiscount
+	17, // 43: organization.OrganizationService.CreateAddress:input_type -> organization.CreateAddressRequest
+	19, // 44: organization.OrganizationService.GetAddress:input_type -> organization.GetAddressRequest
+	21, // 45: organization.OrganizationService.UpdateAddress:input_type -> organization.UpdateAddressRequest
+	23, // 46: organization.OrganizationService.PartialUpdateAddress:input_type -> organization.PartialUpdateAddressRequest
+	25, // 47: organization.OrganizationService.DeleteAddress:input_type -> organization.DeleteAddressRequest
+	27, // 48: organization.OrganizationService.CreateOrganization:input_type -> organization.CreateOrganizationRequest
+	29, // 49: organization.OrganizationService.GetOrganization:input_type -> organization.GetOrganizationRequest
+	31, // 50: organization.OrganizationService.UpdateOrganization:input_type -> organization.UpdateOrganizationRequest
+	33, // 51: organization.OrganizationService.PartialUpdateOrganization:input_type -> organization.PartialUpdateOrganizationRequest
+	35, // 52: organization.OrganizationService.DeleteOrganization:input_type -> organization.DeleteOrganizationRequest
+	37, // 53: organization.OrganizationService.ListOrganizations:input_type -> organization.ListOrganizationsRequest
+	39, // 54: organization.OrganizationService.CreateBranch:input_type -> organization.CreateBranchRequest
+	41, // 55: organization.OrganizationService.GetBranch:input_type -> organization.GetBranchRequest
+	43, // 56: organization.OrganizationService.UpdateBranch:input_type -> organization.UpdateBranchRequest
+	45, // 57: organization.OrganizationService.PartialUpdateBranch:input_type -> organization.PartialUpdateBranchRequest
+	47, // 58: organization.OrganizationService.DeleteBranch:input_type -> organization.DeleteBranchRequest
+	9,  // 59: organization.OrganizationService.CreateLoyaltyLevel:input_type -> organization.CreateLoyaltyLevelRequest
+	11, // 60: organization.OrganizationService.GetLoyaltyLevel:input_type -> organization.GetLoyaltyLevelRequest
+	13, // 61: organization.OrganizationService.UpdateLoyaltyLevel:input_type -> organization.UpdateLoyaltyLevelRequest
+	15, // 62: organization.OrganizationService.ListLoyaltyLevelsByOrganization:input_type -> organization.ListLoyaltyLevelsByOrganizationRequest
+	50, // 63: organization.OrganizationService.CreateStory:input_type -> organization.CreateStoryRequest
+	52, // 64: organization.OrganizationService.UpdateStory:input_type -> organization.UpdateStoryRequest
+	54, // 65: organization.OrganizationService.ListStory:input_type -> organization.ListStoryRequest
+	56, // 66: organization.OrganizationService.CreateBanner:input_type -> organization.CreateBannerRequest
+	58, // 67: organization.OrganizationService.UpdateBanner:input_type -> organization.UpdateBannerRequest
+	60, // 68: organization.OrganizationService.ListBanner:input_type -> organization.ListBannerRequest
+	61, // 69: organization.OrganizationService.CreateMobilePageDiscount:input_type -> organization.CreateMobilePageDiscountRequest
+	63, // 70: organization.OrganizationService.ListMobilePageDiscounts:input_type -> organization.ListMobilePageDiscountsRequest
+	18, // 71: organization.OrganizationService.CreateAddress:output_type -> organization.CreateAddressResponse
+	20, // 72: organization.OrganizationService.GetAddress:output_type -> organization.GetAddressResponse
+	22, // 73: organization.OrganizationService.UpdateAddress:output_type -> organization.UpdateAddressResponse
+	24, // 74: organization.OrganizationService.PartialUpdateAddress:output_type -> organization.PartialUpdateAddressResponse
+	26, // 75: organization.OrganizationService.DeleteAddress:output_type -> organization.DeleteAddressResponse
+	28, // 76: organization.OrganizationService.CreateOrganization:output_type -> organization.CreateOrganizationResponse
+	30, // 77: organization.OrganizationService.GetOrganization:output_type -> organization.GetOrganizationResponse
+	32, // 78: organization.OrganizationService.UpdateOrganization:output_type -> organization.UpdateOrganizationResponse
+	34, // 79: organization.OrganizationService.PartialUpdateOrganization:output_type -> organization.PartialUpdateOrganizationResponse
+	36, // 80: organization.OrganizationService.DeleteOrganization:output_type -> organization.DeleteOrganizationResponse
+	38, // 81: organization.OrganizationService.ListOrganizations:output_type -> organization.ListOrganizationsResponse
+	40, // 82: organization.OrganizationService.CreateBranch:output_type -> organization.CreateBranchResponse
+	42, // 83: organization.OrganizationService.GetBranch:output_type -> organization.GetBranchResponse
+	44, // 84: organization.OrganizationService.UpdateBranch:output_type -> organization.UpdateBranchResponse
+	46, // 85: organization.OrganizationService.PartialUpdateBranch:output_type -> organization.PartialUpdateBranchResponse
+	48, // 86: organization.OrganizationService.DeleteBranch:output_type -> organization.DeleteBranchResponse
+	10, // 87: organization.OrganizationService.CreateLoyaltyLevel:output_type -> organization.CreateLoyaltyLevelResponse
+	12, // 88: organization.OrganizationService.GetLoyaltyLevel:output_type -> organization.GetLoyaltyLevelResponse
+	14, // 89: organization.OrganizationService.UpdateLoyaltyLevel:output_type -> organization.UpdateLoyaltyLevelResponse
+	16, // 90: organization.OrganizationService.ListLoyaltyLevelsByOrganization:output_type -> organization.ListLoyaltyLevelsByOrganizationResponse
+	49, // 91: organization.OrganizationService.CreateStory:output_type -> organization.CreateStoryResponse
+	51, // 92: organization.OrganizationService.UpdateStory:output_type -> organization.UpdateStoryResponse
+	53, // 93: organization.OrganizationService.ListStory:output_type -> organization.ListStoryResponse
+	55, // 94: organization.OrganizationService.CreateBanner:output_type -> organization.CreateBannerResponse
+	57, // 95: organization.OrganizationService.UpdateBanner:output_type -> organization.UpdateBannerResponse
+	59, // 96: organization.OrganizationService.ListBanner:output_type -> organization.ListBannerResponse
+	62, // 97: organization.OrganizationService.CreateMobilePageDiscount:output_type -> organization.CreateMobilePageDiscountResponse
+	64, // 98: organization.OrganizationService.ListMobilePageDiscounts:output_type -> organization.ListMobilePageDiscountsResponse
+	71, // [71:99] is the sub-list for method output_type
+	43, // [43:71] is the sub-list for method input_type
+	43, // [43:43] is the sub-list for extension type_name
+	43, // [43:43] is the sub-list for extension extendee
+	0,  // [0:43] is the sub-list for field type_name
 }
 
 func init() { file_organization_organization_proto_init() }
@@ -3606,13 +3917,14 @@ func file_organization_organization_proto_init() {
 	file_organization_organization_proto_msgTypes[5].OneofWrappers = []any{}
 	file_organization_organization_proto_msgTypes[6].OneofWrappers = []any{}
 	file_organization_organization_proto_msgTypes[7].OneofWrappers = []any{}
+	file_organization_organization_proto_msgTypes[8].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_organization_organization_proto_rawDesc), len(file_organization_organization_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   60,
+			NumMessages:   65,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

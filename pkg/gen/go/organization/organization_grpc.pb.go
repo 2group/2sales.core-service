@@ -45,6 +45,8 @@ const (
 	OrganizationService_CreateBanner_FullMethodName                    = "/organization.OrganizationService/CreateBanner"
 	OrganizationService_UpdateBanner_FullMethodName                    = "/organization.OrganizationService/UpdateBanner"
 	OrganizationService_ListBanner_FullMethodName                      = "/organization.OrganizationService/ListBanner"
+	OrganizationService_CreateMobilePageDiscount_FullMethodName        = "/organization.OrganizationService/CreateMobilePageDiscount"
+	OrganizationService_ListMobilePageDiscounts_FullMethodName         = "/organization.OrganizationService/ListMobilePageDiscounts"
 )
 
 // OrganizationServiceClient is the client API for OrganizationService service.
@@ -77,6 +79,8 @@ type OrganizationServiceClient interface {
 	CreateBanner(ctx context.Context, in *CreateBannerRequest, opts ...grpc.CallOption) (*CreateBannerResponse, error)
 	UpdateBanner(ctx context.Context, in *UpdateBannerRequest, opts ...grpc.CallOption) (*UpdateBannerResponse, error)
 	ListBanner(ctx context.Context, in *ListBannerRequest, opts ...grpc.CallOption) (*ListBannerResponse, error)
+	CreateMobilePageDiscount(ctx context.Context, in *CreateMobilePageDiscountRequest, opts ...grpc.CallOption) (*CreateMobilePageDiscountResponse, error)
+	ListMobilePageDiscounts(ctx context.Context, in *ListMobilePageDiscountsRequest, opts ...grpc.CallOption) (*ListMobilePageDiscountsResponse, error)
 }
 
 type organizationServiceClient struct {
@@ -347,6 +351,26 @@ func (c *organizationServiceClient) ListBanner(ctx context.Context, in *ListBann
 	return out, nil
 }
 
+func (c *organizationServiceClient) CreateMobilePageDiscount(ctx context.Context, in *CreateMobilePageDiscountRequest, opts ...grpc.CallOption) (*CreateMobilePageDiscountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateMobilePageDiscountResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_CreateMobilePageDiscount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *organizationServiceClient) ListMobilePageDiscounts(ctx context.Context, in *ListMobilePageDiscountsRequest, opts ...grpc.CallOption) (*ListMobilePageDiscountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListMobilePageDiscountsResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_ListMobilePageDiscounts_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationServiceServer is the server API for OrganizationService service.
 // All implementations must embed UnimplementedOrganizationServiceServer
 // for forward compatibility.
@@ -377,6 +401,8 @@ type OrganizationServiceServer interface {
 	CreateBanner(context.Context, *CreateBannerRequest) (*CreateBannerResponse, error)
 	UpdateBanner(context.Context, *UpdateBannerRequest) (*UpdateBannerResponse, error)
 	ListBanner(context.Context, *ListBannerRequest) (*ListBannerResponse, error)
+	CreateMobilePageDiscount(context.Context, *CreateMobilePageDiscountRequest) (*CreateMobilePageDiscountResponse, error)
+	ListMobilePageDiscounts(context.Context, *ListMobilePageDiscountsRequest) (*ListMobilePageDiscountsResponse, error)
 	mustEmbedUnimplementedOrganizationServiceServer()
 }
 
@@ -464,6 +490,12 @@ func (UnimplementedOrganizationServiceServer) UpdateBanner(context.Context, *Upd
 }
 func (UnimplementedOrganizationServiceServer) ListBanner(context.Context, *ListBannerRequest) (*ListBannerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListBanner not implemented")
+}
+func (UnimplementedOrganizationServiceServer) CreateMobilePageDiscount(context.Context, *CreateMobilePageDiscountRequest) (*CreateMobilePageDiscountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMobilePageDiscount not implemented")
+}
+func (UnimplementedOrganizationServiceServer) ListMobilePageDiscounts(context.Context, *ListMobilePageDiscountsRequest) (*ListMobilePageDiscountsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMobilePageDiscounts not implemented")
 }
 func (UnimplementedOrganizationServiceServer) mustEmbedUnimplementedOrganizationServiceServer() {}
 func (UnimplementedOrganizationServiceServer) testEmbeddedByValue()                             {}
@@ -954,6 +986,42 @@ func _OrganizationService_ListBanner_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_CreateMobilePageDiscount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateMobilePageDiscountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).CreateMobilePageDiscount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_CreateMobilePageDiscount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).CreateMobilePageDiscount(ctx, req.(*CreateMobilePageDiscountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrganizationService_ListMobilePageDiscounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMobilePageDiscountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).ListMobilePageDiscounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_ListMobilePageDiscounts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).ListMobilePageDiscounts(ctx, req.(*ListMobilePageDiscountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationService_ServiceDesc is the grpc.ServiceDesc for OrganizationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1064,6 +1132,14 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListBanner",
 			Handler:    _OrganizationService_ListBanner_Handler,
+		},
+		{
+			MethodName: "CreateMobilePageDiscount",
+			Handler:    _OrganizationService_CreateMobilePageDiscount_Handler,
+		},
+		{
+			MethodName: "ListMobilePageDiscounts",
+			Handler:    _OrganizationService_ListMobilePageDiscounts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
