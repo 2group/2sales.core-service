@@ -35,6 +35,7 @@ const (
 	OrganizationService_UpdateBranch_FullMethodName                    = "/organization.OrganizationService/UpdateBranch"
 	OrganizationService_PartialUpdateBranch_FullMethodName             = "/organization.OrganizationService/PartialUpdateBranch"
 	OrganizationService_DeleteBranch_FullMethodName                    = "/organization.OrganizationService/DeleteBranch"
+	OrganizationService_ListBranchesByOrganization_FullMethodName      = "/organization.OrganizationService/ListBranchesByOrganization"
 	OrganizationService_CreateLoyaltyLevel_FullMethodName              = "/organization.OrganizationService/CreateLoyaltyLevel"
 	OrganizationService_GetLoyaltyLevel_FullMethodName                 = "/organization.OrganizationService/GetLoyaltyLevel"
 	OrganizationService_UpdateLoyaltyLevel_FullMethodName              = "/organization.OrganizationService/UpdateLoyaltyLevel"
@@ -70,6 +71,7 @@ type OrganizationServiceClient interface {
 	UpdateBranch(ctx context.Context, in *UpdateBranchRequest, opts ...grpc.CallOption) (*UpdateBranchResponse, error)
 	PartialUpdateBranch(ctx context.Context, in *PartialUpdateBranchRequest, opts ...grpc.CallOption) (*PartialUpdateBranchResponse, error)
 	DeleteBranch(ctx context.Context, in *DeleteBranchRequest, opts ...grpc.CallOption) (*DeleteBranchResponse, error)
+	ListBranchesByOrganization(ctx context.Context, in *ListBranchesByOrganizationRequest, opts ...grpc.CallOption) (*ListBranchesByOrganizationResponse, error)
 	CreateLoyaltyLevel(ctx context.Context, in *CreateLoyaltyLevelRequest, opts ...grpc.CallOption) (*CreateLoyaltyLevelResponse, error)
 	GetLoyaltyLevel(ctx context.Context, in *GetLoyaltyLevelRequest, opts ...grpc.CallOption) (*GetLoyaltyLevelResponse, error)
 	UpdateLoyaltyLevel(ctx context.Context, in *UpdateLoyaltyLevelRequest, opts ...grpc.CallOption) (*UpdateLoyaltyLevelResponse, error)
@@ -253,6 +255,16 @@ func (c *organizationServiceClient) DeleteBranch(ctx context.Context, in *Delete
 	return out, nil
 }
 
+func (c *organizationServiceClient) ListBranchesByOrganization(ctx context.Context, in *ListBranchesByOrganizationRequest, opts ...grpc.CallOption) (*ListBranchesByOrganizationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListBranchesByOrganizationResponse)
+	err := c.cc.Invoke(ctx, OrganizationService_ListBranchesByOrganization_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *organizationServiceClient) CreateLoyaltyLevel(ctx context.Context, in *CreateLoyaltyLevelRequest, opts ...grpc.CallOption) (*CreateLoyaltyLevelResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateLoyaltyLevelResponse)
@@ -403,6 +415,7 @@ type OrganizationServiceServer interface {
 	UpdateBranch(context.Context, *UpdateBranchRequest) (*UpdateBranchResponse, error)
 	PartialUpdateBranch(context.Context, *PartialUpdateBranchRequest) (*PartialUpdateBranchResponse, error)
 	DeleteBranch(context.Context, *DeleteBranchRequest) (*DeleteBranchResponse, error)
+	ListBranchesByOrganization(context.Context, *ListBranchesByOrganizationRequest) (*ListBranchesByOrganizationResponse, error)
 	CreateLoyaltyLevel(context.Context, *CreateLoyaltyLevelRequest) (*CreateLoyaltyLevelResponse, error)
 	GetLoyaltyLevel(context.Context, *GetLoyaltyLevelRequest) (*GetLoyaltyLevelResponse, error)
 	UpdateLoyaltyLevel(context.Context, *UpdateLoyaltyLevelRequest) (*UpdateLoyaltyLevelResponse, error)
@@ -473,6 +486,9 @@ func (UnimplementedOrganizationServiceServer) PartialUpdateBranch(context.Contex
 }
 func (UnimplementedOrganizationServiceServer) DeleteBranch(context.Context, *DeleteBranchRequest) (*DeleteBranchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteBranch not implemented")
+}
+func (UnimplementedOrganizationServiceServer) ListBranchesByOrganization(context.Context, *ListBranchesByOrganizationRequest) (*ListBranchesByOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListBranchesByOrganization not implemented")
 }
 func (UnimplementedOrganizationServiceServer) CreateLoyaltyLevel(context.Context, *CreateLoyaltyLevelRequest) (*CreateLoyaltyLevelResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLoyaltyLevel not implemented")
@@ -822,6 +838,24 @@ func _OrganizationService_DeleteBranch_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationService_ListBranchesByOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListBranchesByOrganizationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationServiceServer).ListBranchesByOrganization(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrganizationService_ListBranchesByOrganization_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationServiceServer).ListBranchesByOrganization(ctx, req.(*ListBranchesByOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrganizationService_CreateLoyaltyLevel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateLoyaltyLevelRequest)
 	if err := dec(in); err != nil {
@@ -1126,6 +1160,10 @@ var OrganizationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBranch",
 			Handler:    _OrganizationService_DeleteBranch_Handler,
+		},
+		{
+			MethodName: "ListBranchesByOrganization",
+			Handler:    _OrganizationService_ListBranchesByOrganization_Handler,
 		},
 		{
 			MethodName: "CreateLoyaltyLevel",

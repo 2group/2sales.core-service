@@ -23,6 +23,7 @@ service OrganizationService {
     rpc UpdateBranch (UpdateBranchRequest) returns (UpdateBranchResponse);
     rpc PartialUpdateBranch (PartialUpdateBranchRequest) returns (PartialUpdateBranchResponse);
     rpc DeleteBranch (DeleteBranchRequest) returns (DeleteBranchResponse);
+    rpc ListBranchesByOrganization (ListBranchesByOrganizationRequest) returns (ListBranchesByOrganizationResponse);
 
     rpc CreateLoyaltyLevel (CreateLoyaltyLevelRequest) returns (CreateLoyaltyLevelResponse);
     rpc GetLoyaltyLevel (GetLoyaltyLevelRequest) returns (GetLoyaltyLevelResponse);
@@ -304,6 +305,14 @@ message DeleteBranchResponse {
 
 }
 
+message ListBranchesByOrganizationRequest {
+    optional int64 organization_id = 1;
+}
+
+message ListBranchesByOrganizationResponse {
+    repeated Branch branches = 1;
+}
+
 message CreateStoryResponse {
     Story story = 1;
 }
@@ -362,3 +371,4 @@ message ListMobilePageDiscountsRequest {}
 message ListMobilePageDiscountsResponse {
     repeated MobilePageDiscount discounts = 1;
 }
+
