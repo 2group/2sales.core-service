@@ -14,6 +14,7 @@ PROTO_FILES ?= \
 	service/service.proto \
 	b2c_service_order/b2c_service_order.proto \
 	employee/employee.proto \
+	notification/notification.proto \
 	# warehouse/warehouse.proto \
 
 proto:
