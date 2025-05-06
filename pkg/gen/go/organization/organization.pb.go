@@ -31,6 +31,7 @@ type MobilePageDiscount struct {
 	ButtonUrl     *string                `protobuf:"bytes,6,opt,name=button_url,json=buttonUrl,proto3,oneof" json:"button_url,omitempty"`
 	CreatedAt     *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
 	UpdatedAt     *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	ImageUrl      *string                `protobuf:"bytes,9,opt,name=image_url,json=imageUrl,proto3,oneof" json:"image_url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -117,6 +118,13 @@ func (x *MobilePageDiscount) GetCreatedAt() string {
 func (x *MobilePageDiscount) GetUpdatedAt() string {
 	if x != nil && x.UpdatedAt != nil {
 		return *x.UpdatedAt
+	}
+	return ""
+}
+
+func (x *MobilePageDiscount) GetImageUrl() string {
+	if x != nil && x.ImageUrl != nil {
+		return *x.ImageUrl
 	}
 	return ""
 }
@@ -3485,7 +3493,7 @@ var File_organization_organization_proto protoreflect.FileDescriptor
 
 const file_organization_organization_proto_rawDesc = "" +
 	"\n" +
-	"\x1forganization/organization.proto\x12\forganization\"\xed\x02\n" +
+	"\x1forganization/organization.proto\x12\forganization\"\x9d\x03\n" +
 	"\x12MobilePageDiscount\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
@@ -3498,7 +3506,8 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\a \x01(\tH\x05R\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"updated_at\x18\b \x01(\tH\x06R\tupdatedAt\x88\x01\x01B\x05\n" +
+	"updated_at\x18\b \x01(\tH\x06R\tupdatedAt\x88\x01\x01\x12 \n" +
+	"\timage_url\x18\t \x01(\tH\aR\bimageUrl\x88\x01\x01B\x05\n" +
 	"\x03_idB\f\n" +
 	"\n" +
 	"_from_dateB\n" +
@@ -3507,7 +3516,9 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\f_button_textB\r\n" +
 	"\v_button_urlB\r\n" +
 	"\v_created_atB\r\n" +
-	"\v_updated_at\"\x98\x03\n" +
+	"\v_updated_atB\f\n" +
+	"\n" +
+	"_image_url\"\x98\x03\n" +
 	"\aAddress\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x18\n" +

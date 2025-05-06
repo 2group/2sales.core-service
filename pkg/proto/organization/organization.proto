@@ -51,6 +51,7 @@ message MobilePageDiscount {
     optional string button_url = 6;
     optional string created_at = 7;
     optional string updated_at = 8;
+    optional string image_url = 9;
 }
 
 message Address {
