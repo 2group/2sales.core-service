@@ -5,7 +5,6 @@ package customer;
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1";
 
 import "google/protobuf/field_mask.proto";
-import "google/protobuf/empty.proto";
 import "organization/organization.proto";
 
 service CustomerService {
@@ -22,9 +21,9 @@ service CustomerService {
     rpc UpdateGiftCertificate (UpdateGiftCertificateRequest) returns (UpdateGiftCertificateResponse);
     rpc ListGiftCertificates (ListGiftCertificatesRequest) returns (ListGiftCertificatesResponse);
 
-    rpc ListGiftCertificateLabels (google.protobuf.Empty) returns (ListGiftCertificateLabelsResponse);
-    rpc ListGiftCertificateIcons (google.protobuf.Empty) returns (ListGiftCertificateIconsResponse);
-    rpc ListGiftCertificateBackgrounds (google.protobuf.Empty) returns (ListGiftCertificateBackgroundsResponse);
+    rpc ListGiftCertificateLabels (ListGiftCertificateLabelsRequest) returns (ListGiftCertificateLabelsResponse);
+    rpc ListGiftCertificateIcons (ListGiftCertificateIconsRequest) returns (ListGiftCertificateIconsResponse);
+    rpc ListGiftCertificateBackgrounds (ListGiftCertificateBackgroundsRequest) returns (ListGiftCertificateBackgroundsResponse);
 }
 
 message Customer {
@@ -201,14 +200,19 @@ message GiftCertificateBackground {
     string background_url = 2;
     int32 index = 3;
 }
+message ListGiftCertificateLabelsRequest {}
 
 message ListGiftCertificateLabelsResponse {
     repeated GiftCertificateLabel labels = 1;
 }
 
+message ListGiftCertificateIconsRequest {}
+
 message ListGiftCertificateIconsResponse {
     repeated GiftCertificateIcon icons = 1;
 }
+
+message ListGiftCertificateBackgroundsRequest {}
 
 message ListGiftCertificateBackgroundsResponse {
     repeated GiftCertificateBackground backgrounds = 1;
