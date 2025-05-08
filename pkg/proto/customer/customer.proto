@@ -5,6 +5,7 @@ package customer;
 option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/customer;customerv1";
 
 import "google/protobuf/field_mask.proto";
+import "google/protobuf/empty.proto";
 import "organization/organization.proto";
 
 service CustomerService {
@@ -21,20 +22,9 @@ service CustomerService {
     rpc UpdateGiftCertificate (UpdateGiftCertificateRequest) returns (UpdateGiftCertificateResponse);
     rpc ListGiftCertificates (ListGiftCertificatesRequest) returns (ListGiftCertificatesResponse);
 
-    rpc ListGiftCertificateDesigns (ListGiftCertificateDesignsRequest) returns (ListGiftCertificateDesignsResponse);
-}
-
-message GiftCertificateDesign {
-    int64 id = 1;
-    string label = 2;
-    string image_url = 3;
-    int32 index = 4;
-}
-
-message ListGiftCertificateDesignsRequest {}
-
-message ListGiftCertificateDesignsResponse {
-    repeated GiftCertificateDesign designs = 1;
+    rpc ListGiftCertificateLabels (google.protobuf.Empty) returns (ListGiftCertificateLabelsResponse);
+    rpc ListGiftCertificateIcons (google.protobuf.Empty) returns (ListGiftCertificateIconsResponse);
+    rpc ListGiftCertificateBackgrounds (google.protobuf.Empty) returns (ListGiftCertificateBackgroundsResponse);
 }
 
 message Customer {
@@ -72,7 +62,14 @@ message GiftCertificate {
     optional string expires_at = 7;
     optional string created_at = 8;
     optional string updated_at = 9;
-    optional int64 design_id = 10;
+
+    optional int64 label_id = 10;
+    optional int64 icon_id = 11;
+    optional int64 background_id = 12;
+
+    optional GiftCertificateLabel label = 13;
+    optional GiftCertificateIcon icon = 14;
+    optional GiftCertificateBackground background = 15;
 }
 
 message CreateGiftCertificateRequest {
@@ -172,7 +169,7 @@ message DeleteCustomerResponse {}
 
 message ListCustomersRequest {
     optional int64 organization_id = 1;
-    optional string search_text = 2; // by name, email, phone
+    optional string search_text = 2;
     optional string created_at_from = 3;
     optional string created_at_to = 4;
     optional int64 loyalty_level_id = 5;
@@ -185,4 +182,34 @@ message ListCustomersRequest {
 message ListCustomersResponse {
     repeated Customer customers = 1;
     int32 total_count = 2;
+}
+
+message GiftCertificateLabel {
+    int64 id = 1;
+    string text = 2;
+    int32 index = 3;
+}
+
+message GiftCertificateIcon {
+    int64 id = 1;
+    string image_url = 2;
+    int32 index = 3;
+}
+
+message GiftCertificateBackground {
+    int64 id = 1;
+    string background_url = 2;
+    int32 index = 3;
+}
+
+message ListGiftCertificateLabelsResponse {
+    repeated GiftCertificateLabel labels = 1;
+}
+
+message ListGiftCertificateIconsResponse {
+    repeated GiftCertificateIcon icons = 1;
+}
+
+message ListGiftCertificateBackgroundsResponse {
+    repeated GiftCertificateBackground backgrounds = 1;
 }

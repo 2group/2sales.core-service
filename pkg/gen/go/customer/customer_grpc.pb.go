@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,18 +20,20 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CustomerService_GetCustomer_FullMethodName                = "/customer.CustomerService/GetCustomer"
-	CustomerService_CreateCustomer_FullMethodName             = "/customer.CustomerService/CreateCustomer"
-	CustomerService_DeleteCustomer_FullMethodName             = "/customer.CustomerService/DeleteCustomer"
-	CustomerService_PartialUpdateCustomer_FullMethodName      = "/customer.CustomerService/PartialUpdateCustomer"
-	CustomerService_UpdateCustomer_FullMethodName             = "/customer.CustomerService/UpdateCustomer"
-	CustomerService_ListCustomers_FullMethodName              = "/customer.CustomerService/ListCustomers"
-	CustomerService_CreateBonusTransaction_FullMethodName     = "/customer.CustomerService/CreateBonusTransaction"
-	CustomerService_CreateGiftCertificate_FullMethodName      = "/customer.CustomerService/CreateGiftCertificate"
-	CustomerService_GetGiftCertificate_FullMethodName         = "/customer.CustomerService/GetGiftCertificate"
-	CustomerService_UpdateGiftCertificate_FullMethodName      = "/customer.CustomerService/UpdateGiftCertificate"
-	CustomerService_ListGiftCertificates_FullMethodName       = "/customer.CustomerService/ListGiftCertificates"
-	CustomerService_ListGiftCertificateDesigns_FullMethodName = "/customer.CustomerService/ListGiftCertificateDesigns"
+	CustomerService_GetCustomer_FullMethodName                    = "/customer.CustomerService/GetCustomer"
+	CustomerService_CreateCustomer_FullMethodName                 = "/customer.CustomerService/CreateCustomer"
+	CustomerService_DeleteCustomer_FullMethodName                 = "/customer.CustomerService/DeleteCustomer"
+	CustomerService_PartialUpdateCustomer_FullMethodName          = "/customer.CustomerService/PartialUpdateCustomer"
+	CustomerService_UpdateCustomer_FullMethodName                 = "/customer.CustomerService/UpdateCustomer"
+	CustomerService_ListCustomers_FullMethodName                  = "/customer.CustomerService/ListCustomers"
+	CustomerService_CreateBonusTransaction_FullMethodName         = "/customer.CustomerService/CreateBonusTransaction"
+	CustomerService_CreateGiftCertificate_FullMethodName          = "/customer.CustomerService/CreateGiftCertificate"
+	CustomerService_GetGiftCertificate_FullMethodName             = "/customer.CustomerService/GetGiftCertificate"
+	CustomerService_UpdateGiftCertificate_FullMethodName          = "/customer.CustomerService/UpdateGiftCertificate"
+	CustomerService_ListGiftCertificates_FullMethodName           = "/customer.CustomerService/ListGiftCertificates"
+	CustomerService_ListGiftCertificateLabels_FullMethodName      = "/customer.CustomerService/ListGiftCertificateLabels"
+	CustomerService_ListGiftCertificateIcons_FullMethodName       = "/customer.CustomerService/ListGiftCertificateIcons"
+	CustomerService_ListGiftCertificateBackgrounds_FullMethodName = "/customer.CustomerService/ListGiftCertificateBackgrounds"
 )
 
 // CustomerServiceClient is the client API for CustomerService service.
@@ -48,7 +51,9 @@ type CustomerServiceClient interface {
 	GetGiftCertificate(ctx context.Context, in *GetGiftCertificateRequest, opts ...grpc.CallOption) (*GetGiftCertificateResponse, error)
 	UpdateGiftCertificate(ctx context.Context, in *UpdateGiftCertificateRequest, opts ...grpc.CallOption) (*UpdateGiftCertificateResponse, error)
 	ListGiftCertificates(ctx context.Context, in *ListGiftCertificatesRequest, opts ...grpc.CallOption) (*ListGiftCertificatesResponse, error)
-	ListGiftCertificateDesigns(ctx context.Context, in *ListGiftCertificateDesignsRequest, opts ...grpc.CallOption) (*ListGiftCertificateDesignsResponse, error)
+	ListGiftCertificateLabels(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListGiftCertificateLabelsResponse, error)
+	ListGiftCertificateIcons(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListGiftCertificateIconsResponse, error)
+	ListGiftCertificateBackgrounds(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListGiftCertificateBackgroundsResponse, error)
 }
 
 type customerServiceClient struct {
@@ -169,10 +174,30 @@ func (c *customerServiceClient) ListGiftCertificates(ctx context.Context, in *Li
 	return out, nil
 }
 
-func (c *customerServiceClient) ListGiftCertificateDesigns(ctx context.Context, in *ListGiftCertificateDesignsRequest, opts ...grpc.CallOption) (*ListGiftCertificateDesignsResponse, error) {
+func (c *customerServiceClient) ListGiftCertificateLabels(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListGiftCertificateLabelsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListGiftCertificateDesignsResponse)
-	err := c.cc.Invoke(ctx, CustomerService_ListGiftCertificateDesigns_FullMethodName, in, out, cOpts...)
+	out := new(ListGiftCertificateLabelsResponse)
+	err := c.cc.Invoke(ctx, CustomerService_ListGiftCertificateLabels_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerServiceClient) ListGiftCertificateIcons(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListGiftCertificateIconsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListGiftCertificateIconsResponse)
+	err := c.cc.Invoke(ctx, CustomerService_ListGiftCertificateIcons_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerServiceClient) ListGiftCertificateBackgrounds(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListGiftCertificateBackgroundsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListGiftCertificateBackgroundsResponse)
+	err := c.cc.Invoke(ctx, CustomerService_ListGiftCertificateBackgrounds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -194,7 +219,9 @@ type CustomerServiceServer interface {
 	GetGiftCertificate(context.Context, *GetGiftCertificateRequest) (*GetGiftCertificateResponse, error)
 	UpdateGiftCertificate(context.Context, *UpdateGiftCertificateRequest) (*UpdateGiftCertificateResponse, error)
 	ListGiftCertificates(context.Context, *ListGiftCertificatesRequest) (*ListGiftCertificatesResponse, error)
-	ListGiftCertificateDesigns(context.Context, *ListGiftCertificateDesignsRequest) (*ListGiftCertificateDesignsResponse, error)
+	ListGiftCertificateLabels(context.Context, *emptypb.Empty) (*ListGiftCertificateLabelsResponse, error)
+	ListGiftCertificateIcons(context.Context, *emptypb.Empty) (*ListGiftCertificateIconsResponse, error)
+	ListGiftCertificateBackgrounds(context.Context, *emptypb.Empty) (*ListGiftCertificateBackgroundsResponse, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
 
@@ -238,8 +265,14 @@ func (UnimplementedCustomerServiceServer) UpdateGiftCertificate(context.Context,
 func (UnimplementedCustomerServiceServer) ListGiftCertificates(context.Context, *ListGiftCertificatesRequest) (*ListGiftCertificatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificates not implemented")
 }
-func (UnimplementedCustomerServiceServer) ListGiftCertificateDesigns(context.Context, *ListGiftCertificateDesignsRequest) (*ListGiftCertificateDesignsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificateDesigns not implemented")
+func (UnimplementedCustomerServiceServer) ListGiftCertificateLabels(context.Context, *emptypb.Empty) (*ListGiftCertificateLabelsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificateLabels not implemented")
+}
+func (UnimplementedCustomerServiceServer) ListGiftCertificateIcons(context.Context, *emptypb.Empty) (*ListGiftCertificateIconsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificateIcons not implemented")
+}
+func (UnimplementedCustomerServiceServer) ListGiftCertificateBackgrounds(context.Context, *emptypb.Empty) (*ListGiftCertificateBackgroundsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificateBackgrounds not implemented")
 }
 func (UnimplementedCustomerServiceServer) mustEmbedUnimplementedCustomerServiceServer() {}
 func (UnimplementedCustomerServiceServer) testEmbeddedByValue()                         {}
@@ -460,20 +493,56 @@ func _CustomerService_ListGiftCertificates_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CustomerService_ListGiftCertificateDesigns_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListGiftCertificateDesignsRequest)
+func _CustomerService_ListGiftCertificateLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CustomerServiceServer).ListGiftCertificateDesigns(ctx, in)
+		return srv.(CustomerServiceServer).ListGiftCertificateLabels(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CustomerService_ListGiftCertificateDesigns_FullMethodName,
+		FullMethod: CustomerService_ListGiftCertificateLabels_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CustomerServiceServer).ListGiftCertificateDesigns(ctx, req.(*ListGiftCertificateDesignsRequest))
+		return srv.(CustomerServiceServer).ListGiftCertificateLabels(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerService_ListGiftCertificateIcons_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).ListGiftCertificateIcons(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_ListGiftCertificateIcons_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).ListGiftCertificateIcons(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerService_ListGiftCertificateBackgrounds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).ListGiftCertificateBackgrounds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_ListGiftCertificateBackgrounds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).ListGiftCertificateBackgrounds(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -530,8 +599,16 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CustomerService_ListGiftCertificates_Handler,
 		},
 		{
-			MethodName: "ListGiftCertificateDesigns",
-			Handler:    _CustomerService_ListGiftCertificateDesigns_Handler,
+			MethodName: "ListGiftCertificateLabels",
+			Handler:    _CustomerService_ListGiftCertificateLabels_Handler,
+		},
+		{
+			MethodName: "ListGiftCertificateIcons",
+			Handler:    _CustomerService_ListGiftCertificateIcons_Handler,
+		},
+		{
+			MethodName: "ListGiftCertificateBackgrounds",
+			Handler:    _CustomerService_ListGiftCertificateBackgrounds_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
