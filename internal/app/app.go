@@ -363,6 +363,8 @@ func (s *APIServer) Run() error {
 				authRouter.Get("/labels", giftCertificateHandler.ListGiftCertificateLabels)
 				authRouter.Get("/icons", giftCertificateHandler.ListGiftCertificateIcons)
 				authRouter.Get("/backgrounds", giftCertificateHandler.ListGiftCertificateBackgrounds)
+				authRouter.Get("/designs", giftCertificateHandler.ListGiftCertificateDesigns)
+
 			})
 		})
 		apiRouter.Route("/service", func(serviceRouter chi.Router) {
