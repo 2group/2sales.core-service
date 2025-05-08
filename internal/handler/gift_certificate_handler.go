@@ -147,23 +147,59 @@ func (h *GiftCertificateHandler) ListGiftCertificates(w http.ResponseWriter, r *
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
-func (h *GiftCertificateHandler) ListGiftCertificateDesigns(w http.ResponseWriter, r *http.Request) {
+func (h *GiftCertificateHandler) ListGiftCertificateLabels(w http.ResponseWriter, r *http.Request) {
 	log := zerolog.Ctx(r.Context()).With().
 		Str("component", "gift_certificate_handler").
-		Str("method", "ListGiftCertificateDesigns").
+		Str("method", "ListGiftCertificateLabels").
 		Logger()
 
 	log.Info().Msg("request_received")
 
-	req := &customerv1.ListGiftCertificateDesignsRequest{}
-
-	resp, err := h.client.Api.ListGiftCertificateDesigns(r.Context(), req)
+	resp, err := h.client.Api.ListGiftCertificateLabels(r.Context(), &customerv1.ListGiftCertificateLabelsRequest{})
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
 		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	log.Info().Int("design_count", len(resp.Designs)).Msg("succeeded")
+	log.Info().Int("labels_count", len(resp.Labels)).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *GiftCertificateHandler) ListGiftCertificateIcons(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "gift_certificate_handler").
+		Str("method", "ListGiftCertificateIcons").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	resp, err := h.client.Api.ListGiftCertificateIcons(r.Context(), &customerv1.ListGiftCertificateIconsRequest{})
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("icons_count", len(resp.Icons)).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
+
+func (h *GiftCertificateHandler) ListGiftCertificateBackgrounds(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "gift_certificate_handler").
+		Str("method", "ListGiftCertificateBackgrounds").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	resp, err := h.client.Api.ListGiftCertificateBackgrounds(r.Context(), &customerv1.ListGiftCertificateBackgroundsRequest{})
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("backgrounds_count", len(resp.Backgrounds)).Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }

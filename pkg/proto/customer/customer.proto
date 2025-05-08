@@ -65,10 +65,6 @@ message GiftCertificate {
     optional int64 label_id = 10;
     optional int64 icon_id = 11;
     optional int64 background_id = 12;
-
-    optional GiftCertificateLabel label = 13;
-    optional GiftCertificateIcon icon = 14;
-    optional GiftCertificateBackground background = 15;
 }
 
 message CreateGiftCertificateRequest {
