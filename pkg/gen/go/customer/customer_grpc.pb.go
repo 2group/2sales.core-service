@@ -33,6 +33,7 @@ const (
 	CustomerService_ListGiftCertificateLabels_FullMethodName      = "/customer.CustomerService/ListGiftCertificateLabels"
 	CustomerService_ListGiftCertificateIcons_FullMethodName       = "/customer.CustomerService/ListGiftCertificateIcons"
 	CustomerService_ListGiftCertificateBackgrounds_FullMethodName = "/customer.CustomerService/ListGiftCertificateBackgrounds"
+	CustomerService_ListGiftCertificateDesigns_FullMethodName     = "/customer.CustomerService/ListGiftCertificateDesigns"
 )
 
 // CustomerServiceClient is the client API for CustomerService service.
@@ -53,6 +54,7 @@ type CustomerServiceClient interface {
 	ListGiftCertificateLabels(ctx context.Context, in *ListGiftCertificateLabelsRequest, opts ...grpc.CallOption) (*ListGiftCertificateLabelsResponse, error)
 	ListGiftCertificateIcons(ctx context.Context, in *ListGiftCertificateIconsRequest, opts ...grpc.CallOption) (*ListGiftCertificateIconsResponse, error)
 	ListGiftCertificateBackgrounds(ctx context.Context, in *ListGiftCertificateBackgroundsRequest, opts ...grpc.CallOption) (*ListGiftCertificateBackgroundsResponse, error)
+	ListGiftCertificateDesigns(ctx context.Context, in *ListGiftCertificateDesignsRequest, opts ...grpc.CallOption) (*ListGiftCertificateDesignsResponse, error)
 }
 
 type customerServiceClient struct {
@@ -203,6 +205,16 @@ func (c *customerServiceClient) ListGiftCertificateBackgrounds(ctx context.Conte
 	return out, nil
 }
 
+func (c *customerServiceClient) ListGiftCertificateDesigns(ctx context.Context, in *ListGiftCertificateDesignsRequest, opts ...grpc.CallOption) (*ListGiftCertificateDesignsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListGiftCertificateDesignsResponse)
+	err := c.cc.Invoke(ctx, CustomerService_ListGiftCertificateDesigns_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerServiceServer is the server API for CustomerService service.
 // All implementations must embed UnimplementedCustomerServiceServer
 // for forward compatibility.
@@ -221,6 +233,7 @@ type CustomerServiceServer interface {
 	ListGiftCertificateLabels(context.Context, *ListGiftCertificateLabelsRequest) (*ListGiftCertificateLabelsResponse, error)
 	ListGiftCertificateIcons(context.Context, *ListGiftCertificateIconsRequest) (*ListGiftCertificateIconsResponse, error)
 	ListGiftCertificateBackgrounds(context.Context, *ListGiftCertificateBackgroundsRequest) (*ListGiftCertificateBackgroundsResponse, error)
+	ListGiftCertificateDesigns(context.Context, *ListGiftCertificateDesignsRequest) (*ListGiftCertificateDesignsResponse, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
 
@@ -272,6 +285,9 @@ func (UnimplementedCustomerServiceServer) ListGiftCertificateIcons(context.Conte
 }
 func (UnimplementedCustomerServiceServer) ListGiftCertificateBackgrounds(context.Context, *ListGiftCertificateBackgroundsRequest) (*ListGiftCertificateBackgroundsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificateBackgrounds not implemented")
+}
+func (UnimplementedCustomerServiceServer) ListGiftCertificateDesigns(context.Context, *ListGiftCertificateDesignsRequest) (*ListGiftCertificateDesignsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificateDesigns not implemented")
 }
 func (UnimplementedCustomerServiceServer) mustEmbedUnimplementedCustomerServiceServer() {}
 func (UnimplementedCustomerServiceServer) testEmbeddedByValue()                         {}
@@ -546,6 +562,24 @@ func _CustomerService_ListGiftCertificateBackgrounds_Handler(srv interface{}, ct
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerService_ListGiftCertificateDesigns_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListGiftCertificateDesignsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).ListGiftCertificateDesigns(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_ListGiftCertificateDesigns_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).ListGiftCertificateDesigns(ctx, req.(*ListGiftCertificateDesignsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerService_ServiceDesc is the grpc.ServiceDesc for CustomerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -608,6 +642,10 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListGiftCertificateBackgrounds",
 			Handler:    _CustomerService_ListGiftCertificateBackgrounds_Handler,
+		},
+		{
+			MethodName: "ListGiftCertificateDesigns",
+			Handler:    _CustomerService_ListGiftCertificateDesigns_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

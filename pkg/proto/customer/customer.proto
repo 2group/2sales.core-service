@@ -24,6 +24,7 @@ service CustomerService {
     rpc ListGiftCertificateLabels (ListGiftCertificateLabelsRequest) returns (ListGiftCertificateLabelsResponse);
     rpc ListGiftCertificateIcons (ListGiftCertificateIconsRequest) returns (ListGiftCertificateIconsResponse);
     rpc ListGiftCertificateBackgrounds (ListGiftCertificateBackgroundsRequest) returns (ListGiftCertificateBackgroundsResponse);
+    rpc ListGiftCertificateDesigns (ListGiftCertificateDesignsRequest) returns (ListGiftCertificateDesignsResponse);
 }
 
 message Customer {
@@ -212,4 +213,12 @@ message ListGiftCertificateBackgroundsRequest {}
 
 message ListGiftCertificateBackgroundsResponse {
     repeated GiftCertificateBackground backgrounds = 1;
+}
+
+message ListGiftCertificateDesignsRequest {}
+
+message ListGiftCertificateDesignsResponse {
+    repeated GiftCertificateLabel labels = 1;
+    repeated GiftCertificateIcon icons = 2;
+    repeated GiftCertificateBackground backgrounds = 3;
 }
