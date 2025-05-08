@@ -146,3 +146,24 @@ func (h *GiftCertificateHandler) ListGiftCertificates(w http.ResponseWriter, r *
 	log.Info().Int("certificates_count", len(resp.Certificates)).Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
+
+func (h *GiftCertificateHandler) ListGiftCertificateDesigns(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "gift_certificate_handler").
+		Str("method", "ListGiftCertificateDesigns").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	req := &customerv1.ListGiftCertificateDesignsRequest{}
+
+	resp, err := h.client.Api.ListGiftCertificateDesigns(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("design_count", len(resp.Designs)).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
