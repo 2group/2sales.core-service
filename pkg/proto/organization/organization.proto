@@ -79,6 +79,7 @@ message Organization {
     optional string legal_address = 9;
     optional string created_at = 10;
     optional string updated_at = 11;
+    repeated Branch branches = 12;
 }
 
 message ImageModel {
