@@ -8,19 +8,33 @@ import "google/protobuf/field_mask.proto";
 import "organization/organization.proto";
 
 service CustomerService {
-  rpc GetCustomer (GetCustomerRequest) returns (GetCustomerResponse);
-  rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerResponse);
-  rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
-  rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
-  rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
-  rpc ListCustomers (ListCustomersRequest) returns (ListCustomersResponse);
-  rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (CreateBonusTransactionResponse);
+    rpc GetCustomer (GetCustomerRequest) returns (GetCustomerResponse);
+    rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerResponse);
+    rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
+    rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
+    rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
+    rpc ListCustomers (ListCustomersRequest) returns (ListCustomersResponse);
+    rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (CreateBonusTransactionResponse);
 
+    rpc CreateGiftCertificate (CreateGiftCertificateRequest) returns (CreateGiftCertificateResponse);
+    rpc GetGiftCertificate (GetGiftCertificateRequest) returns (GetGiftCertificateResponse);
+    rpc UpdateGiftCertificate (UpdateGiftCertificateRequest) returns (UpdateGiftCertificateResponse);
+    rpc ListGiftCertificates (ListGiftCertificatesRequest) returns (ListGiftCertificatesResponse);
 
-  rpc CreateGiftCertificate (CreateGiftCertificateRequest) returns (CreateGiftCertificateResponse);
-  rpc GetGiftCertificate (GetGiftCertificateRequest) returns (GetGiftCertificateResponse);
-  rpc UpdateGiftCertificate (UpdateGiftCertificateRequest) returns (UpdateGiftCertificateResponse);
-  rpc ListGiftCertificates (ListGiftCertificatesRequest) returns (ListGiftCertificatesResponse);
+    rpc ListGiftCertificateDesigns (ListGiftCertificateDesignsRequest) returns (ListGiftCertificateDesignsResponse);
+}
+
+message GiftCertificateDesign {
+    int64 id = 1;
+    string label = 2;
+    string image_url = 3;
+    int32 index = 4;
+}
+
+message ListGiftCertificateDesignsRequest {}
+
+message ListGiftCertificateDesignsResponse {
+    repeated GiftCertificateDesign designs = 1;
 }
 
 message Customer {
@@ -48,8 +62,65 @@ message CustomerBonusTransaction {
     string created_at = 7;
 }
 
-message CustomerDetail {
+message GiftCertificate {
+    int64 id = 1;
+    int64 customer_id = 2;
+    int64 organization_id = 3;
+    double original_amount = 4;
+    double remaining_amount = 5;
+    string status = 6; // active, used, expired
+    optional string expires_at = 7;
+    optional string created_at = 8;
+    optional string updated_at = 9;
+    optional int64 design_id = 10;
+}
 
+message CreateGiftCertificateRequest {
+    GiftCertificate certificate = 1;
+}
+
+message CreateGiftCertificateResponse {
+    GiftCertificate certificate = 1;
+}
+
+message GetGiftCertificateRequest {
+    int64 id = 1;
+}
+
+message GetGiftCertificateResponse {
+    GiftCertificate certificate = 1;
+}
+
+message UpdateGiftCertificateRequest {
+    GiftCertificate certificate = 1;
+    double amount = 2;
+}
+
+message UpdateGiftCertificateResponse {
+    GiftCertificate certificate = 1;
+}
+
+message ListGiftCertificatesRequest {
+    optional int64 customer_id = 1;
+    optional int64 organization_id = 2;
+    int32 limit = 3;
+    int32 offset = 4;
+}
+
+message ListGiftCertificatesResponse {
+    repeated GiftCertificate certificates = 1;
+    int32 total_count = 2;
+}
+
+message CreateBonusTransactionRequest {
+    int64 customer_id = 1;
+    int64 organization_id = 2;
+    int64 order_id = 3;
+    double bonus_change = 4;
+}
+
+message CreateBonusTransactionResponse {
+    CustomerBonusTransaction transaction = 1;
 }
 
 message GetCustomerRequest {
@@ -97,69 +168,7 @@ message DeleteCustomerRequest {
     int64 id = 1;
 }
 
-message DeleteCustomerResponse {
-
-}
-
-message CreateBonusTransactionRequest {
-    int64 customer_id = 1;
-    int64 organization_id = 2;
-    int64 order_id = 3;
-    double bonus_change = 4;
-}
-
-message CreateBonusTransactionResponse {
-    CustomerBonusTransaction transaction = 1;
-}
-
-message GiftCertificate {
-    int64 id = 1;
-    int64 customer_id = 2;
-    int64 organization_id = 3;
-    double original_amount = 4;
-    double remaining_amount = 5;
-    string status = 6; // active, used, expired
-    optional string expires_at = 7;
-    optional string created_at = 8;
-    optional string updated_at = 9;
-}
-
-message CreateGiftCertificateRequest {
-    GiftCertificate certificate = 1;
-}
-
-message CreateGiftCertificateResponse {
-    GiftCertificate certificate = 1;
-}
-
-message GetGiftCertificateRequest {
-    int64 id = 1;
-}
-
-message GetGiftCertificateResponse {
-    GiftCertificate certificate = 1;
-}
-
-message UpdateGiftCertificateRequest {
-    GiftCertificate certificate = 1;
-    double amount = 2;
-}
-
-message UpdateGiftCertificateResponse {
-    GiftCertificate certificate = 1;
-}
-
-message ListGiftCertificatesRequest {
-    optional int64 customer_id = 1;
-    optional int64 organization_id = 2;
-    int32 limit = 3;
-    int32 offset = 4;
-}
-
-message ListGiftCertificatesResponse {
-    repeated GiftCertificate certificates = 1;
-    int32 total_count = 2;
-}
+message DeleteCustomerResponse {}
 
 message ListCustomersRequest {
     optional int64 organization_id = 1;
@@ -177,8 +186,3 @@ message ListCustomersResponse {
     repeated Customer customers = 1;
     int32 total_count = 2;
 }
-
-
-
-
-

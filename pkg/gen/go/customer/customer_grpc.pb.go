@@ -19,17 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CustomerService_GetCustomer_FullMethodName            = "/customer.CustomerService/GetCustomer"
-	CustomerService_CreateCustomer_FullMethodName         = "/customer.CustomerService/CreateCustomer"
-	CustomerService_DeleteCustomer_FullMethodName         = "/customer.CustomerService/DeleteCustomer"
-	CustomerService_PartialUpdateCustomer_FullMethodName  = "/customer.CustomerService/PartialUpdateCustomer"
-	CustomerService_UpdateCustomer_FullMethodName         = "/customer.CustomerService/UpdateCustomer"
-	CustomerService_ListCustomers_FullMethodName          = "/customer.CustomerService/ListCustomers"
-	CustomerService_CreateBonusTransaction_FullMethodName = "/customer.CustomerService/CreateBonusTransaction"
-	CustomerService_CreateGiftCertificate_FullMethodName  = "/customer.CustomerService/CreateGiftCertificate"
-	CustomerService_GetGiftCertificate_FullMethodName     = "/customer.CustomerService/GetGiftCertificate"
-	CustomerService_UpdateGiftCertificate_FullMethodName  = "/customer.CustomerService/UpdateGiftCertificate"
-	CustomerService_ListGiftCertificates_FullMethodName   = "/customer.CustomerService/ListGiftCertificates"
+	CustomerService_GetCustomer_FullMethodName                = "/customer.CustomerService/GetCustomer"
+	CustomerService_CreateCustomer_FullMethodName             = "/customer.CustomerService/CreateCustomer"
+	CustomerService_DeleteCustomer_FullMethodName             = "/customer.CustomerService/DeleteCustomer"
+	CustomerService_PartialUpdateCustomer_FullMethodName      = "/customer.CustomerService/PartialUpdateCustomer"
+	CustomerService_UpdateCustomer_FullMethodName             = "/customer.CustomerService/UpdateCustomer"
+	CustomerService_ListCustomers_FullMethodName              = "/customer.CustomerService/ListCustomers"
+	CustomerService_CreateBonusTransaction_FullMethodName     = "/customer.CustomerService/CreateBonusTransaction"
+	CustomerService_CreateGiftCertificate_FullMethodName      = "/customer.CustomerService/CreateGiftCertificate"
+	CustomerService_GetGiftCertificate_FullMethodName         = "/customer.CustomerService/GetGiftCertificate"
+	CustomerService_UpdateGiftCertificate_FullMethodName      = "/customer.CustomerService/UpdateGiftCertificate"
+	CustomerService_ListGiftCertificates_FullMethodName       = "/customer.CustomerService/ListGiftCertificates"
+	CustomerService_ListGiftCertificateDesigns_FullMethodName = "/customer.CustomerService/ListGiftCertificateDesigns"
 )
 
 // CustomerServiceClient is the client API for CustomerService service.
@@ -47,6 +48,7 @@ type CustomerServiceClient interface {
 	GetGiftCertificate(ctx context.Context, in *GetGiftCertificateRequest, opts ...grpc.CallOption) (*GetGiftCertificateResponse, error)
 	UpdateGiftCertificate(ctx context.Context, in *UpdateGiftCertificateRequest, opts ...grpc.CallOption) (*UpdateGiftCertificateResponse, error)
 	ListGiftCertificates(ctx context.Context, in *ListGiftCertificatesRequest, opts ...grpc.CallOption) (*ListGiftCertificatesResponse, error)
+	ListGiftCertificateDesigns(ctx context.Context, in *ListGiftCertificateDesignsRequest, opts ...grpc.CallOption) (*ListGiftCertificateDesignsResponse, error)
 }
 
 type customerServiceClient struct {
@@ -167,6 +169,16 @@ func (c *customerServiceClient) ListGiftCertificates(ctx context.Context, in *Li
 	return out, nil
 }
 
+func (c *customerServiceClient) ListGiftCertificateDesigns(ctx context.Context, in *ListGiftCertificateDesignsRequest, opts ...grpc.CallOption) (*ListGiftCertificateDesignsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListGiftCertificateDesignsResponse)
+	err := c.cc.Invoke(ctx, CustomerService_ListGiftCertificateDesigns_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerServiceServer is the server API for CustomerService service.
 // All implementations must embed UnimplementedCustomerServiceServer
 // for forward compatibility.
@@ -182,6 +194,7 @@ type CustomerServiceServer interface {
 	GetGiftCertificate(context.Context, *GetGiftCertificateRequest) (*GetGiftCertificateResponse, error)
 	UpdateGiftCertificate(context.Context, *UpdateGiftCertificateRequest) (*UpdateGiftCertificateResponse, error)
 	ListGiftCertificates(context.Context, *ListGiftCertificatesRequest) (*ListGiftCertificatesResponse, error)
+	ListGiftCertificateDesigns(context.Context, *ListGiftCertificateDesignsRequest) (*ListGiftCertificateDesignsResponse, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
 
@@ -224,6 +237,9 @@ func (UnimplementedCustomerServiceServer) UpdateGiftCertificate(context.Context,
 }
 func (UnimplementedCustomerServiceServer) ListGiftCertificates(context.Context, *ListGiftCertificatesRequest) (*ListGiftCertificatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificates not implemented")
+}
+func (UnimplementedCustomerServiceServer) ListGiftCertificateDesigns(context.Context, *ListGiftCertificateDesignsRequest) (*ListGiftCertificateDesignsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGiftCertificateDesigns not implemented")
 }
 func (UnimplementedCustomerServiceServer) mustEmbedUnimplementedCustomerServiceServer() {}
 func (UnimplementedCustomerServiceServer) testEmbeddedByValue()                         {}
@@ -444,6 +460,24 @@ func _CustomerService_ListGiftCertificates_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerService_ListGiftCertificateDesigns_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListGiftCertificateDesignsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).ListGiftCertificateDesigns(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_ListGiftCertificateDesigns_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).ListGiftCertificateDesigns(ctx, req.(*ListGiftCertificateDesignsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerService_ServiceDesc is the grpc.ServiceDesc for CustomerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -494,6 +528,10 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListGiftCertificates",
 			Handler:    _CustomerService_ListGiftCertificates_Handler,
+		},
+		{
+			MethodName: "ListGiftCertificateDesigns",
+			Handler:    _CustomerService_ListGiftCertificateDesigns_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
