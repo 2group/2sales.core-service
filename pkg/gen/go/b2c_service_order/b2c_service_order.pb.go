@@ -23,28 +23,152 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type OrderDetail struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Id                 int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Customer           *customer.Customer     `protobuf:"bytes,2,opt,name=customer,proto3" json:"customer,omitempty"`
+	Status             string                 `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
+	OriginalTotalPrice float32                `protobuf:"fixed32,4,opt,name=original_total_price,json=originalTotalPrice,proto3" json:"original_total_price,omitempty"`
+	FinalTotalPrice    float32                `protobuf:"fixed32,5,opt,name=final_total_price,json=finalTotalPrice,proto3" json:"final_total_price,omitempty"`
+	OrderItems         []*OrderItemDetail     `protobuf:"bytes,6,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
+	GiftCertificateId  *int64                 `protobuf:"varint,7,opt,name=gift_certificate_id,json=giftCertificateId,proto3,oneof" json:"gift_certificate_id,omitempty"`
+	GiftUsedAmount     *float32               `protobuf:"fixed32,8,opt,name=gift_used_amount,json=giftUsedAmount,proto3,oneof" json:"gift_used_amount,omitempty"`
+	CreatedAt          *string                `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt          *string                `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	BranchId           *int64                 `protobuf:"varint,11,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *OrderDetail) Reset() {
+	*x = OrderDetail{}
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderDetail) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderDetail) ProtoMessage() {}
+
+func (x *OrderDetail) ProtoReflect() protoreflect.Message {
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderDetail.ProtoReflect.Descriptor instead.
+func (*OrderDetail) Descriptor() ([]byte, []int) {
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *OrderDetail) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *OrderDetail) GetCustomer() *customer.Customer {
+	if x != nil {
+		return x.Customer
+	}
+	return nil
+}
+
+func (x *OrderDetail) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *OrderDetail) GetOriginalTotalPrice() float32 {
+	if x != nil {
+		return x.OriginalTotalPrice
+	}
+	return 0
+}
+
+func (x *OrderDetail) GetFinalTotalPrice() float32 {
+	if x != nil {
+		return x.FinalTotalPrice
+	}
+	return 0
+}
+
+func (x *OrderDetail) GetOrderItems() []*OrderItemDetail {
+	if x != nil {
+		return x.OrderItems
+	}
+	return nil
+}
+
+func (x *OrderDetail) GetGiftCertificateId() int64 {
+	if x != nil && x.GiftCertificateId != nil {
+		return *x.GiftCertificateId
+	}
+	return 0
+}
+
+func (x *OrderDetail) GetGiftUsedAmount() float32 {
+	if x != nil && x.GiftUsedAmount != nil {
+		return *x.GiftUsedAmount
+	}
+	return 0
+}
+
+func (x *OrderDetail) GetCreatedAt() string {
+	if x != nil && x.CreatedAt != nil {
+		return *x.CreatedAt
+	}
+	return ""
+}
+
+func (x *OrderDetail) GetUpdatedAt() string {
+	if x != nil && x.UpdatedAt != nil {
+		return *x.UpdatedAt
+	}
+	return ""
+}
+
+func (x *OrderDetail) GetBranchId() int64 {
+	if x != nil && x.BranchId != nil {
+		return *x.BranchId
+	}
+	return 0
+}
+
 type Order struct {
 	state              protoimpl.MessageState `protogen:"open.v1"`
 	Id                 *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
 	CustomerId         *int64                 `protobuf:"varint,2,opt,name=customer_id,json=customerId,proto3,oneof" json:"customer_id,omitempty"`
-	Customer           *customer.Customer     `protobuf:"bytes,3,opt,name=customer,proto3,oneof" json:"customer,omitempty"`
-	Status             *string                `protobuf:"bytes,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
-	OriginalTotalPrice *float32               `protobuf:"fixed32,5,opt,name=original_total_price,json=originalTotalPrice,proto3,oneof" json:"original_total_price,omitempty"`
-	FinalTotalPrice    *float32               `protobuf:"fixed32,6,opt,name=final_total_price,json=finalTotalPrice,proto3,oneof" json:"final_total_price,omitempty"`
-	OrderItems         []*OrderItem           `protobuf:"bytes,7,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
-	GiftCertificateId  *int64                 `protobuf:"varint,8,opt,name=gift_certificate_id,json=giftCertificateId,proto3,oneof" json:"gift_certificate_id,omitempty"`
-	GiftUsedAmount     *float32               `protobuf:"fixed32,9,opt,name=gift_used_amount,json=giftUsedAmount,proto3,oneof" json:"gift_used_amount,omitempty"`
+	Status             *string                `protobuf:"bytes,3,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	OriginalTotalPrice *float32               `protobuf:"fixed32,4,opt,name=original_total_price,json=originalTotalPrice,proto3,oneof" json:"original_total_price,omitempty"`
+	FinalTotalPrice    *float32               `protobuf:"fixed32,5,opt,name=final_total_price,json=finalTotalPrice,proto3,oneof" json:"final_total_price,omitempty"`
+	OrderItems         []*OrderItem           `protobuf:"bytes,6,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
+	CreatedAt          *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt          *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	Customer           *customer.Customer     `protobuf:"bytes,9,opt,name=customer,proto3,oneof" json:"customer,omitempty"`
 	BonusUsed          *float32               `protobuf:"fixed32,10,opt,name=bonus_used,json=bonusUsed,proto3,oneof" json:"bonus_used,omitempty"`
 	BranchId           *int64                 `protobuf:"varint,11,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
-	CreatedAt          *string                `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
-	UpdatedAt          *string                `protobuf:"bytes,13,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	GiftCertificateId  *int64                 `protobuf:"varint,12,opt,name=gift_certificate_id,json=giftCertificateId,proto3,oneof" json:"gift_certificate_id,omitempty"`
+	GiftUsedAmount     *float32               `protobuf:"fixed32,13,opt,name=gift_used_amount,json=giftUsedAmount,proto3,oneof" json:"gift_used_amount,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
 
 func (x *Order) Reset() {
 	*x = Order{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[0]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -56,7 +180,7 @@ func (x *Order) String() string {
 func (*Order) ProtoMessage() {}
 
 func (x *Order) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[0]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -69,7 +193,7 @@ func (x *Order) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Order.ProtoReflect.Descriptor instead.
 func (*Order) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{0}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Order) GetId() int64 {
@@ -84,13 +208,6 @@ func (x *Order) GetCustomerId() int64 {
 		return *x.CustomerId
 	}
 	return 0
-}
-
-func (x *Order) GetCustomer() *customer.Customer {
-	if x != nil {
-		return x.Customer
-	}
-	return nil
 }
 
 func (x *Order) GetStatus() string {
@@ -121,18 +238,25 @@ func (x *Order) GetOrderItems() []*OrderItem {
 	return nil
 }
 
-func (x *Order) GetGiftCertificateId() int64 {
-	if x != nil && x.GiftCertificateId != nil {
-		return *x.GiftCertificateId
+func (x *Order) GetCreatedAt() string {
+	if x != nil && x.CreatedAt != nil {
+		return *x.CreatedAt
 	}
-	return 0
+	return ""
 }
 
-func (x *Order) GetGiftUsedAmount() float32 {
-	if x != nil && x.GiftUsedAmount != nil {
-		return *x.GiftUsedAmount
+func (x *Order) GetUpdatedAt() string {
+	if x != nil && x.UpdatedAt != nil {
+		return *x.UpdatedAt
 	}
-	return 0
+	return ""
+}
+
+func (x *Order) GetCustomer() *customer.Customer {
+	if x != nil {
+		return x.Customer
+	}
+	return nil
 }
 
 func (x *Order) GetBonusUsed() float32 {
@@ -149,18 +273,18 @@ func (x *Order) GetBranchId() int64 {
 	return 0
 }
 
-func (x *Order) GetCreatedAt() string {
-	if x != nil && x.CreatedAt != nil {
-		return *x.CreatedAt
+func (x *Order) GetGiftCertificateId() int64 {
+	if x != nil && x.GiftCertificateId != nil {
+		return *x.GiftCertificateId
 	}
-	return ""
+	return 0
 }
 
-func (x *Order) GetUpdatedAt() string {
-	if x != nil && x.UpdatedAt != nil {
-		return *x.UpdatedAt
+func (x *Order) GetGiftUsedAmount() float32 {
+	if x != nil && x.GiftUsedAmount != nil {
+		return *x.GiftUsedAmount
 	}
-	return ""
+	return 0
 }
 
 type OrderItem struct {
@@ -177,7 +301,7 @@ type OrderItem struct {
 
 func (x *OrderItem) Reset() {
 	*x = OrderItem{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[1]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -189,7 +313,7 @@ func (x *OrderItem) String() string {
 func (*OrderItem) ProtoMessage() {}
 
 func (x *OrderItem) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[1]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -202,7 +326,7 @@ func (x *OrderItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderItem.ProtoReflect.Descriptor instead.
 func (*OrderItem) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{1}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *OrderItem) GetId() int64 {
@@ -247,6 +371,83 @@ func (x *OrderItem) GetService() *service.Service {
 	return nil
 }
 
+type OrderItemDetail struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	ServiceOrderId int64                  `protobuf:"varint,2,opt,name=service_order_id,json=serviceOrderId,proto3" json:"service_order_id,omitempty"`
+	Service        *service.Service       `protobuf:"bytes,3,opt,name=service,proto3" json:"service,omitempty"`
+	Quantity       int32                  `protobuf:"varint,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	FinalPrice     float32                `protobuf:"fixed32,5,opt,name=final_price,json=finalPrice,proto3" json:"final_price,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *OrderItemDetail) Reset() {
+	*x = OrderItemDetail{}
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderItemDetail) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderItemDetail) ProtoMessage() {}
+
+func (x *OrderItemDetail) ProtoReflect() protoreflect.Message {
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderItemDetail.ProtoReflect.Descriptor instead.
+func (*OrderItemDetail) Descriptor() ([]byte, []int) {
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *OrderItemDetail) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *OrderItemDetail) GetServiceOrderId() int64 {
+	if x != nil {
+		return x.ServiceOrderId
+	}
+	return 0
+}
+
+func (x *OrderItemDetail) GetService() *service.Service {
+	if x != nil {
+		return x.Service
+	}
+	return nil
+}
+
+func (x *OrderItemDetail) GetQuantity() int32 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+func (x *OrderItemDetail) GetFinalPrice() float32 {
+	if x != nil {
+		return x.FinalPrice
+	}
+	return 0
+}
+
+// Request and Response messages for creating a service order.
 type CreateOrderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Order         *Order                 `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
@@ -256,7 +457,7 @@ type CreateOrderRequest struct {
 
 func (x *CreateOrderRequest) Reset() {
 	*x = CreateOrderRequest{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[2]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -268,7 +469,7 @@ func (x *CreateOrderRequest) String() string {
 func (*CreateOrderRequest) ProtoMessage() {}
 
 func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[2]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -281,7 +482,7 @@ func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrderRequest.ProtoReflect.Descriptor instead.
 func (*CreateOrderRequest) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{2}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateOrderRequest) GetOrder() *Order {
@@ -293,14 +494,14 @@ func (x *CreateOrderRequest) GetOrder() *Order {
 
 type CreateOrderResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Order         *Order                 `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	OrderDetail   *OrderDetail           `protobuf:"bytes,1,opt,name=order_detail,json=orderDetail,proto3" json:"order_detail,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CreateOrderResponse) Reset() {
 	*x = CreateOrderResponse{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[3]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -312,7 +513,7 @@ func (x *CreateOrderResponse) String() string {
 func (*CreateOrderResponse) ProtoMessage() {}
 
 func (x *CreateOrderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[3]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -325,12 +526,12 @@ func (x *CreateOrderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrderResponse.ProtoReflect.Descriptor instead.
 func (*CreateOrderResponse) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{3}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *CreateOrderResponse) GetOrder() *Order {
+func (x *CreateOrderResponse) GetOrderDetail() *OrderDetail {
 	if x != nil {
-		return x.Order
+		return x.OrderDetail
 	}
 	return nil
 }
@@ -344,7 +545,7 @@ type UpdateOrderRequest struct {
 
 func (x *UpdateOrderRequest) Reset() {
 	*x = UpdateOrderRequest{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[4]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -356,7 +557,7 @@ func (x *UpdateOrderRequest) String() string {
 func (*UpdateOrderRequest) ProtoMessage() {}
 
 func (x *UpdateOrderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[4]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -369,7 +570,7 @@ func (x *UpdateOrderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrderRequest.ProtoReflect.Descriptor instead.
 func (*UpdateOrderRequest) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{4}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UpdateOrderRequest) GetOrder() *Order {
@@ -381,14 +582,14 @@ func (x *UpdateOrderRequest) GetOrder() *Order {
 
 type UpdateOrderResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Order         *Order                 `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	OrderDetail   *OrderDetail           `protobuf:"bytes,1,opt,name=order_detail,json=orderDetail,proto3" json:"order_detail,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateOrderResponse) Reset() {
 	*x = UpdateOrderResponse{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[5]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -400,7 +601,7 @@ func (x *UpdateOrderResponse) String() string {
 func (*UpdateOrderResponse) ProtoMessage() {}
 
 func (x *UpdateOrderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[5]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -413,16 +614,17 @@ func (x *UpdateOrderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrderResponse.ProtoReflect.Descriptor instead.
 func (*UpdateOrderResponse) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{5}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *UpdateOrderResponse) GetOrder() *Order {
+func (x *UpdateOrderResponse) GetOrderDetail() *OrderDetail {
 	if x != nil {
-		return x.Order
+		return x.OrderDetail
 	}
 	return nil
 }
 
+// Request and Response messages for retrieving a single service order.
 type GetOrderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -432,7 +634,7 @@ type GetOrderRequest struct {
 
 func (x *GetOrderRequest) Reset() {
 	*x = GetOrderRequest{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[6]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -444,7 +646,7 @@ func (x *GetOrderRequest) String() string {
 func (*GetOrderRequest) ProtoMessage() {}
 
 func (x *GetOrderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[6]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -457,7 +659,7 @@ func (x *GetOrderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderRequest.ProtoReflect.Descriptor instead.
 func (*GetOrderRequest) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{6}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetOrderRequest) GetId() int64 {
@@ -469,14 +671,14 @@ func (x *GetOrderRequest) GetId() int64 {
 
 type GetOrderResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Order         *Order                 `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	OrderDetail   *OrderDetail           `protobuf:"bytes,1,opt,name=order_detail,json=orderDetail,proto3" json:"order_detail,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetOrderResponse) Reset() {
 	*x = GetOrderResponse{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[7]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -488,7 +690,7 @@ func (x *GetOrderResponse) String() string {
 func (*GetOrderResponse) ProtoMessage() {}
 
 func (x *GetOrderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[7]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -501,12 +703,12 @@ func (x *GetOrderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderResponse.ProtoReflect.Descriptor instead.
 func (*GetOrderResponse) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{7}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *GetOrderResponse) GetOrder() *Order {
+func (x *GetOrderResponse) GetOrderDetail() *OrderDetail {
 	if x != nil {
-		return x.Order
+		return x.OrderDetail
 	}
 	return nil
 }
@@ -528,7 +730,7 @@ type ListB2CServiceOrdersRequest struct {
 
 func (x *ListB2CServiceOrdersRequest) Reset() {
 	*x = ListB2CServiceOrdersRequest{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[8]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -540,7 +742,7 @@ func (x *ListB2CServiceOrdersRequest) String() string {
 func (*ListB2CServiceOrdersRequest) ProtoMessage() {}
 
 func (x *ListB2CServiceOrdersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[8]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -553,7 +755,7 @@ func (x *ListB2CServiceOrdersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListB2CServiceOrdersRequest.ProtoReflect.Descriptor instead.
 func (*ListB2CServiceOrdersRequest) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{8}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ListB2CServiceOrdersRequest) GetOrganizationId() int64 {
@@ -621,7 +823,7 @@ func (x *ListB2CServiceOrdersRequest) GetOffset() int64 {
 
 type ListB2CServiceOrdersResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Orders        []*Order               `protobuf:"bytes,1,rep,name=orders,proto3" json:"orders,omitempty"`
+	Orders        []*OrderDetail         `protobuf:"bytes,1,rep,name=orders,proto3" json:"orders,omitempty"`
 	TotalCount    int64                  `protobuf:"varint,2,opt,name=total_count,json=totalCount,proto3" json:"total_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -629,7 +831,7 @@ type ListB2CServiceOrdersResponse struct {
 
 func (x *ListB2CServiceOrdersResponse) Reset() {
 	*x = ListB2CServiceOrdersResponse{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[9]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -641,7 +843,7 @@ func (x *ListB2CServiceOrdersResponse) String() string {
 func (*ListB2CServiceOrdersResponse) ProtoMessage() {}
 
 func (x *ListB2CServiceOrdersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[9]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -654,10 +856,10 @@ func (x *ListB2CServiceOrdersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListB2CServiceOrdersResponse.ProtoReflect.Descriptor instead.
 func (*ListB2CServiceOrdersResponse) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{9}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *ListB2CServiceOrdersResponse) GetOrders() []*Order {
+func (x *ListB2CServiceOrdersResponse) GetOrders() []*OrderDetail {
 	if x != nil {
 		return x.Orders
 	}
@@ -675,41 +877,63 @@ var File_b2c_service_order_b2c_service_order_proto protoreflect.FileDescriptor
 
 const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
-	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\"\xf3\x05\n" +
+	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\"\xaf\x04\n" +
+	"\vOrderDetail\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12.\n" +
+	"\bcustomer\x18\x02 \x01(\v2\x12.customer.CustomerR\bcustomer\x12\x16\n" +
+	"\x06status\x18\x03 \x01(\tR\x06status\x120\n" +
+	"\x14original_total_price\x18\x04 \x01(\x02R\x12originalTotalPrice\x12*\n" +
+	"\x11final_total_price\x18\x05 \x01(\x02R\x0ffinalTotalPrice\x12C\n" +
+	"\vorder_items\x18\x06 \x03(\v2\".b2c_service_order.OrderItemDetailR\n" +
+	"orderItems\x123\n" +
+	"\x13gift_certificate_id\x18\a \x01(\x03H\x00R\x11giftCertificateId\x88\x01\x01\x12-\n" +
+	"\x10gift_used_amount\x18\b \x01(\x02H\x01R\x0egiftUsedAmount\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"created_at\x18\t \x01(\tH\x02R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"updated_at\x18\n" +
+	" \x01(\tH\x03R\tupdatedAt\x88\x01\x01\x12 \n" +
+	"\tbranch_id\x18\v \x01(\x03H\x04R\bbranchId\x88\x01\x01B\x16\n" +
+	"\x14_gift_certificate_idB\x13\n" +
+	"\x11_gift_used_amountB\r\n" +
+	"\v_created_atB\r\n" +
+	"\v_updated_atB\f\n" +
+	"\n" +
+	"_branch_id\"\xf3\x05\n" +
 	"\x05Order\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03H\x01R\n" +
-	"customerId\x88\x01\x01\x123\n" +
-	"\bcustomer\x18\x03 \x01(\v2\x12.customer.CustomerH\x02R\bcustomer\x88\x01\x01\x12\x1b\n" +
-	"\x06status\x18\x04 \x01(\tH\x03R\x06status\x88\x01\x01\x125\n" +
-	"\x14original_total_price\x18\x05 \x01(\x02H\x04R\x12originalTotalPrice\x88\x01\x01\x12/\n" +
-	"\x11final_total_price\x18\x06 \x01(\x02H\x05R\x0ffinalTotalPrice\x88\x01\x01\x12=\n" +
-	"\vorder_items\x18\a \x03(\v2\x1c.b2c_service_order.OrderItemR\n" +
-	"orderItems\x123\n" +
-	"\x13gift_certificate_id\x18\b \x01(\x03H\x06R\x11giftCertificateId\x88\x01\x01\x12-\n" +
-	"\x10gift_used_amount\x18\t \x01(\x02H\aR\x0egiftUsedAmount\x88\x01\x01\x12\"\n" +
+	"customerId\x88\x01\x01\x12\x1b\n" +
+	"\x06status\x18\x03 \x01(\tH\x02R\x06status\x88\x01\x01\x125\n" +
+	"\x14original_total_price\x18\x04 \x01(\x02H\x03R\x12originalTotalPrice\x88\x01\x01\x12/\n" +
+	"\x11final_total_price\x18\x05 \x01(\x02H\x04R\x0ffinalTotalPrice\x88\x01\x01\x12=\n" +
+	"\vorder_items\x18\x06 \x03(\v2\x1c.b2c_service_order.OrderItemR\n" +
+	"orderItems\x12\"\n" +
+	"\n" +
+	"created_at\x18\a \x01(\tH\x05R\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"updated_at\x18\b \x01(\tH\x06R\tupdatedAt\x88\x01\x01\x123\n" +
+	"\bcustomer\x18\t \x01(\v2\x12.customer.CustomerH\aR\bcustomer\x88\x01\x01\x12\"\n" +
 	"\n" +
 	"bonus_used\x18\n" +
 	" \x01(\x02H\bR\tbonusUsed\x88\x01\x01\x12 \n" +
-	"\tbranch_id\x18\v \x01(\x03H\tR\bbranchId\x88\x01\x01\x12\"\n" +
-	"\n" +
-	"created_at\x18\f \x01(\tH\n" +
-	"R\tcreatedAt\x88\x01\x01\x12\"\n" +
-	"\n" +
-	"updated_at\x18\r \x01(\tH\vR\tupdatedAt\x88\x01\x01B\x05\n" +
+	"\tbranch_id\x18\v \x01(\x03H\tR\bbranchId\x88\x01\x01\x123\n" +
+	"\x13gift_certificate_id\x18\f \x01(\x03H\n" +
+	"R\x11giftCertificateId\x88\x01\x01\x12-\n" +
+	"\x10gift_used_amount\x18\r \x01(\x02H\vR\x0egiftUsedAmount\x88\x01\x01B\x05\n" +
 	"\x03_idB\x0e\n" +
-	"\f_customer_idB\v\n" +
-	"\t_customerB\t\n" +
+	"\f_customer_idB\t\n" +
 	"\a_statusB\x17\n" +
 	"\x15_original_total_priceB\x14\n" +
-	"\x12_final_total_priceB\x16\n" +
-	"\x14_gift_certificate_idB\x13\n" +
-	"\x11_gift_used_amountB\r\n" +
+	"\x12_final_total_priceB\r\n" +
+	"\v_created_atB\r\n" +
+	"\v_updated_atB\v\n" +
+	"\t_customerB\r\n" +
 	"\v_bonus_usedB\f\n" +
 	"\n" +
-	"_branch_idB\r\n" +
-	"\v_created_atB\r\n" +
-	"\v_updated_at\"\xcd\x01\n" +
+	"_branch_idB\x16\n" +
+	"\x14_gift_certificate_idB\x13\n" +
+	"\x11_gift_used_amount\"\xcd\x01\n" +
 	"\tOrderItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12(\n" +
 	"\x10service_order_id\x18\x02 \x01(\x03R\x0eserviceOrderId\x12\x1d\n" +
@@ -718,19 +942,26 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\bquantity\x18\x04 \x01(\x05R\bquantity\x12\x1f\n" +
 	"\vfinal_price\x18\x05 \x01(\x02R\n" +
 	"finalPrice\x12*\n" +
-	"\aservice\x18\x06 \x01(\v2\x10.service.ServiceR\aservice\"D\n" +
+	"\aservice\x18\x06 \x01(\v2\x10.service.ServiceR\aservice\"\xb4\x01\n" +
+	"\x0fOrderItemDetail\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12(\n" +
+	"\x10service_order_id\x18\x02 \x01(\x03R\x0eserviceOrderId\x12*\n" +
+	"\aservice\x18\x03 \x01(\v2\x10.service.ServiceR\aservice\x12\x1a\n" +
+	"\bquantity\x18\x04 \x01(\x05R\bquantity\x12\x1f\n" +
+	"\vfinal_price\x18\x05 \x01(\x02R\n" +
+	"finalPrice\"D\n" +
 	"\x12CreateOrderRequest\x12.\n" +
-	"\x05order\x18\x01 \x01(\v2\x18.b2c_service_order.OrderR\x05order\"E\n" +
-	"\x13CreateOrderResponse\x12.\n" +
-	"\x05order\x18\x01 \x01(\v2\x18.b2c_service_order.OrderR\x05order\"D\n" +
+	"\x05order\x18\x01 \x01(\v2\x18.b2c_service_order.OrderR\x05order\"X\n" +
+	"\x13CreateOrderResponse\x12A\n" +
+	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"D\n" +
 	"\x12UpdateOrderRequest\x12.\n" +
-	"\x05order\x18\x01 \x01(\v2\x18.b2c_service_order.OrderR\x05order\"E\n" +
-	"\x13UpdateOrderResponse\x12.\n" +
-	"\x05order\x18\x01 \x01(\v2\x18.b2c_service_order.OrderR\x05order\"!\n" +
+	"\x05order\x18\x01 \x01(\v2\x18.b2c_service_order.OrderR\x05order\"X\n" +
+	"\x13UpdateOrderResponse\x12A\n" +
+	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"!\n" +
 	"\x0fGetOrderRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\"B\n" +
-	"\x10GetOrderResponse\x12.\n" +
-	"\x05order\x18\x01 \x01(\v2\x18.b2c_service_order.OrderR\x05order\"\xcf\x03\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"U\n" +
+	"\x10GetOrderResponse\x12A\n" +
+	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"\xcf\x03\n" +
 	"\x1bListB2CServiceOrdersRequest\x12,\n" +
 	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12 \n" +
 	"\tbranch_id\x18\x02 \x01(\x03H\x01R\bbranchId\x88\x01\x01\x12+\n" +
@@ -750,9 +981,9 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x0e_created_at_toB\r\n" +
 	"\v_price_fromB\v\n" +
 	"\t_price_toB\x0e\n" +
-	"\f_search_text\"q\n" +
-	"\x1cListB2CServiceOrdersResponse\x120\n" +
-	"\x06orders\x18\x01 \x03(\v2\x18.b2c_service_order.OrderR\x06orders\x12\x1f\n" +
+	"\f_search_text\"w\n" +
+	"\x1cListB2CServiceOrdersResponse\x126\n" +
+	"\x06orders\x18\x01 \x03(\v2\x1e.b2c_service_order.OrderDetailR\x06orders\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x03R\n" +
 	"totalCount2\xba\x02\n" +
 	"\x16B2CServiceOrderService\x12\\\n" +
@@ -773,42 +1004,47 @@ func file_b2c_service_order_b2c_service_order_proto_rawDescGZIP() []byte {
 	return file_b2c_service_order_b2c_service_order_proto_rawDescData
 }
 
-var file_b2c_service_order_b2c_service_order_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_b2c_service_order_b2c_service_order_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_b2c_service_order_b2c_service_order_proto_goTypes = []any{
-	(*Order)(nil),                        // 0: b2c_service_order.Order
-	(*OrderItem)(nil),                    // 1: b2c_service_order.OrderItem
-	(*CreateOrderRequest)(nil),           // 2: b2c_service_order.CreateOrderRequest
-	(*CreateOrderResponse)(nil),          // 3: b2c_service_order.CreateOrderResponse
-	(*UpdateOrderRequest)(nil),           // 4: b2c_service_order.UpdateOrderRequest
-	(*UpdateOrderResponse)(nil),          // 5: b2c_service_order.UpdateOrderResponse
-	(*GetOrderRequest)(nil),              // 6: b2c_service_order.GetOrderRequest
-	(*GetOrderResponse)(nil),             // 7: b2c_service_order.GetOrderResponse
-	(*ListB2CServiceOrdersRequest)(nil),  // 8: b2c_service_order.ListB2CServiceOrdersRequest
-	(*ListB2CServiceOrdersResponse)(nil), // 9: b2c_service_order.ListB2CServiceOrdersResponse
-	(*customer.Customer)(nil),            // 10: customer.Customer
-	(*service.Service)(nil),              // 11: service.Service
+	(*OrderDetail)(nil),                  // 0: b2c_service_order.OrderDetail
+	(*Order)(nil),                        // 1: b2c_service_order.Order
+	(*OrderItem)(nil),                    // 2: b2c_service_order.OrderItem
+	(*OrderItemDetail)(nil),              // 3: b2c_service_order.OrderItemDetail
+	(*CreateOrderRequest)(nil),           // 4: b2c_service_order.CreateOrderRequest
+	(*CreateOrderResponse)(nil),          // 5: b2c_service_order.CreateOrderResponse
+	(*UpdateOrderRequest)(nil),           // 6: b2c_service_order.UpdateOrderRequest
+	(*UpdateOrderResponse)(nil),          // 7: b2c_service_order.UpdateOrderResponse
+	(*GetOrderRequest)(nil),              // 8: b2c_service_order.GetOrderRequest
+	(*GetOrderResponse)(nil),             // 9: b2c_service_order.GetOrderResponse
+	(*ListB2CServiceOrdersRequest)(nil),  // 10: b2c_service_order.ListB2CServiceOrdersRequest
+	(*ListB2CServiceOrdersResponse)(nil), // 11: b2c_service_order.ListB2CServiceOrdersResponse
+	(*customer.Customer)(nil),            // 12: customer.Customer
+	(*service.Service)(nil),              // 13: service.Service
 }
 var file_b2c_service_order_b2c_service_order_proto_depIdxs = []int32{
-	10, // 0: b2c_service_order.Order.customer:type_name -> customer.Customer
-	1,  // 1: b2c_service_order.Order.order_items:type_name -> b2c_service_order.OrderItem
-	11, // 2: b2c_service_order.OrderItem.service:type_name -> service.Service
-	0,  // 3: b2c_service_order.CreateOrderRequest.order:type_name -> b2c_service_order.Order
-	0,  // 4: b2c_service_order.CreateOrderResponse.order:type_name -> b2c_service_order.Order
-	0,  // 5: b2c_service_order.UpdateOrderRequest.order:type_name -> b2c_service_order.Order
-	0,  // 6: b2c_service_order.UpdateOrderResponse.order:type_name -> b2c_service_order.Order
-	0,  // 7: b2c_service_order.GetOrderResponse.order:type_name -> b2c_service_order.Order
-	0,  // 8: b2c_service_order.ListB2CServiceOrdersResponse.orders:type_name -> b2c_service_order.Order
-	2,  // 9: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
-	6,  // 10: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
-	8,  // 11: b2c_service_order.B2CServiceOrderService.ListOrders:input_type -> b2c_service_order.ListB2CServiceOrdersRequest
-	3,  // 12: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
-	7,  // 13: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
-	9,  // 14: b2c_service_order.B2CServiceOrderService.ListOrders:output_type -> b2c_service_order.ListB2CServiceOrdersResponse
-	12, // [12:15] is the sub-list for method output_type
-	9,  // [9:12] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	12, // 0: b2c_service_order.OrderDetail.customer:type_name -> customer.Customer
+	3,  // 1: b2c_service_order.OrderDetail.order_items:type_name -> b2c_service_order.OrderItemDetail
+	2,  // 2: b2c_service_order.Order.order_items:type_name -> b2c_service_order.OrderItem
+	12, // 3: b2c_service_order.Order.customer:type_name -> customer.Customer
+	13, // 4: b2c_service_order.OrderItem.service:type_name -> service.Service
+	13, // 5: b2c_service_order.OrderItemDetail.service:type_name -> service.Service
+	1,  // 6: b2c_service_order.CreateOrderRequest.order:type_name -> b2c_service_order.Order
+	0,  // 7: b2c_service_order.CreateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	1,  // 8: b2c_service_order.UpdateOrderRequest.order:type_name -> b2c_service_order.Order
+	0,  // 9: b2c_service_order.UpdateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	0,  // 10: b2c_service_order.GetOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	0,  // 11: b2c_service_order.ListB2CServiceOrdersResponse.orders:type_name -> b2c_service_order.OrderDetail
+	4,  // 12: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
+	8,  // 13: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
+	10, // 14: b2c_service_order.B2CServiceOrderService.ListOrders:input_type -> b2c_service_order.ListB2CServiceOrdersRequest
+	5,  // 15: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
+	9,  // 16: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
+	11, // 17: b2c_service_order.B2CServiceOrderService.ListOrders:output_type -> b2c_service_order.ListB2CServiceOrdersResponse
+	15, // [15:18] is the sub-list for method output_type
+	12, // [12:15] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_b2c_service_order_b2c_service_order_proto_init() }
@@ -817,14 +1053,15 @@ func file_b2c_service_order_b2c_service_order_proto_init() {
 		return
 	}
 	file_b2c_service_order_b2c_service_order_proto_msgTypes[0].OneofWrappers = []any{}
-	file_b2c_service_order_b2c_service_order_proto_msgTypes[8].OneofWrappers = []any{}
+	file_b2c_service_order_b2c_service_order_proto_msgTypes[1].OneofWrappers = []any{}
+	file_b2c_service_order_b2c_service_order_proto_msgTypes[10].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_b2c_service_order_b2c_service_order_proto_rawDesc), len(file_b2c_service_order_b2c_service_order_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
