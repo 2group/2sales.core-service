@@ -12,6 +12,7 @@ service UserService {
     rpc Login (LoginRequest) returns (LoginResponse);
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
     rpc GetUser (GetUserRequest) returns (GetUserResponse);
+    rpc GetUserByPhone (GetUserByPhoneRequest) returns (GetUserByPhoneResponse);
     rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
     rpc PartialUpdateUser (PartialUpdateUserRequest) returns (PartialUpdateUserResponse);
     rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
@@ -143,4 +144,12 @@ message ListUsersRequest{
 message ListUsersResponse{
     repeated User users = 1;
     int32 total_count = 2;
+}
+
+message GetUserByPhoneRequest {
+    string phone_number = 1;
+}
+
+message GetUserByPhoneResponse {
+    User user = 1;
 }

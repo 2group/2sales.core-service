@@ -1298,6 +1298,94 @@ func (x *ListUsersResponse) GetTotalCount() int32 {
 	return 0
 }
 
+type GetUserByPhoneRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PhoneNumber   string                 `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUserByPhoneRequest) Reset() {
+	*x = GetUserByPhoneRequest{}
+	mi := &file_user_user_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUserByPhoneRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserByPhoneRequest) ProtoMessage() {}
+
+func (x *GetUserByPhoneRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_user_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserByPhoneRequest.ProtoReflect.Descriptor instead.
+func (*GetUserByPhoneRequest) Descriptor() ([]byte, []int) {
+	return file_user_user_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *GetUserByPhoneRequest) GetPhoneNumber() string {
+	if x != nil {
+		return x.PhoneNumber
+	}
+	return ""
+}
+
+type GetUserByPhoneResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	User          *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUserByPhoneResponse) Reset() {
+	*x = GetUserByPhoneResponse{}
+	mi := &file_user_user_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUserByPhoneResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserByPhoneResponse) ProtoMessage() {}
+
+func (x *GetUserByPhoneResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_user_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserByPhoneResponse.ProtoReflect.Descriptor instead.
+func (*GetUserByPhoneResponse) Descriptor() ([]byte, []int) {
+	return file_user_user_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *GetUserByPhoneResponse) GetUser() *User {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
 var File_user_user_proto protoreflect.FileDescriptor
 
 const file_user_user_proto_rawDesc = "" +
@@ -1395,12 +1483,18 @@ const file_user_user_proto_rawDesc = "" +
 	"\x05users\x18\x01 \x03(\v2\n" +
 	".user.UserR\x05users\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x05R\n" +
-	"totalCount2\x89\x04\n" +
+	"totalCount\":\n" +
+	"\x15GetUserByPhoneRequest\x12!\n" +
+	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\"8\n" +
+	"\x16GetUserByPhoneResponse\x12\x1e\n" +
+	"\x04user\x18\x01 \x01(\v2\n" +
+	".user.UserR\x04user2\xd6\x04\n" +
 	"\vUserService\x120\n" +
 	"\x05Login\x12\x12.user.LoginRequest\x1a\x13.user.LoginResponse\x12?\n" +
 	"\n" +
 	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x126\n" +
-	"\aGetUser\x12\x14.user.GetUserRequest\x1a\x15.user.GetUserResponse\x12?\n" +
+	"\aGetUser\x12\x14.user.GetUserRequest\x1a\x15.user.GetUserResponse\x12K\n" +
+	"\x0eGetUserByPhone\x12\x1b.user.GetUserByPhoneRequest\x1a\x1c.user.GetUserByPhoneResponse\x12?\n" +
 	"\n" +
 	"UpdateUser\x12\x17.user.UpdateUserRequest\x1a\x18.user.UpdateUserResponse\x12T\n" +
 	"\x11PartialUpdateUser\x12\x1e.user.PartialUpdateUserRequest\x1a\x1f.user.PartialUpdateUserResponse\x12<\n" +
@@ -1426,7 +1520,7 @@ func file_user_user_proto_rawDescGZIP() []byte {
 	return file_user_user_proto_rawDescData
 }
 
-var file_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
+var file_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 27)
 var file_user_user_proto_goTypes = []any{
 	(*User)(nil),                      // 0: user.User
 	(*LoginRequest)(nil),              // 1: user.LoginRequest
@@ -1453,13 +1547,15 @@ var file_user_user_proto_goTypes = []any{
 	(*VerifyMailOtpResponse)(nil),     // 22: user.VerifyMailOtpResponse
 	(*ListUsersRequest)(nil),          // 23: user.ListUsersRequest
 	(*ListUsersResponse)(nil),         // 24: user.ListUsersResponse
-	(*customer.Customer)(nil),         // 25: customer.Customer
-	(*employee.Employee)(nil),         // 26: employee.Employee
-	(*fieldmaskpb.FieldMask)(nil),     // 27: google.protobuf.FieldMask
+	(*GetUserByPhoneRequest)(nil),     // 25: user.GetUserByPhoneRequest
+	(*GetUserByPhoneResponse)(nil),    // 26: user.GetUserByPhoneResponse
+	(*customer.Customer)(nil),         // 27: customer.Customer
+	(*employee.Employee)(nil),         // 28: employee.Employee
+	(*fieldmaskpb.FieldMask)(nil),     // 29: google.protobuf.FieldMask
 }
 var file_user_user_proto_depIdxs = []int32{
-	25, // 0: user.User.customer:type_name -> customer.Customer
-	26, // 1: user.User.employee:type_name -> employee.Employee
+	27, // 0: user.User.customer:type_name -> customer.Customer
+	28, // 1: user.User.employee:type_name -> employee.Employee
 	0,  // 2: user.LoginResponse.user:type_name -> user.User
 	0,  // 3: user.RefreshTokenResponse.user:type_name -> user.User
 	0,  // 4: user.CreateUserRequest.user:type_name -> user.User
@@ -1469,39 +1565,42 @@ var file_user_user_proto_depIdxs = []int32{
 	0,  // 8: user.UpdateUserResponse.user:type_name -> user.User
 	0,  // 9: user.PartialUpdateUserRequest.user:type_name -> user.User
 	0,  // 10: user.PartialUpdateUserResponse.user:type_name -> user.User
-	27, // 11: user.VerifySmsOtpRequest.field_mask:type_name -> google.protobuf.FieldMask
+	29, // 11: user.VerifySmsOtpRequest.field_mask:type_name -> google.protobuf.FieldMask
 	0,  // 12: user.VerifySmsOtpResponse.user:type_name -> user.User
 	0,  // 13: user.VerifyMailOtpResponse.user:type_name -> user.User
 	0,  // 14: user.ListUsersResponse.users:type_name -> user.User
-	1,  // 15: user.UserService.Login:input_type -> user.LoginRequest
-	7,  // 16: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	9,  // 17: user.UserService.GetUser:input_type -> user.GetUserRequest
-	11, // 18: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
-	13, // 19: user.UserService.PartialUpdateUser:input_type -> user.PartialUpdateUserRequest
-	23, // 20: user.UserService.ListUsers:input_type -> user.ListUsersRequest
-	5,  // 21: user.UserService.RefreshToken:input_type -> user.RefreshTokenRequest
-	3,  // 22: user.UserService.Logout:input_type -> user.LogoutRequest
-	15, // 23: user.OtpService.RequestSmsOtp:input_type -> user.RequestSmsOtpRequest
-	17, // 24: user.OtpService.VerifySmsOtp:input_type -> user.VerifySmsOtpRequest
-	19, // 25: user.OtpService.RequestMailOtp:input_type -> user.RequestMailOtpRequest
-	21, // 26: user.OtpService.VerifyMailOtp:input_type -> user.VerifyMailOtpRequest
-	2,  // 27: user.UserService.Login:output_type -> user.LoginResponse
-	8,  // 28: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	10, // 29: user.UserService.GetUser:output_type -> user.GetUserResponse
-	12, // 30: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
-	14, // 31: user.UserService.PartialUpdateUser:output_type -> user.PartialUpdateUserResponse
-	24, // 32: user.UserService.ListUsers:output_type -> user.ListUsersResponse
-	6,  // 33: user.UserService.RefreshToken:output_type -> user.RefreshTokenResponse
-	4,  // 34: user.UserService.Logout:output_type -> user.LogoutResponse
-	16, // 35: user.OtpService.RequestSmsOtp:output_type -> user.RequestSmsOtpResponse
-	18, // 36: user.OtpService.VerifySmsOtp:output_type -> user.VerifySmsOtpResponse
-	20, // 37: user.OtpService.RequestMailOtp:output_type -> user.RequestMailOtpResponse
-	22, // 38: user.OtpService.VerifyMailOtp:output_type -> user.VerifyMailOtpResponse
-	27, // [27:39] is the sub-list for method output_type
-	15, // [15:27] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	0,  // 15: user.GetUserByPhoneResponse.user:type_name -> user.User
+	1,  // 16: user.UserService.Login:input_type -> user.LoginRequest
+	7,  // 17: user.UserService.CreateUser:input_type -> user.CreateUserRequest
+	9,  // 18: user.UserService.GetUser:input_type -> user.GetUserRequest
+	25, // 19: user.UserService.GetUserByPhone:input_type -> user.GetUserByPhoneRequest
+	11, // 20: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
+	13, // 21: user.UserService.PartialUpdateUser:input_type -> user.PartialUpdateUserRequest
+	23, // 22: user.UserService.ListUsers:input_type -> user.ListUsersRequest
+	5,  // 23: user.UserService.RefreshToken:input_type -> user.RefreshTokenRequest
+	3,  // 24: user.UserService.Logout:input_type -> user.LogoutRequest
+	15, // 25: user.OtpService.RequestSmsOtp:input_type -> user.RequestSmsOtpRequest
+	17, // 26: user.OtpService.VerifySmsOtp:input_type -> user.VerifySmsOtpRequest
+	19, // 27: user.OtpService.RequestMailOtp:input_type -> user.RequestMailOtpRequest
+	21, // 28: user.OtpService.VerifyMailOtp:input_type -> user.VerifyMailOtpRequest
+	2,  // 29: user.UserService.Login:output_type -> user.LoginResponse
+	8,  // 30: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	10, // 31: user.UserService.GetUser:output_type -> user.GetUserResponse
+	26, // 32: user.UserService.GetUserByPhone:output_type -> user.GetUserByPhoneResponse
+	12, // 33: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
+	14, // 34: user.UserService.PartialUpdateUser:output_type -> user.PartialUpdateUserResponse
+	24, // 35: user.UserService.ListUsers:output_type -> user.ListUsersResponse
+	6,  // 36: user.UserService.RefreshToken:output_type -> user.RefreshTokenResponse
+	4,  // 37: user.UserService.Logout:output_type -> user.LogoutResponse
+	16, // 38: user.OtpService.RequestSmsOtp:output_type -> user.RequestSmsOtpResponse
+	18, // 39: user.OtpService.VerifySmsOtp:output_type -> user.VerifySmsOtpResponse
+	20, // 40: user.OtpService.RequestMailOtp:output_type -> user.RequestMailOtpResponse
+	22, // 41: user.OtpService.VerifyMailOtp:output_type -> user.VerifyMailOtpResponse
+	29, // [29:42] is the sub-list for method output_type
+	16, // [16:29] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_user_user_proto_init() }
@@ -1522,7 +1621,7 @@ func file_user_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_user_proto_rawDesc), len(file_user_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   25,
+			NumMessages:   27,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
