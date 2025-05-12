@@ -7,44 +7,31 @@ option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/b2c_servic
 import "service/service.proto";
 import "customer/customer.proto";
 
-
 service B2CServiceOrderService {
-    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
-    rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
-    rpc ListOrders (ListB2CServiceOrdersRequest) returns (ListB2CServiceOrdersResponse);
-//    rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
-}  
-
-message OrderDetail {
-    int64 id = 1;
-    customer.Customer customer = 2;
-    string status = 3;
-    float original_total_price = 4;
-    float final_total_price = 5;
-    repeated OrderItemDetail order_items = 6;
-
-    optional int64 gift_certificate_id = 7;
-    optional float gift_used_amount = 8;
-    optional string created_at = 9;
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+  rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
+  rpc ListOrders (ListB2CServiceOrdersRequest) returns (ListB2CServiceOrdersResponse);
 }
 
 message Order {
   optional int64 id = 1;
   optional int64 customer_id = 2;
-  optional string status = 3;
-  optional float original_total_price = 4;
-  optional float final_total_price = 5;
-  repeated OrderItem order_items = 6;
+  optional customer.Customer customer = 3;
 
-  optional string created_at = 7;
-  optional string updated_at = 8;
-  optional customer.Customer customer = 9;
+  optional string status = 4;
+  optional float original_total_price = 5;
+  optional float final_total_price = 6;
+
+  repeated OrderItem order_items = 7;
+
+  optional int64 gift_certificate_id = 8;
+  optional float gift_used_amount = 9;
+
   optional float bonus_used = 10;
   optional int64 branch_id = 11;
 
-  optional int64 gift_certificate_id = 12;
-  optional float gift_used_amount = 13;
-
+  optional string created_at = 12;
+  optional string updated_at = 13;
 }
 
 message OrderItem {
@@ -56,21 +43,13 @@ message OrderItem {
   service.Service service = 6;
 }
 
-message OrderItemDetail {
-    int64 id = 1;
-    int64 service_order_id = 2;
-    service.Service service = 3;
-    int32 quantity = 4;
-    float final_price = 5;
-  }
 
-// Request and Response messages for creating a service order.
 message CreateOrderRequest {
   Order order = 1;
 }
 
 message CreateOrderResponse {
-  OrderDetail order_detail = 1;
+  Order order = 1;
 }
 
 message UpdateOrderRequest {
@@ -78,32 +57,30 @@ message UpdateOrderRequest {
 }
 
 message UpdateOrderResponse {
-  OrderDetail order_detail = 1;
+  Order order = 1;
 }
 
-// Request and Response messages for retrieving a single service order.
 message GetOrderRequest {
   int64 id = 1;
 }
 
 message GetOrderResponse {
-  OrderDetail order_detail = 1;
+  Order order = 1;
 }
 
-
 message ListB2CServiceOrdersRequest {
-   optional int64 organization_id = 1;
-   optional int64 branch_id = 2;
-   optional string created_at_from = 3;
-   optional string created_at_to = 4;
-   optional double price_from = 5;
-   optional double price_to = 6;
-   optional string search_text = 7;
-   int64 limit = 8;
-   int64 offset = 9;
- }
+  optional int64 organization_id = 1;
+  optional int64 branch_id = 2;
+  optional string created_at_from = 3;
+  optional string created_at_to = 4;
+  optional double price_from = 5;
+  optional double price_to = 6;
+  optional string search_text = 7;
+  int64 limit = 8;
+  int64 offset = 9;
+}
 
 message ListB2CServiceOrdersResponse {
-  repeated OrderDetail orders = 1;
+  repeated Order orders = 1;
   int64 total_count = 2;
 }
