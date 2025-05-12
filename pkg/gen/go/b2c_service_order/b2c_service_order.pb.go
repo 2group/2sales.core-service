@@ -33,6 +33,7 @@ type OrderDetail struct {
 	OrderItems         []*OrderItemDetail     `protobuf:"bytes,6,rep,name=order_items,json=orderItems,proto3" json:"order_items,omitempty"`
 	GiftCertificateId  *int64                 `protobuf:"varint,7,opt,name=gift_certificate_id,json=giftCertificateId,proto3,oneof" json:"gift_certificate_id,omitempty"`
 	GiftUsedAmount     *float32               `protobuf:"fixed32,8,opt,name=gift_used_amount,json=giftUsedAmount,proto3,oneof" json:"gift_used_amount,omitempty"`
+	CreatedAt          *string                `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -121,6 +122,13 @@ func (x *OrderDetail) GetGiftUsedAmount() float32 {
 		return *x.GiftUsedAmount
 	}
 	return 0
+}
+
+func (x *OrderDetail) GetCreatedAt() string {
+	if x != nil && x.CreatedAt != nil {
+		return *x.CreatedAt
+	}
+	return ""
 }
 
 type Order struct {
@@ -853,7 +861,7 @@ var File_b2c_service_order_b2c_service_order_proto protoreflect.FileDescriptor
 
 const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
-	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\"\x99\x03\n" +
+	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\"\xcc\x03\n" +
 	"\vOrderDetail\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12.\n" +
 	"\bcustomer\x18\x02 \x01(\v2\x12.customer.CustomerR\bcustomer\x12\x16\n" +
@@ -863,9 +871,12 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\vorder_items\x18\x06 \x03(\v2\".b2c_service_order.OrderItemDetailR\n" +
 	"orderItems\x123\n" +
 	"\x13gift_certificate_id\x18\a \x01(\x03H\x00R\x11giftCertificateId\x88\x01\x01\x12-\n" +
-	"\x10gift_used_amount\x18\b \x01(\x02H\x01R\x0egiftUsedAmount\x88\x01\x01B\x16\n" +
+	"\x10gift_used_amount\x18\b \x01(\x02H\x01R\x0egiftUsedAmount\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"created_at\x18\t \x01(\tH\x02R\tcreatedAt\x88\x01\x01B\x16\n" +
 	"\x14_gift_certificate_idB\x13\n" +
-	"\x11_gift_used_amount\"\xf3\x05\n" +
+	"\x11_gift_used_amountB\r\n" +
+	"\v_created_at\"\xf3\x05\n" +
 	"\x05Order\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03H\x01R\n" +

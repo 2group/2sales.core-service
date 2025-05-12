@@ -25,6 +25,7 @@ message OrderDetail {
 
     optional int64 gift_certificate_id = 7;
     optional float gift_used_amount = 8;
+    optional string created_at = 9;
 }
 
 message Order {
@@ -43,6 +44,7 @@ message Order {
 
   optional int64 gift_certificate_id = 12;
   optional float gift_used_amount = 13;
+
 }
 
 message OrderItem {
