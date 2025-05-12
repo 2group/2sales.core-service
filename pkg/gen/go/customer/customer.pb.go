@@ -269,6 +269,7 @@ type GiftCertificate struct {
 	LabelId         *int64                 `protobuf:"varint,10,opt,name=label_id,json=labelId,proto3,oneof" json:"label_id,omitempty"`
 	IconId          *int64                 `protobuf:"varint,11,opt,name=icon_id,json=iconId,proto3,oneof" json:"icon_id,omitempty"`
 	BackgroundId    *int64                 `protobuf:"varint,12,opt,name=background_id,json=backgroundId,proto3,oneof" json:"background_id,omitempty"`
+	PhoneNumber     *string                `protobuf:"bytes,20,opt,name=phone_number,json=phoneNumber,proto3,oneof" json:"phone_number,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -385,6 +386,13 @@ func (x *GiftCertificate) GetBackgroundId() int64 {
 		return *x.BackgroundId
 	}
 	return 0
+}
+
+func (x *GiftCertificate) GetPhoneNumber() string {
+	if x != nil && x.PhoneNumber != nil {
+		return *x.PhoneNumber
+	}
+	return ""
 }
 
 type CreateGiftCertificateRequest struct {
@@ -2144,7 +2152,7 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\rbalance_after\x18\x06 \x01(\x01R\fbalanceAfter\x12\x1d\n" +
 	"\n" +
 	"created_at\x18\a \x01(\tR\tcreatedAtB\v\n" +
-	"\t_order_id\"\x83\x04\n" +
+	"\t_order_id\"\xbc\x04\n" +
 	"\x0fGiftCertificate\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03R\n" +
@@ -2162,14 +2170,16 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\blabel_id\x18\n" +
 	" \x01(\x03H\x03R\alabelId\x88\x01\x01\x12\x1c\n" +
 	"\aicon_id\x18\v \x01(\x03H\x04R\x06iconId\x88\x01\x01\x12(\n" +
-	"\rbackground_id\x18\f \x01(\x03H\x05R\fbackgroundId\x88\x01\x01B\r\n" +
+	"\rbackground_id\x18\f \x01(\x03H\x05R\fbackgroundId\x88\x01\x01\x12&\n" +
+	"\fphone_number\x18\x14 \x01(\tH\x06R\vphoneNumber\x88\x01\x01B\r\n" +
 	"\v_expires_atB\r\n" +
 	"\v_created_atB\r\n" +
 	"\v_updated_atB\v\n" +
 	"\t_label_idB\n" +
 	"\n" +
 	"\b_icon_idB\x10\n" +
-	"\x0e_background_id\"[\n" +
+	"\x0e_background_idB\x0f\n" +
+	"\r_phone_number\"[\n" +
 	"\x1cCreateGiftCertificateRequest\x12;\n" +
 	"\vcertificate\x18\x01 \x01(\v2\x19.customer.GiftCertificateR\vcertificate\"\\\n" +
 	"\x1dCreateGiftCertificateResponse\x12;\n" +

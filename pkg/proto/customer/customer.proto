@@ -67,6 +67,7 @@ message GiftCertificate {
     optional int64 label_id = 10;
     optional int64 icon_id = 11;
     optional int64 background_id = 12;
+    optional string phone_number = 20;
 }
 
 message CreateGiftCertificateRequest {
