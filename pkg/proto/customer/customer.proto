@@ -40,6 +40,7 @@ message Customer {
     optional int64 organization_id = 10;
     optional int64 loyalty_level_id = 11;
     optional organization.LoyaltyLevel loyalty_level = 12;
+    optional bool invited = 13;
 }
 
 message CustomerBonusTransaction {
@@ -197,6 +198,7 @@ message GiftCertificateBackground {
     string background_url = 2;
     int32 index = 3;
 }
+
 message ListGiftCertificateLabelsRequest {}
 
 message ListGiftCertificateLabelsResponse {

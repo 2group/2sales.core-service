@@ -37,6 +37,7 @@ type Customer struct {
 	OrganizationId  *int64                     `protobuf:"varint,10,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
 	LoyaltyLevelId  *int64                     `protobuf:"varint,11,opt,name=loyalty_level_id,json=loyaltyLevelId,proto3,oneof" json:"loyalty_level_id,omitempty"`
 	LoyaltyLevel    *organization.LoyaltyLevel `protobuf:"bytes,12,opt,name=loyalty_level,json=loyaltyLevel,proto3,oneof" json:"loyalty_level,omitempty"`
+	Invited         *bool                      `protobuf:"varint,13,opt,name=invited,proto3,oneof" json:"invited,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -153,6 +154,13 @@ func (x *Customer) GetLoyaltyLevel() *organization.LoyaltyLevel {
 		return x.LoyaltyLevel
 	}
 	return nil
+}
+
+func (x *Customer) GetInvited() bool {
+	if x != nil && x.Invited != nil {
+		return *x.Invited
+	}
+	return false
 }
 
 type CustomerBonusTransaction struct {
@@ -2089,7 +2097,7 @@ var File_customer_customer_proto protoreflect.FileDescriptor
 
 const file_customer_customer_proto_rawDesc = "" +
 	"\n" +
-	"\x17customer/customer.proto\x12\bcustomer\x1a google/protobuf/field_mask.proto\x1a\x1forganization/organization.proto\"\xad\x05\n" +
+	"\x17customer/customer.proto\x12\bcustomer\x1a google/protobuf/field_mask.proto\x1a\x1forganization/organization.proto\"\xd8\x05\n" +
 	"\bCustomer\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1c\n" +
 	"\auser_id\x18\x02 \x01(\x03H\x01R\x06userId\x88\x01\x01\x12\"\n" +
@@ -2108,7 +2116,8 @@ const file_customer_customer_proto_rawDesc = "" +
 	" \x01(\x03H\tR\x0eorganizationId\x88\x01\x01\x12-\n" +
 	"\x10loyalty_level_id\x18\v \x01(\x03H\n" +
 	"R\x0eloyaltyLevelId\x88\x01\x01\x12D\n" +
-	"\rloyalty_level\x18\f \x01(\v2\x1a.organization.LoyaltyLevelH\vR\floyaltyLevel\x88\x01\x01B\x05\n" +
+	"\rloyalty_level\x18\f \x01(\v2\x1a.organization.LoyaltyLevelH\vR\floyaltyLevel\x88\x01\x01\x12\x1d\n" +
+	"\ainvited\x18\r \x01(\bH\fR\ainvited\x88\x01\x01B\x05\n" +
 	"\x03_idB\n" +
 	"\n" +
 	"\b_user_idB\r\n" +
@@ -2122,7 +2131,9 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\f_total_spentB\x12\n" +
 	"\x10_organization_idB\x13\n" +
 	"\x11_loyalty_level_idB\x10\n" +
-	"\x0e_loyalty_level\"\x88\x02\n" +
+	"\x0e_loyalty_levelB\n" +
+	"\n" +
+	"\b_invited\"\x88\x02\n" +
 	"\x18CustomerBonusTransaction\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03R\n" +
