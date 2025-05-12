@@ -56,7 +56,16 @@ func (h *B2CServiceOrderHandler) CreateOrder(w http.ResponseWriter, r *http.Requ
 	resp, err := h.b2c_service_order.Api.CreateOrder(r.Context(), req)
 	if err != nil {
 		log.Error().Err(err).Msg("grpc_call_failed")
-		json.WriteError(w, http.StatusInternalServerError, errors.New("internal server error during order creation"))
+
+		if st, ok := status.FromError(err); ok {
+			if st.Code() == codes.InvalidArgument {
+				json.WriteError(w, http.StatusBadRequest, errors.New(st.Message()))
+			} else {
+				json.WriteError(w, http.StatusInternalServerError, errors.New(st.Message()))
+			}
+		} else {
+			json.WriteError(w, http.StatusInternalServerError, errors.New("internal server error during order creation"))
+		}
 		return
 	}
 
