@@ -261,8 +261,11 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 	if createdAtFromStr != "" {
 		if _, err := time.Parse(time.RFC3339, createdAtFromStr); err == nil {
 			createdAtFrom = proto.String(createdAtFromStr)
+		} else if t, err := time.Parse("2006-01-02", createdAtFromStr); err == nil {
+			s := t.Format(time.RFC3339)
+			createdAtFrom = proto.String(s)
 		} else {
-			log.Warn().Str("created_at_from", createdAtFromStr).Err(err).Msg("invalid_created_at_from")
+			log.Warn().Str("created_at_from", createdAtFromStr).Msg("invalid_created_at_from")
 		}
 	}
 
@@ -270,8 +273,12 @@ func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 	if createdAtToStr != "" {
 		if _, err := time.Parse(time.RFC3339, createdAtToStr); err == nil {
 			createdAtTo = proto.String(createdAtToStr)
+		} else if t, err := time.Parse("2006-01-02", createdAtToStr); err == nil {
+			t = t.Add(23*time.Hour + 59*time.Minute + 59*time.Second)
+			s := t.Format(time.RFC3339)
+			createdAtTo = proto.String(s)
 		} else {
-			log.Warn().Str("created_at_to", createdAtToStr).Err(err).Msg("invalid_created_at_to")
+			log.Warn().Str("created_at_to", createdAtToStr).Msg("invalid_created_at_to")
 		}
 	}
 
