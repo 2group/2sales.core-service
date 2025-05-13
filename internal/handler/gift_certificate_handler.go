@@ -35,12 +35,13 @@ func (h *GiftCertificateHandler) CreateGiftCertificate(w http.ResponseWriter, r 
 		return
 	}
 
+	// Не валидируем PhoneNumber здесь — это делает gRPC
 	log.Debug().Interface("request", req).Msg("calling_customer_service")
 
 	resp, err := h.client.Api.CreateGiftCertificate(r.Context(), req)
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
-		json.WriteError(w, http.StatusBadRequest, err)
+		json.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
