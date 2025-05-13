@@ -10,7 +10,6 @@ service ServiceService {
   rpc DeleteService (DeleteServiceRequest) returns (DeleteServiceResponse);
   rpc PartialUpdateService (PartialUpdateServiceRequest) returns (PartialUpdateServiceResponse);
   rpc UpdateService (UpdateServiceRequest) returns (UpdateServiceResponse);
-  rpc GeneratePresignedURLs (GeneratePresignedURLsRequest) returns (GeneratePresignedURLsResponse);
   rpc ListServices (ListServicesRequest) returns (ListServicesResponse);
 }
 
@@ -45,10 +44,12 @@ message GetServiceResponse {
 
 message CreateServiceRequest {
     Service service = 1;
+    repeated string file_names= 2;
 }
 
 message CreateServiceResponse {
     Service service = 1;
+    repeated PresignedURLInfo presigned_urls = 2;
 }
 
 message DeleteServiceRequest {
@@ -69,25 +70,18 @@ message PartialUpdateServiceResponse {
 
 message UpdateServiceRequest {
     Service service = 1;
+    repeated string file_names = 2;
 }
 
 message UpdateServiceResponse {
     Service service = 1;
-}
-
-message GeneratePresignedURLsRequest {
-  int64 service_id = 1;
-  repeated string file_names = 2;
+    repeated PresignedURLInfo presigned_urls = 2;
 }
 
 message PresignedURLInfo {
   string file_name = 1;
-  string presigned_url = 2;
+  string upload_url = 2;
   string object_key = 3;
-}
-
-message GeneratePresignedURLsResponse {
-  repeated PresignedURLInfo presigned_urls = 1;
 }
 
 message ListServicesRequest{
