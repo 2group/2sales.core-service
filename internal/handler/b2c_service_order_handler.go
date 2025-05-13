@@ -33,7 +33,7 @@ func (h *B2CServiceOrderHandler) CreateOrder(w http.ResponseWriter, r *http.Requ
 	log.Info().Msg("request_received")
 
 	req := &orderv1.CreateOrderRequest{}
-	if err := json.ParseProtoJSON(r.Body, req); err != nil {
+	if err := json.ParseJSON(r, req); err != nil {
 		log.Error().Err(err).Msg("invalid_payload")
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
