@@ -81,6 +81,13 @@ func (s *APIServer) Run() error {
 	//if err != nil {
 	//	panic(err)
 	//}
+	// s3client, err := s3.NewS3Client(
+	// 	context,
+	// 	s.cfg.S3Config.Endpoint,
+	// 	s.cfg.S3Config.BucketName,
+	// 	s.cfg.S3Config.AccessKey,
+	// 	s.cfg.S3Config.SecretKey,
+	// )
 
 	otpHandler := handler.NewOtpHandler(otpgrpc)
 	userHandler := handler.NewUserHandler(usergrpc)
@@ -93,7 +100,12 @@ func (s *APIServer) Run() error {
 	giftCertificateHandler := handler.NewGiftCertificateHandler(customergrpc)
 	serviceHandler := handler.NewServiceHandler(servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(B2CServiceOrderGrpc)
-	EmployeeHandler := handler.NewEmployeeHandler(Employeegrpc)
+	employeeHandler := handler.NewEmployeeHandler(Employeegrpc)
+
+	if err != nil {
+		log.Error().Err(err).Msg("failed_to_initialize_s3_client")
+		return nil
+	}
 
 	// adminHandler := handler.NewAdminHandler(usergrpc, organizationgrpc)
 
@@ -375,21 +387,20 @@ func (s *APIServer) Run() error {
 				authRouter.Delete("/{id}", serviceHandler.DeleteService)
 				authRouter.Patch("/{id}", serviceHandler.PartialUpdateService)
 				authRouter.Put("/{id}", serviceHandler.UpdateService)
-				authRouter.Post("/presigned-urls", serviceHandler.GeneratePresignedURLs)
 				authRouter.Get("/", serviceHandler.ListServices)
 			})
 		})
 		apiRouter.Route("/employee", func(employeeRouter chi.Router) {
 			employeeRouter.Group(func(authRouter chi.Router) {
-				authRouter.Post("/", EmployeeHandler.CreateEmployee)
-				authRouter.Get("/{employee_id}", EmployeeHandler.GetEmployee)
-				authRouter.Put("/{employee_id}", EmployeeHandler.UpdateEmployee)
+				authRouter.Post("/", employeeHandler.CreateEmployee)
+				authRouter.Get("/{employee_id}", employeeHandler.GetEmployee)
+				authRouter.Put("/{employee_id}", employeeHandler.UpdateEmployee)
 
 				authRouter.Route("/role", func(roleRouter chi.Router) {
-					roleRouter.Post("/", EmployeeHandler.CreateRole)
-					roleRouter.Get("/", EmployeeHandler.ListRoles)
-					roleRouter.Put("/{role_id}", EmployeeHandler.UpdateRole)
-					roleRouter.Delete("/{role_id}", EmployeeHandler.DeleteRole)
+					roleRouter.Post("/", employeeHandler.CreateRole)
+					roleRouter.Get("/", employeeHandler.ListRoles)
+					roleRouter.Put("/{role_id}", employeeHandler.UpdateRole)
+					roleRouter.Delete("/{role_id}", employeeHandler.DeleteRole)
 				})
 			})
 		})

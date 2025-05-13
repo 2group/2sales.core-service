@@ -15,6 +15,14 @@ type Config struct {
 	GRPC        GrpcConfig `yaml:"grpc"`
 	Psql        PsqlConfig `yaml:"postgres"`
 	KafkaBroker string     `yaml:"kafka_broker"`
+	S3Config    S3Config   `yaml:"s3"`
+}
+
+type S3Config struct {
+	BucketName string `yaml:"bucket_name"`
+	Endpoint   string `yaml:"endpoint"`
+	AccessKey  string `yaml:"access_key"`
+	SecretKey  string `yaml:"secret_key"`
 }
 
 type PsqlConfig struct {
