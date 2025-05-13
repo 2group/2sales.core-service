@@ -77,7 +77,7 @@ func (s *APIServer) Run() error {
 	//if err != nil {
 	//	panic(err)
 	//}
-	Employeegrpc, err := grpc.NewEmployeeClient(context, s.cfg.GRPC.Employee, time.Hour, 2)
+	employeegrpc, err := grpc.NewEmployeeClient(context, s.cfg.GRPC.Employee, time.Hour, 2)
 	//if err != nil {
 	//	panic(err)
 	//}
@@ -100,7 +100,7 @@ func (s *APIServer) Run() error {
 	giftCertificateHandler := handler.NewGiftCertificateHandler(customergrpc)
 	serviceHandler := handler.NewServiceHandler(servicegrpc)
 	B2CServiceOrderHandler := handler.NewB2CServiceOrderHandler(B2CServiceOrderGrpc)
-	employeeHandler := handler.NewEmployeeHandler(Employeegrpc)
+	employeeHandler := handler.NewEmployeeHandler(employeegrpc)
 
 	if err != nil {
 		log.Error().Err(err).Msg("failed_to_initialize_s3_client")
