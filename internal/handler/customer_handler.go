@@ -241,9 +241,12 @@ func (h *CustomerHandler) UpdateCustomer(w http.ResponseWriter, r *http.Request)
 		json.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
-
+	if req.Customer.UserId == nil {
+		log.Error().Err(err).Msg("user_id must not be empty")
+		json.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
 	log.Debug().Int64("customer_id", customerID).Msg("calling_customer_service")
-
 	resp, err := h.customer.Api.UpdateCustomer(r.Context(), req)
 	if err != nil {
 		log.Error().Err(err).Msg("gRPC_call_failed")
