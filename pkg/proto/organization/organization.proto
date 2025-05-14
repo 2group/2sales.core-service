@@ -43,6 +43,13 @@ service OrganizationService {
     rpc ListMobilePageDiscounts (ListMobilePageDiscountsRequest) returns (ListMobilePageDiscountsResponse);
 }
 
+message UploadURLInfo {
+    string file_name = 1;
+    string upload_url = 2;
+    string object_key = 3;
+}
+
+
 message MobilePageDiscount {
     optional int64 id = 1;
     string name = 2;
@@ -258,10 +265,12 @@ message ListOrganizationsResponse {
 
 message CreateBranchRequest {
     Branch branch = 1;
+    repeated string file_names = 2;
 }
 
 message CreateBranchResponse {
     Branch branch = 1;
+    repeated UploadURLInfo upload_urls = 3;
 }
 
 message GetBranchRequest {
@@ -274,10 +283,12 @@ message GetBranchResponse  {
 
 message UpdateBranchRequest {
     Branch branch = 1;
+    repeated string file_names = 2;
 }
 
 message UpdateBranchResponse {
     Branch branch = 1;
+    repeated UploadURLInfo upload_urls = 2;
 }
 
 message PartialUpdateBranchRequest {
