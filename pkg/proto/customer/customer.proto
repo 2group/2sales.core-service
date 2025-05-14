@@ -41,6 +41,8 @@ message Customer {
     optional int64 loyalty_level_id = 11;
     optional organization.LoyaltyLevel loyalty_level = 12;
     optional bool invited = 13;
+    optional string phone_number = 14;
+    optional string email = 15;
 }
 
 message CustomerBonusTransaction {
@@ -129,8 +131,6 @@ message GetCustomerRequest {
 
 message GetCustomerResponse {
     Customer customer = 1;
-    optional string phone_number = 2;
-    optional string email = 3;
 }
 
 message CreateCustomerRequest {
