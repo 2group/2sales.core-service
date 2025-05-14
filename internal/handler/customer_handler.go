@@ -313,7 +313,6 @@ func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) 
 		dateOfBirthTo   *string
 	)
 
-	// Pagination
 	if l := q.Get("limit"); l != "" {
 		if val, err := strconv.ParseInt(l, 10, 32); err == nil {
 			limit = int32(val)
@@ -325,39 +324,40 @@ func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) 
 		}
 	}
 
-	// Organization
 	if org := q.Get("organization_id"); org != "" {
 		if val, err := strconv.ParseInt(org, 10, 64); err == nil {
 			organizationID = &val
 		}
 	}
 
-	// Loyalty
 	if loyalty := q.Get("loyalty_level_id"); loyalty != "" {
 		if val, err := strconv.ParseInt(loyalty, 10, 64); err == nil {
 			loyaltyLevelID = &val
 		}
 	}
 
-	// Search
 	if s := q.Get("search_text"); s != "" {
 		searchText = &s
 	}
-
-	// created_at
 	if v := q.Get("created_at_from"); v != "" {
 		createdAtFrom = &v
 	}
 	if v := q.Get("created_at_to"); v != "" {
 		createdAtTo = &v
 	}
-
-	// date_of_birth
 	if v := q.Get("date_of_birth_from"); v != "" {
 		dateOfBirthFrom = &v
 	}
 	if v := q.Get("date_of_birth_to"); v != "" {
 		dateOfBirthTo = &v
+	}
+
+	// parse include_loyalty
+	var fieldMask *fieldmaskpb.FieldMask
+	if q.Get("include_loyalty") == "true" {
+		fieldMask = &fieldmaskpb.FieldMask{
+			Paths: []string{"include_loyalty"},
+		}
 	}
 
 	req := &customerv1.ListCustomersRequest{
@@ -370,6 +370,7 @@ func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) 
 		CreatedAtTo:     createdAtTo,
 		DateOfBirthFrom: dateOfBirthFrom,
 		DateOfBirthTo:   dateOfBirthTo,
+		FieldMask:       fieldMask,
 	}
 
 	log.Debug().Interface("request", req).Msg("calling_customer_service")
