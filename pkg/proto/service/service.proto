@@ -31,7 +31,6 @@ message Service {
     optional string updated_at = 9;
     optional int64 organization_id = 10;
     repeated ImageModel images = 11;
-    optional int64 branch_id = 12;
 }
 
 message GetServiceRequest {

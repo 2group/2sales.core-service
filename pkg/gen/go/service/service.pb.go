@@ -101,7 +101,6 @@ type Service struct {
 	UpdatedAt      *string                `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
 	OrganizationId *int64                 `protobuf:"varint,10,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
 	Images         []*ImageModel          `protobuf:"bytes,11,rep,name=images,proto3" json:"images,omitempty"`
-	BranchId       *int64                 `protobuf:"varint,12,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -204,13 +203,6 @@ func (x *Service) GetImages() []*ImageModel {
 		return x.Images
 	}
 	return nil
-}
-
-func (x *Service) GetBranchId() int64 {
-	if x != nil && x.BranchId != nil {
-		return *x.BranchId
-	}
-	return 0
 }
 
 type GetServiceRequest struct {
@@ -918,7 +910,7 @@ const file_service_service_proto_rawDesc = "" +
 	"sort_index\x18\x03 \x01(\x05R\tsortIndex\x12\"\n" +
 	"\n" +
 	"object_key\x18\x04 \x01(\tH\x00R\tobjectKey\x88\x01\x01B\r\n" +
-	"\v_object_key\"\xd7\x03\n" +
+	"\v_object_key\"\xa7\x03\n" +
 	"\aService\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1d\n" +
 	"\n" +
@@ -933,16 +925,13 @@ const file_service_service_proto_rawDesc = "" +
 	"updated_at\x18\t \x01(\tH\x04R\tupdatedAt\x88\x01\x01\x12,\n" +
 	"\x0forganization_id\x18\n" +
 	" \x01(\x03H\x05R\x0eorganizationId\x88\x01\x01\x12+\n" +
-	"\x06images\x18\v \x03(\v2\x13.service.ImageModelR\x06images\x12 \n" +
-	"\tbranch_id\x18\f \x01(\x03H\x06R\bbranchId\x88\x01\x01B\x05\n" +
+	"\x06images\x18\v \x03(\v2\x13.service.ImageModelR\x06imagesB\x05\n" +
 	"\x03_idB\t\n" +
 	"\a_statusB\x0e\n" +
 	"\f_descriptionB\r\n" +
 	"\v_created_atB\r\n" +
 	"\v_updated_atB\x12\n" +
-	"\x10_organization_idB\f\n" +
-	"\n" +
-	"_branch_id\"#\n" +
+	"\x10_organization_id\"#\n" +
 	"\x11GetServiceRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"@\n" +
 	"\x12GetServiceResponse\x12*\n" +
