@@ -2796,6 +2796,7 @@ func (x *ListBranchesByOrganizationResponse) GetBranches() []*Branch {
 type CreateStoryResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Story         *Story                 `protobuf:"bytes,1,opt,name=story,proto3" json:"story,omitempty"`
+	UploadUrls    []*UploadURLInfo       `protobuf:"bytes,2,rep,name=upload_urls,json=uploadUrls,proto3" json:"upload_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2837,9 +2838,17 @@ func (x *CreateStoryResponse) GetStory() *Story {
 	return nil
 }
 
+func (x *CreateStoryResponse) GetUploadUrls() []*UploadURLInfo {
+	if x != nil {
+		return x.UploadUrls
+	}
+	return nil
+}
+
 type CreateStoryRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Story         *Story                 `protobuf:"bytes,1,opt,name=story,proto3" json:"story,omitempty"`
+	FileNames     []string               `protobuf:"bytes,2,rep,name=file_names,json=fileNames,proto3" json:"file_names,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2881,9 +2890,17 @@ func (x *CreateStoryRequest) GetStory() *Story {
 	return nil
 }
 
+func (x *CreateStoryRequest) GetFileNames() []string {
+	if x != nil {
+		return x.FileNames
+	}
+	return nil
+}
+
 type UpdateStoryResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Story         *Story                 `protobuf:"bytes,1,opt,name=story,proto3" json:"story,omitempty"`
+	UploadUrls    []*UploadURLInfo       `protobuf:"bytes,2,rep,name=upload_urls,json=uploadUrls,proto3" json:"upload_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2925,9 +2942,17 @@ func (x *UpdateStoryResponse) GetStory() *Story {
 	return nil
 }
 
+func (x *UpdateStoryResponse) GetUploadUrls() []*UploadURLInfo {
+	if x != nil {
+		return x.UploadUrls
+	}
+	return nil
+}
+
 type UpdateStoryRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Story         *Story                 `protobuf:"bytes,1,opt,name=story,proto3" json:"story,omitempty"`
+	FileNames     []string               `protobuf:"bytes,2,rep,name=file_names,json=fileNames,proto3" json:"file_names,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2965,6 +2990,13 @@ func (*UpdateStoryRequest) Descriptor() ([]byte, []int) {
 func (x *UpdateStoryRequest) GetStory() *Story {
 	if x != nil {
 		return x.Story
+	}
+	return nil
+}
+
+func (x *UpdateStoryRequest) GetFileNames() []string {
+	if x != nil {
+		return x.FileNames
 	}
 	return nil
 }
@@ -3060,6 +3092,7 @@ func (x *ListStoryRequest) GetOrganizationId() int64 {
 type CreateBannerResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Banner        *Banner                `protobuf:"bytes,1,opt,name=banner,proto3" json:"banner,omitempty"`
+	UploadUrls    []*UploadURLInfo       `protobuf:"bytes,2,rep,name=upload_urls,json=uploadUrls,proto3" json:"upload_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3101,9 +3134,17 @@ func (x *CreateBannerResponse) GetBanner() *Banner {
 	return nil
 }
 
+func (x *CreateBannerResponse) GetUploadUrls() []*UploadURLInfo {
+	if x != nil {
+		return x.UploadUrls
+	}
+	return nil
+}
+
 type CreateBannerRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Banner        *Banner                `protobuf:"bytes,1,opt,name=banner,proto3" json:"banner,omitempty"`
+	FileNames     []string               `protobuf:"bytes,2,rep,name=file_names,json=fileNames,proto3" json:"file_names,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3145,9 +3186,17 @@ func (x *CreateBannerRequest) GetBanner() *Banner {
 	return nil
 }
 
+func (x *CreateBannerRequest) GetFileNames() []string {
+	if x != nil {
+		return x.FileNames
+	}
+	return nil
+}
+
 type UpdateBannerResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Banner        *Banner                `protobuf:"bytes,1,opt,name=banner,proto3" json:"banner,omitempty"`
+	UploadUrls    []*UploadURLInfo       `protobuf:"bytes,2,rep,name=upload_urls,json=uploadUrls,proto3" json:"upload_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3189,9 +3238,17 @@ func (x *UpdateBannerResponse) GetBanner() *Banner {
 	return nil
 }
 
+func (x *UpdateBannerResponse) GetUploadUrls() []*UploadURLInfo {
+	if x != nil {
+		return x.UploadUrls
+	}
+	return nil
+}
+
 type UpdateBannerRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Banner        *Banner                `protobuf:"bytes,1,opt,name=banner,proto3" json:"banner,omitempty"`
+	FileNames     []string               `protobuf:"bytes,2,rep,name=file_names,json=fileNames,proto3" json:"file_names,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3229,6 +3286,13 @@ func (*UpdateBannerRequest) Descriptor() ([]byte, []int) {
 func (x *UpdateBannerRequest) GetBanner() *Banner {
 	if x != nil {
 		return x.Banner
+	}
+	return nil
+}
+
+func (x *UpdateBannerRequest) GetFileNames() []string {
+	if x != nil {
+		return x.FileNames
 	}
 	return nil
 }
@@ -3324,6 +3388,7 @@ func (x *ListBannerRequest) GetOrganizationId() int64 {
 type CreateMobilePageDiscountRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Discount      *MobilePageDiscount    `protobuf:"bytes,1,opt,name=discount,proto3" json:"discount,omitempty"`
+	FileNames     []string               `protobuf:"bytes,2,rep,name=file_names,json=fileNames,proto3" json:"file_names,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3365,9 +3430,17 @@ func (x *CreateMobilePageDiscountRequest) GetDiscount() *MobilePageDiscount {
 	return nil
 }
 
+func (x *CreateMobilePageDiscountRequest) GetFileNames() []string {
+	if x != nil {
+		return x.FileNames
+	}
+	return nil
+}
+
 type CreateMobilePageDiscountResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Discount      *MobilePageDiscount    `protobuf:"bytes,1,opt,name=discount,proto3" json:"discount,omitempty"`
+	UploadUrls    []*UploadURLInfo       `protobuf:"bytes,2,rep,name=upload_urls,json=uploadUrls,proto3" json:"upload_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3409,9 +3482,17 @@ func (x *CreateMobilePageDiscountResponse) GetDiscount() *MobilePageDiscount {
 	return nil
 }
 
+func (x *CreateMobilePageDiscountResponse) GetUploadUrls() []*UploadURLInfo {
+	if x != nil {
+		return x.UploadUrls
+	}
+	return nil
+}
+
 type UpdateMobilePageDiscountRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Discount      *MobilePageDiscount    `protobuf:"bytes,1,opt,name=discount,proto3" json:"discount,omitempty"`
+	FileNames     []string               `protobuf:"bytes,2,rep,name=file_names,json=fileNames,proto3" json:"file_names,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3453,9 +3534,17 @@ func (x *UpdateMobilePageDiscountRequest) GetDiscount() *MobilePageDiscount {
 	return nil
 }
 
+func (x *UpdateMobilePageDiscountRequest) GetFileNames() []string {
+	if x != nil {
+		return x.FileNames
+	}
+	return nil
+}
+
 type UpdateMobilePageDiscountResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Discount      *MobilePageDiscount    `protobuf:"bytes,1,opt,name=discount,proto3" json:"discount,omitempty"`
+	UploadUrls    []*UploadURLInfo       `protobuf:"bytes,2,rep,name=upload_urls,json=uploadUrls,proto3" json:"upload_urls,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3493,6 +3582,13 @@ func (*UpdateMobilePageDiscountResponse) Descriptor() ([]byte, []int) {
 func (x *UpdateMobilePageDiscountResponse) GetDiscount() *MobilePageDiscount {
 	if x != nil {
 		return x.Discount
+	}
+	return nil
+}
+
+func (x *UpdateMobilePageDiscountResponse) GetUploadUrls() []*UploadURLInfo {
+	if x != nil {
+		return x.UploadUrls
 	}
 	return nil
 }
@@ -3845,39 +3941,63 @@ const file_organization_organization_proto_rawDesc = "" +
 	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01B\x12\n" +
 	"\x10_organization_id\"V\n" +
 	"\"ListBranchesByOrganizationResponse\x120\n" +
-	"\bbranches\x18\x01 \x03(\v2\x14.organization.BranchR\bbranches\"@\n" +
+	"\bbranches\x18\x01 \x03(\v2\x14.organization.BranchR\bbranches\"~\n" +
 	"\x13CreateStoryResponse\x12)\n" +
-	"\x05story\x18\x01 \x01(\v2\x13.organization.StoryR\x05story\"?\n" +
+	"\x05story\x18\x01 \x01(\v2\x13.organization.StoryR\x05story\x12<\n" +
+	"\vupload_urls\x18\x02 \x03(\v2\x1b.organization.UploadURLInfoR\n" +
+	"uploadUrls\"^\n" +
 	"\x12CreateStoryRequest\x12)\n" +
-	"\x05story\x18\x01 \x01(\v2\x13.organization.StoryR\x05story\"@\n" +
+	"\x05story\x18\x01 \x01(\v2\x13.organization.StoryR\x05story\x12\x1d\n" +
+	"\n" +
+	"file_names\x18\x02 \x03(\tR\tfileNames\"~\n" +
 	"\x13UpdateStoryResponse\x12)\n" +
-	"\x05story\x18\x01 \x01(\v2\x13.organization.StoryR\x05story\"?\n" +
+	"\x05story\x18\x01 \x01(\v2\x13.organization.StoryR\x05story\x12<\n" +
+	"\vupload_urls\x18\x02 \x03(\v2\x1b.organization.UploadURLInfoR\n" +
+	"uploadUrls\"^\n" +
 	"\x12UpdateStoryRequest\x12)\n" +
-	"\x05story\x18\x01 \x01(\v2\x13.organization.StoryR\x05story\"B\n" +
+	"\x05story\x18\x01 \x01(\v2\x13.organization.StoryR\x05story\x12\x1d\n" +
+	"\n" +
+	"file_names\x18\x02 \x03(\tR\tfileNames\"B\n" +
 	"\x11ListStoryResponse\x12-\n" +
 	"\astories\x18\x01 \x03(\v2\x13.organization.StoryR\astories\";\n" +
 	"\x10ListStoryRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\"D\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\"\x82\x01\n" +
 	"\x14CreateBannerResponse\x12,\n" +
-	"\x06banner\x18\x01 \x01(\v2\x14.organization.BannerR\x06banner\"C\n" +
+	"\x06banner\x18\x01 \x01(\v2\x14.organization.BannerR\x06banner\x12<\n" +
+	"\vupload_urls\x18\x02 \x03(\v2\x1b.organization.UploadURLInfoR\n" +
+	"uploadUrls\"b\n" +
 	"\x13CreateBannerRequest\x12,\n" +
-	"\x06banner\x18\x01 \x01(\v2\x14.organization.BannerR\x06banner\"D\n" +
+	"\x06banner\x18\x01 \x01(\v2\x14.organization.BannerR\x06banner\x12\x1d\n" +
+	"\n" +
+	"file_names\x18\x02 \x03(\tR\tfileNames\"\x82\x01\n" +
 	"\x14UpdateBannerResponse\x12,\n" +
-	"\x06banner\x18\x01 \x01(\v2\x14.organization.BannerR\x06banner\"C\n" +
+	"\x06banner\x18\x01 \x01(\v2\x14.organization.BannerR\x06banner\x12<\n" +
+	"\vupload_urls\x18\x02 \x03(\v2\x1b.organization.UploadURLInfoR\n" +
+	"uploadUrls\"b\n" +
 	"\x13UpdateBannerRequest\x12,\n" +
-	"\x06banner\x18\x01 \x01(\v2\x14.organization.BannerR\x06banner\"D\n" +
+	"\x06banner\x18\x01 \x01(\v2\x14.organization.BannerR\x06banner\x12\x1d\n" +
+	"\n" +
+	"file_names\x18\x02 \x03(\tR\tfileNames\"D\n" +
 	"\x12ListBannerResponse\x12.\n" +
 	"\abanners\x18\x01 \x03(\v2\x14.organization.BannerR\abanners\"<\n" +
 	"\x11ListBannerRequest\x12'\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\"_\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03R\x0eorganizationId\"~\n" +
 	"\x1fCreateMobilePageDiscountRequest\x12<\n" +
-	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\"`\n" +
+	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\x12\x1d\n" +
+	"\n" +
+	"file_names\x18\x02 \x03(\tR\tfileNames\"\x9e\x01\n" +
 	" CreateMobilePageDiscountResponse\x12<\n" +
-	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\"_\n" +
+	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\x12<\n" +
+	"\vupload_urls\x18\x02 \x03(\v2\x1b.organization.UploadURLInfoR\n" +
+	"uploadUrls\"~\n" +
 	"\x1fUpdateMobilePageDiscountRequest\x12<\n" +
-	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\"`\n" +
+	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\x12\x1d\n" +
+	"\n" +
+	"file_names\x18\x02 \x03(\tR\tfileNames\"\x9e\x01\n" +
 	" UpdateMobilePageDiscountResponse\x12<\n" +
-	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\" \n" +
+	"\bdiscount\x18\x01 \x01(\v2 .organization.MobilePageDiscountR\bdiscount\x12<\n" +
+	"\vupload_urls\x18\x02 \x03(\v2\x1b.organization.UploadURLInfoR\n" +
+	"uploadUrls\" \n" +
 	"\x1eListMobilePageDiscountsRequest\"a\n" +
 	"\x1fListMobilePageDiscountsResponse\x12>\n" +
 	"\tdiscounts\x18\x01 \x03(\v2 .organization.MobilePageDiscountR\tdiscounts2\xc8\x17\n" +
@@ -4035,85 +4155,91 @@ var file_organization_organization_proto_depIdxs = []int32{
 	5,  // 32: organization.PartialUpdateBranchResponse.branch:type_name -> organization.Branch
 	5,  // 33: organization.ListBranchesByOrganizationResponse.branches:type_name -> organization.Branch
 	7,  // 34: organization.CreateStoryResponse.story:type_name -> organization.Story
-	7,  // 35: organization.CreateStoryRequest.story:type_name -> organization.Story
-	7,  // 36: organization.UpdateStoryResponse.story:type_name -> organization.Story
-	7,  // 37: organization.UpdateStoryRequest.story:type_name -> organization.Story
-	7,  // 38: organization.ListStoryResponse.stories:type_name -> organization.Story
-	8,  // 39: organization.CreateBannerResponse.banner:type_name -> organization.Banner
-	8,  // 40: organization.CreateBannerRequest.banner:type_name -> organization.Banner
-	8,  // 41: organization.UpdateBannerResponse.banner:type_name -> organization.Banner
-	8,  // 42: organization.UpdateBannerRequest.banner:type_name -> organization.Banner
-	8,  // 43: organization.ListBannerResponse.banners:type_name -> organization.Banner
-	1,  // 44: organization.CreateMobilePageDiscountRequest.discount:type_name -> organization.MobilePageDiscount
-	1,  // 45: organization.CreateMobilePageDiscountResponse.discount:type_name -> organization.MobilePageDiscount
-	1,  // 46: organization.UpdateMobilePageDiscountRequest.discount:type_name -> organization.MobilePageDiscount
-	1,  // 47: organization.UpdateMobilePageDiscountResponse.discount:type_name -> organization.MobilePageDiscount
-	1,  // 48: organization.ListMobilePageDiscountsResponse.discounts:type_name -> organization.MobilePageDiscount
-	17, // 49: organization.OrganizationService.CreateAddress:input_type -> organization.CreateAddressRequest
-	19, // 50: organization.OrganizationService.GetAddress:input_type -> organization.GetAddressRequest
-	21, // 51: organization.OrganizationService.UpdateAddress:input_type -> organization.UpdateAddressRequest
-	23, // 52: organization.OrganizationService.PartialUpdateAddress:input_type -> organization.PartialUpdateAddressRequest
-	25, // 53: organization.OrganizationService.DeleteAddress:input_type -> organization.DeleteAddressRequest
-	27, // 54: organization.OrganizationService.CreateOrganization:input_type -> organization.CreateOrganizationRequest
-	29, // 55: organization.OrganizationService.GetOrganization:input_type -> organization.GetOrganizationRequest
-	31, // 56: organization.OrganizationService.UpdateOrganization:input_type -> organization.UpdateOrganizationRequest
-	33, // 57: organization.OrganizationService.PartialUpdateOrganization:input_type -> organization.PartialUpdateOrganizationRequest
-	35, // 58: organization.OrganizationService.DeleteOrganization:input_type -> organization.DeleteOrganizationRequest
-	37, // 59: organization.OrganizationService.ListOrganizations:input_type -> organization.ListOrganizationsRequest
-	39, // 60: organization.OrganizationService.CreateBranch:input_type -> organization.CreateBranchRequest
-	41, // 61: organization.OrganizationService.GetBranch:input_type -> organization.GetBranchRequest
-	43, // 62: organization.OrganizationService.UpdateBranch:input_type -> organization.UpdateBranchRequest
-	45, // 63: organization.OrganizationService.PartialUpdateBranch:input_type -> organization.PartialUpdateBranchRequest
-	47, // 64: organization.OrganizationService.DeleteBranch:input_type -> organization.DeleteBranchRequest
-	49, // 65: organization.OrganizationService.ListBranchesByOrganization:input_type -> organization.ListBranchesByOrganizationRequest
-	9,  // 66: organization.OrganizationService.CreateLoyaltyLevel:input_type -> organization.CreateLoyaltyLevelRequest
-	11, // 67: organization.OrganizationService.GetLoyaltyLevel:input_type -> organization.GetLoyaltyLevelRequest
-	13, // 68: organization.OrganizationService.UpdateLoyaltyLevel:input_type -> organization.UpdateLoyaltyLevelRequest
-	15, // 69: organization.OrganizationService.ListLoyaltyLevelsByOrganization:input_type -> organization.ListLoyaltyLevelsByOrganizationRequest
-	52, // 70: organization.OrganizationService.CreateStory:input_type -> organization.CreateStoryRequest
-	54, // 71: organization.OrganizationService.UpdateStory:input_type -> organization.UpdateStoryRequest
-	56, // 72: organization.OrganizationService.ListStory:input_type -> organization.ListStoryRequest
-	58, // 73: organization.OrganizationService.CreateBanner:input_type -> organization.CreateBannerRequest
-	60, // 74: organization.OrganizationService.UpdateBanner:input_type -> organization.UpdateBannerRequest
-	62, // 75: organization.OrganizationService.ListBanner:input_type -> organization.ListBannerRequest
-	63, // 76: organization.OrganizationService.CreateMobilePageDiscount:input_type -> organization.CreateMobilePageDiscountRequest
-	65, // 77: organization.OrganizationService.UpdateMobilePageDiscount:input_type -> organization.UpdateMobilePageDiscountRequest
-	67, // 78: organization.OrganizationService.ListMobilePageDiscounts:input_type -> organization.ListMobilePageDiscountsRequest
-	18, // 79: organization.OrganizationService.CreateAddress:output_type -> organization.CreateAddressResponse
-	20, // 80: organization.OrganizationService.GetAddress:output_type -> organization.GetAddressResponse
-	22, // 81: organization.OrganizationService.UpdateAddress:output_type -> organization.UpdateAddressResponse
-	24, // 82: organization.OrganizationService.PartialUpdateAddress:output_type -> organization.PartialUpdateAddressResponse
-	26, // 83: organization.OrganizationService.DeleteAddress:output_type -> organization.DeleteAddressResponse
-	28, // 84: organization.OrganizationService.CreateOrganization:output_type -> organization.CreateOrganizationResponse
-	30, // 85: organization.OrganizationService.GetOrganization:output_type -> organization.GetOrganizationResponse
-	32, // 86: organization.OrganizationService.UpdateOrganization:output_type -> organization.UpdateOrganizationResponse
-	34, // 87: organization.OrganizationService.PartialUpdateOrganization:output_type -> organization.PartialUpdateOrganizationResponse
-	36, // 88: organization.OrganizationService.DeleteOrganization:output_type -> organization.DeleteOrganizationResponse
-	38, // 89: organization.OrganizationService.ListOrganizations:output_type -> organization.ListOrganizationsResponse
-	40, // 90: organization.OrganizationService.CreateBranch:output_type -> organization.CreateBranchResponse
-	42, // 91: organization.OrganizationService.GetBranch:output_type -> organization.GetBranchResponse
-	44, // 92: organization.OrganizationService.UpdateBranch:output_type -> organization.UpdateBranchResponse
-	46, // 93: organization.OrganizationService.PartialUpdateBranch:output_type -> organization.PartialUpdateBranchResponse
-	48, // 94: organization.OrganizationService.DeleteBranch:output_type -> organization.DeleteBranchResponse
-	50, // 95: organization.OrganizationService.ListBranchesByOrganization:output_type -> organization.ListBranchesByOrganizationResponse
-	10, // 96: organization.OrganizationService.CreateLoyaltyLevel:output_type -> organization.CreateLoyaltyLevelResponse
-	12, // 97: organization.OrganizationService.GetLoyaltyLevel:output_type -> organization.GetLoyaltyLevelResponse
-	14, // 98: organization.OrganizationService.UpdateLoyaltyLevel:output_type -> organization.UpdateLoyaltyLevelResponse
-	16, // 99: organization.OrganizationService.ListLoyaltyLevelsByOrganization:output_type -> organization.ListLoyaltyLevelsByOrganizationResponse
-	51, // 100: organization.OrganizationService.CreateStory:output_type -> organization.CreateStoryResponse
-	53, // 101: organization.OrganizationService.UpdateStory:output_type -> organization.UpdateStoryResponse
-	55, // 102: organization.OrganizationService.ListStory:output_type -> organization.ListStoryResponse
-	57, // 103: organization.OrganizationService.CreateBanner:output_type -> organization.CreateBannerResponse
-	59, // 104: organization.OrganizationService.UpdateBanner:output_type -> organization.UpdateBannerResponse
-	61, // 105: organization.OrganizationService.ListBanner:output_type -> organization.ListBannerResponse
-	64, // 106: organization.OrganizationService.CreateMobilePageDiscount:output_type -> organization.CreateMobilePageDiscountResponse
-	66, // 107: organization.OrganizationService.UpdateMobilePageDiscount:output_type -> organization.UpdateMobilePageDiscountResponse
-	68, // 108: organization.OrganizationService.ListMobilePageDiscounts:output_type -> organization.ListMobilePageDiscountsResponse
-	79, // [79:109] is the sub-list for method output_type
-	49, // [49:79] is the sub-list for method input_type
-	49, // [49:49] is the sub-list for extension type_name
-	49, // [49:49] is the sub-list for extension extendee
-	0,  // [0:49] is the sub-list for field type_name
+	0,  // 35: organization.CreateStoryResponse.upload_urls:type_name -> organization.UploadURLInfo
+	7,  // 36: organization.CreateStoryRequest.story:type_name -> organization.Story
+	7,  // 37: organization.UpdateStoryResponse.story:type_name -> organization.Story
+	0,  // 38: organization.UpdateStoryResponse.upload_urls:type_name -> organization.UploadURLInfo
+	7,  // 39: organization.UpdateStoryRequest.story:type_name -> organization.Story
+	7,  // 40: organization.ListStoryResponse.stories:type_name -> organization.Story
+	8,  // 41: organization.CreateBannerResponse.banner:type_name -> organization.Banner
+	0,  // 42: organization.CreateBannerResponse.upload_urls:type_name -> organization.UploadURLInfo
+	8,  // 43: organization.CreateBannerRequest.banner:type_name -> organization.Banner
+	8,  // 44: organization.UpdateBannerResponse.banner:type_name -> organization.Banner
+	0,  // 45: organization.UpdateBannerResponse.upload_urls:type_name -> organization.UploadURLInfo
+	8,  // 46: organization.UpdateBannerRequest.banner:type_name -> organization.Banner
+	8,  // 47: organization.ListBannerResponse.banners:type_name -> organization.Banner
+	1,  // 48: organization.CreateMobilePageDiscountRequest.discount:type_name -> organization.MobilePageDiscount
+	1,  // 49: organization.CreateMobilePageDiscountResponse.discount:type_name -> organization.MobilePageDiscount
+	0,  // 50: organization.CreateMobilePageDiscountResponse.upload_urls:type_name -> organization.UploadURLInfo
+	1,  // 51: organization.UpdateMobilePageDiscountRequest.discount:type_name -> organization.MobilePageDiscount
+	1,  // 52: organization.UpdateMobilePageDiscountResponse.discount:type_name -> organization.MobilePageDiscount
+	0,  // 53: organization.UpdateMobilePageDiscountResponse.upload_urls:type_name -> organization.UploadURLInfo
+	1,  // 54: organization.ListMobilePageDiscountsResponse.discounts:type_name -> organization.MobilePageDiscount
+	17, // 55: organization.OrganizationService.CreateAddress:input_type -> organization.CreateAddressRequest
+	19, // 56: organization.OrganizationService.GetAddress:input_type -> organization.GetAddressRequest
+	21, // 57: organization.OrganizationService.UpdateAddress:input_type -> organization.UpdateAddressRequest
+	23, // 58: organization.OrganizationService.PartialUpdateAddress:input_type -> organization.PartialUpdateAddressRequest
+	25, // 59: organization.OrganizationService.DeleteAddress:input_type -> organization.DeleteAddressRequest
+	27, // 60: organization.OrganizationService.CreateOrganization:input_type -> organization.CreateOrganizationRequest
+	29, // 61: organization.OrganizationService.GetOrganization:input_type -> organization.GetOrganizationRequest
+	31, // 62: organization.OrganizationService.UpdateOrganization:input_type -> organization.UpdateOrganizationRequest
+	33, // 63: organization.OrganizationService.PartialUpdateOrganization:input_type -> organization.PartialUpdateOrganizationRequest
+	35, // 64: organization.OrganizationService.DeleteOrganization:input_type -> organization.DeleteOrganizationRequest
+	37, // 65: organization.OrganizationService.ListOrganizations:input_type -> organization.ListOrganizationsRequest
+	39, // 66: organization.OrganizationService.CreateBranch:input_type -> organization.CreateBranchRequest
+	41, // 67: organization.OrganizationService.GetBranch:input_type -> organization.GetBranchRequest
+	43, // 68: organization.OrganizationService.UpdateBranch:input_type -> organization.UpdateBranchRequest
+	45, // 69: organization.OrganizationService.PartialUpdateBranch:input_type -> organization.PartialUpdateBranchRequest
+	47, // 70: organization.OrganizationService.DeleteBranch:input_type -> organization.DeleteBranchRequest
+	49, // 71: organization.OrganizationService.ListBranchesByOrganization:input_type -> organization.ListBranchesByOrganizationRequest
+	9,  // 72: organization.OrganizationService.CreateLoyaltyLevel:input_type -> organization.CreateLoyaltyLevelRequest
+	11, // 73: organization.OrganizationService.GetLoyaltyLevel:input_type -> organization.GetLoyaltyLevelRequest
+	13, // 74: organization.OrganizationService.UpdateLoyaltyLevel:input_type -> organization.UpdateLoyaltyLevelRequest
+	15, // 75: organization.OrganizationService.ListLoyaltyLevelsByOrganization:input_type -> organization.ListLoyaltyLevelsByOrganizationRequest
+	52, // 76: organization.OrganizationService.CreateStory:input_type -> organization.CreateStoryRequest
+	54, // 77: organization.OrganizationService.UpdateStory:input_type -> organization.UpdateStoryRequest
+	56, // 78: organization.OrganizationService.ListStory:input_type -> organization.ListStoryRequest
+	58, // 79: organization.OrganizationService.CreateBanner:input_type -> organization.CreateBannerRequest
+	60, // 80: organization.OrganizationService.UpdateBanner:input_type -> organization.UpdateBannerRequest
+	62, // 81: organization.OrganizationService.ListBanner:input_type -> organization.ListBannerRequest
+	63, // 82: organization.OrganizationService.CreateMobilePageDiscount:input_type -> organization.CreateMobilePageDiscountRequest
+	65, // 83: organization.OrganizationService.UpdateMobilePageDiscount:input_type -> organization.UpdateMobilePageDiscountRequest
+	67, // 84: organization.OrganizationService.ListMobilePageDiscounts:input_type -> organization.ListMobilePageDiscountsRequest
+	18, // 85: organization.OrganizationService.CreateAddress:output_type -> organization.CreateAddressResponse
+	20, // 86: organization.OrganizationService.GetAddress:output_type -> organization.GetAddressResponse
+	22, // 87: organization.OrganizationService.UpdateAddress:output_type -> organization.UpdateAddressResponse
+	24, // 88: organization.OrganizationService.PartialUpdateAddress:output_type -> organization.PartialUpdateAddressResponse
+	26, // 89: organization.OrganizationService.DeleteAddress:output_type -> organization.DeleteAddressResponse
+	28, // 90: organization.OrganizationService.CreateOrganization:output_type -> organization.CreateOrganizationResponse
+	30, // 91: organization.OrganizationService.GetOrganization:output_type -> organization.GetOrganizationResponse
+	32, // 92: organization.OrganizationService.UpdateOrganization:output_type -> organization.UpdateOrganizationResponse
+	34, // 93: organization.OrganizationService.PartialUpdateOrganization:output_type -> organization.PartialUpdateOrganizationResponse
+	36, // 94: organization.OrganizationService.DeleteOrganization:output_type -> organization.DeleteOrganizationResponse
+	38, // 95: organization.OrganizationService.ListOrganizations:output_type -> organization.ListOrganizationsResponse
+	40, // 96: organization.OrganizationService.CreateBranch:output_type -> organization.CreateBranchResponse
+	42, // 97: organization.OrganizationService.GetBranch:output_type -> organization.GetBranchResponse
+	44, // 98: organization.OrganizationService.UpdateBranch:output_type -> organization.UpdateBranchResponse
+	46, // 99: organization.OrganizationService.PartialUpdateBranch:output_type -> organization.PartialUpdateBranchResponse
+	48, // 100: organization.OrganizationService.DeleteBranch:output_type -> organization.DeleteBranchResponse
+	50, // 101: organization.OrganizationService.ListBranchesByOrganization:output_type -> organization.ListBranchesByOrganizationResponse
+	10, // 102: organization.OrganizationService.CreateLoyaltyLevel:output_type -> organization.CreateLoyaltyLevelResponse
+	12, // 103: organization.OrganizationService.GetLoyaltyLevel:output_type -> organization.GetLoyaltyLevelResponse
+	14, // 104: organization.OrganizationService.UpdateLoyaltyLevel:output_type -> organization.UpdateLoyaltyLevelResponse
+	16, // 105: organization.OrganizationService.ListLoyaltyLevelsByOrganization:output_type -> organization.ListLoyaltyLevelsByOrganizationResponse
+	51, // 106: organization.OrganizationService.CreateStory:output_type -> organization.CreateStoryResponse
+	53, // 107: organization.OrganizationService.UpdateStory:output_type -> organization.UpdateStoryResponse
+	55, // 108: organization.OrganizationService.ListStory:output_type -> organization.ListStoryResponse
+	57, // 109: organization.OrganizationService.CreateBanner:output_type -> organization.CreateBannerResponse
+	59, // 110: organization.OrganizationService.UpdateBanner:output_type -> organization.UpdateBannerResponse
+	61, // 111: organization.OrganizationService.ListBanner:output_type -> organization.ListBannerResponse
+	64, // 112: organization.OrganizationService.CreateMobilePageDiscount:output_type -> organization.CreateMobilePageDiscountResponse
+	66, // 113: organization.OrganizationService.UpdateMobilePageDiscount:output_type -> organization.UpdateMobilePageDiscountResponse
+	68, // 114: organization.OrganizationService.ListMobilePageDiscounts:output_type -> organization.ListMobilePageDiscountsResponse
+	85, // [85:115] is the sub-list for method output_type
+	55, // [55:85] is the sub-list for method input_type
+	55, // [55:55] is the sub-list for extension type_name
+	55, // [55:55] is the sub-list for extension extendee
+	0,  // [0:55] is the sub-list for field type_name
 }
 
 func init() { file_organization_organization_proto_init() }

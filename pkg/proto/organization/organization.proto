@@ -317,15 +317,19 @@ message ListBranchesByOrganizationResponse {
 
 message CreateStoryResponse {
     Story story = 1;
+    repeated UploadURLInfo upload_urls = 2;
 }
 message CreateStoryRequest {
     Story story = 1;
+    repeated string file_names = 2;
 }
  message UpdateStoryResponse {
     Story story = 1;
+    repeated UploadURLInfo upload_urls = 2;
 }
 message UpdateStoryRequest {
     Story story = 1;
+    repeated string file_names = 2;
 }   
 message ListStoryResponse {
    repeated  Story stories = 1;
@@ -335,15 +339,19 @@ message ListStoryRequest {
 }
 message CreateBannerResponse {
     Banner banner = 1;
+    repeated UploadURLInfo upload_urls = 2;
 }
 message CreateBannerRequest {
     Banner banner = 1;
+    repeated string file_names = 2;
 }
  message UpdateBannerResponse {
     Banner banner = 1;
+    repeated UploadURLInfo upload_urls = 2;
 }
 message UpdateBannerRequest {
     Banner banner = 1;
+    repeated string file_names = 2;
 }
 message ListBannerResponse {
  repeated Banner banners = 1;
@@ -354,18 +362,22 @@ message ListBannerRequest {
 
 message CreateMobilePageDiscountRequest {
     MobilePageDiscount discount = 1;
+    repeated string file_names = 2;
 }
 
 message CreateMobilePageDiscountResponse {
     MobilePageDiscount discount = 1;
+    repeated UploadURLInfo upload_urls = 2;
 }
 
 message UpdateMobilePageDiscountRequest {
     MobilePageDiscount discount = 1;
+    repeated string file_names = 2;
 }
 
 message UpdateMobilePageDiscountResponse {
     MobilePageDiscount discount = 1;
+    repeated UploadURLInfo upload_urls = 2;
 }
 
 message ListMobilePageDiscountsRequest {}
