@@ -181,33 +181,6 @@ func (h *ServiceHandler) UpdateService(w http.ResponseWriter, r *http.Request) {
 	json.WriteJSON(w, http.StatusOK, resp)
 }
 
-func (h *ServiceHandler) GeneratePresignedURLs(w http.ResponseWriter, r *http.Request) {
-	log := zerolog.Ctx(r.Context()).With().
-		Str("component", "service_handler").
-		Str("method", "GeneratePresignedURLs").
-		Logger()
-
-	log.Info().Msg("request_received")
-
-	req := &servicev1.GeneratePresignedURLsRequest{}
-	if err := json.ParseJSON(r, req); err != nil {
-		log.Error().Err(err).Msg("invalid_payload")
-		json.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
-
-	log.Info().Interface("request", req).Msg("calling_service_microservice")
-	resp, err := h.service.Api.GeneratePresignedURLs(r.Context(), req)
-	if err != nil {
-		log.Error().Err(err).Msg("gRPC_call_failed")
-		json.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
-
-	log.Info().Int("urls_count", len(resp.PresignedUrls)).Msg("succeeded")
-	json.WriteJSON(w, http.StatusOK, resp)
-}
-
 func (h *ServiceHandler) ListServices(w http.ResponseWriter, r *http.Request) {
 	log := zerolog.Ctx(r.Context()).With().
 		Str("component", "service_handler").
