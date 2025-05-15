@@ -391,3 +391,44 @@ func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) 
 	log.Info().Int("customers_count", len(resp.Customers)).Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
+
+func (h *CustomerHandler) SearchCustomer(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "customer_handler").
+		Str("method", "SearchCustomer").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	q := r.URL.Query()
+	search := strings.TrimSpace(q.Get("search_customer"))
+	if search == "" {
+		log.Error().Msg("search_customer query parameter is required")
+		json.WriteError(w, http.StatusBadRequest, errors.New("missing required parameter: search_customer"))
+		return
+	}
+
+	limit := 5
+	if l := q.Get("limit"); l != "" {
+		if val, err := strconv.Atoi(l); err == nil && val > 0 {
+			limit = val
+		}
+	}
+
+	req := &customerv1.SearchCustomerRequest{
+		SearchCustomer: search,
+		Limit:          int32(limit),
+	}
+
+	log.Debug().Interface("request", req).Msg("calling_customer_service")
+
+	resp, err := h.customer.Api.SearchCustomer(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("customers_count", len(resp.Customers)).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}

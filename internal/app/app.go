@@ -203,7 +203,7 @@ func (s *APIServer) Run() error {
 					lRouter.Put("/{loyalty_level_id}", organizationHandler.UpdateLoyaltyLevel)
 					lRouter.Get("/organization/{organization_id}", organizationHandler.ListLoyaltyLevelsByOrganization)
 				})
-				
+
 				authRouter.Route("/story", func(sRouter chi.Router) {
 					sRouter.Post("/", organizationHandler.CreateStory)
 					sRouter.Put("/{story_id}", organizationHandler.UpdateStory)
@@ -356,6 +356,7 @@ func (s *APIServer) Run() error {
 			customerRouter.Post("/", customerHandler.CreateCustomer)
 			customerRouter.Group(func(authRouter chi.Router) {
 				authRouter.Use(auth.AuthMiddleware)
+				authRouter.Get("/search", customerHandler.SearchCustomer)
 				authRouter.Get("/", customerHandler.ListCustomers)
 				authRouter.Get("/my", customerHandler.GetMyCustomer)
 				authRouter.Get("/{customer_id}", customerHandler.GetCustomer)
