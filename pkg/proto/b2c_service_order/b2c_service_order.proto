@@ -103,7 +103,8 @@ message ListB2CServiceOrdersRequest {
    optional string search_text = 7;
    int64 limit = 8;
    int64 offset = 9;
- }
+   optional int64 customer_id = 10;
+}
 
 message ListB2CServiceOrdersResponse {
   repeated OrderDetail orders = 1;

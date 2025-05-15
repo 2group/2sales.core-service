@@ -724,6 +724,7 @@ type ListB2CServiceOrdersRequest struct {
 	SearchText     *string                `protobuf:"bytes,7,opt,name=search_text,json=searchText,proto3,oneof" json:"search_text,omitempty"`
 	Limit          int64                  `protobuf:"varint,8,opt,name=limit,proto3" json:"limit,omitempty"`
 	Offset         int64                  `protobuf:"varint,9,opt,name=offset,proto3" json:"offset,omitempty"`
+	CustomerId     *int64                 `protobuf:"varint,10,opt,name=customer_id,json=customerId,proto3,oneof" json:"customer_id,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -817,6 +818,13 @@ func (x *ListB2CServiceOrdersRequest) GetLimit() int64 {
 func (x *ListB2CServiceOrdersRequest) GetOffset() int64 {
 	if x != nil {
 		return x.Offset
+	}
+	return 0
+}
+
+func (x *ListB2CServiceOrdersRequest) GetCustomerId() int64 {
+	if x != nil && x.CustomerId != nil {
+		return *x.CustomerId
 	}
 	return 0
 }
@@ -961,7 +969,7 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x0fGetOrderRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"U\n" +
 	"\x10GetOrderResponse\x12A\n" +
-	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"\xcf\x03\n" +
+	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"\x85\x04\n" +
 	"\x1bListB2CServiceOrdersRequest\x12,\n" +
 	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12 \n" +
 	"\tbranch_id\x18\x02 \x01(\x03H\x01R\bbranchId\x88\x01\x01\x12+\n" +
@@ -973,7 +981,10 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\vsearch_text\x18\a \x01(\tH\x06R\n" +
 	"searchText\x88\x01\x01\x12\x14\n" +
 	"\x05limit\x18\b \x01(\x03R\x05limit\x12\x16\n" +
-	"\x06offset\x18\t \x01(\x03R\x06offsetB\x12\n" +
+	"\x06offset\x18\t \x01(\x03R\x06offset\x12$\n" +
+	"\vcustomer_id\x18\n" +
+	" \x01(\x03H\aR\n" +
+	"customerId\x88\x01\x01B\x12\n" +
 	"\x10_organization_idB\f\n" +
 	"\n" +
 	"_branch_idB\x12\n" +
@@ -981,7 +992,8 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x0e_created_at_toB\r\n" +
 	"\v_price_fromB\v\n" +
 	"\t_price_toB\x0e\n" +
-	"\f_search_text\"w\n" +
+	"\f_search_textB\x0e\n" +
+	"\f_customer_id\"w\n" +
 	"\x1cListB2CServiceOrdersResponse\x126\n" +
 	"\x06orders\x18\x01 \x03(\v2\x1e.b2c_service_order.OrderDetailR\x06orders\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x03R\n" +
