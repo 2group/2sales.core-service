@@ -31,6 +31,7 @@ type Employee struct {
 	CreatedAt      *string                `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
 	UpdatedAt      *string                `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
 	EmployeeRoles  []*EmployeeRole        `protobuf:"bytes,8,rep,name=employee_roles,json=employeeRoles,proto3" json:"employee_roles,omitempty"`
+	JobTitle       *string                `protobuf:"bytes,9,opt,name=job_title,json=jobTitle,proto3,oneof" json:"job_title,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -119,6 +120,13 @@ func (x *Employee) GetEmployeeRoles() []*EmployeeRole {
 		return x.EmployeeRoles
 	}
 	return nil
+}
+
+func (x *Employee) GetJobTitle() string {
+	if x != nil && x.JobTitle != nil {
+		return *x.JobTitle
+	}
+	return ""
 }
 
 type EmployeeRole struct {
@@ -919,11 +927,131 @@ func (x *DeleteRoleResponse) GetRole() *Role {
 	return nil
 }
 
+type ListEmployeesRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId *int64                 `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	BranchId       *int64                 `protobuf:"varint,2,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
+	Limit          int32                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset         int32                  `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ListEmployeesRequest) Reset() {
+	*x = ListEmployeesRequest{}
+	mi := &file_employee_employee_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListEmployeesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListEmployeesRequest) ProtoMessage() {}
+
+func (x *ListEmployeesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListEmployeesRequest.ProtoReflect.Descriptor instead.
+func (*ListEmployeesRequest) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *ListEmployeesRequest) GetOrganizationId() int64 {
+	if x != nil && x.OrganizationId != nil {
+		return *x.OrganizationId
+	}
+	return 0
+}
+
+func (x *ListEmployeesRequest) GetBranchId() int64 {
+	if x != nil && x.BranchId != nil {
+		return *x.BranchId
+	}
+	return 0
+}
+
+func (x *ListEmployeesRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *ListEmployeesRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+type ListEmployeesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Employees     []*Employee            `protobuf:"bytes,1,rep,name=employees,proto3" json:"employees,omitempty"`
+	TotalCount    int32                  `protobuf:"varint,2,opt,name=total_count,json=totalCount,proto3" json:"total_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListEmployeesResponse) Reset() {
+	*x = ListEmployeesResponse{}
+	mi := &file_employee_employee_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListEmployeesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListEmployeesResponse) ProtoMessage() {}
+
+func (x *ListEmployeesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListEmployeesResponse.ProtoReflect.Descriptor instead.
+func (*ListEmployeesResponse) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *ListEmployeesResponse) GetEmployees() []*Employee {
+	if x != nil {
+		return x.Employees
+	}
+	return nil
+}
+
+func (x *ListEmployeesResponse) GetTotalCount() int32 {
+	if x != nil {
+		return x.TotalCount
+	}
+	return 0
+}
+
 var File_employee_employee_proto protoreflect.FileDescriptor
 
 const file_employee_employee_proto_rawDesc = "" +
 	"\n" +
-	"\x17employee/employee.proto\x12\bemployee\"\x9a\x03\n" +
+	"\x17employee/employee.proto\x12\bemployee\"\xca\x03\n" +
 	"\bEmployee\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12\x1c\n" +
 	"\auser_id\x18\x02 \x01(\x03H\x01R\x06userId\x88\x01\x01\x12\"\n" +
@@ -935,7 +1063,8 @@ const file_employee_employee_proto_rawDesc = "" +
 	"created_at\x18\x06 \x01(\tH\x05R\tcreatedAt\x88\x01\x01\x12\"\n" +
 	"\n" +
 	"updated_at\x18\a \x01(\tH\x06R\tupdatedAt\x88\x01\x01\x12=\n" +
-	"\x0eemployee_roles\x18\b \x03(\v2\x16.employee.EmployeeRoleR\remployeeRolesB\x05\n" +
+	"\x0eemployee_roles\x18\b \x03(\v2\x16.employee.EmployeeRoleR\remployeeRoles\x12 \n" +
+	"\tjob_title\x18\t \x01(\tH\aR\bjobTitle\x88\x01\x01B\x05\n" +
 	"\x03_idB\n" +
 	"\n" +
 	"\b_user_idB\r\n" +
@@ -944,7 +1073,9 @@ const file_employee_employee_proto_rawDesc = "" +
 	"_last_nameB\x12\n" +
 	"\x10_organization_idB\r\n" +
 	"\v_created_atB\r\n" +
-	"\v_updated_at\"\xd7\x01\n" +
+	"\v_updated_atB\f\n" +
+	"\n" +
+	"_job_title\"\xd7\x01\n" +
 	"\fEmployeeRole\x12\"\n" +
 	"\x04role\x18\x01 \x01(\v2\x0e.employee.RoleR\x04role\x12,\n" +
 	"\x0forganization_id\x18\x02 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12 \n" +
@@ -994,11 +1125,24 @@ const file_employee_employee_proto_rawDesc = "" +
 	"\x11DeleteRoleRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"8\n" +
 	"\x12DeleteRoleResponse\x12\"\n" +
-	"\x04role\x18\x01 \x01(\v2\x0e.employee.RoleR\x04role2\xa8\x04\n" +
+	"\x04role\x18\x01 \x01(\v2\x0e.employee.RoleR\x04role\"\xb6\x01\n" +
+	"\x14ListEmployeesRequest\x12,\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12 \n" +
+	"\tbranch_id\x18\x02 \x01(\x03H\x01R\bbranchId\x88\x01\x01\x12\x14\n" +
+	"\x05limit\x18\x03 \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x04 \x01(\x05R\x06offsetB\x12\n" +
+	"\x10_organization_idB\f\n" +
+	"\n" +
+	"_branch_id\"j\n" +
+	"\x15ListEmployeesResponse\x120\n" +
+	"\temployees\x18\x01 \x03(\v2\x12.employee.EmployeeR\temployees\x12\x1f\n" +
+	"\vtotal_count\x18\x02 \x01(\x05R\n" +
+	"totalCount2\xfa\x04\n" +
 	"\x0fEmployeeService\x12J\n" +
 	"\vGetEmployee\x12\x1c.employee.GetEmployeeRequest\x1a\x1d.employee.GetEmployeeResponse\x12S\n" +
 	"\x0eCreateEmployee\x12\x1f.employee.CreateEmployeeRequest\x1a .employee.CreateEmployeeResponse\x12S\n" +
-	"\x0eUpdateEmployee\x12\x1f.employee.UpdateEmployeeRequest\x1a .employee.UpdateEmployeeResponse\x12G\n" +
+	"\x0eUpdateEmployee\x12\x1f.employee.UpdateEmployeeRequest\x1a .employee.UpdateEmployeeResponse\x12P\n" +
+	"\rListEmployees\x12\x1e.employee.ListEmployeesRequest\x1a\x1f.employee.ListEmployeesResponse\x12G\n" +
 	"\n" +
 	"CreateRole\x12\x1b.employee.CreateRoleRequest\x1a\x1c.employee.CreateRoleResponse\x12G\n" +
 	"\n" +
@@ -1019,7 +1163,7 @@ func file_employee_employee_proto_rawDescGZIP() []byte {
 	return file_employee_employee_proto_rawDescData
 }
 
-var file_employee_employee_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_employee_employee_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_employee_employee_proto_goTypes = []any{
 	(*Employee)(nil),               // 0: employee.Employee
 	(*EmployeeRole)(nil),           // 1: employee.EmployeeRole
@@ -1038,6 +1182,8 @@ var file_employee_employee_proto_goTypes = []any{
 	(*ListRolesResponse)(nil),      // 14: employee.ListRolesResponse
 	(*DeleteRoleRequest)(nil),      // 15: employee.DeleteRoleRequest
 	(*DeleteRoleResponse)(nil),     // 16: employee.DeleteRoleResponse
+	(*ListEmployeesRequest)(nil),   // 17: employee.ListEmployeesRequest
+	(*ListEmployeesResponse)(nil),  // 18: employee.ListEmployeesResponse
 }
 var file_employee_employee_proto_depIdxs = []int32{
 	1,  // 0: employee.Employee.employee_roles:type_name -> employee.EmployeeRole
@@ -1053,25 +1199,28 @@ var file_employee_employee_proto_depIdxs = []int32{
 	2,  // 10: employee.UpdateRoleResponse.role:type_name -> employee.Role
 	2,  // 11: employee.ListRolesResponse.roles:type_name -> employee.Role
 	2,  // 12: employee.DeleteRoleResponse.role:type_name -> employee.Role
-	3,  // 13: employee.EmployeeService.GetEmployee:input_type -> employee.GetEmployeeRequest
-	5,  // 14: employee.EmployeeService.CreateEmployee:input_type -> employee.CreateEmployeeRequest
-	7,  // 15: employee.EmployeeService.UpdateEmployee:input_type -> employee.UpdateEmployeeRequest
-	9,  // 16: employee.EmployeeService.CreateRole:input_type -> employee.CreateRoleRequest
-	11, // 17: employee.EmployeeService.UpdateRole:input_type -> employee.UpdateRoleRequest
-	13, // 18: employee.EmployeeService.ListRoles:input_type -> employee.ListRolesRequest
-	15, // 19: employee.EmployeeService.DeleteRole:input_type -> employee.DeleteRoleRequest
-	4,  // 20: employee.EmployeeService.GetEmployee:output_type -> employee.GetEmployeeResponse
-	6,  // 21: employee.EmployeeService.CreateEmployee:output_type -> employee.CreateEmployeeResponse
-	8,  // 22: employee.EmployeeService.UpdateEmployee:output_type -> employee.UpdateEmployeeResponse
-	10, // 23: employee.EmployeeService.CreateRole:output_type -> employee.CreateRoleResponse
-	12, // 24: employee.EmployeeService.UpdateRole:output_type -> employee.UpdateRoleResponse
-	14, // 25: employee.EmployeeService.ListRoles:output_type -> employee.ListRolesResponse
-	16, // 26: employee.EmployeeService.DeleteRole:output_type -> employee.DeleteRoleResponse
-	20, // [20:27] is the sub-list for method output_type
-	13, // [13:20] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	0,  // 13: employee.ListEmployeesResponse.employees:type_name -> employee.Employee
+	3,  // 14: employee.EmployeeService.GetEmployee:input_type -> employee.GetEmployeeRequest
+	5,  // 15: employee.EmployeeService.CreateEmployee:input_type -> employee.CreateEmployeeRequest
+	7,  // 16: employee.EmployeeService.UpdateEmployee:input_type -> employee.UpdateEmployeeRequest
+	17, // 17: employee.EmployeeService.ListEmployees:input_type -> employee.ListEmployeesRequest
+	9,  // 18: employee.EmployeeService.CreateRole:input_type -> employee.CreateRoleRequest
+	11, // 19: employee.EmployeeService.UpdateRole:input_type -> employee.UpdateRoleRequest
+	13, // 20: employee.EmployeeService.ListRoles:input_type -> employee.ListRolesRequest
+	15, // 21: employee.EmployeeService.DeleteRole:input_type -> employee.DeleteRoleRequest
+	4,  // 22: employee.EmployeeService.GetEmployee:output_type -> employee.GetEmployeeResponse
+	6,  // 23: employee.EmployeeService.CreateEmployee:output_type -> employee.CreateEmployeeResponse
+	8,  // 24: employee.EmployeeService.UpdateEmployee:output_type -> employee.UpdateEmployeeResponse
+	18, // 25: employee.EmployeeService.ListEmployees:output_type -> employee.ListEmployeesResponse
+	10, // 26: employee.EmployeeService.CreateRole:output_type -> employee.CreateRoleResponse
+	12, // 27: employee.EmployeeService.UpdateRole:output_type -> employee.UpdateRoleResponse
+	14, // 28: employee.EmployeeService.ListRoles:output_type -> employee.ListRolesResponse
+	16, // 29: employee.EmployeeService.DeleteRole:output_type -> employee.DeleteRoleResponse
+	22, // [22:30] is the sub-list for method output_type
+	14, // [14:22] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_employee_employee_proto_init() }
@@ -1086,13 +1235,14 @@ func file_employee_employee_proto_init() {
 		(*GetEmployeeRequest_Id)(nil),
 		(*GetEmployeeRequest_UserId)(nil),
 	}
+	file_employee_employee_proto_msgTypes[17].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_employee_employee_proto_rawDesc), len(file_employee_employee_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

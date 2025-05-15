@@ -8,6 +8,7 @@ service EmployeeService {
     rpc GetEmployee (GetEmployeeRequest) returns (GetEmployeeResponse);
     rpc CreateEmployee (CreateEmployeeRequest) returns (CreateEmployeeResponse);
     rpc UpdateEmployee (UpdateEmployeeRequest) returns (UpdateEmployeeResponse);
+    rpc ListEmployees (ListEmployeesRequest) returns (ListEmployeesResponse);
 
     rpc CreateRole (CreateRoleRequest) returns (CreateRoleResponse);
     rpc UpdateRole (UpdateRoleRequest) returns (UpdateRoleResponse);
@@ -25,6 +26,7 @@ message Employee {
     optional string created_at = 6;
     optional string updated_at = 7;
     repeated EmployeeRole employee_roles = 8;
+    optional string job_title = 9;
 }
 
 message EmployeeRole {
@@ -92,3 +94,16 @@ message DeleteRoleRequest {
 message DeleteRoleResponse {
     Role role = 1;
 }
+
+message ListEmployeesRequest {
+    optional int64 organization_id = 1;
+    optional int64 branch_id = 2;
+    int32 limit = 3;
+    int32 offset = 4;
+}
+
+message ListEmployeesResponse {
+    repeated Employee employees = 1;
+    int32 total_count = 2;
+}
+
