@@ -6,7 +6,7 @@ option go_package = "github.com/2group/2sales.core-service/pkg/gen/go/b2c_servic
 
 import "service/service.proto";
 import "customer/customer.proto";
-
+import "google/protobuf/field_mask.proto";
 
 service B2CServiceOrderService {
     rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
@@ -28,6 +28,15 @@ message OrderDetail {
     optional string created_at = 9;
     optional string updated_at = 10;
     optional int64 branch_id = 11;
+    repeated int64 payment_method_id = 12;
+    repeated PaymentMethod payment_methods = 13;
+}
+
+message PaymentMethod {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  bool is_active = 4;
 }
 
 message Order {
@@ -46,6 +55,8 @@ message Order {
 
   optional int64 gift_certificate_id = 12;
   optional float gift_used_amount = 13;
+  repeated int64 payment_method_id = 14;
+  repeated PaymentMethod payment_methods = 15;
 
 }
 
@@ -104,6 +115,7 @@ message ListB2CServiceOrdersRequest {
    int64 limit = 8;
    int64 offset = 9;
    optional int64 customer_id = 10;
+   google.protobuf.FieldMask field_mask = 11;
 }
 
 message ListB2CServiceOrdersResponse {

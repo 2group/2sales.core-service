@@ -11,6 +11,7 @@ import (
 	service "github.com/2group/2sales.core-service/pkg/gen/go/service"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	fieldmaskpb "google.golang.org/protobuf/types/known/fieldmaskpb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -36,6 +37,8 @@ type OrderDetail struct {
 	CreatedAt          *string                `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
 	UpdatedAt          *string                `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
 	BranchId           *int64                 `protobuf:"varint,11,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
+	PaymentMethodId    []int64                `protobuf:"varint,12,rep,packed,name=payment_method_id,json=paymentMethodId,proto3" json:"payment_method_id,omitempty"`
+	PaymentMethods     []*PaymentMethod       `protobuf:"bytes,13,rep,name=payment_methods,json=paymentMethods,proto3" json:"payment_methods,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -147,6 +150,88 @@ func (x *OrderDetail) GetBranchId() int64 {
 	return 0
 }
 
+func (x *OrderDetail) GetPaymentMethodId() []int64 {
+	if x != nil {
+		return x.PaymentMethodId
+	}
+	return nil
+}
+
+func (x *OrderDetail) GetPaymentMethods() []*PaymentMethod {
+	if x != nil {
+		return x.PaymentMethods
+	}
+	return nil
+}
+
+type PaymentMethod struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	IsActive      bool                   `protobuf:"varint,4,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PaymentMethod) Reset() {
+	*x = PaymentMethod{}
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PaymentMethod) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaymentMethod) ProtoMessage() {}
+
+func (x *PaymentMethod) ProtoReflect() protoreflect.Message {
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaymentMethod.ProtoReflect.Descriptor instead.
+func (*PaymentMethod) Descriptor() ([]byte, []int) {
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *PaymentMethod) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *PaymentMethod) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *PaymentMethod) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *PaymentMethod) GetIsActive() bool {
+	if x != nil {
+		return x.IsActive
+	}
+	return false
+}
+
 type Order struct {
 	state              protoimpl.MessageState `protogen:"open.v1"`
 	Id                 *int64                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
@@ -162,13 +247,15 @@ type Order struct {
 	BranchId           *int64                 `protobuf:"varint,11,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
 	GiftCertificateId  *int64                 `protobuf:"varint,12,opt,name=gift_certificate_id,json=giftCertificateId,proto3,oneof" json:"gift_certificate_id,omitempty"`
 	GiftUsedAmount     *float32               `protobuf:"fixed32,13,opt,name=gift_used_amount,json=giftUsedAmount,proto3,oneof" json:"gift_used_amount,omitempty"`
+	PaymentMethodId    []int64                `protobuf:"varint,14,rep,packed,name=payment_method_id,json=paymentMethodId,proto3" json:"payment_method_id,omitempty"`
+	PaymentMethods     []*PaymentMethod       `protobuf:"bytes,15,rep,name=payment_methods,json=paymentMethods,proto3" json:"payment_methods,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
 
 func (x *Order) Reset() {
 	*x = Order{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[1]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -180,7 +267,7 @@ func (x *Order) String() string {
 func (*Order) ProtoMessage() {}
 
 func (x *Order) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[1]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -193,7 +280,7 @@ func (x *Order) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Order.ProtoReflect.Descriptor instead.
 func (*Order) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{1}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Order) GetId() int64 {
@@ -287,6 +374,20 @@ func (x *Order) GetGiftUsedAmount() float32 {
 	return 0
 }
 
+func (x *Order) GetPaymentMethodId() []int64 {
+	if x != nil {
+		return x.PaymentMethodId
+	}
+	return nil
+}
+
+func (x *Order) GetPaymentMethods() []*PaymentMethod {
+	if x != nil {
+		return x.PaymentMethods
+	}
+	return nil
+}
+
 type OrderItem struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Id             int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -301,7 +402,7 @@ type OrderItem struct {
 
 func (x *OrderItem) Reset() {
 	*x = OrderItem{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[2]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -313,7 +414,7 @@ func (x *OrderItem) String() string {
 func (*OrderItem) ProtoMessage() {}
 
 func (x *OrderItem) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[2]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -326,7 +427,7 @@ func (x *OrderItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderItem.ProtoReflect.Descriptor instead.
 func (*OrderItem) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{2}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *OrderItem) GetId() int64 {
@@ -384,7 +485,7 @@ type OrderItemDetail struct {
 
 func (x *OrderItemDetail) Reset() {
 	*x = OrderItemDetail{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[3]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -396,7 +497,7 @@ func (x *OrderItemDetail) String() string {
 func (*OrderItemDetail) ProtoMessage() {}
 
 func (x *OrderItemDetail) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[3]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -409,7 +510,7 @@ func (x *OrderItemDetail) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderItemDetail.ProtoReflect.Descriptor instead.
 func (*OrderItemDetail) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{3}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *OrderItemDetail) GetId() int64 {
@@ -457,7 +558,7 @@ type CreateOrderRequest struct {
 
 func (x *CreateOrderRequest) Reset() {
 	*x = CreateOrderRequest{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[4]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -469,7 +570,7 @@ func (x *CreateOrderRequest) String() string {
 func (*CreateOrderRequest) ProtoMessage() {}
 
 func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[4]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -482,7 +583,7 @@ func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrderRequest.ProtoReflect.Descriptor instead.
 func (*CreateOrderRequest) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{4}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *CreateOrderRequest) GetOrder() *Order {
@@ -501,7 +602,7 @@ type CreateOrderResponse struct {
 
 func (x *CreateOrderResponse) Reset() {
 	*x = CreateOrderResponse{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[5]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -513,7 +614,7 @@ func (x *CreateOrderResponse) String() string {
 func (*CreateOrderResponse) ProtoMessage() {}
 
 func (x *CreateOrderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[5]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -526,7 +627,7 @@ func (x *CreateOrderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrderResponse.ProtoReflect.Descriptor instead.
 func (*CreateOrderResponse) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{5}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CreateOrderResponse) GetOrderDetail() *OrderDetail {
@@ -545,7 +646,7 @@ type UpdateOrderRequest struct {
 
 func (x *UpdateOrderRequest) Reset() {
 	*x = UpdateOrderRequest{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[6]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -557,7 +658,7 @@ func (x *UpdateOrderRequest) String() string {
 func (*UpdateOrderRequest) ProtoMessage() {}
 
 func (x *UpdateOrderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[6]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -570,7 +671,7 @@ func (x *UpdateOrderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrderRequest.ProtoReflect.Descriptor instead.
 func (*UpdateOrderRequest) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{6}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *UpdateOrderRequest) GetOrder() *Order {
@@ -589,7 +690,7 @@ type UpdateOrderResponse struct {
 
 func (x *UpdateOrderResponse) Reset() {
 	*x = UpdateOrderResponse{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[7]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -601,7 +702,7 @@ func (x *UpdateOrderResponse) String() string {
 func (*UpdateOrderResponse) ProtoMessage() {}
 
 func (x *UpdateOrderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[7]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -614,7 +715,7 @@ func (x *UpdateOrderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateOrderResponse.ProtoReflect.Descriptor instead.
 func (*UpdateOrderResponse) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{7}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateOrderResponse) GetOrderDetail() *OrderDetail {
@@ -634,7 +735,7 @@ type GetOrderRequest struct {
 
 func (x *GetOrderRequest) Reset() {
 	*x = GetOrderRequest{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[8]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -646,7 +747,7 @@ func (x *GetOrderRequest) String() string {
 func (*GetOrderRequest) ProtoMessage() {}
 
 func (x *GetOrderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[8]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -659,7 +760,7 @@ func (x *GetOrderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderRequest.ProtoReflect.Descriptor instead.
 func (*GetOrderRequest) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{8}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetOrderRequest) GetId() int64 {
@@ -678,7 +779,7 @@ type GetOrderResponse struct {
 
 func (x *GetOrderResponse) Reset() {
 	*x = GetOrderResponse{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[9]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -690,7 +791,7 @@ func (x *GetOrderResponse) String() string {
 func (*GetOrderResponse) ProtoMessage() {}
 
 func (x *GetOrderResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[9]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -703,7 +804,7 @@ func (x *GetOrderResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderResponse.ProtoReflect.Descriptor instead.
 func (*GetOrderResponse) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{9}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetOrderResponse) GetOrderDetail() *OrderDetail {
@@ -725,13 +826,14 @@ type ListB2CServiceOrdersRequest struct {
 	Limit          int64                  `protobuf:"varint,8,opt,name=limit,proto3" json:"limit,omitempty"`
 	Offset         int64                  `protobuf:"varint,9,opt,name=offset,proto3" json:"offset,omitempty"`
 	CustomerId     *int64                 `protobuf:"varint,10,opt,name=customer_id,json=customerId,proto3,oneof" json:"customer_id,omitempty"`
+	FieldMask      *fieldmaskpb.FieldMask `protobuf:"bytes,11,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
 
 func (x *ListB2CServiceOrdersRequest) Reset() {
 	*x = ListB2CServiceOrdersRequest{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[10]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -743,7 +845,7 @@ func (x *ListB2CServiceOrdersRequest) String() string {
 func (*ListB2CServiceOrdersRequest) ProtoMessage() {}
 
 func (x *ListB2CServiceOrdersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[10]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -756,7 +858,7 @@ func (x *ListB2CServiceOrdersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListB2CServiceOrdersRequest.ProtoReflect.Descriptor instead.
 func (*ListB2CServiceOrdersRequest) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{10}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *ListB2CServiceOrdersRequest) GetOrganizationId() int64 {
@@ -829,6 +931,13 @@ func (x *ListB2CServiceOrdersRequest) GetCustomerId() int64 {
 	return 0
 }
 
+func (x *ListB2CServiceOrdersRequest) GetFieldMask() *fieldmaskpb.FieldMask {
+	if x != nil {
+		return x.FieldMask
+	}
+	return nil
+}
+
 type ListB2CServiceOrdersResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Orders        []*OrderDetail         `protobuf:"bytes,1,rep,name=orders,proto3" json:"orders,omitempty"`
@@ -839,7 +948,7 @@ type ListB2CServiceOrdersResponse struct {
 
 func (x *ListB2CServiceOrdersResponse) Reset() {
 	*x = ListB2CServiceOrdersResponse{}
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[11]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -851,7 +960,7 @@ func (x *ListB2CServiceOrdersResponse) String() string {
 func (*ListB2CServiceOrdersResponse) ProtoMessage() {}
 
 func (x *ListB2CServiceOrdersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[11]
+	mi := &file_b2c_service_order_b2c_service_order_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -864,7 +973,7 @@ func (x *ListB2CServiceOrdersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListB2CServiceOrdersResponse.ProtoReflect.Descriptor instead.
 func (*ListB2CServiceOrdersResponse) Descriptor() ([]byte, []int) {
-	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{11}
+	return file_b2c_service_order_b2c_service_order_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *ListB2CServiceOrdersResponse) GetOrders() []*OrderDetail {
@@ -885,7 +994,7 @@ var File_b2c_service_order_b2c_service_order_proto protoreflect.FileDescriptor
 
 const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
-	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\"\xaf\x04\n" +
+	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\x1a google/protobuf/field_mask.proto\"\xa6\x05\n" +
 	"\vOrderDetail\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12.\n" +
 	"\bcustomer\x18\x02 \x01(\v2\x12.customer.CustomerR\bcustomer\x12\x16\n" +
@@ -901,13 +1010,20 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\n" +
 	" \x01(\tH\x03R\tupdatedAt\x88\x01\x01\x12 \n" +
-	"\tbranch_id\x18\v \x01(\x03H\x04R\bbranchId\x88\x01\x01B\x16\n" +
+	"\tbranch_id\x18\v \x01(\x03H\x04R\bbranchId\x88\x01\x01\x12*\n" +
+	"\x11payment_method_id\x18\f \x03(\x03R\x0fpaymentMethodId\x12I\n" +
+	"\x0fpayment_methods\x18\r \x03(\v2 .b2c_service_order.PaymentMethodR\x0epaymentMethodsB\x16\n" +
 	"\x14_gift_certificate_idB\x13\n" +
 	"\x11_gift_used_amountB\r\n" +
 	"\v_created_atB\r\n" +
 	"\v_updated_atB\f\n" +
 	"\n" +
-	"_branch_id\"\xf3\x05\n" +
+	"_branch_id\"r\n" +
+	"\rPaymentMethod\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x1b\n" +
+	"\tis_active\x18\x04 \x01(\bR\bisActive\"\xea\x06\n" +
 	"\x05Order\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03H\x01R\n" +
@@ -928,7 +1044,9 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\tbranch_id\x18\v \x01(\x03H\tR\bbranchId\x88\x01\x01\x123\n" +
 	"\x13gift_certificate_id\x18\f \x01(\x03H\n" +
 	"R\x11giftCertificateId\x88\x01\x01\x12-\n" +
-	"\x10gift_used_amount\x18\r \x01(\x02H\vR\x0egiftUsedAmount\x88\x01\x01B\x05\n" +
+	"\x10gift_used_amount\x18\r \x01(\x02H\vR\x0egiftUsedAmount\x88\x01\x01\x12*\n" +
+	"\x11payment_method_id\x18\x0e \x03(\x03R\x0fpaymentMethodId\x12I\n" +
+	"\x0fpayment_methods\x18\x0f \x03(\v2 .b2c_service_order.PaymentMethodR\x0epaymentMethodsB\x05\n" +
 	"\x03_idB\x0e\n" +
 	"\f_customer_idB\t\n" +
 	"\a_statusB\x17\n" +
@@ -969,7 +1087,7 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x0fGetOrderRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"U\n" +
 	"\x10GetOrderResponse\x12A\n" +
-	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"\x85\x04\n" +
+	"\forder_detail\x18\x01 \x01(\v2\x1e.b2c_service_order.OrderDetailR\vorderDetail\"\xc0\x04\n" +
 	"\x1bListB2CServiceOrdersRequest\x12,\n" +
 	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12 \n" +
 	"\tbranch_id\x18\x02 \x01(\x03H\x01R\bbranchId\x88\x01\x01\x12+\n" +
@@ -984,7 +1102,9 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\x06offset\x18\t \x01(\x03R\x06offset\x12$\n" +
 	"\vcustomer_id\x18\n" +
 	" \x01(\x03H\aR\n" +
-	"customerId\x88\x01\x01B\x12\n" +
+	"customerId\x88\x01\x01\x129\n" +
+	"\n" +
+	"field_mask\x18\v \x01(\v2\x1a.google.protobuf.FieldMaskR\tfieldMaskB\x12\n" +
 	"\x10_organization_idB\f\n" +
 	"\n" +
 	"_branch_idB\x12\n" +
@@ -1016,47 +1136,52 @@ func file_b2c_service_order_b2c_service_order_proto_rawDescGZIP() []byte {
 	return file_b2c_service_order_b2c_service_order_proto_rawDescData
 }
 
-var file_b2c_service_order_b2c_service_order_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_b2c_service_order_b2c_service_order_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_b2c_service_order_b2c_service_order_proto_goTypes = []any{
 	(*OrderDetail)(nil),                  // 0: b2c_service_order.OrderDetail
-	(*Order)(nil),                        // 1: b2c_service_order.Order
-	(*OrderItem)(nil),                    // 2: b2c_service_order.OrderItem
-	(*OrderItemDetail)(nil),              // 3: b2c_service_order.OrderItemDetail
-	(*CreateOrderRequest)(nil),           // 4: b2c_service_order.CreateOrderRequest
-	(*CreateOrderResponse)(nil),          // 5: b2c_service_order.CreateOrderResponse
-	(*UpdateOrderRequest)(nil),           // 6: b2c_service_order.UpdateOrderRequest
-	(*UpdateOrderResponse)(nil),          // 7: b2c_service_order.UpdateOrderResponse
-	(*GetOrderRequest)(nil),              // 8: b2c_service_order.GetOrderRequest
-	(*GetOrderResponse)(nil),             // 9: b2c_service_order.GetOrderResponse
-	(*ListB2CServiceOrdersRequest)(nil),  // 10: b2c_service_order.ListB2CServiceOrdersRequest
-	(*ListB2CServiceOrdersResponse)(nil), // 11: b2c_service_order.ListB2CServiceOrdersResponse
-	(*customer.Customer)(nil),            // 12: customer.Customer
-	(*service.Service)(nil),              // 13: service.Service
+	(*PaymentMethod)(nil),                // 1: b2c_service_order.PaymentMethod
+	(*Order)(nil),                        // 2: b2c_service_order.Order
+	(*OrderItem)(nil),                    // 3: b2c_service_order.OrderItem
+	(*OrderItemDetail)(nil),              // 4: b2c_service_order.OrderItemDetail
+	(*CreateOrderRequest)(nil),           // 5: b2c_service_order.CreateOrderRequest
+	(*CreateOrderResponse)(nil),          // 6: b2c_service_order.CreateOrderResponse
+	(*UpdateOrderRequest)(nil),           // 7: b2c_service_order.UpdateOrderRequest
+	(*UpdateOrderResponse)(nil),          // 8: b2c_service_order.UpdateOrderResponse
+	(*GetOrderRequest)(nil),              // 9: b2c_service_order.GetOrderRequest
+	(*GetOrderResponse)(nil),             // 10: b2c_service_order.GetOrderResponse
+	(*ListB2CServiceOrdersRequest)(nil),  // 11: b2c_service_order.ListB2CServiceOrdersRequest
+	(*ListB2CServiceOrdersResponse)(nil), // 12: b2c_service_order.ListB2CServiceOrdersResponse
+	(*customer.Customer)(nil),            // 13: customer.Customer
+	(*service.Service)(nil),              // 14: service.Service
+	(*fieldmaskpb.FieldMask)(nil),        // 15: google.protobuf.FieldMask
 }
 var file_b2c_service_order_b2c_service_order_proto_depIdxs = []int32{
-	12, // 0: b2c_service_order.OrderDetail.customer:type_name -> customer.Customer
-	3,  // 1: b2c_service_order.OrderDetail.order_items:type_name -> b2c_service_order.OrderItemDetail
-	2,  // 2: b2c_service_order.Order.order_items:type_name -> b2c_service_order.OrderItem
-	12, // 3: b2c_service_order.Order.customer:type_name -> customer.Customer
-	13, // 4: b2c_service_order.OrderItem.service:type_name -> service.Service
-	13, // 5: b2c_service_order.OrderItemDetail.service:type_name -> service.Service
-	1,  // 6: b2c_service_order.CreateOrderRequest.order:type_name -> b2c_service_order.Order
-	0,  // 7: b2c_service_order.CreateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
-	1,  // 8: b2c_service_order.UpdateOrderRequest.order:type_name -> b2c_service_order.Order
-	0,  // 9: b2c_service_order.UpdateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
-	0,  // 10: b2c_service_order.GetOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
-	0,  // 11: b2c_service_order.ListB2CServiceOrdersResponse.orders:type_name -> b2c_service_order.OrderDetail
-	4,  // 12: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
-	8,  // 13: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
-	10, // 14: b2c_service_order.B2CServiceOrderService.ListOrders:input_type -> b2c_service_order.ListB2CServiceOrdersRequest
-	5,  // 15: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
-	9,  // 16: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
-	11, // 17: b2c_service_order.B2CServiceOrderService.ListOrders:output_type -> b2c_service_order.ListB2CServiceOrdersResponse
-	15, // [15:18] is the sub-list for method output_type
-	12, // [12:15] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	13, // 0: b2c_service_order.OrderDetail.customer:type_name -> customer.Customer
+	4,  // 1: b2c_service_order.OrderDetail.order_items:type_name -> b2c_service_order.OrderItemDetail
+	1,  // 2: b2c_service_order.OrderDetail.payment_methods:type_name -> b2c_service_order.PaymentMethod
+	3,  // 3: b2c_service_order.Order.order_items:type_name -> b2c_service_order.OrderItem
+	13, // 4: b2c_service_order.Order.customer:type_name -> customer.Customer
+	1,  // 5: b2c_service_order.Order.payment_methods:type_name -> b2c_service_order.PaymentMethod
+	14, // 6: b2c_service_order.OrderItem.service:type_name -> service.Service
+	14, // 7: b2c_service_order.OrderItemDetail.service:type_name -> service.Service
+	2,  // 8: b2c_service_order.CreateOrderRequest.order:type_name -> b2c_service_order.Order
+	0,  // 9: b2c_service_order.CreateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	2,  // 10: b2c_service_order.UpdateOrderRequest.order:type_name -> b2c_service_order.Order
+	0,  // 11: b2c_service_order.UpdateOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	0,  // 12: b2c_service_order.GetOrderResponse.order_detail:type_name -> b2c_service_order.OrderDetail
+	15, // 13: b2c_service_order.ListB2CServiceOrdersRequest.field_mask:type_name -> google.protobuf.FieldMask
+	0,  // 14: b2c_service_order.ListB2CServiceOrdersResponse.orders:type_name -> b2c_service_order.OrderDetail
+	5,  // 15: b2c_service_order.B2CServiceOrderService.CreateOrder:input_type -> b2c_service_order.CreateOrderRequest
+	9,  // 16: b2c_service_order.B2CServiceOrderService.GetOrder:input_type -> b2c_service_order.GetOrderRequest
+	11, // 17: b2c_service_order.B2CServiceOrderService.ListOrders:input_type -> b2c_service_order.ListB2CServiceOrdersRequest
+	6,  // 18: b2c_service_order.B2CServiceOrderService.CreateOrder:output_type -> b2c_service_order.CreateOrderResponse
+	10, // 19: b2c_service_order.B2CServiceOrderService.GetOrder:output_type -> b2c_service_order.GetOrderResponse
+	12, // 20: b2c_service_order.B2CServiceOrderService.ListOrders:output_type -> b2c_service_order.ListB2CServiceOrdersResponse
+	18, // [18:21] is the sub-list for method output_type
+	15, // [15:18] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_b2c_service_order_b2c_service_order_proto_init() }
@@ -1065,15 +1190,15 @@ func file_b2c_service_order_b2c_service_order_proto_init() {
 		return
 	}
 	file_b2c_service_order_b2c_service_order_proto_msgTypes[0].OneofWrappers = []any{}
-	file_b2c_service_order_b2c_service_order_proto_msgTypes[1].OneofWrappers = []any{}
-	file_b2c_service_order_b2c_service_order_proto_msgTypes[10].OneofWrappers = []any{}
+	file_b2c_service_order_b2c_service_order_proto_msgTypes[2].OneofWrappers = []any{}
+	file_b2c_service_order_b2c_service_order_proto_msgTypes[11].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_b2c_service_order_b2c_service_order_proto_rawDesc), len(file_b2c_service_order_b2c_service_order_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
