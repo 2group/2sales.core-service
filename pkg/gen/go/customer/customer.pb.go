@@ -1425,6 +1425,102 @@ func (*DeleteCustomerResponse) Descriptor() ([]byte, []int) {
 	return file_customer_customer_proto_rawDescGZIP(), []int{22}
 }
 
+type SearchCustomerRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	SearchCustomer string                 `protobuf:"bytes,1,opt,name=search_customer,json=searchCustomer,proto3" json:"search_customer,omitempty"`
+	Limit          int32                  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *SearchCustomerRequest) Reset() {
+	*x = SearchCustomerRequest{}
+	mi := &file_customer_customer_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchCustomerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchCustomerRequest) ProtoMessage() {}
+
+func (x *SearchCustomerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchCustomerRequest.ProtoReflect.Descriptor instead.
+func (*SearchCustomerRequest) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *SearchCustomerRequest) GetSearchCustomer() string {
+	if x != nil {
+		return x.SearchCustomer
+	}
+	return ""
+}
+
+func (x *SearchCustomerRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type SearchCustomerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Customers     []*Customer            `protobuf:"bytes,1,rep,name=customers,proto3" json:"customers,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchCustomerResponse) Reset() {
+	*x = SearchCustomerResponse{}
+	mi := &file_customer_customer_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchCustomerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchCustomerResponse) ProtoMessage() {}
+
+func (x *SearchCustomerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_customer_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchCustomerResponse.ProtoReflect.Descriptor instead.
+func (*SearchCustomerResponse) Descriptor() ([]byte, []int) {
+	return file_customer_customer_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *SearchCustomerResponse) GetCustomers() []*Customer {
+	if x != nil {
+		return x.Customers
+	}
+	return nil
+}
+
 type ListCustomersRequest struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	OrganizationId    *int64                 `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
@@ -1444,7 +1540,7 @@ type ListCustomersRequest struct {
 
 func (x *ListCustomersRequest) Reset() {
 	*x = ListCustomersRequest{}
-	mi := &file_customer_customer_proto_msgTypes[23]
+	mi := &file_customer_customer_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1456,7 +1552,7 @@ func (x *ListCustomersRequest) String() string {
 func (*ListCustomersRequest) ProtoMessage() {}
 
 func (x *ListCustomersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[23]
+	mi := &file_customer_customer_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1469,7 +1565,7 @@ func (x *ListCustomersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListCustomersRequest.ProtoReflect.Descriptor instead.
 func (*ListCustomersRequest) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{23}
+	return file_customer_customer_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *ListCustomersRequest) GetOrganizationId() int64 {
@@ -1559,7 +1655,7 @@ type ListCustomersResponse struct {
 
 func (x *ListCustomersResponse) Reset() {
 	*x = ListCustomersResponse{}
-	mi := &file_customer_customer_proto_msgTypes[24]
+	mi := &file_customer_customer_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1571,7 +1667,7 @@ func (x *ListCustomersResponse) String() string {
 func (*ListCustomersResponse) ProtoMessage() {}
 
 func (x *ListCustomersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[24]
+	mi := &file_customer_customer_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1584,7 +1680,7 @@ func (x *ListCustomersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListCustomersResponse.ProtoReflect.Descriptor instead.
 func (*ListCustomersResponse) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{24}
+	return file_customer_customer_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *ListCustomersResponse) GetCustomers() []*Customer {
@@ -1612,7 +1708,7 @@ type GiftCertificateLabel struct {
 
 func (x *GiftCertificateLabel) Reset() {
 	*x = GiftCertificateLabel{}
-	mi := &file_customer_customer_proto_msgTypes[25]
+	mi := &file_customer_customer_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1624,7 +1720,7 @@ func (x *GiftCertificateLabel) String() string {
 func (*GiftCertificateLabel) ProtoMessage() {}
 
 func (x *GiftCertificateLabel) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[25]
+	mi := &file_customer_customer_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1637,7 +1733,7 @@ func (x *GiftCertificateLabel) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GiftCertificateLabel.ProtoReflect.Descriptor instead.
 func (*GiftCertificateLabel) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{25}
+	return file_customer_customer_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GiftCertificateLabel) GetId() int64 {
@@ -1672,7 +1768,7 @@ type GiftCertificateIcon struct {
 
 func (x *GiftCertificateIcon) Reset() {
 	*x = GiftCertificateIcon{}
-	mi := &file_customer_customer_proto_msgTypes[26]
+	mi := &file_customer_customer_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1684,7 +1780,7 @@ func (x *GiftCertificateIcon) String() string {
 func (*GiftCertificateIcon) ProtoMessage() {}
 
 func (x *GiftCertificateIcon) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[26]
+	mi := &file_customer_customer_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1697,7 +1793,7 @@ func (x *GiftCertificateIcon) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GiftCertificateIcon.ProtoReflect.Descriptor instead.
 func (*GiftCertificateIcon) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{26}
+	return file_customer_customer_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *GiftCertificateIcon) GetId() int64 {
@@ -1732,7 +1828,7 @@ type GiftCertificateBackground struct {
 
 func (x *GiftCertificateBackground) Reset() {
 	*x = GiftCertificateBackground{}
-	mi := &file_customer_customer_proto_msgTypes[27]
+	mi := &file_customer_customer_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1744,7 +1840,7 @@ func (x *GiftCertificateBackground) String() string {
 func (*GiftCertificateBackground) ProtoMessage() {}
 
 func (x *GiftCertificateBackground) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[27]
+	mi := &file_customer_customer_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1757,7 +1853,7 @@ func (x *GiftCertificateBackground) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GiftCertificateBackground.ProtoReflect.Descriptor instead.
 func (*GiftCertificateBackground) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{27}
+	return file_customer_customer_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *GiftCertificateBackground) GetId() int64 {
@@ -1789,7 +1885,7 @@ type ListGiftCertificateLabelsRequest struct {
 
 func (x *ListGiftCertificateLabelsRequest) Reset() {
 	*x = ListGiftCertificateLabelsRequest{}
-	mi := &file_customer_customer_proto_msgTypes[28]
+	mi := &file_customer_customer_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1801,7 +1897,7 @@ func (x *ListGiftCertificateLabelsRequest) String() string {
 func (*ListGiftCertificateLabelsRequest) ProtoMessage() {}
 
 func (x *ListGiftCertificateLabelsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[28]
+	mi := &file_customer_customer_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1814,7 +1910,7 @@ func (x *ListGiftCertificateLabelsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGiftCertificateLabelsRequest.ProtoReflect.Descriptor instead.
 func (*ListGiftCertificateLabelsRequest) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{28}
+	return file_customer_customer_proto_rawDescGZIP(), []int{30}
 }
 
 type ListGiftCertificateLabelsResponse struct {
@@ -1826,7 +1922,7 @@ type ListGiftCertificateLabelsResponse struct {
 
 func (x *ListGiftCertificateLabelsResponse) Reset() {
 	*x = ListGiftCertificateLabelsResponse{}
-	mi := &file_customer_customer_proto_msgTypes[29]
+	mi := &file_customer_customer_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1838,7 +1934,7 @@ func (x *ListGiftCertificateLabelsResponse) String() string {
 func (*ListGiftCertificateLabelsResponse) ProtoMessage() {}
 
 func (x *ListGiftCertificateLabelsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[29]
+	mi := &file_customer_customer_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1851,7 +1947,7 @@ func (x *ListGiftCertificateLabelsResponse) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use ListGiftCertificateLabelsResponse.ProtoReflect.Descriptor instead.
 func (*ListGiftCertificateLabelsResponse) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{29}
+	return file_customer_customer_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *ListGiftCertificateLabelsResponse) GetLabels() []*GiftCertificateLabel {
@@ -1869,7 +1965,7 @@ type ListGiftCertificateIconsRequest struct {
 
 func (x *ListGiftCertificateIconsRequest) Reset() {
 	*x = ListGiftCertificateIconsRequest{}
-	mi := &file_customer_customer_proto_msgTypes[30]
+	mi := &file_customer_customer_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1881,7 +1977,7 @@ func (x *ListGiftCertificateIconsRequest) String() string {
 func (*ListGiftCertificateIconsRequest) ProtoMessage() {}
 
 func (x *ListGiftCertificateIconsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[30]
+	mi := &file_customer_customer_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1894,7 +1990,7 @@ func (x *ListGiftCertificateIconsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGiftCertificateIconsRequest.ProtoReflect.Descriptor instead.
 func (*ListGiftCertificateIconsRequest) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{30}
+	return file_customer_customer_proto_rawDescGZIP(), []int{32}
 }
 
 type ListGiftCertificateIconsResponse struct {
@@ -1906,7 +2002,7 @@ type ListGiftCertificateIconsResponse struct {
 
 func (x *ListGiftCertificateIconsResponse) Reset() {
 	*x = ListGiftCertificateIconsResponse{}
-	mi := &file_customer_customer_proto_msgTypes[31]
+	mi := &file_customer_customer_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1918,7 +2014,7 @@ func (x *ListGiftCertificateIconsResponse) String() string {
 func (*ListGiftCertificateIconsResponse) ProtoMessage() {}
 
 func (x *ListGiftCertificateIconsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[31]
+	mi := &file_customer_customer_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1931,7 +2027,7 @@ func (x *ListGiftCertificateIconsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGiftCertificateIconsResponse.ProtoReflect.Descriptor instead.
 func (*ListGiftCertificateIconsResponse) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{31}
+	return file_customer_customer_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *ListGiftCertificateIconsResponse) GetIcons() []*GiftCertificateIcon {
@@ -1949,7 +2045,7 @@ type ListGiftCertificateBackgroundsRequest struct {
 
 func (x *ListGiftCertificateBackgroundsRequest) Reset() {
 	*x = ListGiftCertificateBackgroundsRequest{}
-	mi := &file_customer_customer_proto_msgTypes[32]
+	mi := &file_customer_customer_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1961,7 +2057,7 @@ func (x *ListGiftCertificateBackgroundsRequest) String() string {
 func (*ListGiftCertificateBackgroundsRequest) ProtoMessage() {}
 
 func (x *ListGiftCertificateBackgroundsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[32]
+	mi := &file_customer_customer_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1974,7 +2070,7 @@ func (x *ListGiftCertificateBackgroundsRequest) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use ListGiftCertificateBackgroundsRequest.ProtoReflect.Descriptor instead.
 func (*ListGiftCertificateBackgroundsRequest) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{32}
+	return file_customer_customer_proto_rawDescGZIP(), []int{34}
 }
 
 type ListGiftCertificateBackgroundsResponse struct {
@@ -1986,7 +2082,7 @@ type ListGiftCertificateBackgroundsResponse struct {
 
 func (x *ListGiftCertificateBackgroundsResponse) Reset() {
 	*x = ListGiftCertificateBackgroundsResponse{}
-	mi := &file_customer_customer_proto_msgTypes[33]
+	mi := &file_customer_customer_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1998,7 +2094,7 @@ func (x *ListGiftCertificateBackgroundsResponse) String() string {
 func (*ListGiftCertificateBackgroundsResponse) ProtoMessage() {}
 
 func (x *ListGiftCertificateBackgroundsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[33]
+	mi := &file_customer_customer_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2011,7 +2107,7 @@ func (x *ListGiftCertificateBackgroundsResponse) ProtoReflect() protoreflect.Mes
 
 // Deprecated: Use ListGiftCertificateBackgroundsResponse.ProtoReflect.Descriptor instead.
 func (*ListGiftCertificateBackgroundsResponse) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{33}
+	return file_customer_customer_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *ListGiftCertificateBackgroundsResponse) GetBackgrounds() []*GiftCertificateBackground {
@@ -2029,7 +2125,7 @@ type ListGiftCertificateDesignsRequest struct {
 
 func (x *ListGiftCertificateDesignsRequest) Reset() {
 	*x = ListGiftCertificateDesignsRequest{}
-	mi := &file_customer_customer_proto_msgTypes[34]
+	mi := &file_customer_customer_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2041,7 +2137,7 @@ func (x *ListGiftCertificateDesignsRequest) String() string {
 func (*ListGiftCertificateDesignsRequest) ProtoMessage() {}
 
 func (x *ListGiftCertificateDesignsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[34]
+	mi := &file_customer_customer_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2054,7 +2150,7 @@ func (x *ListGiftCertificateDesignsRequest) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use ListGiftCertificateDesignsRequest.ProtoReflect.Descriptor instead.
 func (*ListGiftCertificateDesignsRequest) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{34}
+	return file_customer_customer_proto_rawDescGZIP(), []int{36}
 }
 
 type ListGiftCertificateDesignsResponse struct {
@@ -2068,7 +2164,7 @@ type ListGiftCertificateDesignsResponse struct {
 
 func (x *ListGiftCertificateDesignsResponse) Reset() {
 	*x = ListGiftCertificateDesignsResponse{}
-	mi := &file_customer_customer_proto_msgTypes[35]
+	mi := &file_customer_customer_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2080,7 +2176,7 @@ func (x *ListGiftCertificateDesignsResponse) String() string {
 func (*ListGiftCertificateDesignsResponse) ProtoMessage() {}
 
 func (x *ListGiftCertificateDesignsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_customer_proto_msgTypes[35]
+	mi := &file_customer_customer_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2093,7 +2189,7 @@ func (x *ListGiftCertificateDesignsResponse) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use ListGiftCertificateDesignsResponse.ProtoReflect.Descriptor instead.
 func (*ListGiftCertificateDesignsResponse) Descriptor() ([]byte, []int) {
-	return file_customer_customer_proto_rawDescGZIP(), []int{35}
+	return file_customer_customer_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *ListGiftCertificateDesignsResponse) GetLabels() []*GiftCertificateLabel {
@@ -2260,7 +2356,12 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"'\n" +
 	"\x15DeleteCustomerRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"\x18\n" +
-	"\x16DeleteCustomerResponse\"\x90\x05\n" +
+	"\x16DeleteCustomerResponse\"V\n" +
+	"\x15SearchCustomerRequest\x12'\n" +
+	"\x0fsearch_customer\x18\x01 \x01(\tR\x0esearchCustomer\x12\x14\n" +
+	"\x05limit\x18\x02 \x01(\x05R\x05limit\"J\n" +
+	"\x16SearchCustomerResponse\x120\n" +
+	"\tcustomers\x18\x01 \x03(\v2\x12.customer.CustomerR\tcustomers\"\x90\x05\n" +
 	"\x14ListCustomersRequest\x12,\n" +
 	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12$\n" +
 	"\vsearch_text\x18\x02 \x01(\tH\x01R\n" +
@@ -2313,13 +2414,14 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\"ListGiftCertificateDesignsResponse\x126\n" +
 	"\x06labels\x18\x01 \x03(\v2\x1e.customer.GiftCertificateLabelR\x06labels\x123\n" +
 	"\x05icons\x18\x02 \x03(\v2\x1d.customer.GiftCertificateIconR\x05icons\x12E\n" +
-	"\vbackgrounds\x18\x03 \x03(\v2#.customer.GiftCertificateBackgroundR\vbackgrounds2\x89\f\n" +
+	"\vbackgrounds\x18\x03 \x03(\v2#.customer.GiftCertificateBackgroundR\vbackgrounds2\xde\f\n" +
 	"\x0fCustomerService\x12J\n" +
 	"\vGetCustomer\x12\x1c.customer.GetCustomerRequest\x1a\x1d.customer.GetCustomerResponse\x12S\n" +
 	"\x0eCreateCustomer\x12\x1f.customer.CreateCustomerRequest\x1a .customer.CreateCustomerResponse\x12S\n" +
 	"\x0eDeleteCustomer\x12\x1f.customer.DeleteCustomerRequest\x1a .customer.DeleteCustomerResponse\x12h\n" +
 	"\x15PartialUpdateCustomer\x12&.customer.PartialUpdateCustomerRequest\x1a'.customer.PartialUpdateCustomerResponse\x12S\n" +
-	"\x0eUpdateCustomer\x12\x1f.customer.UpdateCustomerRequest\x1a .customer.UpdateCustomerResponse\x12P\n" +
+	"\x0eUpdateCustomer\x12\x1f.customer.UpdateCustomerRequest\x1a .customer.UpdateCustomerResponse\x12S\n" +
+	"\x0eSearchCustomer\x12\x1f.customer.SearchCustomerRequest\x1a .customer.SearchCustomerResponse\x12P\n" +
 	"\rListCustomers\x12\x1e.customer.ListCustomersRequest\x1a\x1f.customer.ListCustomersResponse\x12k\n" +
 	"\x16CreateBonusTransaction\x12'.customer.CreateBonusTransactionRequest\x1a(.customer.CreateBonusTransactionResponse\x12h\n" +
 	"\x15CreateGiftCertificate\x12&.customer.CreateGiftCertificateRequest\x1a'.customer.CreateGiftCertificateResponse\x12_\n" +
@@ -2343,7 +2445,7 @@ func file_customer_customer_proto_rawDescGZIP() []byte {
 	return file_customer_customer_proto_rawDescData
 }
 
-var file_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 36)
+var file_customer_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
 var file_customer_customer_proto_goTypes = []any{
 	(*Customer)(nil),                               // 0: customer.Customer
 	(*CustomerBonusTransaction)(nil),               // 1: customer.CustomerBonusTransaction
@@ -2368,24 +2470,26 @@ var file_customer_customer_proto_goTypes = []any{
 	(*PartialUpdateCustomerResponse)(nil),          // 20: customer.PartialUpdateCustomerResponse
 	(*DeleteCustomerRequest)(nil),                  // 21: customer.DeleteCustomerRequest
 	(*DeleteCustomerResponse)(nil),                 // 22: customer.DeleteCustomerResponse
-	(*ListCustomersRequest)(nil),                   // 23: customer.ListCustomersRequest
-	(*ListCustomersResponse)(nil),                  // 24: customer.ListCustomersResponse
-	(*GiftCertificateLabel)(nil),                   // 25: customer.GiftCertificateLabel
-	(*GiftCertificateIcon)(nil),                    // 26: customer.GiftCertificateIcon
-	(*GiftCertificateBackground)(nil),              // 27: customer.GiftCertificateBackground
-	(*ListGiftCertificateLabelsRequest)(nil),       // 28: customer.ListGiftCertificateLabelsRequest
-	(*ListGiftCertificateLabelsResponse)(nil),      // 29: customer.ListGiftCertificateLabelsResponse
-	(*ListGiftCertificateIconsRequest)(nil),        // 30: customer.ListGiftCertificateIconsRequest
-	(*ListGiftCertificateIconsResponse)(nil),       // 31: customer.ListGiftCertificateIconsResponse
-	(*ListGiftCertificateBackgroundsRequest)(nil),  // 32: customer.ListGiftCertificateBackgroundsRequest
-	(*ListGiftCertificateBackgroundsResponse)(nil), // 33: customer.ListGiftCertificateBackgroundsResponse
-	(*ListGiftCertificateDesignsRequest)(nil),      // 34: customer.ListGiftCertificateDesignsRequest
-	(*ListGiftCertificateDesignsResponse)(nil),     // 35: customer.ListGiftCertificateDesignsResponse
-	(*organization.LoyaltyLevel)(nil),              // 36: organization.LoyaltyLevel
-	(*fieldmaskpb.FieldMask)(nil),                  // 37: google.protobuf.FieldMask
+	(*SearchCustomerRequest)(nil),                  // 23: customer.SearchCustomerRequest
+	(*SearchCustomerResponse)(nil),                 // 24: customer.SearchCustomerResponse
+	(*ListCustomersRequest)(nil),                   // 25: customer.ListCustomersRequest
+	(*ListCustomersResponse)(nil),                  // 26: customer.ListCustomersResponse
+	(*GiftCertificateLabel)(nil),                   // 27: customer.GiftCertificateLabel
+	(*GiftCertificateIcon)(nil),                    // 28: customer.GiftCertificateIcon
+	(*GiftCertificateBackground)(nil),              // 29: customer.GiftCertificateBackground
+	(*ListGiftCertificateLabelsRequest)(nil),       // 30: customer.ListGiftCertificateLabelsRequest
+	(*ListGiftCertificateLabelsResponse)(nil),      // 31: customer.ListGiftCertificateLabelsResponse
+	(*ListGiftCertificateIconsRequest)(nil),        // 32: customer.ListGiftCertificateIconsRequest
+	(*ListGiftCertificateIconsResponse)(nil),       // 33: customer.ListGiftCertificateIconsResponse
+	(*ListGiftCertificateBackgroundsRequest)(nil),  // 34: customer.ListGiftCertificateBackgroundsRequest
+	(*ListGiftCertificateBackgroundsResponse)(nil), // 35: customer.ListGiftCertificateBackgroundsResponse
+	(*ListGiftCertificateDesignsRequest)(nil),      // 36: customer.ListGiftCertificateDesignsRequest
+	(*ListGiftCertificateDesignsResponse)(nil),     // 37: customer.ListGiftCertificateDesignsResponse
+	(*organization.LoyaltyLevel)(nil),              // 38: organization.LoyaltyLevel
+	(*fieldmaskpb.FieldMask)(nil),                  // 39: google.protobuf.FieldMask
 }
 var file_customer_customer_proto_depIdxs = []int32{
-	36, // 0: customer.Customer.loyalty_level:type_name -> organization.LoyaltyLevel
+	38, // 0: customer.Customer.loyalty_level:type_name -> organization.LoyaltyLevel
 	2,  // 1: customer.CreateGiftCertificateRequest.certificate:type_name -> customer.GiftCertificate
 	2,  // 2: customer.CreateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
 	2,  // 3: customer.GetGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
@@ -2393,7 +2497,7 @@ var file_customer_customer_proto_depIdxs = []int32{
 	2,  // 5: customer.UpdateGiftCertificateResponse.certificate:type_name -> customer.GiftCertificate
 	2,  // 6: customer.ListGiftCertificatesResponse.certificates:type_name -> customer.GiftCertificate
 	1,  // 7: customer.CreateBonusTransactionResponse.transaction:type_name -> customer.CustomerBonusTransaction
-	37, // 8: customer.GetCustomerRequest.field_mask:type_name -> google.protobuf.FieldMask
+	39, // 8: customer.GetCustomerRequest.field_mask:type_name -> google.protobuf.FieldMask
 	0,  // 9: customer.GetCustomerResponse.customer:type_name -> customer.Customer
 	0,  // 10: customer.CreateCustomerRequest.customer:type_name -> customer.Customer
 	0,  // 11: customer.CreateCustomerResponse.customer:type_name -> customer.Customer
@@ -2401,49 +2505,52 @@ var file_customer_customer_proto_depIdxs = []int32{
 	0,  // 13: customer.UpdateCustomerResponse.customer:type_name -> customer.Customer
 	0,  // 14: customer.PartialUpdateCustomerRequest.customer:type_name -> customer.Customer
 	0,  // 15: customer.PartialUpdateCustomerResponse.customer:type_name -> customer.Customer
-	37, // 16: customer.ListCustomersRequest.field_mask:type_name -> google.protobuf.FieldMask
-	0,  // 17: customer.ListCustomersResponse.customers:type_name -> customer.Customer
-	25, // 18: customer.ListGiftCertificateLabelsResponse.labels:type_name -> customer.GiftCertificateLabel
-	26, // 19: customer.ListGiftCertificateIconsResponse.icons:type_name -> customer.GiftCertificateIcon
-	27, // 20: customer.ListGiftCertificateBackgroundsResponse.backgrounds:type_name -> customer.GiftCertificateBackground
-	25, // 21: customer.ListGiftCertificateDesignsResponse.labels:type_name -> customer.GiftCertificateLabel
-	26, // 22: customer.ListGiftCertificateDesignsResponse.icons:type_name -> customer.GiftCertificateIcon
-	27, // 23: customer.ListGiftCertificateDesignsResponse.backgrounds:type_name -> customer.GiftCertificateBackground
-	13, // 24: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
-	15, // 25: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
-	21, // 26: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
-	19, // 27: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
-	17, // 28: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
-	23, // 29: customer.CustomerService.ListCustomers:input_type -> customer.ListCustomersRequest
-	11, // 30: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
-	3,  // 31: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
-	5,  // 32: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
-	7,  // 33: customer.CustomerService.UpdateGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
-	9,  // 34: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
-	28, // 35: customer.CustomerService.ListGiftCertificateLabels:input_type -> customer.ListGiftCertificateLabelsRequest
-	30, // 36: customer.CustomerService.ListGiftCertificateIcons:input_type -> customer.ListGiftCertificateIconsRequest
-	32, // 37: customer.CustomerService.ListGiftCertificateBackgrounds:input_type -> customer.ListGiftCertificateBackgroundsRequest
-	34, // 38: customer.CustomerService.ListGiftCertificateDesigns:input_type -> customer.ListGiftCertificateDesignsRequest
-	14, // 39: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
-	16, // 40: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
-	22, // 41: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
-	20, // 42: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
-	18, // 43: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
-	24, // 44: customer.CustomerService.ListCustomers:output_type -> customer.ListCustomersResponse
-	12, // 45: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
-	4,  // 46: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
-	6,  // 47: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
-	8,  // 48: customer.CustomerService.UpdateGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
-	10, // 49: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
-	29, // 50: customer.CustomerService.ListGiftCertificateLabels:output_type -> customer.ListGiftCertificateLabelsResponse
-	31, // 51: customer.CustomerService.ListGiftCertificateIcons:output_type -> customer.ListGiftCertificateIconsResponse
-	33, // 52: customer.CustomerService.ListGiftCertificateBackgrounds:output_type -> customer.ListGiftCertificateBackgroundsResponse
-	35, // 53: customer.CustomerService.ListGiftCertificateDesigns:output_type -> customer.ListGiftCertificateDesignsResponse
-	39, // [39:54] is the sub-list for method output_type
-	24, // [24:39] is the sub-list for method input_type
-	24, // [24:24] is the sub-list for extension type_name
-	24, // [24:24] is the sub-list for extension extendee
-	0,  // [0:24] is the sub-list for field type_name
+	0,  // 16: customer.SearchCustomerResponse.customers:type_name -> customer.Customer
+	39, // 17: customer.ListCustomersRequest.field_mask:type_name -> google.protobuf.FieldMask
+	0,  // 18: customer.ListCustomersResponse.customers:type_name -> customer.Customer
+	27, // 19: customer.ListGiftCertificateLabelsResponse.labels:type_name -> customer.GiftCertificateLabel
+	28, // 20: customer.ListGiftCertificateIconsResponse.icons:type_name -> customer.GiftCertificateIcon
+	29, // 21: customer.ListGiftCertificateBackgroundsResponse.backgrounds:type_name -> customer.GiftCertificateBackground
+	27, // 22: customer.ListGiftCertificateDesignsResponse.labels:type_name -> customer.GiftCertificateLabel
+	28, // 23: customer.ListGiftCertificateDesignsResponse.icons:type_name -> customer.GiftCertificateIcon
+	29, // 24: customer.ListGiftCertificateDesignsResponse.backgrounds:type_name -> customer.GiftCertificateBackground
+	13, // 25: customer.CustomerService.GetCustomer:input_type -> customer.GetCustomerRequest
+	15, // 26: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
+	21, // 27: customer.CustomerService.DeleteCustomer:input_type -> customer.DeleteCustomerRequest
+	19, // 28: customer.CustomerService.PartialUpdateCustomer:input_type -> customer.PartialUpdateCustomerRequest
+	17, // 29: customer.CustomerService.UpdateCustomer:input_type -> customer.UpdateCustomerRequest
+	23, // 30: customer.CustomerService.SearchCustomer:input_type -> customer.SearchCustomerRequest
+	25, // 31: customer.CustomerService.ListCustomers:input_type -> customer.ListCustomersRequest
+	11, // 32: customer.CustomerService.CreateBonusTransaction:input_type -> customer.CreateBonusTransactionRequest
+	3,  // 33: customer.CustomerService.CreateGiftCertificate:input_type -> customer.CreateGiftCertificateRequest
+	5,  // 34: customer.CustomerService.GetGiftCertificate:input_type -> customer.GetGiftCertificateRequest
+	7,  // 35: customer.CustomerService.UpdateGiftCertificate:input_type -> customer.UpdateGiftCertificateRequest
+	9,  // 36: customer.CustomerService.ListGiftCertificates:input_type -> customer.ListGiftCertificatesRequest
+	30, // 37: customer.CustomerService.ListGiftCertificateLabels:input_type -> customer.ListGiftCertificateLabelsRequest
+	32, // 38: customer.CustomerService.ListGiftCertificateIcons:input_type -> customer.ListGiftCertificateIconsRequest
+	34, // 39: customer.CustomerService.ListGiftCertificateBackgrounds:input_type -> customer.ListGiftCertificateBackgroundsRequest
+	36, // 40: customer.CustomerService.ListGiftCertificateDesigns:input_type -> customer.ListGiftCertificateDesignsRequest
+	14, // 41: customer.CustomerService.GetCustomer:output_type -> customer.GetCustomerResponse
+	16, // 42: customer.CustomerService.CreateCustomer:output_type -> customer.CreateCustomerResponse
+	22, // 43: customer.CustomerService.DeleteCustomer:output_type -> customer.DeleteCustomerResponse
+	20, // 44: customer.CustomerService.PartialUpdateCustomer:output_type -> customer.PartialUpdateCustomerResponse
+	18, // 45: customer.CustomerService.UpdateCustomer:output_type -> customer.UpdateCustomerResponse
+	24, // 46: customer.CustomerService.SearchCustomer:output_type -> customer.SearchCustomerResponse
+	26, // 47: customer.CustomerService.ListCustomers:output_type -> customer.ListCustomersResponse
+	12, // 48: customer.CustomerService.CreateBonusTransaction:output_type -> customer.CreateBonusTransactionResponse
+	4,  // 49: customer.CustomerService.CreateGiftCertificate:output_type -> customer.CreateGiftCertificateResponse
+	6,  // 50: customer.CustomerService.GetGiftCertificate:output_type -> customer.GetGiftCertificateResponse
+	8,  // 51: customer.CustomerService.UpdateGiftCertificate:output_type -> customer.UpdateGiftCertificateResponse
+	10, // 52: customer.CustomerService.ListGiftCertificates:output_type -> customer.ListGiftCertificatesResponse
+	31, // 53: customer.CustomerService.ListGiftCertificateLabels:output_type -> customer.ListGiftCertificateLabelsResponse
+	33, // 54: customer.CustomerService.ListGiftCertificateIcons:output_type -> customer.ListGiftCertificateIconsResponse
+	35, // 55: customer.CustomerService.ListGiftCertificateBackgrounds:output_type -> customer.ListGiftCertificateBackgroundsResponse
+	37, // 56: customer.CustomerService.ListGiftCertificateDesigns:output_type -> customer.ListGiftCertificateDesignsResponse
+	41, // [41:57] is the sub-list for method output_type
+	25, // [25:41] is the sub-list for method input_type
+	25, // [25:25] is the sub-list for extension type_name
+	25, // [25:25] is the sub-list for extension extendee
+	0,  // [0:25] is the sub-list for field type_name
 }
 
 func init() { file_customer_customer_proto_init() }
@@ -2461,14 +2568,14 @@ func file_customer_customer_proto_init() {
 		(*GetCustomerRequest_PhoneNumber)(nil),
 	}
 	file_customer_customer_proto_msgTypes[15].OneofWrappers = []any{}
-	file_customer_customer_proto_msgTypes[23].OneofWrappers = []any{}
+	file_customer_customer_proto_msgTypes[25].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_customer_customer_proto_rawDesc), len(file_customer_customer_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   36,
+			NumMessages:   38,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

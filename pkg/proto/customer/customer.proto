@@ -13,6 +13,7 @@ service CustomerService {
     rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
     rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
     rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
+    rpc SearchCustomer(SearchCustomerRequest) returns (SearchCustomerResponse);
     rpc ListCustomers (ListCustomersRequest) returns (ListCustomersResponse);
     rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (CreateBonusTransactionResponse);
 
@@ -164,6 +165,16 @@ message DeleteCustomerRequest {
 }
 
 message DeleteCustomerResponse {}
+
+message SearchCustomerRequest {
+    string search_customer = 1;
+    int32 limit = 2;
+}
+
+message SearchCustomerResponse {
+    repeated Customer customers = 1;
+}
+
 
 message ListCustomersRequest {
     optional int64 organization_id = 1;
