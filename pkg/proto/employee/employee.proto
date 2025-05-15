@@ -53,6 +53,18 @@ message GetEmployeeResponse {
     Employee employee = 1;
 }
 
+message ListEmployeesRequest {
+    optional int64 organization_id = 1;
+    optional string search_text = 2;
+    int32 limit = 8;
+    int32 offset = 9;
+}
+
+message ListEmployeesResponse {
+    repeated Employee employees = 1;
+    int32 total_count = 2;
+}
+
 message CreateEmployeeRequest {
     Employee employee = 1;
 }
@@ -94,16 +106,3 @@ message DeleteRoleRequest {
 message DeleteRoleResponse {
     Role role = 1;
 }
-
-message ListEmployeesRequest {
-    optional int64 organization_id = 1;
-    optional int64 branch_id = 2;
-    int32 limit = 3;
-    int32 offset = 4;
-}
-
-message ListEmployeesResponse {
-    repeated Employee employees = 1;
-    int32 total_count = 2;
-}
-

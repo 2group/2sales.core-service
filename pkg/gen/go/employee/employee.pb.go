@@ -383,563 +383,19 @@ func (x *GetEmployeeResponse) GetEmployee() *Employee {
 	return nil
 }
 
-type CreateEmployeeRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Employee      *Employee              `protobuf:"bytes,1,opt,name=employee,proto3" json:"employee,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CreateEmployeeRequest) Reset() {
-	*x = CreateEmployeeRequest{}
-	mi := &file_employee_employee_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CreateEmployeeRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateEmployeeRequest) ProtoMessage() {}
-
-func (x *CreateEmployeeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateEmployeeRequest.ProtoReflect.Descriptor instead.
-func (*CreateEmployeeRequest) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *CreateEmployeeRequest) GetEmployee() *Employee {
-	if x != nil {
-		return x.Employee
-	}
-	return nil
-}
-
-type CreateEmployeeResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Employee      *Employee              `protobuf:"bytes,1,opt,name=employee,proto3" json:"employee,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CreateEmployeeResponse) Reset() {
-	*x = CreateEmployeeResponse{}
-	mi := &file_employee_employee_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CreateEmployeeResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateEmployeeResponse) ProtoMessage() {}
-
-func (x *CreateEmployeeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateEmployeeResponse.ProtoReflect.Descriptor instead.
-func (*CreateEmployeeResponse) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *CreateEmployeeResponse) GetEmployee() *Employee {
-	if x != nil {
-		return x.Employee
-	}
-	return nil
-}
-
-type UpdateEmployeeRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Employee      *Employee              `protobuf:"bytes,1,opt,name=employee,proto3" json:"employee,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdateEmployeeRequest) Reset() {
-	*x = UpdateEmployeeRequest{}
-	mi := &file_employee_employee_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdateEmployeeRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateEmployeeRequest) ProtoMessage() {}
-
-func (x *UpdateEmployeeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateEmployeeRequest.ProtoReflect.Descriptor instead.
-func (*UpdateEmployeeRequest) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *UpdateEmployeeRequest) GetEmployee() *Employee {
-	if x != nil {
-		return x.Employee
-	}
-	return nil
-}
-
-type UpdateEmployeeResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Employee      *Employee              `protobuf:"bytes,1,opt,name=employee,proto3" json:"employee,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdateEmployeeResponse) Reset() {
-	*x = UpdateEmployeeResponse{}
-	mi := &file_employee_employee_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdateEmployeeResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateEmployeeResponse) ProtoMessage() {}
-
-func (x *UpdateEmployeeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[8]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateEmployeeResponse.ProtoReflect.Descriptor instead.
-func (*UpdateEmployeeResponse) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *UpdateEmployeeResponse) GetEmployee() *Employee {
-	if x != nil {
-		return x.Employee
-	}
-	return nil
-}
-
-type CreateRoleRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CreateRoleRequest) Reset() {
-	*x = CreateRoleRequest{}
-	mi := &file_employee_employee_proto_msgTypes[9]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CreateRoleRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateRoleRequest) ProtoMessage() {}
-
-func (x *CreateRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[9]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateRoleRequest.ProtoReflect.Descriptor instead.
-func (*CreateRoleRequest) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *CreateRoleRequest) GetRole() *Role {
-	if x != nil {
-		return x.Role
-	}
-	return nil
-}
-
-type CreateRoleResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CreateRoleResponse) Reset() {
-	*x = CreateRoleResponse{}
-	mi := &file_employee_employee_proto_msgTypes[10]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CreateRoleResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateRoleResponse) ProtoMessage() {}
-
-func (x *CreateRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[10]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateRoleResponse.ProtoReflect.Descriptor instead.
-func (*CreateRoleResponse) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *CreateRoleResponse) GetRole() *Role {
-	if x != nil {
-		return x.Role
-	}
-	return nil
-}
-
-type UpdateRoleRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdateRoleRequest) Reset() {
-	*x = UpdateRoleRequest{}
-	mi := &file_employee_employee_proto_msgTypes[11]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdateRoleRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateRoleRequest) ProtoMessage() {}
-
-func (x *UpdateRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[11]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateRoleRequest.ProtoReflect.Descriptor instead.
-func (*UpdateRoleRequest) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{11}
-}
-
-func (x *UpdateRoleRequest) GetRole() *Role {
-	if x != nil {
-		return x.Role
-	}
-	return nil
-}
-
-type UpdateRoleResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdateRoleResponse) Reset() {
-	*x = UpdateRoleResponse{}
-	mi := &file_employee_employee_proto_msgTypes[12]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdateRoleResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateRoleResponse) ProtoMessage() {}
-
-func (x *UpdateRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[12]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateRoleResponse.ProtoReflect.Descriptor instead.
-func (*UpdateRoleResponse) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *UpdateRoleResponse) GetRole() *Role {
-	if x != nil {
-		return x.Role
-	}
-	return nil
-}
-
-type ListRolesRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset        int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ListRolesRequest) Reset() {
-	*x = ListRolesRequest{}
-	mi := &file_employee_employee_proto_msgTypes[13]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ListRolesRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListRolesRequest) ProtoMessage() {}
-
-func (x *ListRolesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[13]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListRolesRequest.ProtoReflect.Descriptor instead.
-func (*ListRolesRequest) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{13}
-}
-
-func (x *ListRolesRequest) GetLimit() int32 {
-	if x != nil {
-		return x.Limit
-	}
-	return 0
-}
-
-func (x *ListRolesRequest) GetOffset() int32 {
-	if x != nil {
-		return x.Offset
-	}
-	return 0
-}
-
-type ListRolesResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Roles         []*Role                `protobuf:"bytes,1,rep,name=roles,proto3" json:"roles,omitempty"`
-	TotalCount    int32                  `protobuf:"varint,2,opt,name=total_count,json=totalCount,proto3" json:"total_count,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ListRolesResponse) Reset() {
-	*x = ListRolesResponse{}
-	mi := &file_employee_employee_proto_msgTypes[14]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ListRolesResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListRolesResponse) ProtoMessage() {}
-
-func (x *ListRolesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[14]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListRolesResponse.ProtoReflect.Descriptor instead.
-func (*ListRolesResponse) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{14}
-}
-
-func (x *ListRolesResponse) GetRoles() []*Role {
-	if x != nil {
-		return x.Roles
-	}
-	return nil
-}
-
-func (x *ListRolesResponse) GetTotalCount() int32 {
-	if x != nil {
-		return x.TotalCount
-	}
-	return 0
-}
-
-type DeleteRoleRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *DeleteRoleRequest) Reset() {
-	*x = DeleteRoleRequest{}
-	mi := &file_employee_employee_proto_msgTypes[15]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *DeleteRoleRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteRoleRequest) ProtoMessage() {}
-
-func (x *DeleteRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[15]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteRoleRequest.ProtoReflect.Descriptor instead.
-func (*DeleteRoleRequest) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{15}
-}
-
-func (x *DeleteRoleRequest) GetId() int64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-type DeleteRoleResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *DeleteRoleResponse) Reset() {
-	*x = DeleteRoleResponse{}
-	mi := &file_employee_employee_proto_msgTypes[16]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *DeleteRoleResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteRoleResponse) ProtoMessage() {}
-
-func (x *DeleteRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[16]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteRoleResponse.ProtoReflect.Descriptor instead.
-func (*DeleteRoleResponse) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{16}
-}
-
-func (x *DeleteRoleResponse) GetRole() *Role {
-	if x != nil {
-		return x.Role
-	}
-	return nil
-}
-
 type ListEmployeesRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	OrganizationId *int64                 `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
-	BranchId       *int64                 `protobuf:"varint,2,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
-	Limit          int32                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset         int32                  `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
+	SearchText     *string                `protobuf:"bytes,2,opt,name=search_text,json=searchText,proto3,oneof" json:"search_text,omitempty"`
+	Limit          int32                  `protobuf:"varint,8,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset         int32                  `protobuf:"varint,9,opt,name=offset,proto3" json:"offset,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
 
 func (x *ListEmployeesRequest) Reset() {
 	*x = ListEmployeesRequest{}
-	mi := &file_employee_employee_proto_msgTypes[17]
+	mi := &file_employee_employee_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -951,7 +407,7 @@ func (x *ListEmployeesRequest) String() string {
 func (*ListEmployeesRequest) ProtoMessage() {}
 
 func (x *ListEmployeesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[17]
+	mi := &file_employee_employee_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -964,7 +420,7 @@ func (x *ListEmployeesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListEmployeesRequest.ProtoReflect.Descriptor instead.
 func (*ListEmployeesRequest) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{17}
+	return file_employee_employee_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ListEmployeesRequest) GetOrganizationId() int64 {
@@ -974,11 +430,11 @@ func (x *ListEmployeesRequest) GetOrganizationId() int64 {
 	return 0
 }
 
-func (x *ListEmployeesRequest) GetBranchId() int64 {
-	if x != nil && x.BranchId != nil {
-		return *x.BranchId
+func (x *ListEmployeesRequest) GetSearchText() string {
+	if x != nil && x.SearchText != nil {
+		return *x.SearchText
 	}
-	return 0
+	return ""
 }
 
 func (x *ListEmployeesRequest) GetLimit() int32 {
@@ -1005,7 +461,7 @@ type ListEmployeesResponse struct {
 
 func (x *ListEmployeesResponse) Reset() {
 	*x = ListEmployeesResponse{}
-	mi := &file_employee_employee_proto_msgTypes[18]
+	mi := &file_employee_employee_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1017,7 +473,7 @@ func (x *ListEmployeesResponse) String() string {
 func (*ListEmployeesResponse) ProtoMessage() {}
 
 func (x *ListEmployeesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_employee_employee_proto_msgTypes[18]
+	mi := &file_employee_employee_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1030,7 +486,7 @@ func (x *ListEmployeesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListEmployeesResponse.ProtoReflect.Descriptor instead.
 func (*ListEmployeesResponse) Descriptor() ([]byte, []int) {
-	return file_employee_employee_proto_rawDescGZIP(), []int{18}
+	return file_employee_employee_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ListEmployeesResponse) GetEmployees() []*Employee {
@@ -1045,6 +501,550 @@ func (x *ListEmployeesResponse) GetTotalCount() int32 {
 		return x.TotalCount
 	}
 	return 0
+}
+
+type CreateEmployeeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Employee      *Employee              `protobuf:"bytes,1,opt,name=employee,proto3" json:"employee,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateEmployeeRequest) Reset() {
+	*x = CreateEmployeeRequest{}
+	mi := &file_employee_employee_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateEmployeeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateEmployeeRequest) ProtoMessage() {}
+
+func (x *CreateEmployeeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateEmployeeRequest.ProtoReflect.Descriptor instead.
+func (*CreateEmployeeRequest) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *CreateEmployeeRequest) GetEmployee() *Employee {
+	if x != nil {
+		return x.Employee
+	}
+	return nil
+}
+
+type CreateEmployeeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Employee      *Employee              `protobuf:"bytes,1,opt,name=employee,proto3" json:"employee,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateEmployeeResponse) Reset() {
+	*x = CreateEmployeeResponse{}
+	mi := &file_employee_employee_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateEmployeeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateEmployeeResponse) ProtoMessage() {}
+
+func (x *CreateEmployeeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateEmployeeResponse.ProtoReflect.Descriptor instead.
+func (*CreateEmployeeResponse) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *CreateEmployeeResponse) GetEmployee() *Employee {
+	if x != nil {
+		return x.Employee
+	}
+	return nil
+}
+
+type UpdateEmployeeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Employee      *Employee              `protobuf:"bytes,1,opt,name=employee,proto3" json:"employee,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateEmployeeRequest) Reset() {
+	*x = UpdateEmployeeRequest{}
+	mi := &file_employee_employee_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateEmployeeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateEmployeeRequest) ProtoMessage() {}
+
+func (x *UpdateEmployeeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateEmployeeRequest.ProtoReflect.Descriptor instead.
+func (*UpdateEmployeeRequest) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *UpdateEmployeeRequest) GetEmployee() *Employee {
+	if x != nil {
+		return x.Employee
+	}
+	return nil
+}
+
+type UpdateEmployeeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Employee      *Employee              `protobuf:"bytes,1,opt,name=employee,proto3" json:"employee,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateEmployeeResponse) Reset() {
+	*x = UpdateEmployeeResponse{}
+	mi := &file_employee_employee_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateEmployeeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateEmployeeResponse) ProtoMessage() {}
+
+func (x *UpdateEmployeeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateEmployeeResponse.ProtoReflect.Descriptor instead.
+func (*UpdateEmployeeResponse) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *UpdateEmployeeResponse) GetEmployee() *Employee {
+	if x != nil {
+		return x.Employee
+	}
+	return nil
+}
+
+type CreateRoleRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateRoleRequest) Reset() {
+	*x = CreateRoleRequest{}
+	mi := &file_employee_employee_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateRoleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateRoleRequest) ProtoMessage() {}
+
+func (x *CreateRoleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateRoleRequest.ProtoReflect.Descriptor instead.
+func (*CreateRoleRequest) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *CreateRoleRequest) GetRole() *Role {
+	if x != nil {
+		return x.Role
+	}
+	return nil
+}
+
+type CreateRoleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateRoleResponse) Reset() {
+	*x = CreateRoleResponse{}
+	mi := &file_employee_employee_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateRoleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateRoleResponse) ProtoMessage() {}
+
+func (x *CreateRoleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateRoleResponse.ProtoReflect.Descriptor instead.
+func (*CreateRoleResponse) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *CreateRoleResponse) GetRole() *Role {
+	if x != nil {
+		return x.Role
+	}
+	return nil
+}
+
+type UpdateRoleRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateRoleRequest) Reset() {
+	*x = UpdateRoleRequest{}
+	mi := &file_employee_employee_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateRoleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateRoleRequest) ProtoMessage() {}
+
+func (x *UpdateRoleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateRoleRequest.ProtoReflect.Descriptor instead.
+func (*UpdateRoleRequest) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *UpdateRoleRequest) GetRole() *Role {
+	if x != nil {
+		return x.Role
+	}
+	return nil
+}
+
+type UpdateRoleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateRoleResponse) Reset() {
+	*x = UpdateRoleResponse{}
+	mi := &file_employee_employee_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateRoleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateRoleResponse) ProtoMessage() {}
+
+func (x *UpdateRoleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateRoleResponse.ProtoReflect.Descriptor instead.
+func (*UpdateRoleResponse) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *UpdateRoleResponse) GetRole() *Role {
+	if x != nil {
+		return x.Role
+	}
+	return nil
+}
+
+type ListRolesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset        int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListRolesRequest) Reset() {
+	*x = ListRolesRequest{}
+	mi := &file_employee_employee_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListRolesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListRolesRequest) ProtoMessage() {}
+
+func (x *ListRolesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListRolesRequest.ProtoReflect.Descriptor instead.
+func (*ListRolesRequest) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *ListRolesRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *ListRolesRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+type ListRolesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Roles         []*Role                `protobuf:"bytes,1,rep,name=roles,proto3" json:"roles,omitempty"`
+	TotalCount    int32                  `protobuf:"varint,2,opt,name=total_count,json=totalCount,proto3" json:"total_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListRolesResponse) Reset() {
+	*x = ListRolesResponse{}
+	mi := &file_employee_employee_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListRolesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListRolesResponse) ProtoMessage() {}
+
+func (x *ListRolesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListRolesResponse.ProtoReflect.Descriptor instead.
+func (*ListRolesResponse) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *ListRolesResponse) GetRoles() []*Role {
+	if x != nil {
+		return x.Roles
+	}
+	return nil
+}
+
+func (x *ListRolesResponse) GetTotalCount() int32 {
+	if x != nil {
+		return x.TotalCount
+	}
+	return 0
+}
+
+type DeleteRoleRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteRoleRequest) Reset() {
+	*x = DeleteRoleRequest{}
+	mi := &file_employee_employee_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteRoleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteRoleRequest) ProtoMessage() {}
+
+func (x *DeleteRoleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteRoleRequest.ProtoReflect.Descriptor instead.
+func (*DeleteRoleRequest) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *DeleteRoleRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type DeleteRoleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteRoleResponse) Reset() {
+	*x = DeleteRoleResponse{}
+	mi := &file_employee_employee_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteRoleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteRoleResponse) ProtoMessage() {}
+
+func (x *DeleteRoleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_employee_employee_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteRoleResponse.ProtoReflect.Descriptor instead.
+func (*DeleteRoleResponse) Descriptor() ([]byte, []int) {
+	return file_employee_employee_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *DeleteRoleResponse) GetRole() *Role {
+	if x != nil {
+		return x.Role
+	}
+	return nil
 }
 
 var File_employee_employee_proto protoreflect.FileDescriptor
@@ -1098,7 +1098,19 @@ const file_employee_employee_proto_rawDesc = "" +
 	"\auser_id\x18\x02 \x01(\x03H\x00R\x06userIdB\b\n" +
 	"\x06lookup\"E\n" +
 	"\x13GetEmployeeResponse\x12.\n" +
-	"\bemployee\x18\x01 \x01(\v2\x12.employee.EmployeeR\bemployee\"G\n" +
+	"\bemployee\x18\x01 \x01(\v2\x12.employee.EmployeeR\bemployee\"\xbc\x01\n" +
+	"\x14ListEmployeesRequest\x12,\n" +
+	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12$\n" +
+	"\vsearch_text\x18\x02 \x01(\tH\x01R\n" +
+	"searchText\x88\x01\x01\x12\x14\n" +
+	"\x05limit\x18\b \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\t \x01(\x05R\x06offsetB\x12\n" +
+	"\x10_organization_idB\x0e\n" +
+	"\f_search_text\"j\n" +
+	"\x15ListEmployeesResponse\x120\n" +
+	"\temployees\x18\x01 \x03(\v2\x12.employee.EmployeeR\temployees\x12\x1f\n" +
+	"\vtotal_count\x18\x02 \x01(\x05R\n" +
+	"totalCount\"G\n" +
 	"\x15CreateEmployeeRequest\x12.\n" +
 	"\bemployee\x18\x01 \x01(\v2\x12.employee.EmployeeR\bemployee\"H\n" +
 	"\x16CreateEmployeeResponse\x12.\n" +
@@ -1125,19 +1137,7 @@ const file_employee_employee_proto_rawDesc = "" +
 	"\x11DeleteRoleRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"8\n" +
 	"\x12DeleteRoleResponse\x12\"\n" +
-	"\x04role\x18\x01 \x01(\v2\x0e.employee.RoleR\x04role\"\xb6\x01\n" +
-	"\x14ListEmployeesRequest\x12,\n" +
-	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12 \n" +
-	"\tbranch_id\x18\x02 \x01(\x03H\x01R\bbranchId\x88\x01\x01\x12\x14\n" +
-	"\x05limit\x18\x03 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x04 \x01(\x05R\x06offsetB\x12\n" +
-	"\x10_organization_idB\f\n" +
-	"\n" +
-	"_branch_id\"j\n" +
-	"\x15ListEmployeesResponse\x120\n" +
-	"\temployees\x18\x01 \x03(\v2\x12.employee.EmployeeR\temployees\x12\x1f\n" +
-	"\vtotal_count\x18\x02 \x01(\x05R\n" +
-	"totalCount2\xfa\x04\n" +
+	"\x04role\x18\x01 \x01(\v2\x0e.employee.RoleR\x04role2\xfa\x04\n" +
 	"\x0fEmployeeService\x12J\n" +
 	"\vGetEmployee\x12\x1c.employee.GetEmployeeRequest\x1a\x1d.employee.GetEmployeeResponse\x12S\n" +
 	"\x0eCreateEmployee\x12\x1f.employee.CreateEmployeeRequest\x1a .employee.CreateEmployeeResponse\x12S\n" +
@@ -1170,52 +1170,52 @@ var file_employee_employee_proto_goTypes = []any{
 	(*Role)(nil),                   // 2: employee.Role
 	(*GetEmployeeRequest)(nil),     // 3: employee.GetEmployeeRequest
 	(*GetEmployeeResponse)(nil),    // 4: employee.GetEmployeeResponse
-	(*CreateEmployeeRequest)(nil),  // 5: employee.CreateEmployeeRequest
-	(*CreateEmployeeResponse)(nil), // 6: employee.CreateEmployeeResponse
-	(*UpdateEmployeeRequest)(nil),  // 7: employee.UpdateEmployeeRequest
-	(*UpdateEmployeeResponse)(nil), // 8: employee.UpdateEmployeeResponse
-	(*CreateRoleRequest)(nil),      // 9: employee.CreateRoleRequest
-	(*CreateRoleResponse)(nil),     // 10: employee.CreateRoleResponse
-	(*UpdateRoleRequest)(nil),      // 11: employee.UpdateRoleRequest
-	(*UpdateRoleResponse)(nil),     // 12: employee.UpdateRoleResponse
-	(*ListRolesRequest)(nil),       // 13: employee.ListRolesRequest
-	(*ListRolesResponse)(nil),      // 14: employee.ListRolesResponse
-	(*DeleteRoleRequest)(nil),      // 15: employee.DeleteRoleRequest
-	(*DeleteRoleResponse)(nil),     // 16: employee.DeleteRoleResponse
-	(*ListEmployeesRequest)(nil),   // 17: employee.ListEmployeesRequest
-	(*ListEmployeesResponse)(nil),  // 18: employee.ListEmployeesResponse
+	(*ListEmployeesRequest)(nil),   // 5: employee.ListEmployeesRequest
+	(*ListEmployeesResponse)(nil),  // 6: employee.ListEmployeesResponse
+	(*CreateEmployeeRequest)(nil),  // 7: employee.CreateEmployeeRequest
+	(*CreateEmployeeResponse)(nil), // 8: employee.CreateEmployeeResponse
+	(*UpdateEmployeeRequest)(nil),  // 9: employee.UpdateEmployeeRequest
+	(*UpdateEmployeeResponse)(nil), // 10: employee.UpdateEmployeeResponse
+	(*CreateRoleRequest)(nil),      // 11: employee.CreateRoleRequest
+	(*CreateRoleResponse)(nil),     // 12: employee.CreateRoleResponse
+	(*UpdateRoleRequest)(nil),      // 13: employee.UpdateRoleRequest
+	(*UpdateRoleResponse)(nil),     // 14: employee.UpdateRoleResponse
+	(*ListRolesRequest)(nil),       // 15: employee.ListRolesRequest
+	(*ListRolesResponse)(nil),      // 16: employee.ListRolesResponse
+	(*DeleteRoleRequest)(nil),      // 17: employee.DeleteRoleRequest
+	(*DeleteRoleResponse)(nil),     // 18: employee.DeleteRoleResponse
 }
 var file_employee_employee_proto_depIdxs = []int32{
 	1,  // 0: employee.Employee.employee_roles:type_name -> employee.EmployeeRole
 	2,  // 1: employee.EmployeeRole.role:type_name -> employee.Role
 	0,  // 2: employee.GetEmployeeResponse.employee:type_name -> employee.Employee
-	0,  // 3: employee.CreateEmployeeRequest.employee:type_name -> employee.Employee
-	0,  // 4: employee.CreateEmployeeResponse.employee:type_name -> employee.Employee
-	0,  // 5: employee.UpdateEmployeeRequest.employee:type_name -> employee.Employee
-	0,  // 6: employee.UpdateEmployeeResponse.employee:type_name -> employee.Employee
-	2,  // 7: employee.CreateRoleRequest.role:type_name -> employee.Role
-	2,  // 8: employee.CreateRoleResponse.role:type_name -> employee.Role
-	2,  // 9: employee.UpdateRoleRequest.role:type_name -> employee.Role
-	2,  // 10: employee.UpdateRoleResponse.role:type_name -> employee.Role
-	2,  // 11: employee.ListRolesResponse.roles:type_name -> employee.Role
-	2,  // 12: employee.DeleteRoleResponse.role:type_name -> employee.Role
-	0,  // 13: employee.ListEmployeesResponse.employees:type_name -> employee.Employee
+	0,  // 3: employee.ListEmployeesResponse.employees:type_name -> employee.Employee
+	0,  // 4: employee.CreateEmployeeRequest.employee:type_name -> employee.Employee
+	0,  // 5: employee.CreateEmployeeResponse.employee:type_name -> employee.Employee
+	0,  // 6: employee.UpdateEmployeeRequest.employee:type_name -> employee.Employee
+	0,  // 7: employee.UpdateEmployeeResponse.employee:type_name -> employee.Employee
+	2,  // 8: employee.CreateRoleRequest.role:type_name -> employee.Role
+	2,  // 9: employee.CreateRoleResponse.role:type_name -> employee.Role
+	2,  // 10: employee.UpdateRoleRequest.role:type_name -> employee.Role
+	2,  // 11: employee.UpdateRoleResponse.role:type_name -> employee.Role
+	2,  // 12: employee.ListRolesResponse.roles:type_name -> employee.Role
+	2,  // 13: employee.DeleteRoleResponse.role:type_name -> employee.Role
 	3,  // 14: employee.EmployeeService.GetEmployee:input_type -> employee.GetEmployeeRequest
-	5,  // 15: employee.EmployeeService.CreateEmployee:input_type -> employee.CreateEmployeeRequest
-	7,  // 16: employee.EmployeeService.UpdateEmployee:input_type -> employee.UpdateEmployeeRequest
-	17, // 17: employee.EmployeeService.ListEmployees:input_type -> employee.ListEmployeesRequest
-	9,  // 18: employee.EmployeeService.CreateRole:input_type -> employee.CreateRoleRequest
-	11, // 19: employee.EmployeeService.UpdateRole:input_type -> employee.UpdateRoleRequest
-	13, // 20: employee.EmployeeService.ListRoles:input_type -> employee.ListRolesRequest
-	15, // 21: employee.EmployeeService.DeleteRole:input_type -> employee.DeleteRoleRequest
+	7,  // 15: employee.EmployeeService.CreateEmployee:input_type -> employee.CreateEmployeeRequest
+	9,  // 16: employee.EmployeeService.UpdateEmployee:input_type -> employee.UpdateEmployeeRequest
+	5,  // 17: employee.EmployeeService.ListEmployees:input_type -> employee.ListEmployeesRequest
+	11, // 18: employee.EmployeeService.CreateRole:input_type -> employee.CreateRoleRequest
+	13, // 19: employee.EmployeeService.UpdateRole:input_type -> employee.UpdateRoleRequest
+	15, // 20: employee.EmployeeService.ListRoles:input_type -> employee.ListRolesRequest
+	17, // 21: employee.EmployeeService.DeleteRole:input_type -> employee.DeleteRoleRequest
 	4,  // 22: employee.EmployeeService.GetEmployee:output_type -> employee.GetEmployeeResponse
-	6,  // 23: employee.EmployeeService.CreateEmployee:output_type -> employee.CreateEmployeeResponse
-	8,  // 24: employee.EmployeeService.UpdateEmployee:output_type -> employee.UpdateEmployeeResponse
-	18, // 25: employee.EmployeeService.ListEmployees:output_type -> employee.ListEmployeesResponse
-	10, // 26: employee.EmployeeService.CreateRole:output_type -> employee.CreateRoleResponse
-	12, // 27: employee.EmployeeService.UpdateRole:output_type -> employee.UpdateRoleResponse
-	14, // 28: employee.EmployeeService.ListRoles:output_type -> employee.ListRolesResponse
-	16, // 29: employee.EmployeeService.DeleteRole:output_type -> employee.DeleteRoleResponse
+	8,  // 23: employee.EmployeeService.CreateEmployee:output_type -> employee.CreateEmployeeResponse
+	10, // 24: employee.EmployeeService.UpdateEmployee:output_type -> employee.UpdateEmployeeResponse
+	6,  // 25: employee.EmployeeService.ListEmployees:output_type -> employee.ListEmployeesResponse
+	12, // 26: employee.EmployeeService.CreateRole:output_type -> employee.CreateRoleResponse
+	14, // 27: employee.EmployeeService.UpdateRole:output_type -> employee.UpdateRoleResponse
+	16, // 28: employee.EmployeeService.ListRoles:output_type -> employee.ListRolesResponse
+	18, // 29: employee.EmployeeService.DeleteRole:output_type -> employee.DeleteRoleResponse
 	22, // [22:30] is the sub-list for method output_type
 	14, // [14:22] is the sub-list for method input_type
 	14, // [14:14] is the sub-list for extension type_name
@@ -1235,7 +1235,7 @@ func file_employee_employee_proto_init() {
 		(*GetEmployeeRequest_Id)(nil),
 		(*GetEmployeeRequest_UserId)(nil),
 	}
-	file_employee_employee_proto_msgTypes[17].OneofWrappers = []any{}
+	file_employee_employee_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
