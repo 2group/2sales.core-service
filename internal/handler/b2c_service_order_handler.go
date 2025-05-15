@@ -126,6 +126,7 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 	query := r.URL.Query()
 	orgIDStr := query.Get("organization_id")
 	branchIDStr := query.Get("branch_id")
+	customerIDStr := query.Get("customer_id")
 	limitStr := query.Get("limit")
 	offsetStr := query.Get("offset")
 	searchTextStr := query.Get("search_text")
@@ -135,9 +136,9 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 	priceToStr := query.Get("price_to")
 
 	var (
-		orgID, branchID            *int64
-		priceFrom, priceTo         *float64
-		createdAtFrom, createdAtTo *string
+		orgID, branchID, customerID *int64
+		priceFrom, priceTo          *float64
+		createdAtFrom, createdAtTo  *string
 	)
 
 	// parse required limit and offset
@@ -164,6 +165,11 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 	if branchIDStr != "" {
 		if val, err := strconv.ParseInt(branchIDStr, 10, 64); err == nil {
 			branchID = &val
+		}
+	}
+	if customerIDStr != "" {
+		if val, err := strconv.ParseInt(customerIDStr, 10, 64); err == nil {
+			customerID = &val
 		}
 	}
 	if priceFromStr != "" {
@@ -194,7 +200,6 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		if _, err := time.Parse(time.RFC3339, createdAtToStr); err == nil {
 			createdAtTo = &createdAtToStr
 		} else if t, err := time.Parse("2006-01-02", createdAtToStr); err == nil {
-			// Set to end of the day
 			t = t.Add(23*time.Hour + 59*time.Minute + 59*time.Second)
 			s := t.Format(time.RFC3339)
 			createdAtTo = &s
@@ -206,6 +211,7 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 	req := &orderv1.ListB2CServiceOrdersRequest{
 		OrganizationId: orgID,
 		BranchId:       branchID,
+		CustomerId:     customerID,
 		Limit:          limit,
 		Offset:         offset,
 		SearchText:     &searchTextStr,
