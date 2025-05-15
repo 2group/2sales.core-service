@@ -305,15 +305,16 @@ func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) 
 	q := r.URL.Query()
 
 	var (
-		limit           int32 = 20
-		offset          int32 = 0
-		organizationID  *int64
-		loyaltyLevelID  *int64
-		searchText      *string
-		createdAtFrom   *string
-		createdAtTo     *string
-		dateOfBirthFrom *string
-		dateOfBirthTo   *string
+		limit             int32 = 20
+		offset            int32 = 0
+		organizationID    *int64
+		loyaltyLevelID    *int64
+		searchText        *string
+		phoneNumberPrefix *string
+		createdAtFrom     *string
+		createdAtTo       *string
+		dateOfBirthFrom   *string
+		dateOfBirthTo     *string
 	)
 
 	if l := q.Get("limit"); l != "" {
@@ -326,21 +327,23 @@ func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) 
 			offset = int32(val)
 		}
 	}
-
 	if org := q.Get("organization_id"); org != "" {
 		if val, err := strconv.ParseInt(org, 10, 64); err == nil {
 			organizationID = &val
 		}
 	}
-
 	if loyalty := q.Get("loyalty_level_id"); loyalty != "" {
 		if val, err := strconv.ParseInt(loyalty, 10, 64); err == nil {
 			loyaltyLevelID = &val
 		}
 	}
-
 	if s := q.Get("search_text"); s != "" {
+		s = strings.TrimSpace(s)
 		searchText = &s
+	}
+	if p := q.Get("phone_number_prefix"); p != "" {
+		p = strings.TrimSpace(p)
+		phoneNumberPrefix = &p
 	}
 	if v := q.Get("created_at_from"); v != "" {
 		createdAtFrom = &v
@@ -355,7 +358,6 @@ func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) 
 		dateOfBirthTo = &v
 	}
 
-	// parse include_loyalty
 	var fieldMask *fieldmaskpb.FieldMask
 	if q.Get("include_loyalty") == "true" {
 		fieldMask = &fieldmaskpb.FieldMask{
@@ -364,16 +366,17 @@ func (h *CustomerHandler) ListCustomers(w http.ResponseWriter, r *http.Request) 
 	}
 
 	req := &customerv1.ListCustomersRequest{
-		Limit:           limit,
-		Offset:          offset,
-		OrganizationId:  organizationID,
-		LoyaltyLevelId:  loyaltyLevelID,
-		SearchText:      searchText,
-		CreatedAtFrom:   createdAtFrom,
-		CreatedAtTo:     createdAtTo,
-		DateOfBirthFrom: dateOfBirthFrom,
-		DateOfBirthTo:   dateOfBirthTo,
-		FieldMask:       fieldMask,
+		Limit:             limit,
+		Offset:            offset,
+		OrganizationId:    organizationID,
+		LoyaltyLevelId:    loyaltyLevelID,
+		SearchText:        searchText,
+		PhoneNumberPrefix: phoneNumberPrefix,
+		CreatedAtFrom:     createdAtFrom,
+		CreatedAtTo:       createdAtTo,
+		DateOfBirthFrom:   dateOfBirthFrom,
+		DateOfBirthTo:     dateOfBirthTo,
+		FieldMask:         fieldMask,
 	}
 
 	log.Debug().Interface("request", req).Msg("calling_customer_service")
