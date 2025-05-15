@@ -1426,19 +1426,20 @@ func (*DeleteCustomerResponse) Descriptor() ([]byte, []int) {
 }
 
 type ListCustomersRequest struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	OrganizationId  *int64                 `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
-	SearchText      *string                `protobuf:"bytes,2,opt,name=search_text,json=searchText,proto3,oneof" json:"search_text,omitempty"`
-	CreatedAtFrom   *string                `protobuf:"bytes,3,opt,name=created_at_from,json=createdAtFrom,proto3,oneof" json:"created_at_from,omitempty"`
-	CreatedAtTo     *string                `protobuf:"bytes,4,opt,name=created_at_to,json=createdAtTo,proto3,oneof" json:"created_at_to,omitempty"`
-	LoyaltyLevelId  *int64                 `protobuf:"varint,5,opt,name=loyalty_level_id,json=loyaltyLevelId,proto3,oneof" json:"loyalty_level_id,omitempty"`
-	DateOfBirthFrom *string                `protobuf:"bytes,6,opt,name=date_of_birth_from,json=dateOfBirthFrom,proto3,oneof" json:"date_of_birth_from,omitempty"`
-	DateOfBirthTo   *string                `protobuf:"bytes,7,opt,name=date_of_birth_to,json=dateOfBirthTo,proto3,oneof" json:"date_of_birth_to,omitempty"`
-	Limit           int32                  `protobuf:"varint,8,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset          int32                  `protobuf:"varint,9,opt,name=offset,proto3" json:"offset,omitempty"`
-	FieldMask       *fieldmaskpb.FieldMask `protobuf:"bytes,10,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	OrganizationId    *int64                 `protobuf:"varint,1,opt,name=organization_id,json=organizationId,proto3,oneof" json:"organization_id,omitempty"`
+	SearchText        *string                `protobuf:"bytes,2,opt,name=search_text,json=searchText,proto3,oneof" json:"search_text,omitempty"`
+	CreatedAtFrom     *string                `protobuf:"bytes,3,opt,name=created_at_from,json=createdAtFrom,proto3,oneof" json:"created_at_from,omitempty"`
+	CreatedAtTo       *string                `protobuf:"bytes,4,opt,name=created_at_to,json=createdAtTo,proto3,oneof" json:"created_at_to,omitempty"`
+	LoyaltyLevelId    *int64                 `protobuf:"varint,5,opt,name=loyalty_level_id,json=loyaltyLevelId,proto3,oneof" json:"loyalty_level_id,omitempty"`
+	DateOfBirthFrom   *string                `protobuf:"bytes,6,opt,name=date_of_birth_from,json=dateOfBirthFrom,proto3,oneof" json:"date_of_birth_from,omitempty"`
+	DateOfBirthTo     *string                `protobuf:"bytes,7,opt,name=date_of_birth_to,json=dateOfBirthTo,proto3,oneof" json:"date_of_birth_to,omitempty"`
+	Limit             int32                  `protobuf:"varint,8,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset            int32                  `protobuf:"varint,9,opt,name=offset,proto3" json:"offset,omitempty"`
+	PhoneNumberPrefix *string                `protobuf:"bytes,10,opt,name=phone_number_prefix,json=phoneNumberPrefix,proto3,oneof" json:"phone_number_prefix,omitempty"`
+	FieldMask         *fieldmaskpb.FieldMask `protobuf:"bytes,11,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *ListCustomersRequest) Reset() {
@@ -1532,6 +1533,13 @@ func (x *ListCustomersRequest) GetOffset() int32 {
 		return x.Offset
 	}
 	return 0
+}
+
+func (x *ListCustomersRequest) GetPhoneNumberPrefix() string {
+	if x != nil && x.PhoneNumberPrefix != nil {
+		return *x.PhoneNumberPrefix
+	}
+	return ""
 }
 
 func (x *ListCustomersRequest) GetFieldMask() *fieldmaskpb.FieldMask {
@@ -2252,7 +2260,7 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\bcustomer\x18\x01 \x01(\v2\x12.customer.CustomerR\bcustomer\"'\n" +
 	"\x15DeleteCustomerRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"\x18\n" +
-	"\x16DeleteCustomerResponse\"\xc3\x04\n" +
+	"\x16DeleteCustomerResponse\"\x90\x05\n" +
 	"\x14ListCustomersRequest\x12,\n" +
 	"\x0forganization_id\x18\x01 \x01(\x03H\x00R\x0eorganizationId\x88\x01\x01\x12$\n" +
 	"\vsearch_text\x18\x02 \x01(\tH\x01R\n" +
@@ -2263,17 +2271,19 @@ const file_customer_customer_proto_rawDesc = "" +
 	"\x12date_of_birth_from\x18\x06 \x01(\tH\x05R\x0fdateOfBirthFrom\x88\x01\x01\x12,\n" +
 	"\x10date_of_birth_to\x18\a \x01(\tH\x06R\rdateOfBirthTo\x88\x01\x01\x12\x14\n" +
 	"\x05limit\x18\b \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\t \x01(\x05R\x06offset\x129\n" +
+	"\x06offset\x18\t \x01(\x05R\x06offset\x123\n" +
+	"\x13phone_number_prefix\x18\n" +
+	" \x01(\tH\aR\x11phoneNumberPrefix\x88\x01\x01\x129\n" +
 	"\n" +
-	"field_mask\x18\n" +
-	" \x01(\v2\x1a.google.protobuf.FieldMaskR\tfieldMaskB\x12\n" +
+	"field_mask\x18\v \x01(\v2\x1a.google.protobuf.FieldMaskR\tfieldMaskB\x12\n" +
 	"\x10_organization_idB\x0e\n" +
 	"\f_search_textB\x12\n" +
 	"\x10_created_at_fromB\x10\n" +
 	"\x0e_created_at_toB\x13\n" +
 	"\x11_loyalty_level_idB\x15\n" +
 	"\x13_date_of_birth_fromB\x13\n" +
-	"\x11_date_of_birth_to\"j\n" +
+	"\x11_date_of_birth_toB\x16\n" +
+	"\x14_phone_number_prefix\"j\n" +
 	"\x15ListCustomersResponse\x120\n" +
 	"\tcustomers\x18\x01 \x03(\v2\x12.customer.CustomerR\tcustomers\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x05R\n" +

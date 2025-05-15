@@ -175,8 +175,8 @@ message ListCustomersRequest {
     optional string date_of_birth_to = 7;
     int32 limit = 8;
     int32 offset = 9;
-
-    google.protobuf.FieldMask field_mask = 10;
+    optional string phone_number_prefix = 10;
+    google.protobuf.FieldMask field_mask = 11;
 }
 
 message ListCustomersResponse {
