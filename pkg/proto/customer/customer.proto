@@ -13,7 +13,6 @@ service CustomerService {
     rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
     rpc PartialUpdateCustomer (PartialUpdateCustomerRequest) returns (PartialUpdateCustomerResponse);
     rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
-    rpc SearchCustomer(SearchCustomerRequest) returns (SearchCustomerResponse);
     rpc ListCustomers (ListCustomersRequest) returns (ListCustomersResponse);
     rpc CreateBonusTransaction (CreateBonusTransactionRequest) returns (CreateBonusTransactionResponse);
 
@@ -166,11 +165,6 @@ message DeleteCustomerRequest {
 
 message DeleteCustomerResponse {}
 
-message SearchCustomerRequest {
-    string search_customer = 1;
-    int32 limit = 2;
-}
-
 message SearchCustomerResponse {
     repeated Customer customers = 1;
 }
@@ -178,7 +172,7 @@ message SearchCustomerResponse {
 
 message ListCustomersRequest {
     optional int64 organization_id = 1;
-    optional string search_text = 2;
+    optional string search_name = 2;
     optional string created_at_from = 3;
     optional string created_at_to = 4;
     optional int64 loyalty_level_id = 5;
@@ -186,7 +180,7 @@ message ListCustomersRequest {
     optional string date_of_birth_to = 7;
     int32 limit = 8;
     int32 offset = 9;
-    optional string phone_number_prefix = 10;
+    optional string search_phone_number = 10;
     google.protobuf.FieldMask field_mask = 11;
 }
 

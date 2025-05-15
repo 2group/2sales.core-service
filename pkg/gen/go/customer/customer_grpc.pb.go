@@ -24,7 +24,6 @@ const (
 	CustomerService_DeleteCustomer_FullMethodName                 = "/customer.CustomerService/DeleteCustomer"
 	CustomerService_PartialUpdateCustomer_FullMethodName          = "/customer.CustomerService/PartialUpdateCustomer"
 	CustomerService_UpdateCustomer_FullMethodName                 = "/customer.CustomerService/UpdateCustomer"
-	CustomerService_SearchCustomer_FullMethodName                 = "/customer.CustomerService/SearchCustomer"
 	CustomerService_ListCustomers_FullMethodName                  = "/customer.CustomerService/ListCustomers"
 	CustomerService_CreateBonusTransaction_FullMethodName         = "/customer.CustomerService/CreateBonusTransaction"
 	CustomerService_CreateGiftCertificate_FullMethodName          = "/customer.CustomerService/CreateGiftCertificate"
@@ -46,7 +45,6 @@ type CustomerServiceClient interface {
 	DeleteCustomer(ctx context.Context, in *DeleteCustomerRequest, opts ...grpc.CallOption) (*DeleteCustomerResponse, error)
 	PartialUpdateCustomer(ctx context.Context, in *PartialUpdateCustomerRequest, opts ...grpc.CallOption) (*PartialUpdateCustomerResponse, error)
 	UpdateCustomer(ctx context.Context, in *UpdateCustomerRequest, opts ...grpc.CallOption) (*UpdateCustomerResponse, error)
-	SearchCustomer(ctx context.Context, in *SearchCustomerRequest, opts ...grpc.CallOption) (*SearchCustomerResponse, error)
 	ListCustomers(ctx context.Context, in *ListCustomersRequest, opts ...grpc.CallOption) (*ListCustomersResponse, error)
 	CreateBonusTransaction(ctx context.Context, in *CreateBonusTransactionRequest, opts ...grpc.CallOption) (*CreateBonusTransactionResponse, error)
 	CreateGiftCertificate(ctx context.Context, in *CreateGiftCertificateRequest, opts ...grpc.CallOption) (*CreateGiftCertificateResponse, error)
@@ -111,16 +109,6 @@ func (c *customerServiceClient) UpdateCustomer(ctx context.Context, in *UpdateCu
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateCustomerResponse)
 	err := c.cc.Invoke(ctx, CustomerService_UpdateCustomer_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *customerServiceClient) SearchCustomer(ctx context.Context, in *SearchCustomerRequest, opts ...grpc.CallOption) (*SearchCustomerResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SearchCustomerResponse)
-	err := c.cc.Invoke(ctx, CustomerService_SearchCustomer_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +224,6 @@ type CustomerServiceServer interface {
 	DeleteCustomer(context.Context, *DeleteCustomerRequest) (*DeleteCustomerResponse, error)
 	PartialUpdateCustomer(context.Context, *PartialUpdateCustomerRequest) (*PartialUpdateCustomerResponse, error)
 	UpdateCustomer(context.Context, *UpdateCustomerRequest) (*UpdateCustomerResponse, error)
-	SearchCustomer(context.Context, *SearchCustomerRequest) (*SearchCustomerResponse, error)
 	ListCustomers(context.Context, *ListCustomersRequest) (*ListCustomersResponse, error)
 	CreateBonusTransaction(context.Context, *CreateBonusTransactionRequest) (*CreateBonusTransactionResponse, error)
 	CreateGiftCertificate(context.Context, *CreateGiftCertificateRequest) (*CreateGiftCertificateResponse, error)
@@ -271,9 +258,6 @@ func (UnimplementedCustomerServiceServer) PartialUpdateCustomer(context.Context,
 }
 func (UnimplementedCustomerServiceServer) UpdateCustomer(context.Context, *UpdateCustomerRequest) (*UpdateCustomerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCustomer not implemented")
-}
-func (UnimplementedCustomerServiceServer) SearchCustomer(context.Context, *SearchCustomerRequest) (*SearchCustomerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchCustomer not implemented")
 }
 func (UnimplementedCustomerServiceServer) ListCustomers(context.Context, *ListCustomersRequest) (*ListCustomersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCustomers not implemented")
@@ -412,24 +396,6 @@ func _CustomerService_UpdateCustomer_Handler(srv interface{}, ctx context.Contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServiceServer).UpdateCustomer(ctx, req.(*UpdateCustomerRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _CustomerService_SearchCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SearchCustomerRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CustomerServiceServer).SearchCustomer(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: CustomerService_SearchCustomer_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CustomerServiceServer).SearchCustomer(ctx, req.(*SearchCustomerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -640,10 +606,6 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateCustomer",
 			Handler:    _CustomerService_UpdateCustomer_Handler,
-		},
-		{
-			MethodName: "SearchCustomer",
-			Handler:    _CustomerService_SearchCustomer_Handler,
 		},
 		{
 			MethodName: "ListCustomers",
