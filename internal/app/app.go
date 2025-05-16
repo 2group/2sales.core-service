@@ -394,6 +394,7 @@ func (s *APIServer) Run() error {
 		apiRouter.Route("/employee", func(employeeRouter chi.Router) {
 			employeeRouter.Group(func(authRouter chi.Router) {
 				authRouter.Post("/", employeeHandler.CreateEmployee)
+				authRouter.Get("/", employeeHandler.ListEmployees)
 				authRouter.Get("/{employee_id}", employeeHandler.GetEmployee)
 				authRouter.Put("/{employee_id}", employeeHandler.UpdateEmployee)
 

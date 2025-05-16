@@ -252,3 +252,72 @@ func (h *EmployeeHandler) ListRoles(w http.ResponseWriter, r *http.Request) {
 	log.Info().Int("roles_count", len(resp.Roles)).Msg("succeeded")
 	json.WriteJSON(w, http.StatusOK, resp)
 }
+
+func (h *EmployeeHandler) ListEmployees(w http.ResponseWriter, r *http.Request) {
+	log := zerolog.Ctx(r.Context()).With().
+		Str("component", "employee_handler").
+		Str("method", "ListEmployees").
+		Logger()
+
+	log.Info().Msg("request_received")
+
+	orgIDStr := r.URL.Query().Get("organization_id")
+	searchText := r.URL.Query().Get("search_text")
+	limitStr := r.URL.Query().Get("limit")
+	offsetStr := r.URL.Query().Get("offset")
+
+	var orgID int64
+	var err error
+	if orgIDStr != "" {
+		orgID, err = strconv.ParseInt(orgIDStr, 10, 64)
+		if err != nil {
+			log.Error().Str("organization_id", orgIDStr).Err(err).Msg("invalid_organization_id")
+			json.WriteError(w, http.StatusBadRequest, err)
+			return
+		}
+	}
+
+	limit := 5
+	if limitStr != "" {
+		if limitParsed, err := strconv.Atoi(limitStr); err == nil && limitParsed > 0 {
+			limit = limitParsed
+		}
+	}
+
+	offset := 0
+	if offsetStr != "" {
+		if offsetParsed, err := strconv.Atoi(offsetStr); err == nil && offsetParsed >= 0 {
+			offset = offsetParsed
+		}
+	}
+
+	log.Info().
+		Int64("organization_id", orgID).
+		Str("search_text", searchText).
+		Int("limit", limit).
+		Int("offset", offset).
+		Msg("calling_employee_microservice")
+
+	req := &employeev1.ListEmployeesRequest{
+		Limit:  int32(limit),
+		Offset: int32(offset),
+	}
+
+	if orgIDStr != "" {
+		req.OrganizationId = &orgID
+	}
+
+	if searchText != "" {
+		req.SearchText = &searchText
+	}
+
+	resp, err := h.employee.Api.ListEmployees(r.Context(), req)
+	if err != nil {
+		log.Error().Err(err).Msg("gRPC_call_failed")
+		json.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Info().Int("employees_count", len(resp.Employees)).Msg("succeeded")
+	json.WriteJSON(w, http.StatusOK, resp)
+}
