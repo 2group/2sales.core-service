@@ -37,8 +37,8 @@ type OrderDetail struct {
 	CreatedAt          *string                `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
 	UpdatedAt          *string                `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
 	BranchId           *int64                 `protobuf:"varint,11,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
-	PaymentMethodId    []int64                `protobuf:"varint,12,rep,packed,name=payment_method_id,json=paymentMethodId,proto3" json:"payment_method_id,omitempty"`
-	PaymentMethods     []*PaymentMethod       `protobuf:"bytes,13,rep,name=payment_methods,json=paymentMethods,proto3" json:"payment_methods,omitempty"`
+	PaymentMethodId    *int64                 `protobuf:"varint,14,opt,name=payment_method_id,json=paymentMethodId,proto3,oneof" json:"payment_method_id,omitempty"`
+	PaymentMethod      *PaymentMethod         `protobuf:"bytes,15,opt,name=payment_method,json=paymentMethod,proto3,oneof" json:"payment_method,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -150,16 +150,16 @@ func (x *OrderDetail) GetBranchId() int64 {
 	return 0
 }
 
-func (x *OrderDetail) GetPaymentMethodId() []int64 {
-	if x != nil {
-		return x.PaymentMethodId
+func (x *OrderDetail) GetPaymentMethodId() int64 {
+	if x != nil && x.PaymentMethodId != nil {
+		return *x.PaymentMethodId
 	}
-	return nil
+	return 0
 }
 
-func (x *OrderDetail) GetPaymentMethods() []*PaymentMethod {
+func (x *OrderDetail) GetPaymentMethod() *PaymentMethod {
 	if x != nil {
-		return x.PaymentMethods
+		return x.PaymentMethod
 	}
 	return nil
 }
@@ -247,8 +247,8 @@ type Order struct {
 	BranchId           *int64                 `protobuf:"varint,11,opt,name=branch_id,json=branchId,proto3,oneof" json:"branch_id,omitempty"`
 	GiftCertificateId  *int64                 `protobuf:"varint,12,opt,name=gift_certificate_id,json=giftCertificateId,proto3,oneof" json:"gift_certificate_id,omitempty"`
 	GiftUsedAmount     *float32               `protobuf:"fixed32,13,opt,name=gift_used_amount,json=giftUsedAmount,proto3,oneof" json:"gift_used_amount,omitempty"`
-	PaymentMethodId    []int64                `protobuf:"varint,14,rep,packed,name=payment_method_id,json=paymentMethodId,proto3" json:"payment_method_id,omitempty"`
-	PaymentMethods     []*PaymentMethod       `protobuf:"bytes,15,rep,name=payment_methods,json=paymentMethods,proto3" json:"payment_methods,omitempty"`
+	PaymentMethodId    *int64                 `protobuf:"varint,14,opt,name=payment_method_id,json=paymentMethodId,proto3,oneof" json:"payment_method_id,omitempty"`
+	PaymentMethod      *PaymentMethod         `protobuf:"bytes,15,opt,name=payment_method,json=paymentMethod,proto3,oneof" json:"payment_method,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -374,16 +374,16 @@ func (x *Order) GetGiftUsedAmount() float32 {
 	return 0
 }
 
-func (x *Order) GetPaymentMethodId() []int64 {
-	if x != nil {
-		return x.PaymentMethodId
+func (x *Order) GetPaymentMethodId() int64 {
+	if x != nil && x.PaymentMethodId != nil {
+		return *x.PaymentMethodId
 	}
-	return nil
+	return 0
 }
 
-func (x *Order) GetPaymentMethods() []*PaymentMethod {
+func (x *Order) GetPaymentMethod() *PaymentMethod {
 	if x != nil {
-		return x.PaymentMethods
+		return x.PaymentMethod
 	}
 	return nil
 }
@@ -994,7 +994,7 @@ var File_b2c_service_order_b2c_service_order_proto protoreflect.FileDescriptor
 
 const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
-	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\x1a google/protobuf/field_mask.proto\"\xa6\x05\n" +
+	")b2c_service_order/b2c_service_order.proto\x12\x11b2c_service_order\x1a\x15service/service.proto\x1a\x17customer/customer.proto\x1a google/protobuf/field_mask.proto\"\xd7\x05\n" +
 	"\vOrderDetail\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12.\n" +
 	"\bcustomer\x18\x02 \x01(\v2\x12.customer.CustomerR\bcustomer\x12\x16\n" +
@@ -1010,20 +1010,22 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\n" +
 	" \x01(\tH\x03R\tupdatedAt\x88\x01\x01\x12 \n" +
-	"\tbranch_id\x18\v \x01(\x03H\x04R\bbranchId\x88\x01\x01\x12*\n" +
-	"\x11payment_method_id\x18\f \x03(\x03R\x0fpaymentMethodId\x12I\n" +
-	"\x0fpayment_methods\x18\r \x03(\v2 .b2c_service_order.PaymentMethodR\x0epaymentMethodsB\x16\n" +
+	"\tbranch_id\x18\v \x01(\x03H\x04R\bbranchId\x88\x01\x01\x12/\n" +
+	"\x11payment_method_id\x18\x0e \x01(\x03H\x05R\x0fpaymentMethodId\x88\x01\x01\x12L\n" +
+	"\x0epayment_method\x18\x0f \x01(\v2 .b2c_service_order.PaymentMethodH\x06R\rpaymentMethod\x88\x01\x01B\x16\n" +
 	"\x14_gift_certificate_idB\x13\n" +
 	"\x11_gift_used_amountB\r\n" +
 	"\v_created_atB\r\n" +
 	"\v_updated_atB\f\n" +
 	"\n" +
-	"_branch_id\"r\n" +
+	"_branch_idB\x14\n" +
+	"\x12_payment_method_idB\x11\n" +
+	"\x0f_payment_method\"r\n" +
 	"\rPaymentMethod\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x1b\n" +
-	"\tis_active\x18\x04 \x01(\bR\bisActive\"\xea\x06\n" +
+	"\tis_active\x18\x04 \x01(\bR\bisActive\"\x9b\a\n" +
 	"\x05Order\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x03H\x00R\x02id\x88\x01\x01\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x03H\x01R\n" +
@@ -1044,9 +1046,9 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\tbranch_id\x18\v \x01(\x03H\tR\bbranchId\x88\x01\x01\x123\n" +
 	"\x13gift_certificate_id\x18\f \x01(\x03H\n" +
 	"R\x11giftCertificateId\x88\x01\x01\x12-\n" +
-	"\x10gift_used_amount\x18\r \x01(\x02H\vR\x0egiftUsedAmount\x88\x01\x01\x12*\n" +
-	"\x11payment_method_id\x18\x0e \x03(\x03R\x0fpaymentMethodId\x12I\n" +
-	"\x0fpayment_methods\x18\x0f \x03(\v2 .b2c_service_order.PaymentMethodR\x0epaymentMethodsB\x05\n" +
+	"\x10gift_used_amount\x18\r \x01(\x02H\vR\x0egiftUsedAmount\x88\x01\x01\x12/\n" +
+	"\x11payment_method_id\x18\x0e \x01(\x03H\fR\x0fpaymentMethodId\x88\x01\x01\x12L\n" +
+	"\x0epayment_method\x18\x0f \x01(\v2 .b2c_service_order.PaymentMethodH\rR\rpaymentMethod\x88\x01\x01B\x05\n" +
 	"\x03_idB\x0e\n" +
 	"\f_customer_idB\t\n" +
 	"\a_statusB\x17\n" +
@@ -1059,7 +1061,9 @@ const file_b2c_service_order_b2c_service_order_proto_rawDesc = "" +
 	"\n" +
 	"_branch_idB\x16\n" +
 	"\x14_gift_certificate_idB\x13\n" +
-	"\x11_gift_used_amount\"\xcd\x01\n" +
+	"\x11_gift_used_amountB\x14\n" +
+	"\x12_payment_method_idB\x11\n" +
+	"\x0f_payment_method\"\xcd\x01\n" +
 	"\tOrderItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12(\n" +
 	"\x10service_order_id\x18\x02 \x01(\x03R\x0eserviceOrderId\x12\x1d\n" +
@@ -1158,10 +1162,10 @@ var file_b2c_service_order_b2c_service_order_proto_goTypes = []any{
 var file_b2c_service_order_b2c_service_order_proto_depIdxs = []int32{
 	13, // 0: b2c_service_order.OrderDetail.customer:type_name -> customer.Customer
 	4,  // 1: b2c_service_order.OrderDetail.order_items:type_name -> b2c_service_order.OrderItemDetail
-	1,  // 2: b2c_service_order.OrderDetail.payment_methods:type_name -> b2c_service_order.PaymentMethod
+	1,  // 2: b2c_service_order.OrderDetail.payment_method:type_name -> b2c_service_order.PaymentMethod
 	3,  // 3: b2c_service_order.Order.order_items:type_name -> b2c_service_order.OrderItem
 	13, // 4: b2c_service_order.Order.customer:type_name -> customer.Customer
-	1,  // 5: b2c_service_order.Order.payment_methods:type_name -> b2c_service_order.PaymentMethod
+	1,  // 5: b2c_service_order.Order.payment_method:type_name -> b2c_service_order.PaymentMethod
 	14, // 6: b2c_service_order.OrderItem.service:type_name -> service.Service
 	14, // 7: b2c_service_order.OrderItemDetail.service:type_name -> service.Service
 	2,  // 8: b2c_service_order.CreateOrderRequest.order:type_name -> b2c_service_order.Order

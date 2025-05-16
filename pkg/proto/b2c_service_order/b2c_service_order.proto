@@ -28,8 +28,8 @@ message OrderDetail {
     optional string created_at = 9;
     optional string updated_at = 10;
     optional int64 branch_id = 11;
-    repeated int64 payment_method_id = 12;
-    repeated PaymentMethod payment_methods = 13;
+    optional int64 payment_method_id = 14;
+    optional PaymentMethod payment_method = 15;
 }
 
 message PaymentMethod {
@@ -55,8 +55,8 @@ message Order {
 
   optional int64 gift_certificate_id = 12;
   optional float gift_used_amount = 13;
-  repeated int64 payment_method_id = 14;
-  repeated PaymentMethod payment_methods = 15;
+  optional int64 payment_method_id = 14;
+  optional PaymentMethod payment_method = 15;
 
 }
 
