@@ -2,6 +2,7 @@ package handler
 
 import (
 	"errors"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"net/http"
 	"strconv"
 	"time"
@@ -156,7 +157,6 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	// optional parameters
 	if orgIDStr != "" {
 		if val, err := strconv.ParseInt(orgIDStr, 10, 64); err == nil {
 			orgID = &val
@@ -183,7 +183,6 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		}
 	}
 
-	// Handle both RFC3339 and YYYY-MM-DD for createdAtFrom
 	if createdAtFromStr != "" {
 		if _, err := time.Parse(time.RFC3339, createdAtFromStr); err == nil {
 			createdAtFrom = &createdAtFromStr
@@ -195,7 +194,6 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		}
 	}
 
-	// Handle both RFC3339 and YYYY-MM-DD for createdAtTo
 	if createdAtToStr != "" {
 		if _, err := time.Parse(time.RFC3339, createdAtToStr); err == nil {
 			createdAtTo = &createdAtToStr
@@ -219,6 +217,11 @@ func (h *B2CServiceOrderHandler) ListOrders(w http.ResponseWriter, r *http.Reque
 		CreatedAtTo:    createdAtTo,
 		PriceFrom:      priceFrom,
 		PriceTo:        priceTo,
+	}
+
+	includePayment := query.Get("include_payment_method")
+	if includePayment == "true" || includePayment == "1" {
+		req.FieldMask = &fieldmaskpb.FieldMask{Paths: []string{"payment_method"}}
 	}
 
 	log.Info().Interface("request", req).Msg("calling_microservice")
